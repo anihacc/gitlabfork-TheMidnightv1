@@ -194,17 +194,17 @@ tile.midnight.suavis.name=Суавис
 tile.midnight.rockshroom.name=Камнегриб
 tile.midnight.rockshroom_bricks.name=Кирпичи из камнегриба
 
-tile.midnight.stinger_egg.name=Яйцо стингера
+tile.midnight.stinger_egg.name=Яйцо стингерона
 tile.midnight.violeaf.name=Фиалка
 tile.midnight.unstable_bush.name=Неустойчивый куст
 tile.midnight.unstable_bush_blue.name=Синий неустойчивый куст
 tile.midnight.unstable_bush_green.name=Зелёный неустойчивый куст
 tile.midnight.unstable_bush_lime.name=Лаймовый неустойчивый куст
 
-tile.midnight.bogshroom_sporch.name=Кольцо болотника
-tile.midnight.nightshroom_sporch.name=Кольцо ночегриба
-tile.midnight.dewshroom_sporch.name=Кольцо росгриба
-tile.midnight.viridshroom_sporch.name=Кольцо виргриба
+tile.midnight.bogshroom_sporch.name=Факел из спор болотника
+tile.midnight.nightshroom_sporch.name=Факел из спор ночегриба
+tile.midnight.dewshroom_sporch.name=Факел из спор росгриба
+tile.midnight.viridshroom_sporch.name=Факел из спор виргриба
 
 tile.midnight.crystalotus.name=Хрустальный лотос
 
@@ -243,10 +243,10 @@ tile.midnight.nightshroom_door.name=Дверь из ночегриба
 tile.midnight.dewshroom_door.name=Дверь из росгриба
 tile.midnight.viridshroom_door.name=Дверь из виргриба
 
-item.midnight.bogshroom_powder.name=Прах болника
-item.midnight.nightshroom_powder.name=Прах ночегриба
-item.midnight.dewshroom_powder.name=Прах росгриба
-item.midnight.viridshroom_powder.name=Прах виргриба
+item.midnight.bogshroom_powder.name=Споровая пыль болотника
+item.midnight.nightshroom_powder.name=Споровая пыль ночегриба
+item.midnight.dewshroom_powder.name=Споровая пыль росгриба
+item.midnight.viridshroom_powder.name=Споровая пыль виргриба
 
 item.midnight.geode.name=Геод
 item.midnight.dark_pearl.name=Тёмный жемчуг
@@ -264,7 +264,7 @@ item.midnight.cook_suavis.name=Приготовленный кусочек су�
 item.midnight.deceitful_snapper.name=Ложный окунь
 item.midnight.raw_stag_flank.name=Сырая оленина
 item.midnight.cook_stag_flank.name=Приготовленная оленина
-item.midnight.cook_stinger_egg.name=Приготовленное яйцо стингера
+item.midnight.cook_stinger_egg.name=Приготовленное яйцо стингерона
 item.midnight.hunter_wing.name=Крыло охотника
 item.midnight.cook_hunter_wing.name=Приготовленное крыло охотника
 item.midnight.bulb_fungus_hand.name=Кусок капельника
@@ -337,7 +337,7 @@ entity.midnight.hunter.name=Охотник
 entity.midnight.bladeshroom_cap.name=Шляпка клинкогриба
 entity.midnight.nova.name=Нова
 entity.midnight.crystal_bug.name=Кристальный жук
-entity.midnight.stinger.name=Стингер
+entity.midnight.stinger.name=Стингерон
 entity.midnight.penumbrian.name=Полутень
 entity.midnight.tree_hopper.name=Горбатка
 entity.midnight.nightstag.name=Ночнолень
