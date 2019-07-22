@@ -8,7 +8,9 @@
     "#": {
       "item": "midnight:nightstone"
     },
-    "|": []
+    "|": {
+      "tag": "midnight:sticks"
+    }
   },
   "result": {
     "item": "midnight:midnight_lever"

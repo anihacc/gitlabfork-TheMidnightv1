@@ -9,7 +9,9 @@
     "#": {
       "item": "midnight:viridshroom_planks"
     },
-    "|": []
+    "|": {
+      "tag": "midnight:sticks"
+    }
   },
   "result": {
     "item": "midnight:viridshroom_fence",

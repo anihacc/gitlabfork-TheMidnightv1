@@ -1,7 +1,9 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    []
+    {
+      "tag": "midnight:unstable_fruits"
+    }
   ],
   "result": {
     "item": "midnight:unstable_seeds"

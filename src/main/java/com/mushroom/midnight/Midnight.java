@@ -19,6 +19,8 @@ import com.mushroom.midnight.common.data.recipe.MidnightMaterialRecipes;
 import com.mushroom.midnight.common.data.recipe.MidnightPlantRecipes;
 import com.mushroom.midnight.common.data.recipe.MidnightStoneRecipes;
 import com.mushroom.midnight.common.data.recipe.MidnightWoodenRecipes;
+import com.mushroom.midnight.common.data.tag.MidnightBlockTagsProvider;
+import com.mushroom.midnight.common.data.tag.MidnightItemTagsProvider;
 import com.mushroom.midnight.common.loot.InBiomeLootCondition;
 import com.mushroom.midnight.common.loot.InBlockLootCondition;
 import com.mushroom.midnight.common.loot.IsChildLootCondition;
@@ -179,6 +181,10 @@ public class Midnight {
     private void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
         if (event.includeServer()) {
+            // TODO: Data providers for loot tables
+            generator.addProvider(new MidnightBlockTagsProvider(generator));
+            generator.addProvider(new MidnightItemTagsProvider(generator));
+
             generator.addProvider(new MidnightDecorativeRecipes(generator));
             generator.addProvider(new MidnightFabricatedRecipes(generator));
             generator.addProvider(new MidnightFoodRecipes(generator));

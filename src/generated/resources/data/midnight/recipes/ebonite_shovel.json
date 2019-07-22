@@ -9,7 +9,9 @@
     "#": {
       "item": "midnight:ebonite"
     },
-    "|": []
+    "|": {
+      "tag": "midnight:sticks"
+    }
   },
   "result": {
     "item": "midnight:ebonite_shovel"

@@ -9,7 +9,9 @@
     "#": {
       "item": "midnight:dark_willow_planks"
     },
-    "|": []
+    "|": {
+      "tag": "midnight:sticks"
+    }
   },
   "result": {
     "item": "midnight:dark_willow_fence_gate"

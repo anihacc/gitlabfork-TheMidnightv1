@@ -9,7 +9,9 @@
     "#": {
       "item": "midnight:nightshroom_planks"
     },
-    "|": []
+    "|": {
+      "tag": "midnight:sticks"
+    }
   },
   "result": {
     "item": "midnight:nightshroom_fence_gate"

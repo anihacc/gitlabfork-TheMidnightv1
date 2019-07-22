@@ -9,7 +9,9 @@
     "#": {
       "item": "midnight:dead_wood_planks"
     },
-    "|": []
+    "|": {
+      "tag": "midnight:sticks"
+    }
   },
   "result": {
     "item": "midnight:dead_wood_ladder",

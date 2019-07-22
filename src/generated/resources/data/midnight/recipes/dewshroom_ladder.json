@@ -9,7 +9,9 @@
     "#": {
       "item": "midnight:dewshroom_planks"
     },
-    "|": []
+    "|": {
+      "tag": "midnight:sticks"
+    }
   },
   "result": {
     "item": "midnight:dewshroom_ladder",

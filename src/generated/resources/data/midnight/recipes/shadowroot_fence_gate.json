@@ -9,7 +9,9 @@
     "#": {
       "item": "midnight:shadowroot_planks"
     },
-    "|": []
+    "|": {
+      "tag": "midnight:sticks"
+    }
   },
   "result": {
     "item": "midnight:shadowroot_fence_gate"

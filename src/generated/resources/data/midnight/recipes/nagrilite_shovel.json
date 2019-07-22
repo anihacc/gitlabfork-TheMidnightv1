@@ -9,7 +9,9 @@
     "#": {
       "item": "midnight:nagrilite_ingot"
     },
-    "|": []
+    "|": {
+      "tag": "midnight:sticks"
+    }
   },
   "result": {
     "item": "midnight:nagrilite_shovel"

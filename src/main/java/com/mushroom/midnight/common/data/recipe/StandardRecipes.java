@@ -385,7 +385,7 @@ public final class StandardRecipes {
                     .patternLine("###")
                     .key('#', nugget)
                     .addCriterion("has_nugget", Triggers.hasItem(nugget))
-                    .build(this.consumer, MidnightUtil.transformPath(id, path -> path + "_from_nugget"));
+                    .build(this.consumer, MidnightUtil.transformPath(id, path -> path + "_from_nuggets"));
 
             ShapelessRecipeBuilder.shapelessRecipe(nugget, 9)
                     .addIngredient(this.material)

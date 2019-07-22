@@ -3,10 +3,10 @@
   "values": [
     "midnight:viridshroom",
     "midnight:double_viridshroom",
-    "midnight:viridshroom_hat",
     "midnight:viridshroom_shelf",
+    "midnight:viridshroom_hat",
     "midnight:viridshroom_stem",
-    "midnight:viridshroom_flowering_roots",
-    "midnight:viridshroom_roots"
+    "midnight:viridshroom_roots",
+    "midnight:viridshroom_flowering_roots"
   ]
 }
