@@ -12,7 +12,13 @@ import com.mushroom.midnight.common.capability.NullStorage;
 import com.mushroom.midnight.common.capability.RiftTraveller;
 import com.mushroom.midnight.common.capability.RifterCapturable;
 import com.mushroom.midnight.common.config.MidnightConfig;
-import com.mushroom.midnight.common.json.MidnightRecipeProvider;
+import com.mushroom.midnight.common.data.MidnightDecorativeRecipes;
+import com.mushroom.midnight.common.data.MidnightFabricatedRecipes;
+import com.mushroom.midnight.common.data.MidnightFoodRecipes;
+import com.mushroom.midnight.common.data.MidnightMaterialRecipes;
+import com.mushroom.midnight.common.data.MidnightPlantRecipes;
+import com.mushroom.midnight.common.data.MidnightStoneRecipes;
+import com.mushroom.midnight.common.data.MidnightWoodenRecipes;
 import com.mushroom.midnight.common.loot.InBiomeLootCondition;
 import com.mushroom.midnight.common.loot.InBlockLootCondition;
 import com.mushroom.midnight.common.loot.IsChildLootCondition;
@@ -173,7 +179,13 @@ public class Midnight {
     private void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
         if (event.includeServer()) {
-            generator.addProvider(new MidnightRecipeProvider(generator));
+            generator.addProvider(new MidnightDecorativeRecipes(generator));
+            generator.addProvider(new MidnightFabricatedRecipes(generator));
+            generator.addProvider(new MidnightFoodRecipes(generator));
+            generator.addProvider(new MidnightMaterialRecipes(generator));
+            generator.addProvider(new MidnightPlantRecipes(generator));
+            generator.addProvider(new MidnightStoneRecipes(generator));
+            generator.addProvider(new MidnightWoodenRecipes(generator));
         }
     }
 }

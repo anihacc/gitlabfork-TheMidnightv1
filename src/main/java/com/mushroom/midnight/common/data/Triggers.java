@@ -1,4 +1,4 @@
-package com.mushroom.midnight.common.json;
+package com.mushroom.midnight.common.data;
 
 import net.minecraft.advancements.criterion.EnterBlockTrigger;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
@@ -11,7 +11,7 @@ import net.minecraft.util.IItemProvider;
 
 import java.util.Arrays;
 
-public final class CommonTriggers {
+public final class Triggers {
     public static EnterBlockTrigger.Instance enteredBlock(Block block) {
         return new EnterBlockTrigger.Instance(block, null);
     }

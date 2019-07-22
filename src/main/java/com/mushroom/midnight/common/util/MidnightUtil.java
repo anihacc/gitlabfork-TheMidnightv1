@@ -1,18 +1,26 @@
-package com.mushroom.midnight.common.helper;
+package com.mushroom.midnight.common.util;
 
+import com.google.common.base.Preconditions;
 import com.mushroom.midnight.common.registry.MidnightDimensions;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 
 import javax.annotation.Nullable;
+import java.util.function.Function;
 
-public class Helper {
+public final class MidnightUtil {
+    public static ResourceLocation transformPath(ResourceLocation identifier, Function<String, String> function) {
+        Preconditions.checkNotNull(identifier);
+        return new ResourceLocation(identifier.getNamespace(), function.apply(identifier.getPath()));
+    }
+
     public static boolean isMidnightDimension(@Nullable World world) {
         return world != null && world.dimension.getType() == MidnightDimensions.midnight();
     }
