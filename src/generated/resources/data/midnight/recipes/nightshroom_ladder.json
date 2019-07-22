@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "| |",
+    "|#|",
+    "| |"
+  ],
+  "key": {
+    "#": {
+      "item": "midnight:nightshroom_planks"
+    },
+    "|": []
+  },
+  "result": {
+    "item": "midnight:nightshroom_ladder",
+    "count": 3
+  }
+}

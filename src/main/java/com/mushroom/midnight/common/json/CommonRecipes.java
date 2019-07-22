@@ -1,168 +1,330 @@
 package com.mushroom.midnight.common.json;
 
-import com.mushroom.midnight.common.json.ingredient.IJsonIngredient;
-import com.mushroom.midnight.common.json.ingredient.IngredientItem;
-import com.mushroom.midnight.common.json.recipe.IJsonRecipe;
-import com.mushroom.midnight.common.json.recipe.ShapedCraftingRecipe;
-import com.mushroom.midnight.common.json.recipe.ShapelessCraftingRecipe;
-import com.mushroom.midnight.common.registry.MidnightItems;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import org.apache.commons.lang3.tuple.Pair;
+import com.mushroom.midnight.common.registry.MidnightTags;
+import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.ShapedRecipeBuilder;
+import net.minecraft.data.ShapelessRecipeBuilder;
+import net.minecraft.data.SingleItemRecipeBuilder;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.IItemProvider;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.function.Consumer;
 
-public class CommonRecipes {
-    private final File baseFolder = new File("json/data/midnight/recipes");
-    private final List<IJsonRecipe> recipeList = new ArrayList<>();
-    private final IJsonIngredient blockIngredient;
-    private final IJsonIngredient stickIngredient = new IngredientItem(MidnightItems.DARK_STICK);
+// TODO: Possibly split into different types
+public final class CommonRecipes {
+    private final IItemProvider ingredient;
 
-    CommonRecipes(IJsonIngredient blockIngredient) {
-        this.blockIngredient = blockIngredient;
+    private final Consumer<IFinishedRecipe> consumer;
+
+    public CommonRecipes(IItemProvider ingredient, Consumer<IFinishedRecipe> consumer) {
+        this.ingredient = ingredient;
+        this.consumer = consumer;
     }
 
-    public CommonRecipes withButton(Block button) {
-        makeRecipe(button);
+    public CommonRecipes addButton(IItemProvider button) {
+        ShapelessRecipeBuilder.shapelessRecipe(button)
+                .addIngredient(this.ingredient)
+                .setGroup("midnight_buttons")
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
         return this;
     }
 
-    public CommonRecipes withChest(Block chest) {
-        makeRecipe(chest, "AAA", "A A", "AAA");
+    public CommonRecipes addChest(IItemProvider chest) {
+        ShapedRecipeBuilder.shapedRecipe(chest)
+                .patternLine("###")
+                .patternLine("# #")
+                .patternLine("###")
+                .key('#', this.ingredient)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
         return this;
     }
 
-    public CommonRecipes withCraftingTable(Block craftingTable) {
-        makeRecipe(craftingTable, "AA", "AA");
+    public CommonRecipes addCraftingTable(IItemProvider craftingTable) {
+        ShapedRecipeBuilder.shapedRecipe(craftingTable)
+                .patternLine("##")
+                .patternLine("##")
+                .key('#', this.ingredient)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
         return this;
     }
 
-    public CommonRecipes withDoor(Block door) {
-        makeRecipe(door, 3, "AA", "AA", "AA");
+    public CommonRecipes addDoor(IItemProvider door) {
+        ShapedRecipeBuilder.shapedRecipe(door, 3)
+                .patternLine("##")
+                .patternLine("##")
+                .patternLine("##")
+                .key('#', this.ingredient)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .setGroup("midnight_doors")
+                .build(this.consumer);
         return this;
     }
 
-    public CommonRecipes withFence(Block fence) {
-        makeRecipe(fence, 3, "ABA", "ABA");
+    public CommonRecipes addFence(IItemProvider fence) {
+        ShapedRecipeBuilder.shapedRecipe(fence, 3)
+                .patternLine("#|#")
+                .patternLine("#|#")
+                .key('#', this.ingredient)
+                .key('|', MidnightTags.Items.STICKS)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .setGroup("midnight_fences")
+                .build(this.consumer);
         return this;
     }
 
-    public CommonRecipes withFenceGate(Block fenceGate) {
-        makeRecipe(fenceGate, "BAB", "BAB");
+    public CommonRecipes addFenceGate(IItemProvider fenceGate) {
+        ShapedRecipeBuilder.shapedRecipe(fenceGate)
+                .patternLine("|#|")
+                .patternLine("|#|")
+                .key('#', this.ingredient)
+                .key('|', MidnightTags.Items.STICKS)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .setGroup("midnight_fence_gates")
+                .build(this.consumer);
         return this;
     }
 
-    public CommonRecipes withLadder(Block ladder) {
-        makeRecipe(ladder, 3, "B B", "BAB", "B B");
+    public CommonRecipes addLadder(IItemProvider ladder) {
+        ShapedRecipeBuilder.shapedRecipe(ladder, 3)
+                .patternLine("| |")
+                .patternLine("|#|")
+                .patternLine("| |")
+                .key('#', this.ingredient)
+                .key('|', MidnightTags.Items.STICKS)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
         return this;
     }
 
-    public CommonRecipes withPressurePlate(Block pressurePlate) {
-        makeRecipe(pressurePlate, "AA");
+    public CommonRecipes addPressurePlate(IItemProvider pressurePlate) {
+        ShapedRecipeBuilder.shapedRecipe(pressurePlate)
+                .patternLine("##")
+                .key('#', this.ingredient)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
         return this;
     }
 
-    public CommonRecipes withSlab(Block slab) {
-        makeRecipe(slab, 6, "AAA");
+    public CommonRecipes addSlab(IItemProvider slab) {
+        ShapedRecipeBuilder.shapedRecipe(slab, 6)
+                .patternLine("###")
+                .key('#', this.ingredient)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
         return this;
     }
 
-    public CommonRecipes withStairs(Block stairs) {
-        makeRecipe(stairs, 4, "A  ", "AA ", "AAA");
+    public CommonRecipes addStoneSlab(IItemProvider slab) {
+        this.addSlab(slab);
+
+        ResourceLocation id = ForgeRegistries.ITEMS.getKey(slab.asItem());
+        SingleItemRecipeBuilder.func_218644_a(Ingredient.fromItems(this.ingredient), slab, 2)
+                .func_218643_a("has_item", CommonTriggers.hasItem(this.ingredient))
+                .func_218647_a(this.consumer, new ResourceLocation(id.getNamespace(), id.getPath() + "_stonecutting"));
+
         return this;
     }
 
-    public CommonRecipes withTrapDoor(Block trapDoor) {
-        makeRecipe(trapDoor, 6, "AAA", "AAA");
+    public CommonRecipes addStairs(IItemProvider stairs) {
+        ShapedRecipeBuilder.shapedRecipe(stairs, 4)
+                .patternLine("#  ")
+                .patternLine("## ")
+                .patternLine("###")
+                .key('#', this.ingredient)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
+
         return this;
     }
 
-    public CommonRecipes withWall(Block wall) {
-        makeRecipe(wall, 6, "AAA", "AAA");
+    public CommonRecipes addStoneStairs(IItemProvider stairs) {
+        this.addStairs(stairs);
+
+        ResourceLocation id = ForgeRegistries.ITEMS.getKey(stairs.asItem());
+        SingleItemRecipeBuilder.func_218648_a(Ingredient.fromItems(this.ingredient), stairs)
+                .func_218643_a("has_item", CommonTriggers.hasItem(this.ingredient))
+                .func_218647_a(this.consumer, new ResourceLocation(id.getNamespace(), id.getPath() + "_stonecutting"));
+
         return this;
     }
 
-    public CommonRecipes withPickaxe(Item pickaxe) {
-        makeRecipe(pickaxe, "AAA", " B ", " B ");
+    public CommonRecipes addTrapDoor(IItemProvider trapDoor) {
+        ShapedRecipeBuilder.shapedRecipe(trapDoor, 6)
+                .patternLine("###")
+                .patternLine("###")
+                .key('#', this.ingredient)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
         return this;
     }
 
-    public CommonRecipes withAxe(Item axe) {
-        makeRecipe(axe, "AA", "BA", "B ");
+    public CommonRecipes addWall(IItemProvider wall) {
+        ShapedRecipeBuilder.shapedRecipe(wall, 6)
+                .patternLine("###")
+                .patternLine("###")
+                .key('#', this.ingredient)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
+
+        ResourceLocation id = ForgeRegistries.ITEMS.getKey(wall.asItem());
+
+        SingleItemRecipeBuilder.func_218648_a(Ingredient.fromItems(this.ingredient), wall)
+                .func_218643_a("has_item", CommonTriggers.hasItem(this.ingredient))
+                .func_218647_a(this.consumer, new ResourceLocation(id.getNamespace(), id.getPath() + "_stonecutting"));
+
         return this;
     }
 
-    public CommonRecipes withSword(Item sword) {
-        makeRecipe(sword, "A", "A", "B");
+    public CommonRecipes addPickaxe(IItemProvider pickaxe) {
+        ShapedRecipeBuilder.shapedRecipe(pickaxe)
+                .patternLine("###")
+                .patternLine(" | ")
+                .patternLine(" | ")
+                .key('#', this.ingredient)
+                .key('|', MidnightTags.Items.STICKS)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
         return this;
     }
 
-    public CommonRecipes withShovel(Item shovel) {
-        makeRecipe(shovel, "A", "B", "B");
+    public CommonRecipes addAxe(IItemProvider axe) {
+        ShapedRecipeBuilder.shapedRecipe(axe)
+                .patternLine("##")
+                .patternLine("|#")
+                .patternLine("| ")
+                .key('#', this.ingredient)
+                .key('|', MidnightTags.Items.STICKS)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
         return this;
     }
 
-    public CommonRecipes withHoe(Item hoe) {
-        makeRecipe(hoe, "AA", "B ", "B ");
+    public CommonRecipes addSword(IItemProvider sword) {
+        ShapedRecipeBuilder.shapedRecipe(sword)
+                .patternLine("#")
+                .patternLine("#")
+                .patternLine("|")
+                .key('#', this.ingredient)
+                .key('|', MidnightTags.Items.STICKS)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
         return this;
     }
 
-    public CommonRecipes withHelmet(Item helmet) {
-        makeRecipe(helmet, "AAA", "A A");
+    public CommonRecipes addShovel(IItemProvider shovel) {
+        ShapedRecipeBuilder.shapedRecipe(shovel)
+                .patternLine("#")
+                .patternLine("|")
+                .patternLine("|")
+                .key('#', this.ingredient)
+                .key('|', MidnightTags.Items.STICKS)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
         return this;
     }
 
-    public CommonRecipes withChestPlate(Item chestPlate) {
-        makeRecipe(chestPlate, "A A", "AAA", "AAA");
+    public CommonRecipes addHoe(IItemProvider hoe) {
+        ShapedRecipeBuilder.shapedRecipe(hoe)
+                .patternLine("##")
+                .patternLine("| ")
+                .patternLine("| ")
+                .key('#', this.ingredient)
+                .key('|', MidnightTags.Items.STICKS)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
         return this;
     }
 
-    public CommonRecipes withLeggings(Item leggings) {
-        makeRecipe(leggings, "AAA", "A A", "A A");
+    public CommonRecipes addHelmet(IItemProvider helmet) {
+        ShapedRecipeBuilder.shapedRecipe(helmet)
+                .patternLine("###")
+                .patternLine("# #")
+                .key('#', this.ingredient)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
         return this;
     }
 
-    public CommonRecipes withBoots(Item boots) {
-        makeRecipe(boots, "A A", "A A");
+    public CommonRecipes addChestPlate(IItemProvider chestPlate) {
+        ShapedRecipeBuilder.shapedRecipe(chestPlate)
+                .patternLine("# #")
+                .patternLine("###")
+                .patternLine("###")
+                .key('#', this.ingredient)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
         return this;
     }
 
-    public void generate() {
-        if (GenRecipes.makeDirs(this.baseFolder)) {
-            for (IJsonRecipe jsonRecipe : this.recipeList) {
-                GenRecipes.saveAsJson(new File(this.baseFolder, jsonRecipe.getName() + ".json"), jsonRecipe);
-            }
-        }
+    public CommonRecipes addLeggings(IItemProvider leggings) {
+        ShapedRecipeBuilder.shapedRecipe(leggings)
+                .patternLine("###")
+                .patternLine("# #")
+                .patternLine("# #")
+                .key('#', this.ingredient)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
+        return this;
     }
 
-    private void makeRecipe(Block block, String... pattern) {
-        makeRecipe(block, 1, pattern);
+    public CommonRecipes addBoots(IItemProvider boots) {
+        ShapedRecipeBuilder.shapedRecipe(boots)
+                .patternLine("# #")
+                .patternLine("# #")
+                .key('#', this.ingredient)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
+        return this;
     }
 
-    private void makeRecipe(Block block, int count, String... pattern) {
-        makeRecipe(block.asItem(), count, pattern);
+    public CommonRecipes addStorageBlock(IItemProvider block) {
+        ShapedRecipeBuilder.shapedRecipe(block)
+                .patternLine("###")
+                .patternLine("###")
+                .patternLine("###")
+                .key('#', this.ingredient)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
+
+        ResourceLocation id = ForgeRegistries.ITEMS.getKey(this.ingredient.asItem());
+
+        ShapelessRecipeBuilder.shapelessRecipe(this.ingredient, 9)
+                .addIngredient(block)
+                .addCriterion("has_item", CommonTriggers.hasItem(block))
+                .build(this.consumer, new ResourceLocation(id.getNamespace(), id.getPath() + "_from_block"));
+
+        return this;
     }
 
-    private void makeRecipe(Item item, String... pattern) {
-        makeRecipe(item, 1, pattern);
+    public CommonRecipes addNugget(IItemProvider nugget) {
+        ResourceLocation id = ForgeRegistries.ITEMS.getKey(nugget.asItem());
+
+        ShapedRecipeBuilder.shapedRecipe(this.ingredient)
+                .patternLine("###")
+                .patternLine("###")
+                .patternLine("###")
+                .key('#', nugget)
+                .addCriterion("has_nugget", CommonTriggers.hasItem(nugget))
+                .build(this.consumer, new ResourceLocation(id.getNamespace(), id.getPath() + "_from_nuggets"));
+
+        ShapelessRecipeBuilder.shapelessRecipe(nugget, 9)
+                .addIngredient(this.ingredient)
+                .addCriterion("has_item", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
+
+        return this;
     }
 
-    @SuppressWarnings("unchecked")
-    private void makeRecipe(Item item, int count, String... pattern) {
-        IJsonRecipe recipe;
-        if (pattern.length > 0) {
-            List<Pair> pairs = new ArrayList<>();
-            pairs.add(Pair.of('A', this.blockIngredient));
-            if (Arrays.stream(pattern).anyMatch(p -> p.indexOf('B') >= 0)) {
-                pairs.add(Pair.of('B', this.stickIngredient));
-            }
-            recipe = new ShapedCraftingRecipe(item, count).withPattern(pattern).withIngredients(pairs.toArray(new Pair[0]));
-        } else {
-            recipe = new ShapelessCraftingRecipe(item, count).withIngredients(this.blockIngredient);
-        }
-        this.recipeList.add(recipe);
+    public CommonRecipes addPlanks(IItemProvider planks) {
+        ShapelessRecipeBuilder.shapelessRecipe(planks, 4)
+                .addIngredient(this.ingredient)
+                .addCriterion("has_log", CommonTriggers.hasItem(this.ingredient))
+                .build(this.consumer);
+        return this;
     }
 }

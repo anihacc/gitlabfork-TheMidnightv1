@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "midnight_fence_gates",
+  "pattern": [
+    "|#|",
+    "|#|"
+  ],
+  "key": {
+    "#": {
+      "item": "midnight:shadowroot_planks"
+    },
+    "|": []
+  },
+  "result": {
+    "item": "midnight:shadowroot_fence_gate"
+  }
+}
