@@ -1,5 +1,6 @@
-package com.mushroom.midnight.common.data;
+package com.mushroom.midnight.common.data.recipe;
 
+import com.mushroom.midnight.common.data.Triggers;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightItems;
 import com.mushroom.midnight.common.registry.MidnightTags;

@@ -1,5 +1,6 @@
-package com.mushroom.midnight.common.data;
+package com.mushroom.midnight.common.data.recipe;
 
+import com.mushroom.midnight.common.data.Triggers;
 import com.mushroom.midnight.common.registry.MidnightTags;
 import com.mushroom.midnight.common.util.MidnightUtil;
 import net.minecraft.data.CookingRecipeBuilder;

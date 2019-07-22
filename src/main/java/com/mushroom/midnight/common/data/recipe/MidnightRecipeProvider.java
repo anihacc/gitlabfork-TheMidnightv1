@@ -1,4 +1,4 @@
-package com.mushroom.midnight.common.data;
+package com.mushroom.midnight.common.data.recipe;
 
 import com.google.gson.JsonObject;
 import net.minecraft.data.DataGenerator;
