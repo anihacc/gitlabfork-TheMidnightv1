@@ -1,72 +1,27 @@
 package com.mushroom.midnight.common.data.loot;
 
+import com.mushroom.midnight.common.data.loot.builder.DelicateLootBuilder;
+import com.mushroom.midnight.common.data.loot.builder.FungiHatLootBuilder;
+import com.mushroom.midnight.common.data.loot.builder.LootFactory;
+import com.mushroom.midnight.common.data.loot.builder.SimpleLootBuilder;
+import com.mushroom.midnight.common.data.loot.builder.SlabLootBuilder;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
-import net.minecraft.advancements.criterion.EnchantmentPredicate;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.advancements.criterion.MinMaxBounds;
-import net.minecraft.block.Block;
+import com.mushroom.midnight.common.registry.MidnightItems;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.Items;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.world.storage.loot.ConstantRange;
-import net.minecraft.world.storage.loot.IRandomRange;
-import net.minecraft.world.storage.loot.ItemLootEntry;
-import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.LootParameterSets;
-import net.minecraft.world.storage.loot.LootPool;
-import net.minecraft.world.storage.loot.LootTable;
-import net.minecraft.world.storage.loot.conditions.ILootCondition;
-import net.minecraft.world.storage.loot.conditions.MatchTool;
-import net.minecraft.world.storage.loot.conditions.SurvivesExplosion;
-
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.stream.Stream;
 
 public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
-    private final Map<Block, LootTable.Builder> lootTables = new HashMap<>();
-
     public MidnightBlockLootProvider(DataGenerator generator) {
         super(generator, LootParameterSets.BLOCK);
     }
 
-    private static final ILootCondition.IBuilder SURVIVES_EXPLOSION = SurvivesExplosion.builder();
-
-    private static final ILootCondition.IBuilder HAS_SILK_TOUCH = MatchTool.builder(
-            ItemPredicate.Builder.create()
-                    .enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1)))
-    );
-
-    private static final ILootCondition.IBuilder HAS_SHEARS = MatchTool.builder(
-            ItemPredicate.Builder.create().item(Items.SHEARS)
-    );
-
-    private static final TablePattern DROP_IF_SILK_TOUCHED = new TablePattern()
-            .pool(p -> p
-                    .dropsSelf()
-                    .when(HAS_SILK_TOUCH)
-            );
-
-    private static final TablePattern DROP_IF_SHEARED = new TablePattern()
-            .pool(p -> p
-                    .dropsSelf()
-                    .when(HAS_SHEARS)
-            );
-
-    private static final TablePattern DROP_IF_SURVIVES_EXPLOSION = new TablePattern()
-            .pool(p -> p
-                    .dropsSelf()
-                    .when(SURVIVES_EXPLOSION)
-            );
-
     @Override
-    protected void addTables(BiConsumer<String, LootTable.Builder> consumer) {
-        this.addAll(DROP_IF_SURVIVES_EXPLOSION,
+    protected void addTables(LootConsumer consumer) {
+        LootFactory dropSimple = SimpleLootBuilder.dropsSelf()
+                .when(Conditions.SURVIVES_EXPLOSION)
+                .into(consumer);
+
+        dropSimple.apply(
                 MidnightBlocks.SHADOWROOT_LOG,
                 MidnightBlocks.SHADOWROOT_STRIPPED_LOG,
                 MidnightBlocks.SHADOWROOT_PLANKS,
@@ -223,10 +178,15 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
                 MidnightBlocks.DEWSHROOM_SPORCH,
                 MidnightBlocks.VIRIDSHROOM_SPORCH,
                 MidnightBlocks.TENEBRUM_ORE,
-                MidnightBlocks.EBONITE_ORE
+                MidnightBlocks.EBONITE_ORE,
+                MidnightBlocks.GLOB_FUNGUS_HAT
         );
 
-        this.addAll(DROP_IF_SHEARED,
+        LootFactory dropIfSheared = SimpleLootBuilder.dropsSelf()
+                .when(Conditions.HAS_SHEARS)
+                .into(consumer);
+
+        dropIfSheared.apply(
                 MidnightBlocks.BOGWEED,
                 MidnightBlocks.GHOST_PLANT,
                 MidnightBlocks.FINGERED_GRASS,
@@ -234,120 +194,59 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
                 MidnightBlocks.TALL_GRASS
         );
 
-        this.addAll(DROP_IF_SILK_TOUCHED,
+        LootFactory dropIfSilkTouched = SimpleLootBuilder.dropsSelf()
+                .when(Conditions.HAS_SILK_TOUCH)
+                .into(consumer);
+
+        dropIfSilkTouched.apply(
                 MidnightBlocks.ARCHAIC_GLASS,
                 MidnightBlocks.ARCHAIC_GLASS_PANE
         );
 
-        // MidnightBlocks.VIRIDSHROOM_HAT,
-        // MidnightBlocks.NIGHTSHROOM_HAT,
-        // MidnightBlocks.DEWSHROOM_HAT,
-        // MidnightBlocks.BOGSHROOM_HAT,
-        // MidnightBlocks.GLOB_FUNGUS_HAT,
+        LootFactory dropSlabs = SlabLootBuilder.INSTANCE.into(consumer);
+        dropSlabs.apply(
+                MidnightBlocks.SHADOWROOT_SLAB,
+                MidnightBlocks.DEAD_WOOD_SLAB,
+                MidnightBlocks.DARK_WILLOW_SLAB,
+                MidnightBlocks.NIGHTSTONE_SLAB,
+                MidnightBlocks.NIGHTSTONE_BRICK_SLAB,
+                MidnightBlocks.TRENCHSTONE_SLAB,
+                MidnightBlocks.TRENCHSTONE_BRICK_SLAB,
+                MidnightBlocks.DEWSHROOM_SLAB,
+                MidnightBlocks.VIRIDSHROOM_SLAB,
+                MidnightBlocks.NIGHTSHROOM_SLAB,
+                MidnightBlocks.ROCKSHROOM_BRICK_SLAB
+        );
+
+        FungiHatLootBuilder.ofPowder(MidnightItems.VIRIDSHROOM_POWDER).into(consumer)
+                .apply(MidnightBlocks.VIRIDSHROOM_HAT);
+
+        FungiHatLootBuilder.ofPowder(MidnightItems.NIGHTSHROOM_POWDER).into(consumer)
+                .apply(MidnightBlocks.NIGHTSHROOM_HAT);
+
+        FungiHatLootBuilder.ofPowder(MidnightItems.DEWSHROOM_POWDER).into(consumer)
+                .apply(MidnightBlocks.DEWSHROOM_HAT);
+
+        FungiHatLootBuilder.ofPowder(MidnightItems.BOGSHROOM_POWDER).into(consumer)
+                .apply(MidnightBlocks.BOGSHROOM_HAT);
+
+        DelicateLootBuilder.of(MidnightBlocks.GRASS_BLOCK, MidnightBlocks.DIRT).into(consumer)
+                .apply(MidnightBlocks.GRASS_BLOCK);
+
+        DelicateLootBuilder.of(MidnightBlocks.MYCELIUM, MidnightBlocks.NIGHTSTONE).into(consumer)
+                .apply(MidnightBlocks.MYCELIUM);
+
         // MidnightBlocks.VIRIDSHROOM_STEM_CACHE,
         // MidnightBlocks.SHADOWROOT_LEAVES,
         // MidnightBlocks.DARK_WILLOW_LEAVES,
         // MidnightBlocks.DARK_PEARL_ORE,
         // MidnightBlocks.ARCHAIC_ORE,
-        // MidnightBlocks.GRASS_BLOCK,
-        // MidnightBlocks.MYCELIUM,
         // MidnightBlocks.BLADESHROOM,
-        // MidnightBlocks.SHADOWROOT_SLAB,
-        // MidnightBlocks.DEAD_WOOD_SLAB,
-        // MidnightBlocks.DARK_WILLOW_SLAB,
-        // MidnightBlocks.NIGHTSTONE_SLAB,
-        // MidnightBlocks.NIGHTSTONE_BRICK_SLAB,
-        // MidnightBlocks.TRENCHSTONE_SLAB,
-        // MidnightBlocks.TRENCHSTONE_BRICK_SLAB,
-        // MidnightBlocks.DEWSHROOM_SLAB,
-        // MidnightBlocks.VIRIDSHROOM_SLAB,
-        // MidnightBlocks.NIGHTSHROOM_SLAB,
-        // MidnightBlocks.ROCKSHROOM_BRICK_SLAB,
         // MidnightBlocks.SUAVIS,
         // MidnightBlocks.STINGER_EGG,
         // MidnightBlocks.UNSTABLE_BUSH,
         // MidnightBlocks.UNSTABLE_BUSH_BLUE_BLOOMED,
         // MidnightBlocks.UNSTABLE_BUSH_GREEN_BLOOMED,
         // MidnightBlocks.UNSTABLE_BUSH_LIME_BLOOMED,
-
-        this.lootTables.forEach((block, builder) -> {
-            consumer.accept(block.getRegistryName().getPath(), builder);
-        });
-    }
-
-    private void add(Block block, TablePattern pattern) {
-        this.lootTables.put(block, pattern.build(block));
-    }
-
-    private void addAll(TablePattern pattern, Block... blocks) {
-        for (Block block : blocks) {
-            this.lootTables.put(block, pattern.build(block));
-        }
-    }
-
-    private static class TablePattern {
-        private final LinkedList<PoolPattern> pools = new LinkedList<>();
-
-        TablePattern pool(Consumer<PoolPattern> builder) {
-            PoolPattern pattern = new PoolPattern();
-            builder.accept(pattern);
-
-            this.pools.add(pattern);
-            return this;
-        }
-
-        LootTable.Builder build(Block block) {
-            LootTable.Builder table = LootTable.builder();
-
-            Stream<LootPool.Builder> pools = this.pools.stream()
-                    .map(pattern -> pattern.build(block));
-
-            pools.forEach(table::addLootPool);
-
-            return table;
-        }
-    }
-
-    private static class PoolPattern {
-        private final LinkedList<Function<Block, LootEntry.Builder<?>>> entries = new LinkedList<>();
-        private final LinkedList<ILootCondition.IBuilder> conditions = new LinkedList<>();
-
-        private IRandomRange rolls = ConstantRange.of(1);
-
-        PoolPattern dropsSelf() {
-            return this.entry(ItemLootEntry::builder);
-        }
-
-        PoolPattern drops(IItemProvider item) {
-            return this.entry(block -> ItemLootEntry.builder(item));
-        }
-
-        PoolPattern entry(Function<Block, LootEntry.Builder<?>> entry) {
-            this.entries.add(entry);
-            return this;
-        }
-
-        PoolPattern when(ILootCondition.IBuilder condition) {
-            this.conditions.add(condition);
-            return this;
-        }
-
-        PoolPattern rolls(IRandomRange rolls) {
-            this.rolls = rolls;
-            return this;
-        }
-
-        LootPool.Builder build(Block block) {
-            LootPool.Builder pool = LootPool.builder()
-                    .rolls(this.rolls);
-
-            Stream<LootEntry.Builder<?>> entries = this.entries.stream()
-                    .map(entry -> entry.apply(block));
-            entries.forEach(pool::addEntry);
-
-            this.conditions.forEach(pool::acceptCondition);
-
-            return pool;
-        }
     }
 }

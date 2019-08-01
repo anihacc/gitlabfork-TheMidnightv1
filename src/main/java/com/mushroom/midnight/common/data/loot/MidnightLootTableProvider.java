@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiConsumer;
 
 public abstract class MidnightLootTableProvider implements IDataProvider {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -34,7 +33,7 @@ public abstract class MidnightLootTableProvider implements IDataProvider {
         this.lootSet = lootSet;
     }
 
-    protected abstract void addTables(BiConsumer<String, LootTable.Builder> consumer);
+    protected abstract void addTables(LootConsumer consumer);
 
     @Override
     public void act(DirectoryCache cache) {
@@ -53,7 +52,8 @@ public abstract class MidnightLootTableProvider implements IDataProvider {
     private Map<ResourceLocation, LootTable> buildTables() {
         Map<ResourceLocation, LootTable> tables = new HashMap<>();
 
-        this.addTables((path, builder) -> {
+        this.addTables((block, builder) -> {
+            String path = block.getRegistryName().getPath();
             ResourceLocation identifier = this.resolveIdentifier(path);
             LootTable table = builder.setParameterSet(this.lootSet).build();
             if (tables.put(identifier, table) != null) {
