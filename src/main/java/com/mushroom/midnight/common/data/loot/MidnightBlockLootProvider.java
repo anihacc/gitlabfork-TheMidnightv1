@@ -226,8 +226,8 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.addFungiHat(MidnightBlocks.DEWSHROOM_HAT, MidnightItems.DEWSHROOM_POWDER);
         this.addFungiHat(MidnightBlocks.BOGSHROOM_HAT, MidnightItems.BOGSHROOM_POWDER);
 
-        this.addSilkTouched(MidnightBlocks.GRASS_BLOCK, MidnightBlocks.DIRT);
-        this.addSilkTouched(MidnightBlocks.MYCELIUM, MidnightBlocks.NIGHTSTONE);
+        this.addSilkTouchedAlternative(MidnightBlocks.GRASS_BLOCK, MidnightBlocks.DIRT);
+        this.addSilkTouchedAlternative(MidnightBlocks.MYCELIUM, MidnightBlocks.NIGHTSTONE);
 
         this.addGem(MidnightBlocks.DARK_PEARL_ORE, MidnightItems.GEODE);
         this.addGem(MidnightBlocks.ARCHAIC_ORE, MidnightItems.ARCHAIC_SHARD);
@@ -345,12 +345,12 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(block, block);
     }
 
-    private void addSilkTouched(Block block, IItemProvider drop) {
-        this.add(block, dropIf(drop, Conditions.HAS_SILK_TOUCH));
+    private void addSilkTouchedAlternative(Block block, IItemProvider drop) {
+        this.add(block, silkTouched(block, ItemLootEntry.builder(drop)));
     }
 
     private void addSilkTouched(Block block) {
-        this.addSilkTouched(block, block);
+        this.add(block, dropIf(block, Conditions.HAS_SILK_TOUCH));
     }
 
     private void addSheared(Block block, IItemProvider drop) {
