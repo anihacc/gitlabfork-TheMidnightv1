@@ -3,13 +3,11 @@ package com.mushroom.midnight.common.data.loot;
 import com.google.common.collect.Multimap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mushroom.midnight.Midnight;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootParameterSet;
-import net.minecraft.world.storage.loot.LootParameterSets;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraft.world.storage.loot.ValidationResults;
@@ -53,8 +51,7 @@ public abstract class MidnightLootTableProvider implements IDataProvider {
         Map<ResourceLocation, LootTable> tables = new HashMap<>();
 
         this.addTables((block, builder) -> {
-            String path = block.getRegistryName().getPath();
-            ResourceLocation identifier = this.resolveIdentifier(path);
+            ResourceLocation identifier = block.getLootTable();
             LootTable table = builder.setParameterSet(this.lootSet).build();
             if (tables.put(identifier, table) != null) {
                 throw new IllegalStateException("Duplicate loot table " + identifier);
@@ -82,10 +79,6 @@ public abstract class MidnightLootTableProvider implements IDataProvider {
                 LOGGER.error("Couldn't write loot table {}", path, e);
             }
         });
-    }
-
-    private ResourceLocation resolveIdentifier(String key) {
-        return new ResourceLocation(Midnight.MODID, LootParameterSets.getKey(this.lootSet).getPath() + "/" + key);
     }
 
     @Override

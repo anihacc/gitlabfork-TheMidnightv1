@@ -20,4 +20,8 @@ public final class Conditions {
     public static final ILootCondition.IBuilder HAS_SHEARS = MatchTool.builder(
             ItemPredicate.Builder.create().item(Items.SHEARS)
     );
+
+    public static final ILootCondition.IBuilder HAS_SHEARS_OR_SILK_TOUCH = HAS_SHEARS.alternative(HAS_SILK_TOUCH);
+
+    public static final ILootCondition.IBuilder NOT_SHEARS_OR_SILK_TOUCH = HAS_SHEARS_OR_SILK_TOUCH.inverted();
 }
