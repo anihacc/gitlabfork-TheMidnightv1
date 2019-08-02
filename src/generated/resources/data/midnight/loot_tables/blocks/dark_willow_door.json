@@ -11,6 +11,13 @@
       ],
       "conditions": [
         {
+          "condition": "minecraft:block_state_property",
+          "block": "midnight:dark_willow_door",
+          "properties": {
+            "half": "lower"
+          }
+        },
+        {
           "condition": "minecraft:survives_explosion"
         }
       ]

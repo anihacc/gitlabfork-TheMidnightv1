@@ -11,6 +11,13 @@
       ],
       "conditions": [
         {
+          "condition": "minecraft:block_state_property",
+          "block": "midnight:tall_grass",
+          "properties": {
+            "half": "lower"
+          }
+        },
+        {
           "condition": "minecraft:match_tool",
           "predicate": {
             "item": "minecraft:shears"

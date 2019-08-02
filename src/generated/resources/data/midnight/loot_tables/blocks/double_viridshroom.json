@@ -11,6 +11,13 @@
       ],
       "conditions": [
         {
+          "condition": "minecraft:block_state_property",
+          "block": "midnight:double_viridshroom",
+          "properties": {
+            "half": "lower"
+          }
+        },
+        {
           "condition": "minecraft:survives_explosion"
         }
       ]

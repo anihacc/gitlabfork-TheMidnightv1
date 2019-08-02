@@ -9,6 +9,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.state.properties.SlabType;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.world.storage.loot.AlternativesLootEntry;
@@ -76,14 +78,11 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.COARSE_DIRT);
         this.add(MidnightBlocks.DIRT);
         this.add(MidnightBlocks.NIGHTSHROOM);
-        this.add(MidnightBlocks.DOUBLE_NIGHTSHROOM);
         this.add(MidnightBlocks.NIGHTSHROOM_SHELF);
         this.add(MidnightBlocks.DEWSHROOM);
-        this.add(MidnightBlocks.DOUBLE_DEWSHROOM);
         this.add(MidnightBlocks.DEWSHROOM_SHELF);
         this.add(MidnightBlocks.DEWSHROOM_PLANKS);
         this.add(MidnightBlocks.VIRIDSHROOM);
-        this.add(MidnightBlocks.DOUBLE_VIRIDSHROOM);
         this.add(MidnightBlocks.VIRIDSHROOM_SHELF);
         this.add(MidnightBlocks.VIRIDSHROOM_PLANKS);
         this.add(MidnightBlocks.VIRIDSHROOM_STEM);
@@ -97,7 +96,6 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.DEWSHROOM_ROOTS);
         this.add(MidnightBlocks.DEWSHROOM_FLOWERING_ROOTS);
         this.add(MidnightBlocks.BOGSHROOM);
-        this.add(MidnightBlocks.DOUBLE_BOGSHROOM);
         this.add(MidnightBlocks.BOGSHROOM_SHELF);
         this.add(MidnightBlocks.BOGSHROOM_STEM);
         this.add(MidnightBlocks.GLOB_FUNGUS);
@@ -105,7 +103,6 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.ROCKSHROOM);
         this.add(MidnightBlocks.ROCKSHROOM_BRICKS);
         this.add(MidnightBlocks.LUMEN_BUD);
-        this.add(MidnightBlocks.DOUBLE_LUMEN_BUD);
         this.add(MidnightBlocks.TENDRILWEED);
         this.add(MidnightBlocks.RUNEBUSH);
         this.add(MidnightBlocks.DRAGON_NEST);
@@ -113,13 +110,6 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.CRYSTAL_FLOWER);
         this.add(MidnightBlocks.SHADOWROOT_SAPLING);
         this.add(MidnightBlocks.DARK_WILLOW_SAPLING);
-        this.add(MidnightBlocks.SHADOWROOT_DOOR);
-        this.add(MidnightBlocks.DEAD_WOOD_DOOR);
-        this.add(MidnightBlocks.DARK_WILLOW_DOOR);
-        this.add(MidnightBlocks.TENEBRUM_DOOR);
-        this.add(MidnightBlocks.NIGHTSHROOM_DOOR);
-        this.add(MidnightBlocks.DEWSHROOM_DOOR);
-        this.add(MidnightBlocks.VIRIDSHROOM_DOOR);
         this.add(MidnightBlocks.SHADOWROOT_TRAPDOOR);
         this.add(MidnightBlocks.DEAD_WOOD_TRAPDOOR);
         this.add(MidnightBlocks.DARK_WILLOW_TRAPDOOR);
@@ -204,7 +194,21 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.addSheared(MidnightBlocks.GHOST_PLANT);
         this.addSheared(MidnightBlocks.FINGERED_GRASS);
         this.addSheared(MidnightBlocks.GRASS);
-        this.addSheared(MidnightBlocks.TALL_GRASS);
+
+        this.addDoubleBlock(MidnightBlocks.DOUBLE_NIGHTSHROOM);
+        this.addDoubleBlock(MidnightBlocks.DOUBLE_DEWSHROOM);
+        this.addDoubleBlock(MidnightBlocks.DOUBLE_VIRIDSHROOM);
+        this.addDoubleBlock(MidnightBlocks.DOUBLE_BOGSHROOM);
+        this.addDoubleBlock(MidnightBlocks.DOUBLE_LUMEN_BUD);
+        this.addShearedDoubleBlock(MidnightBlocks.TALL_GRASS);
+
+        this.addDoubleBlock(MidnightBlocks.SHADOWROOT_DOOR);
+        this.addDoubleBlock(MidnightBlocks.DEAD_WOOD_DOOR);
+        this.addDoubleBlock(MidnightBlocks.DARK_WILLOW_DOOR);
+        this.addDoubleBlock(MidnightBlocks.TENEBRUM_DOOR);
+        this.addDoubleBlock(MidnightBlocks.NIGHTSHROOM_DOOR);
+        this.addDoubleBlock(MidnightBlocks.DEWSHROOM_DOOR);
+        this.addDoubleBlock(MidnightBlocks.VIRIDSHROOM_DOOR);
 
         this.addSilkTouched(MidnightBlocks.ARCHAIC_GLASS);
         this.addSilkTouched(MidnightBlocks.ARCHAIC_GLASS_PANE);
@@ -413,6 +417,29 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
                         )
                         .rolls(ONE)
                 );
+
+        this.add(block, table);
+    }
+
+    private void addDoubleBlock(Block block) {
+        LootTable.Builder table = LootTable.builder()
+                .addLootPool(checkExplosion(LootPool.builder()
+                        .rolls(ONE)
+                        .addEntry(ItemLootEntry.builder(block))
+                        .acceptCondition(BlockStateProperty.builder(block).with(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER))
+                ));
+
+        this.add(block, table);
+    }
+
+    private void addShearedDoubleBlock(Block block) {
+        LootTable.Builder table = LootTable.builder()
+                .addLootPool(checkExplosion(LootPool.builder()
+                        .rolls(ONE)
+                        .addEntry(ItemLootEntry.builder(block))
+                        .acceptCondition(BlockStateProperty.builder(block).with(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER))
+                        .acceptCondition(Conditions.HAS_SHEARS)
+                ));
 
         this.add(block, table);
     }
