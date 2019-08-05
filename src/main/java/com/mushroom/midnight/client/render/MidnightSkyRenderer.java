@@ -47,13 +47,6 @@ public final class MidnightSkyRenderer implements IRenderHandler {
 
         GlStateManager.shadeModel(GL11.GL_SMOOTH);
 
-//        Tessellator tessellator = Tessellator.getInstance();
-//        BufferBuilder builder = tessellator.getBuffer();
-//
-//        this.buildGradientVbo(builder);
-//
-//        tessellator.draw();
-
         this.gradientVbo.bindBuffer();
 
         int stride = FORMAT.getSize();
