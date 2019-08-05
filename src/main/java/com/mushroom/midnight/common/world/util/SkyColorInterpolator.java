@@ -4,8 +4,10 @@ import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.util.MidnightUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -16,7 +18,7 @@ public final class SkyColorInterpolator {
     public static final SkyColorInterpolator INSTANCE = new SkyColorInterpolator();
 
     private static final double EPS = 1e-6;
-    private static final double LERP_SPEED = 0.001;
+    private static final double LERP_SPEED = 0.005;
 
     private double red;
     private double green;
@@ -33,7 +35,7 @@ public final class SkyColorInterpolator {
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase == TickEvent.Phase.END) return;
+        if (event.phase == TickEvent.Phase.START) return;
 
         PlayerEntity player = Minecraft.getInstance().player;
         if (player == null || !MidnightUtil.isMidnightDimension(player.world)) return;
@@ -42,7 +44,13 @@ public final class SkyColorInterpolator {
     }
 
     private void update(PlayerEntity player) {
-        Biome biome = player.world.getBiome(player.getPosition());
+        int playerX = MathHelper.floor(player.posX);
+        int playerZ = MathHelper.floor(player.posZ);
+
+        Chunk chunk = player.world.getChunkProvider().func_225313_a(playerX >> 4, playerZ >> 4);
+        if (chunk == null) return;
+
+        Biome biome = chunk.getBiomes()[(playerX & 15) | (playerZ & 15) << 4];
         int skyColor = biome.getSkyColorByTemp(0.0F);
 
         double red = (skyColor >> 16 & 0xFF) / 255.0;
