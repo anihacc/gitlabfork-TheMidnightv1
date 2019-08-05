@@ -18,7 +18,7 @@ public final class SkyColorInterpolator {
     public static final SkyColorInterpolator INSTANCE = new SkyColorInterpolator();
 
     private static final double EPS = 1e-6;
-    private static final double LERP_SPEED = 0.005;
+    private static final double LERP_SPEED = 0.003;
 
     private double red;
     private double green;
