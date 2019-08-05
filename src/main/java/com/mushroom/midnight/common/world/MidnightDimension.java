@@ -6,6 +6,7 @@ import com.mushroom.midnight.common.biome.BiomeLayers;
 import com.mushroom.midnight.common.biome.cavern.CavernousBiome;
 import com.mushroom.midnight.common.config.MidnightConfig;
 import com.mushroom.midnight.common.registry.MidnightDimensions;
+import com.mushroom.midnight.common.world.util.SkyColorInterpolator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -27,8 +28,6 @@ import javax.annotation.Nullable;
 
 public class MidnightDimension extends Dimension {
     private static final Vec3d LIGHTING_SKY_COLOR = new Vec3d(1.0, 0.35, 0.25);
-
-    private static final Vec3d SKY_COLOR = new Vec3d(23.0 / 255.0, 27.0 / 255.0, 50.0 / 255.0);
 
     public MidnightDimension(World world, DimensionType type) {
         super(world, type);
@@ -126,7 +125,7 @@ public class MidnightDimension extends Dimension {
         if (this.world.getLastLightningBolt() > 0 && Minecraft.getInstance().player.posY > 50) {
             return LIGHTING_SKY_COLOR;
         }
-        return SKY_COLOR;
+        return SkyColorInterpolator.INSTANCE.get(partialTicks);
     }
 
     @Override
@@ -188,7 +187,7 @@ public class MidnightDimension extends Dimension {
 
     @Override
     public Vec3d getSkyColor(BlockPos cameraPos, float partialTicks) {
-        return SKY_COLOR;
+        return SkyColorInterpolator.INSTANCE.get(partialTicks);
     }
 
     @Nullable
