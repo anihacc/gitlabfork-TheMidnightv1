@@ -111,11 +111,7 @@ public abstract class TemplateTreeFeature extends MidnightTreeFeature {
     }
 
     protected Template.BlockInfo processState(IWorldReader world, BlockPos origin, Template.BlockInfo srcInfo, Template.BlockInfo info, PlacementSettings settings) {
-        BlockState state = info.state;
-        Block block = state.getBlock();
-        if (block == Blocks.STRUCTURE_BLOCK || block == Blocks.AIR) {
-            return null;
-        }
-        return info;
+        Block block = info.state.getBlock();
+        return block == Blocks.STRUCTURE_BLOCK || block == Blocks.AIR ? null : info;
     }
 }
