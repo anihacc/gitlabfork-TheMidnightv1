@@ -8,6 +8,7 @@ import net.minecraft.block.IGrowable;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.DecoratedFeatureConfig;
@@ -103,5 +104,10 @@ public class SoilBlock extends Block implements IGrowable {
                 ++j;
             }
         }
+    }
+
+    @Override
+    public boolean canBeReplacedByLogs(BlockState state, IWorldReader world, BlockPos pos) {
+        return true;
     }
 }

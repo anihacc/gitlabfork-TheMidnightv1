@@ -7,6 +7,7 @@ import com.mushroom.midnight.common.world.template.TemplateCompiler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
@@ -17,6 +18,8 @@ import net.minecraftforge.common.IPlantable;
 import java.util.function.Function;
 
 public abstract class TemplateFungiFeature extends TemplateTreeFeature {
+    private static final int MAX_DEPTH = 4;
+
     public TemplateFungiFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> deserialize, ResourceLocation[] templates, BlockState stem, BlockState hat) {
         super(deserialize, templates, stem, hat);
 
@@ -27,6 +30,30 @@ public abstract class TemplateFungiFeature extends TemplateTreeFeature {
     protected TemplateCompiler buildCompiler() {
         return super.buildCompiler()
                 .withPostProcessor(new ShelfAttachProcessor(this::canPlaceShelf, ShelfAttachProcessor.FOREST_SHELF_BLOCKS));
+    }
+
+    @Override
+    protected boolean canGrow(IWorld world, BlockPos minCorner, BlockPos maxCorner) {
+        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+
+        for (BlockPos pos : BlockPos.getAllInBoxMutable(minCorner, maxCorner)) {
+            mutablePos.setPos(pos);
+            mutablePos.move(Direction.DOWN);
+
+            int depth = 0;
+            while (isAirOrLeaves(world, mutablePos)) {
+                mutablePos.move(Direction.DOWN);
+                if (depth++ >= MAX_DEPTH) {
+                    return false;
+                }
+            }
+
+            if (!isSoil(world, mutablePos, this.getSapling())) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private boolean canPlaceShelf(IWorld world, BlockPos pos) {
