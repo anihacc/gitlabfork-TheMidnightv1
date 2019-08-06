@@ -5,6 +5,7 @@ import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.util.WorldUtil;
 import com.mushroom.midnight.common.world.template.CompiledTemplate;
+import com.mushroom.midnight.common.world.template.RootsAttachProcessor;
 import com.mushroom.midnight.common.world.template.RotatedSettingConfigurator;
 import com.mushroom.midnight.common.world.template.ShelfAttachProcessor;
 import com.mushroom.midnight.common.world.template.TemplateCompiler;
@@ -39,18 +40,21 @@ public abstract class TemplateFungiFeature extends MidnightTreeFeature {
     protected final ResourceLocation[] templates;
     protected final BlockState stem;
     protected final BlockState hat;
+    protected final BlockState[] roots;
 
     private TemplateCompiler templateCompiler;
 
     protected TemplateFungiFeature(
             Function<Dynamic<?>, ? extends NoFeatureConfig> deserialize,
             ResourceLocation[] templates,
-            BlockState stem, BlockState hat
+            BlockState stem, BlockState hat,
+            BlockState[] roots
     ) {
         super(deserialize);
         this.templates = templates;
         this.stem = stem;
         this.hat = hat;
+        this.roots = roots;
 
         this.setSapling((IPlantable) MidnightBlocks.NIGHTSHROOM);
     }
@@ -60,7 +64,8 @@ public abstract class TemplateFungiFeature extends MidnightTreeFeature {
                 .withAnchor(ANCHOR_MARKER)
                 .withSettingConfigurator(RotatedSettingConfigurator.INSTANCE)
                 .withProcessor(this::processState)
-                .withPostProcessor(new ShelfAttachProcessor(this::canPlaceShelf, ShelfAttachProcessor.FOREST_SHELF_BLOCKS));
+                .withPostProcessor(new ShelfAttachProcessor(this::canPlaceShelf, ShelfAttachProcessor.FOREST_SHELF_BLOCKS))
+                .withPostProcessor(new RootsAttachProcessor(6, this.roots));
     }
 
     @Override
