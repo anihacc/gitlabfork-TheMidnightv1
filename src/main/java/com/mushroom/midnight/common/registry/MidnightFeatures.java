@@ -24,6 +24,7 @@ import com.mushroom.midnight.common.world.feature.ViridshroomCacheFeature;
 import com.mushroom.midnight.common.world.feature.config.CrystalClusterConfig;
 import com.mushroom.midnight.common.world.feature.config.MidnightOreConfig;
 import com.mushroom.midnight.common.world.feature.config.UniformCompositionConfig;
+import com.mushroom.midnight.common.world.feature.structure.ShadowrootGuardTowerStructure;
 import com.mushroom.midnight.common.world.feature.structure.WellStructure;
 import com.mushroom.midnight.common.world.feature.tree.DarkWillowTreeFeature;
 import com.mushroom.midnight.common.world.feature.tree.DeadTreeFeature;
@@ -44,6 +45,7 @@ import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.DoublePlantConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
@@ -99,6 +101,7 @@ public class MidnightFeatures {
     //structure
     public static final Feature<NoFeatureConfig> WELL = new WellStructure(NoFeatureConfig::deserialize);
     public static final Feature<NoFeatureConfig> DEAD_VIRIDSHROOM_AND_CACHE = new ViridshroomCacheFeature(NoFeatureConfig::deserialize);
+    public static final Structure<NoFeatureConfig> SHADOWROOT_GUARDTOWER = new ShadowrootGuardTowerStructure(NoFeatureConfig::deserialize);
 
     @SubscribeEvent
     public static void registerFeatures(IForgeRegistry<Feature<?>> event) {
@@ -139,10 +142,9 @@ public class MidnightFeatures {
                 .add("crystal_cluster", CRYSTAL_CLUSTER)
                 .add("crystal_spire", CRYSTAL_SPIRE)
                 .add("ore", ORE)
-                .add("well", WELL);
+                .add("well", WELL)
+                .add("shadowroot_guardtower", SHADOWROOT_GUARDTOWER);
 
-        //I think it is necessary when generating the structure
-        //Feature.STRUCTURES.put("Well".toLowerCase(Locale.ROOT), WELL);
-        //Registry.register(Registry.STRUCTURE_FEATURE, new ResourceLocation(Midnight.MODID,"well"), WELL);
+        RegUtil.registerStructure("ShadowrootGuardTower", SHADOWROOT_GUARDTOWER);
     }
 }
