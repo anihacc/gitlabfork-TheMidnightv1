@@ -1,11 +1,13 @@
 package com.mushroom.midnight.common.world.feature.placement;
 
 import com.mojang.datafixers.Dynamic;
-import com.mushroom.midnight.common.world.generator.MoltenCraterCarver;
+import com.mushroom.midnight.common.world.feature.structure.MoltenCraterStructure;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
+import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.placement.NoPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 
@@ -44,7 +46,9 @@ public class DragonNestPlacement extends Placement<NoPlacementConfig> {
 
         for (int deltaZ = -CRATER_RANGE_CHUNKS; deltaZ <= CRATER_RANGE_CHUNKS; deltaZ++) {
             for (int deltaX = -CRATER_RANGE_CHUNKS; deltaX <= CRATER_RANGE_CHUNKS; deltaX++) {
-                if (MoltenCraterCarver.isCraterSource(world, chunkX + deltaX, chunkZ + deltaZ)) {
+                IChunk chunk = world.getChunk(chunkX + deltaX, chunkZ + deltaZ);
+                StructureStart start = chunk.getStructureStart(MoltenCraterStructure.NAME);
+                if (start != null) {
                     return true;
                 }
             }

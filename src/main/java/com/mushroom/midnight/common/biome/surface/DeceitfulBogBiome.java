@@ -16,7 +16,6 @@ public class DeceitfulBogBiome extends SurfaceBiome {
                 .depth(-1F)
                 .scale(0.2F)
                 .ridgeWeight(0.0F)
-                .wet()
         );
 
         MidnightBiomeConfigurator.addGlobalOres(this);

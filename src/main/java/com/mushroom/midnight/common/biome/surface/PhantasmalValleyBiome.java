@@ -13,7 +13,6 @@ public class PhantasmalValleyBiome extends SurfaceBiome {
                 .depth(-1.2F)
                 .scale(0.05F)
                 .ridgeWeight(0.0F)
-                .wet()
         );
 
         MidnightBiomeConfigurator.addGlobalOres(this);

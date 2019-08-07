@@ -6,6 +6,7 @@ import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightEntities;
 import com.mushroom.midnight.common.registry.MidnightFeatures;
 import com.mushroom.midnight.common.registry.MidnightPlacements;
+import com.mushroom.midnight.common.registry.MidnightStructures;
 import com.mushroom.midnight.common.world.feature.config.CrystalClusterConfig;
 import com.mushroom.midnight.common.world.feature.config.MidnightOreConfig;
 import com.mushroom.midnight.common.world.feature.config.UniformCompositionConfig;
@@ -28,6 +29,13 @@ import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 
 public class MidnightBiomeConfigurator {
+    public static void addMoltenCrater(ConfigurableBiome biome) {
+        biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(
+                MidnightStructures.MOLTEN_CRATER, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG)
+        );
+        biome.add(MidnightStructures.MOLTEN_CRATER, IFeatureConfig.NO_FEATURE_CONFIG);
+    }
+
     public static void addGlobalOres(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(
                 MidnightFeatures.ORE, new MidnightOreConfig(MidnightBlocks.DARK_PEARL_ORE.getDefaultState(), 14),
@@ -361,9 +369,9 @@ public class MidnightBiomeConfigurator {
 
     public static void addShadowRootGuardTower(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(
-                MidnightFeatures.SHADOWROOT_GUARDTOWER, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG)
+                MidnightStructures.SHADOWROOT_GUARDTOWER, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG)
         );
-        biome.add(MidnightFeatures.SHADOWROOT_GUARDTOWER, IFeatureConfig.NO_FEATURE_CONFIG);
+        biome.add(MidnightStructures.SHADOWROOT_GUARDTOWER, IFeatureConfig.NO_FEATURE_CONFIG);
     }
 
     public static void addDeadViridShroomAndCache(ConfigurableBiome biome) {

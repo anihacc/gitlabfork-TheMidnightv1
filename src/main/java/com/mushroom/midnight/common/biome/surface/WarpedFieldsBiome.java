@@ -15,7 +15,6 @@ public class WarpedFieldsBiome extends SurfaceBiome {
                 .scale(0.8F)
                 .densityScale(0.5F)
                 .ridgeWeight(0.0F)
-                .wet()
         );
 
         MidnightBiomeConfigurator.addGlobalOres(this);

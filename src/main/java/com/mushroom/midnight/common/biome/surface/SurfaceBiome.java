@@ -26,7 +26,6 @@ import java.util.Collection;
 public abstract class SurfaceBiome extends Biome implements ConfigurableBiome {
     private final float ridgeWeight;
     private final float densityScale;
-    private final boolean wet;
 
     private final int grassColor;
     private final int foliageColor;
@@ -37,7 +36,6 @@ public abstract class SurfaceBiome extends Biome implements ConfigurableBiome {
 
         this.ridgeWeight = properties.ridgeWeight;
         this.densityScale = properties.densityScale;
-        this.wet = properties.wet;
 
         this.grassColor = properties.grassColor;
         this.foliageColor = properties.foliageColor;
@@ -45,7 +43,7 @@ public abstract class SurfaceBiome extends Biome implements ConfigurableBiome {
     }
 
     @Override
-    public boolean doesWaterFreeze(IWorldReader worldIn, BlockPos pos) {
+    public boolean doesWaterFreeze(IWorldReader world, BlockPos pos) {
         return false;
     }
 
@@ -65,10 +63,6 @@ public abstract class SurfaceBiome extends Biome implements ConfigurableBiome {
 
     public float getDensityScale() {
         return this.densityScale;
-    }
-
-    public boolean isWet() {
-        return this.wet;
     }
 
     public int getSkyColor() {
@@ -118,7 +112,6 @@ public abstract class SurfaceBiome extends Biome implements ConfigurableBiome {
     public static class Properties extends Biome.Builder {
         private float ridgeWeight = 1.0F;
         private float densityScale = 1.0F;
-        private boolean wet;
         private int grassColor = 0xB084BC;
         private int foliageColor = 0x8F6DBC;
         private int skyColor = 0x171B32;
@@ -138,11 +131,6 @@ public abstract class SurfaceBiome extends Biome implements ConfigurableBiome {
 
         public Properties densityScale(float densityScale) {
             this.densityScale = densityScale;
-            return this;
-        }
-
-        public Properties wet() {
-            this.wet = true;
             return this;
         }
 

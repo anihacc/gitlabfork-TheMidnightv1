@@ -16,6 +16,8 @@ public class NightPlainsBiome extends SurfaceBiome {
                 .ridgeWeight(0.0F)
         );
 
+        MidnightBiomeConfigurator.addMoltenCrater(this);
+
         MidnightBiomeConfigurator.addGlobalOres(this);
 
         MidnightBiomeConfigurator.addSparseShadowrootTrees(this);

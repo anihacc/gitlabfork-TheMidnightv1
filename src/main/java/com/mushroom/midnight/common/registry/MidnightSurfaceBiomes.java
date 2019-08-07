@@ -50,6 +50,7 @@ public class MidnightSurfaceBiomes {
         // TODO: Thank you Forge, very cool
         MidnightPlacements.registerPlacements(ForgeRegistries.DECORATORS);
         MidnightFeatures.registerFeatures(ForgeRegistries.FEATURES);
+        MidnightStructures.registerStructures(ForgeRegistries.FEATURES);
         MidnightCarvers.registerCarvers(ForgeRegistries.WORLD_CARVERS);
 
         RegUtil.generic(event.getRegistry())

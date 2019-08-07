@@ -12,6 +12,8 @@ public class VigilantForestBiome extends SurfaceBiome {
                 .scale(0.07F)
         );
 
+        MidnightBiomeConfigurator.addMoltenCrater(this);
+
         MidnightBiomeConfigurator.addGlobalOres(this);
 
         MidnightBiomeConfigurator.addShadowRootGuardTower(this);
