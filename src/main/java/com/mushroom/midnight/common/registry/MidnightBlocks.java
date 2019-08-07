@@ -509,10 +509,10 @@ public class MidnightBlocks {
                 .add("dark_willow_sapling", props -> new MidnightSaplingBlock(new DarkWillowTree(), props));
 
         RegUtil.blocks(event.getRegistry())
-                .add("nightshroom_hat", new MidnightFungiHatBlock(() -> NIGHTSHROOM, () -> MidnightItems.NIGHTSHROOM_POWDER, MaterialColor.CYAN))
-                .add("dewshroom_hat", new MidnightFungiHatBlock(() -> DEWSHROOM, () -> MidnightItems.DEWSHROOM_POWDER, MaterialColor.PURPLE))
-                .add("viridshroom_hat", new MidnightFungiHatBlock(() -> VIRIDSHROOM, () -> MidnightItems.VIRIDSHROOM_POWDER, MaterialColor.EMERALD))
-                .add("bogshroom_hat", new MidnightFungiHatBlock(() -> BOGSHROOM, () -> MidnightItems.BOGSHROOM_POWDER, MaterialColor.ADOBE))
+                .add("nightshroom_hat", new MidnightFungiHatBlock(MaterialColor.CYAN))
+                .add("dewshroom_hat", new MidnightFungiHatBlock(MaterialColor.PURPLE))
+                .add("viridshroom_hat", new MidnightFungiHatBlock(MaterialColor.EMERALD))
+                .add("bogshroom_hat", new MidnightFungiHatBlock(MaterialColor.ADOBE))
                 .add("glob_fungus_hat", new GlobFungusHatBlock());
 
         RegUtil.blocks(event.getRegistry())
