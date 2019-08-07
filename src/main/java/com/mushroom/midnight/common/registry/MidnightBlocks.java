@@ -486,7 +486,6 @@ public class MidnightBlocks {
                 .add("dewshroom_stem", Block::new)
                 .add("viridshroom_stem", Block::new)
                 .add("bogshroom_stem", Block::new)
-                // TODO glob fungus stem drops 4 GLOB_FUNGUS_HAND, can silk touch & sheared
                 .add("glob_fungus_stem", props -> new LogBlock(MaterialColor.BROWN, props.hardnessAndResistance(0.5f)))
                 .add("fungi_inside", new FungiInsideBlock(Block.Properties.create(Material.AIR).doesNotBlockMovement()));
 
@@ -496,8 +495,8 @@ public class MidnightBlocks {
                         .tickRandomly()
                         .sound(SoundType.PLANT)
                 )
-                .add("shadowroot_leaves", LeavesBlock::new) // SHADOWROOT_SAPLING TODO checks if saplings are in json loottables
-                .add("dark_willow_leaves", LeavesBlock::new); // DARK_WILLOW_SAPLING
+                .add("shadowroot_leaves", LeavesBlock::new)
+                .add("dark_willow_leaves", LeavesBlock::new);
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.PLANTS)

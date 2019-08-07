@@ -99,7 +99,6 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.BOGSHROOM_SHELF);
         this.add(MidnightBlocks.BOGSHROOM_STEM);
         this.add(MidnightBlocks.GLOB_FUNGUS);
-        this.add(MidnightBlocks.GLOB_FUNGUS_STEM);
         this.add(MidnightBlocks.ROCKSHROOM);
         this.add(MidnightBlocks.ROCKSHROOM_BRICKS);
         this.add(MidnightBlocks.LUMEN_BUD);
@@ -282,6 +281,12 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
                                 .acceptFunction(SetCount.func_215932_a(RandomValueRange.func_215837_a(1.0F, 1.0F)))
                 ))
         ));
+
+        this.add(MidnightBlocks.GLOB_FUNGUS_STEM, block ->
+                silkOrSheared(block, ItemLootEntry.builder(MidnightItems.GLOB_FUNGUS_HAND)
+                        .acceptFunction(SetCount.func_215932_a(ConstantRange.of(4)))
+                )
+        );
 
         this.lootTables.forEach(consumer::accept);
     }

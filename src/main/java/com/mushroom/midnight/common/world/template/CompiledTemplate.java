@@ -50,7 +50,7 @@ public class CompiledTemplate {
             List<Template.BlockInfo> blocks = Template.func_215387_a(world, this.origin, this.settings, this.settings.func_204764_a(this.template.blocks, this.origin));
             for (TemplatePostProcessor processor : this.postProcessors) {
                 for (Template.BlockInfo info : blocks) {
-                    processor.process(world, random, info.pos, info.state);
+                    processor.process(this, world, random, info.pos, info.state);
                 }
             }
         }

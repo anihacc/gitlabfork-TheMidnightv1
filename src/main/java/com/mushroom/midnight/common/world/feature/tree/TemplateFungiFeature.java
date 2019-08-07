@@ -5,6 +5,7 @@ import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.util.WorldUtil;
 import com.mushroom.midnight.common.world.template.CompiledTemplate;
+import com.mushroom.midnight.common.world.template.ExtendRootsProcessor;
 import com.mushroom.midnight.common.world.template.RootsAttachProcessor;
 import com.mushroom.midnight.common.world.template.RotatedSettingConfigurator;
 import com.mushroom.midnight.common.world.template.ShelfAttachProcessor;
@@ -64,6 +65,7 @@ public abstract class TemplateFungiFeature extends MidnightTreeFeature {
                 .withAnchor(ANCHOR_MARKER)
                 .withSettingConfigurator(RotatedSettingConfigurator.INSTANCE)
                 .withProcessor(this::processState)
+                .withPostProcessor(new ExtendRootsProcessor(this.stem))
                 .withPostProcessor(new ShelfAttachProcessor(this::canPlaceShelf, ShelfAttachProcessor.FOREST_SHELF_BLOCKS))
                 .withPostProcessor(new RootsAttachProcessor(6, this.roots));
     }
@@ -103,8 +105,6 @@ public abstract class TemplateFungiFeature extends MidnightTreeFeature {
 
         template.addTo(world, random, 2 | 16);
 
-        this.extendRoots(world, minCorner, maxCorner);
-
         return true;
     }
 
@@ -129,22 +129,6 @@ public abstract class TemplateFungiFeature extends MidnightTreeFeature {
         }
 
         return true;
-    }
-
-    protected void extendRoots(IWorld world, BlockPos minCorner, BlockPos maxCorner) {
-        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
-
-        for (BlockPos pos : BlockPos.getAllInBoxMutable(minCorner, maxCorner)) {
-            if (world.getBlockState(pos) != this.stem) continue;
-
-            mutablePos.setPos(pos);
-            mutablePos.move(Direction.DOWN);
-
-            while (isAirOrLeaves(world, mutablePos)) {
-                this.setBlockState(world, mutablePos, this.stem);
-                mutablePos.move(Direction.DOWN);
-            }
-        }
     }
 
     protected boolean canFit(IWorld world, BlockPos trunkTop, BlockPos minCorner, BlockPos maxCorner) {
