@@ -12,6 +12,7 @@ public class ObscuredPlateauBiome extends SurfaceBiome {
                 .scale(0.01F)
         );
 
+        MidnightBiomeConfigurator.addStructureFeatures(this);
         MidnightBiomeConfigurator.addGlobalOres(this);
 
         MidnightBiomeConfigurator.addSmallFungis(this);

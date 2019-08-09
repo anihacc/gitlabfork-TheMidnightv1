@@ -15,6 +15,7 @@ public class PhantasmalValleyBiome extends SurfaceBiome {
                 .ridgeWeight(0.0F)
         );
 
+        MidnightBiomeConfigurator.addStructureFeatures(this);
         MidnightBiomeConfigurator.addGlobalOres(this);
         MidnightBiomeConfigurator.addGlobalFeatures(this);
 

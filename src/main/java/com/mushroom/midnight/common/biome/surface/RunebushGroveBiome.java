@@ -14,6 +14,7 @@ public class RunebushGroveBiome extends SurfaceBiome {
                 .scale(0.07F)
         );
 
+        MidnightBiomeConfigurator.addStructureFeatures(this);
         MidnightBiomeConfigurator.addGlobalOres(this);
 
         MidnightBiomeConfigurator.addVigilantForestTrees(this);

@@ -29,10 +29,13 @@ import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 
 public class MidnightBiomeConfigurator {
-    public static void addMoltenCrater(ConfigurableBiome biome) {
+    public static void addStructureFeatures(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(
                 MidnightStructures.MOLTEN_CRATER, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG)
         );
+    }
+
+    public static void addMoltenCrater(ConfigurableBiome biome) {
         biome.add(MidnightStructures.MOLTEN_CRATER, IFeatureConfig.NO_FEATURE_CONFIG);
     }
 

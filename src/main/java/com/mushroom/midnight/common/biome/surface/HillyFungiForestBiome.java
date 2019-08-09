@@ -14,6 +14,7 @@ public class HillyFungiForestBiome extends SurfaceBiome {
                 .scale(0.4F)
         );
 
+        MidnightBiomeConfigurator.addStructureFeatures(this);
         MidnightBiomeConfigurator.addGlobalOres(this);
 
         MidnightBiomeConfigurator.addLargeFungis(this);

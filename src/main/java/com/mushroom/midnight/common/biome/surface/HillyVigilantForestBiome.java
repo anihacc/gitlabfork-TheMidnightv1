@@ -12,6 +12,7 @@ public class HillyVigilantForestBiome extends SurfaceBiome {
                 .scale(0.4F)
         );
 
+        MidnightBiomeConfigurator.addStructureFeatures(this);
         MidnightBiomeConfigurator.addGlobalOres(this);
 
         MidnightBiomeConfigurator.addShadowRootGuardTower(this);
