@@ -12,6 +12,7 @@ import com.mushroom.midnight.common.world.layer.ProduceOutlineLayer;
 import com.mushroom.midnight.common.world.layer.SeedGroupLayer;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.IExtendedNoiseRandom;
 import net.minecraft.world.gen.LazyAreaLayerContext;
 import net.minecraft.world.gen.area.IArea;
@@ -26,30 +27,32 @@ import java.util.function.IntFunction;
 import java.util.function.LongFunction;
 
 public final class BiomeLayerType<T> {
-    public static final BiomeLayerType<Biome> SURFACE = BiomeLayerType.create(Biome.class, BiomeLayerType::buildSurface, Registry.BIOME::getByValue);
-    public static final BiomeLayerType<CavernousBiome> UNDERGROUND = BiomeLayerType.create(CavernousBiome.class, BiomeLayerType::buildUnderground, MidnightCavernousBiomes::byId);
+    public static final BiomeLayerType<Biome> SURFACE = BiomeLayerType.create(Biome.class, BiomeLayerType::buildSurface, Registry.BIOME::getByValue, Biomes.DEFAULT);
+    public static final BiomeLayerType<CavernousBiome> UNDERGROUND = BiomeLayerType.create(CavernousBiome.class, BiomeLayerType::buildUnderground, MidnightCavernousBiomes::byId, MidnightCavernousBiomes.CLOSED_CAVERN);
 
     private static final int MAX_CACHE_SIZE = 25;
 
     private final Class<T> type;
     private final ProcedureFactory procedureFactory;
     private final IntFunction<T> function;
+    private final T defaultValue;
 
-    private BiomeLayerType(Class<T> type, ProcedureFactory procedureFactory, IntFunction<T> function) {
+    private BiomeLayerType(Class<T> type, ProcedureFactory procedureFactory, IntFunction<T> function, T defaultValue) {
         this.type = type;
         this.procedureFactory = procedureFactory;
         this.function = function;
+        this.defaultValue = defaultValue;
     }
 
-    public static <T> BiomeLayerType<T> create(Class<T> type, ProcedureFactory procedureFactory, IntFunction<T> function) {
-        return new BiomeLayerType<>(type, procedureFactory, function);
+    public static <T> BiomeLayerType<T> create(Class<T> type, ProcedureFactory procedureFactory, IntFunction<T> function, T defaultValue) {
+        return new BiomeLayerType<>(type, procedureFactory, function, defaultValue);
     }
 
     public BiomeLayers<T> make(long worldSeed) {
         BiomeProcedure<LazyArea> procedure = this.procedureFactory.create(value -> new LazyAreaLayerContext(MAX_CACHE_SIZE, worldSeed, value));
         return new BiomeLayers<>(
-                new BiomeLayer<>(this.type, procedure.noise, this.function),
-                new BiomeLayer<>(this.type, procedure.block, this.function)
+                new BiomeLayer<>(this.type, procedure.noise, this.function, this.defaultValue),
+                new BiomeLayer<>(this.type, procedure.block, this.function, this.defaultValue)
         );
     }
 
