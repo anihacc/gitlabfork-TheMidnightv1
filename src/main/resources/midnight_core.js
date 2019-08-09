@@ -2,6 +2,7 @@ var Opcodes = org.objectweb.asm.Opcodes;
 var VarInsnNode = org.objectweb.asm.tree.VarInsnNode;
 var FieldInsnNode = org.objectweb.asm.tree.FieldInsnNode;
 var MethodInsnNode = org.objectweb.asm.tree.MethodInsnNode;
+var InsnList = org.objectweb.asm.tree.InsnList;
 
 function initializeCoreMod() {
     return {
@@ -11,6 +12,13 @@ function initializeCoreMod() {
                 "name": "net.minecraft.client.audio.SoundSource"
             },
             "transformer": patch_sound_source
+        },
+        "LivingRendererTransformer": {
+            "target": {
+                "type": "CLASS",
+                "name": "net.minecraft.client.renderer.entity.LivingRenderer"
+            },
+            "transformer": patch_living_renderer
         }
     }
 }
@@ -27,6 +35,26 @@ function patch_sound_source(class_node) {
             instructions.insertBefore(insn, new VarInsnNode(Opcodes.ALOAD, 0));
             instructions.insertBefore(insn, new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/audio/SoundSource", api.mapField("field_216441_b"), "I"));
             instructions.insertBefore(insn, new MethodInsnNode(Opcodes.INVOKESTATIC, "com/mushroom/midnight/client/SoundReverbHandler", "onPlaySound", "(I)V", false));
+            break;
+        }
+    }
+
+    return class_node;
+}
+
+function patch_living_renderer(class_node) {
+    var api = Java.type('net.minecraftforge.coremod.api.ASMAPI');
+
+    var apply_rotations_method = get_method(class_node, api.mapMethod("func_77043_a"));
+
+    var instructions = apply_rotations_method.instructions;
+    for (var i = 0; i < instructions.size(); i++) {
+        var insn = instructions.get(i);
+        if (insn instanceof MethodInsnNode && insn.owner.equals("com/mojang/blaze3d/platform/GlStateManager") && insn.name.equals("rotatef")) {
+            var insert = new InsnList();
+            insert.add(new VarInsnNode(Opcodes.ALOAD, 1));
+            insert.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/mushroom/midnight/client/ClientEventHandler", "onApplyRotations", "(Lnet/minecraft/entity/LivingEntity;)V", false));
+            instructions.insert(insn, insert);
             break;
         }
     }
