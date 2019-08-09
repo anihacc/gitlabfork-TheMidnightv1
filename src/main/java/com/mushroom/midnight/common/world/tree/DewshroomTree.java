@@ -12,6 +12,7 @@ public class DewshroomTree extends Tree {
     @Nullable
     @Override
     protected AbstractTreeFeature<NoFeatureConfig> getTreeFeature(Random random) {
-        return MidnightFeatures.LARGE_DEWSHROOM;
+        int value = random.nextInt(10);
+        return value >= 7 ? MidnightFeatures.MEDIUM_DEWSHROOM : MidnightFeatures.SMALL_DEWSHROOM;
     }
 }

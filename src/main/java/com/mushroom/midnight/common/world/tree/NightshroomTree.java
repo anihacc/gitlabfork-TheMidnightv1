@@ -12,6 +12,7 @@ public class NightshroomTree extends Tree {
     @Nullable
     @Override
     protected AbstractTreeFeature<NoFeatureConfig> getTreeFeature(Random random) {
-        return MidnightFeatures.LARGE_NIGHTSHROOM;
+        int value = random.nextInt(10);
+        return value >= 7 ? MidnightFeatures.MEDIUM_NIGHTSHROOM : MidnightFeatures.SMALL_NIGHTSHROOM;
     }
 }

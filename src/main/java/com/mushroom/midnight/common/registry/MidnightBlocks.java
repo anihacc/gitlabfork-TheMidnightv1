@@ -351,17 +351,17 @@ public class MidnightBlocks {
                         Block.Properties.create(Material.ORGANIC, MaterialColor.MAGENTA_TERRACOTTA)
                                 .hardnessAndResistance(0.6f)
                                 .sound(SoundType.PLANT)
-                , () -> DIRT))
+                        , () -> DIRT))
                 .add("dirt", new SoilBlock(
                         Block.Properties.create(Material.EARTH, MaterialColor.BLUE_TERRACOTTA)
                                 .hardnessAndResistance(0.5f)
                                 .sound(SoundType.GROUND)
-                , true))
+                        , true))
                 .add("coarse_dirt", new SoilBlock(
                         Block.Properties.create(Material.EARTH, MaterialColor.BLUE_TERRACOTTA)
                                 .hardnessAndResistance(0.5f)
                                 .sound(SoundType.GROUND)
-                , false))
+                        , false))
                 .add("mycelium", new MidnightMyceliumBlock(
                         Block.Properties.create(Material.ROCK, MaterialColor.PINK)
                                 .hardnessAndResistance(1.5f, 10f)
@@ -388,9 +388,12 @@ public class MidnightBlocks {
                 .add("nightstone_brick_slab", SlabBlock::new)
                 .add("rockshroom_brick_slab", SlabBlock::new)
 
-                .add("nightstone_stairs", props -> new MidnightStairsBlock(() -> NIGHTSTONE.getDefaultState(), props) {})
-                .add("nightstone_brick_stairs", props -> new MidnightStairsBlock(() -> NIGHTSTONE_BRICKS.getDefaultState(), props) {})
-                .add("rockshroom_brick_stairs", props -> new MidnightStairsBlock(() -> ROCKSHROOM_BRICKS.getDefaultState(), props) {})
+                .add("nightstone_stairs", props -> new MidnightStairsBlock(() -> NIGHTSTONE.getDefaultState(), props) {
+                })
+                .add("nightstone_brick_stairs", props -> new MidnightStairsBlock(() -> NIGHTSTONE_BRICKS.getDefaultState(), props) {
+                })
+                .add("rockshroom_brick_stairs", props -> new MidnightStairsBlock(() -> ROCKSHROOM_BRICKS.getDefaultState(), props) {
+                })
 
                 .add("nightstone_wall", WallBlock::new)
                 .add("nightstone_brick_wall", WallBlock::new)
@@ -400,14 +403,16 @@ public class MidnightBlocks {
                 .withProperties(() -> Block.Properties.create(Material.ROCK).hardnessAndResistance(5f, 200f))
                 .add("trenchstone", props -> new BasicBlock(props.harvestTool(ToolType.PICKAXE).harvestLevel(2)))
                 .add("trenchstone_slab", SlabBlock::new)
-                .add("trenchstone_stairs", props -> new MidnightStairsBlock(() -> TRENCHSTONE.getDefaultState(), props) {})
+                .add("trenchstone_stairs", props -> new MidnightStairsBlock(() -> TRENCHSTONE.getDefaultState(), props) {
+                })
                 .add("trenchstone_wall", WallBlock::new);
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5f, 200f))
                 .add("trenchstone_bricks", props -> new BasicBlock(props.harvestTool(ToolType.PICKAXE).harvestLevel(2)))
                 .add("trenchstone_brick_slab", SlabBlock::new)
-                .add("trenchstone_brick_stairs", props -> new MidnightStairsBlock(() -> TRENCHSTONE_BRICKS.getDefaultState(), props) {})
+                .add("trenchstone_brick_stairs", props -> new MidnightStairsBlock(() -> TRENCHSTONE_BRICKS.getDefaultState(), props) {
+                })
                 .add("trenchstone_brick_wall", WallBlock::new);
 
         RegUtil.blocks(event.getRegistry())
@@ -430,7 +435,8 @@ public class MidnightBlocks {
                                 .lightValue(13)
                                 .tickRandomly()
                 )
-                .add("nightstone_furnace", props -> new MidnightFurnaceBlock(props){});
+                .add("nightstone_furnace", props -> new MidnightFurnaceBlock(props) {
+                });
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.TALL_PLANTS)
@@ -544,12 +550,18 @@ public class MidnightBlocks {
                 .add("archaic_ore", new MidnightGemBlock(0))
                 .add("archaic_glass", new MidnightGlassBlock())
                 .add("archaic_glass_pane", new MidnightGlassPaneBlock())
-                .add("shadowroot_chest", new MidnightChestBlock(Block.Properties.from(Blocks.CHEST)){})
-                .add("dark_willow_chest", new MidnightChestBlock(Block.Properties.from(Blocks.CHEST)){})
-                .add("dead_wood_chest", new MidnightChestBlock(Block.Properties.from(Blocks.CHEST)){})
-                .add("nightshroom_chest", new MidnightChestBlock(Block.Properties.from(Blocks.CHEST)){})
-                .add("dewshroom_chest", new MidnightChestBlock(Block.Properties.from(Blocks.CHEST)){})
-                .add("viridshroom_chest", new MidnightChestBlock(Block.Properties.from(Blocks.CHEST)){})
+                .add("shadowroot_chest", new MidnightChestBlock(Block.Properties.from(Blocks.CHEST)) {
+                })
+                .add("dark_willow_chest", new MidnightChestBlock(Block.Properties.from(Blocks.CHEST)) {
+                })
+                .add("dead_wood_chest", new MidnightChestBlock(Block.Properties.from(Blocks.CHEST)) {
+                })
+                .add("nightshroom_chest", new MidnightChestBlock(Block.Properties.from(Blocks.CHEST)) {
+                })
+                .add("dewshroom_chest", new MidnightChestBlock(Block.Properties.from(Blocks.CHEST)) {
+                })
+                .add("viridshroom_chest", new MidnightChestBlock(Block.Properties.from(Blocks.CHEST)) {
+                })
                 .add("suavis", new SuavisBlock());
 
         RegUtil.blocks(event.getRegistry())
@@ -579,44 +591,71 @@ public class MidnightBlocks {
                 .add("viridshroom_slab", SlabBlock::new)
                 .add("nightshroom_slab", SlabBlock::new)
 
-                .add("shadowroot_stairs", props -> new MidnightStairsBlock(() -> SHADOWROOT_PLANKS.getDefaultState(), props) {})
-                .add("dead_wood_stairs", props -> new MidnightStairsBlock(() -> DEAD_WOOD_PLANKS.getDefaultState(), props) {})
-                .add("dark_willow_stairs", props -> new MidnightStairsBlock(() -> DARK_WILLOW_PLANKS.getDefaultState(), props) {})
-                .add("dewshroom_stairs", props -> new MidnightStairsBlock(() -> DEWSHROOM_PLANKS.getDefaultState(), props) {})
-                .add("viridshroom_stairs", props -> new MidnightStairsBlock(() -> VIRIDSHROOM_PLANKS.getDefaultState(), props) {})
-                .add("nightshroom_stairs", props -> new MidnightStairsBlock(() -> NIGHTSHROOM_PLANKS.getDefaultState(), props) {})
+                .add("shadowroot_stairs", props -> new MidnightStairsBlock(() -> SHADOWROOT_PLANKS.getDefaultState(), props) {
+                })
+                .add("dead_wood_stairs", props -> new MidnightStairsBlock(() -> DEAD_WOOD_PLANKS.getDefaultState(), props) {
+                })
+                .add("dark_willow_stairs", props -> new MidnightStairsBlock(() -> DARK_WILLOW_PLANKS.getDefaultState(), props) {
+                })
+                .add("dewshroom_stairs", props -> new MidnightStairsBlock(() -> DEWSHROOM_PLANKS.getDefaultState(), props) {
+                })
+                .add("viridshroom_stairs", props -> new MidnightStairsBlock(() -> VIRIDSHROOM_PLANKS.getDefaultState(), props) {
+                })
+                .add("nightshroom_stairs", props -> new MidnightStairsBlock(() -> NIGHTSHROOM_PLANKS.getDefaultState(), props) {
+                })
 
-                .add("viridshroom_stem_cache", props -> new CacheBlock(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2f)){});
+                .add("viridshroom_stem_cache", props -> new CacheBlock(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2f)) {
+                });
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.from(Blocks.CRAFTING_TABLE))
-                .add("shadowroot_crafting_table", props -> new CraftingTableBlock(props){})
-                .add("dark_willow_crafting_table", props -> new CraftingTableBlock(props){})
-                .add("dead_wood_crafting_table", props -> new CraftingTableBlock(props){})
-                .add("nightshroom_crafting_table", props -> new CraftingTableBlock(props){})
-                .add("dewshroom_crafting_table", props -> new CraftingTableBlock(props){})
-                .add("viridshroom_crafting_table", props -> new CraftingTableBlock(props){});
+                .add("shadowroot_crafting_table", props -> new CraftingTableBlock(props) {
+                })
+                .add("dark_willow_crafting_table", props -> new CraftingTableBlock(props) {
+                })
+                .add("dead_wood_crafting_table", props -> new CraftingTableBlock(props) {
+                })
+                .add("nightshroom_crafting_table", props -> new CraftingTableBlock(props) {
+                })
+                .add("dewshroom_crafting_table", props -> new CraftingTableBlock(props) {
+                })
+                .add("viridshroom_crafting_table", props -> new CraftingTableBlock(props) {
+                });
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.IRON, MaterialColor.ADOBE).hardnessAndResistance(3f).sound(SoundType.METAL))
-                .add("tenebrum_door", props -> new DoorBlock(props) {});
+                .add("tenebrum_door", props -> new DoorBlock(props) {
+                });
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.WOOD, MaterialColor.ADOBE).hardnessAndResistance(3f).sound(SoundType.WOOD))
-                .add("shadowroot_door", props -> new DoorBlock(props) {})
-                .add("dark_willow_door", props -> new DoorBlock(props) {})
-                .add("dead_wood_door", props -> new DoorBlock(props) {})
-                .add("nightshroom_door", props -> new DoorBlock(props) {})
-                .add("dewshroom_door", props -> new DoorBlock(props) {})
-                .add("viridshroom_door", props -> new DoorBlock(props) {})
+                .add("shadowroot_door", props -> new DoorBlock(props) {
+                })
+                .add("dark_willow_door", props -> new DoorBlock(props) {
+                })
+                .add("dead_wood_door", props -> new DoorBlock(props) {
+                })
+                .add("nightshroom_door", props -> new DoorBlock(props) {
+                })
+                .add("dewshroom_door", props -> new DoorBlock(props) {
+                })
+                .add("viridshroom_door", props -> new DoorBlock(props) {
+                })
 
-                .add("shadowroot_trapdoor", props -> new TrapDoorBlock(props) {})
-                .add("dark_willow_trapdoor", props -> new TrapDoorBlock(props) {})
-                .add("dead_wood_trapdoor", props -> new TrapDoorBlock(props) {})
-                .add("tenebrum_trapdoor", props -> new TrapDoorBlock(props) {})
-                .add("nightshroom_trapdoor", props -> new TrapDoorBlock(props) {})
-                .add("dewshroom_trapdoor", props -> new TrapDoorBlock(props) {})
-                .add("viridshroom_trapdoor", props -> new TrapDoorBlock(props) {});
+                .add("shadowroot_trapdoor", props -> new TrapDoorBlock(props) {
+                })
+                .add("dark_willow_trapdoor", props -> new TrapDoorBlock(props) {
+                })
+                .add("dead_wood_trapdoor", props -> new TrapDoorBlock(props) {
+                })
+                .add("tenebrum_trapdoor", props -> new TrapDoorBlock(props) {
+                })
+                .add("nightshroom_trapdoor", props -> new TrapDoorBlock(props) {
+                })
+                .add("dewshroom_trapdoor", props -> new TrapDoorBlock(props) {
+                })
+                .add("viridshroom_trapdoor", props -> new TrapDoorBlock(props) {
+                });
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.WOOD, MaterialColor.ADOBE).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD))
@@ -636,46 +675,73 @@ public class MidnightBlocks {
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.4F).sound(SoundType.LADDER))
-                .add("shadowroot_ladder", props -> new LadderBlock(props) {})
-                .add("dead_wood_ladder", props -> new LadderBlock(props) {})
-                .add("dark_willow_ladder", props -> new LadderBlock(props) {})
-                .add("dewshroom_ladder", props -> new LadderBlock(props) {})
-                .add("viridshroom_ladder", props -> new LadderBlock(props) {})
-                .add("nightshroom_ladder", props -> new LadderBlock(props) {});
+                .add("shadowroot_ladder", props -> new LadderBlock(props) {
+                })
+                .add("dead_wood_ladder", props -> new LadderBlock(props) {
+                })
+                .add("dark_willow_ladder", props -> new LadderBlock(props) {
+                })
+                .add("dewshroom_ladder", props -> new LadderBlock(props) {
+                })
+                .add("viridshroom_ladder", props -> new LadderBlock(props) {
+                })
+                .add("nightshroom_ladder", props -> new LadderBlock(props) {
+                });
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD))
-                .add("shadowroot_button", props -> new WoodButtonBlock(props) {})
-                .add("dead_wood_button", props -> new WoodButtonBlock(props) {})
-                .add("dark_willow_button", props -> new WoodButtonBlock(props) {})
-                .add("dewshroom_button", props -> new WoodButtonBlock(props) {})
-                .add("viridshroom_button", props -> new WoodButtonBlock(props) {})
-                .add("nightshroom_button", props -> new WoodButtonBlock(props) {})
+                .add("shadowroot_button", props -> new WoodButtonBlock(props) {
+                })
+                .add("dead_wood_button", props -> new WoodButtonBlock(props) {
+                })
+                .add("dark_willow_button", props -> new WoodButtonBlock(props) {
+                })
+                .add("dewshroom_button", props -> new WoodButtonBlock(props) {
+                })
+                .add("viridshroom_button", props -> new WoodButtonBlock(props) {
+                })
+                .add("nightshroom_button", props -> new WoodButtonBlock(props) {
+                })
 
-                .add("midnight_lever", props -> new LeverBlock(props){});
+                .add("midnight_lever", props -> new LeverBlock(props) {
+                });
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.5F))
-                .add("nightstone_button", props -> new StoneButtonBlock(props) {}) //1.0F
-                .add("rockshroom_brick_button", props -> new StoneButtonBlock(props) {}) //1.0F
-                .add("trenchstone_button", props -> new StoneButtonBlock(props) {}); // TODO 3.75F button
+                .add("nightstone_button", props -> new StoneButtonBlock(props) {
+                }) //1.0F
+                .add("rockshroom_brick_button", props -> new StoneButtonBlock(props) {
+                }) //1.0F
+                .add("trenchstone_button", props -> new StoneButtonBlock(props) {
+                }); // TODO 3.75F button
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.IRON, MaterialColor.GOLD).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD))
-                .add("shadowroot_pressure_plate", props -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, props){})
-                .add("dead_wood_pressure_plate", props -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, props){})
-                .add("dark_willow_pressure_plate", props -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, props){})
-                .add("dewshroom_pressure_plate", props -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, props){})
-                .add("viridshroom_pressure_plate", props -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, props){})
-                .add("nightshroom_pressure_plate", props -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, props){});
+                .add("shadowroot_pressure_plate", props -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, props) {
+                })
+                .add("dead_wood_pressure_plate", props -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, props) {
+                })
+                .add("dark_willow_pressure_plate", props -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, props) {
+                })
+                .add("dewshroom_pressure_plate", props -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, props) {
+                })
+                .add("viridshroom_pressure_plate", props -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, props) {
+                })
+                .add("nightshroom_pressure_plate", props -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, props) {
+                });
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.IRON).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD))
-                .add("nightstone_pressure_plate", props -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, props){})
-                .add("rockshroom_brick_pressure_plate", props -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, props){})
-                .add("trenchstone_pressure_plate", props -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, props){}) // TODO 3.75F pressure_plate
-                .add("nagrilite_pressure_plate", props -> new WeightedPressurePlateBlock(150, props){})
-                .add("tenebrum_pressure_plate", props -> new WeightedPressurePlateBlock(150, props){});
+                .add("nightstone_pressure_plate", props -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, props) {
+                })
+                .add("rockshroom_brick_pressure_plate", props -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, props) {
+                })
+                .add("trenchstone_pressure_plate", props -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, props) {
+                }) // TODO 3.75F pressure_plate
+                .add("nagrilite_pressure_plate", props -> new WeightedPressurePlateBlock(150, props) {
+                })
+                .add("tenebrum_pressure_plate", props -> new WeightedPressurePlateBlock(150, props) {
+                });
 
         RegUtil.blocks(event.getRegistry())
                 .add("dark_water", new MidnightFluidBlock(MidnightFluids.DARK_WATER, false, Block.Properties.create(Material.WATER)

@@ -12,6 +12,7 @@ public class ViridshroomTree extends Tree {
     @Nullable
     @Override
     protected AbstractTreeFeature<NoFeatureConfig> getTreeFeature(Random random) {
-        return MidnightFeatures.LARGE_VIRIDSHROOM;
+        int value = random.nextInt(10);
+        return value >= 7 ? MidnightFeatures.MEDIUM_VIRIDSHROOM : MidnightFeatures.SMALL_VIRIDSHROOM;
     }
 }
