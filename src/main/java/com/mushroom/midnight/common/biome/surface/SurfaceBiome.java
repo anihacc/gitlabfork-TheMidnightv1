@@ -126,12 +126,12 @@ public abstract class SurfaceBiome extends Biome implements ConfigurableBiome {
     public static class Properties extends Biome.Builder {
         private float ridgeWeight = 1.0F;
         private float densityScale = 1.0F;
-        private int grassColor = 0xB084BC;
+        private int grassColor = 0x766B9E;
         private int foliageColor = 0x8F6DBC;
         private int skyColor = 0x171B32;
 
         private float fogStart = 20.0F;
-        private float fogEnd = 200.0F;
+        private float fogEnd = 140.0F;
 
         public Properties() {
             super.precipitation(RainType.NONE);

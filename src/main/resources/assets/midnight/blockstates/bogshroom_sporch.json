@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "": { "model": "midnight:block/bogshroom_sporch" }
-    }
+  "variants": {
+    "": {"model": "midnight:block/bogshroom_sporch"}
+  }
 }

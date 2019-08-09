@@ -85,23 +85,23 @@ public class MidnightSurfaceBiomes {
         BiomeDictionary.addTypes(HILLY_FUNGI_FOREST, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.SPOOKY);
 
         MidnightBiomeGroup.SURFACE.add(
-                new BiomeSpawnEntry.Basic(VIGILANT_FOREST, 100),
+                new BiomeSpawnEntry.Basic(VIGILANT_FOREST, 90),
                 new BiomeSpawnEntry.Basic(FUNGI_FOREST, 70),
                 new BiomeSpawnEntry.Basic(DECEITFUL_BOG, 70),
                 new BiomeSpawnEntry.Basic(OBSCURED_PLATEAU, 50),
-                new BiomeSpawnEntry.Basic(NIGHT_PLAINS, 100)
+                new BiomeSpawnEntry.Basic(NIGHT_PLAINS, 110),
+                new BiomeSpawnEntry.Basic(WARPED_FIELDS, 40)
         );
 
         MidnightBiomeGroup.SURFACE_POCKET.add(
                 new BiomeSpawnEntry.Basic(OBSCURED_PEAKS, 10)
                         .canReplace(OBSCURED_PLATEAU, BLACK_RIDGE),
-                new BiomeSpawnEntry.Basic(WARPED_FIELDS, 5),
-                new BiomeSpawnEntry.Basic(CRYSTAL_SPIRES, 3),
+                new BiomeSpawnEntry.Basic(CRYSTAL_SPIRES, 2),
                 new BiomeSpawnEntry.Basic(RUNEBUSH_GROVE, 3)
                         .canReplace(VIGILANT_FOREST),
-                new BiomeSpawnEntry.Basic(HILLY_VIGILANT_FOREST, 5)
+                new BiomeSpawnEntry.Basic(HILLY_VIGILANT_FOREST, 6)
                         .canReplace(VIGILANT_FOREST),
-                new BiomeSpawnEntry.Basic(HILLY_FUNGI_FOREST, 5)
+                new BiomeSpawnEntry.Basic(HILLY_FUNGI_FOREST, 6)
                         .canReplace(FUNGI_FOREST)
         );
     }

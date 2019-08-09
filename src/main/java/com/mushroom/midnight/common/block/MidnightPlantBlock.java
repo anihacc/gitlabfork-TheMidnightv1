@@ -58,7 +58,7 @@ public class MidnightPlantBlock extends BushBlock implements IGrowable, Generata
 
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader world, BlockPos pos) {
-            return state.getBlock().isIn(MidnightTags.Blocks.PLANTABLE_GROUNDS);
+        return state.getBlock().isIn(MidnightTags.Blocks.PLANTABLE_GROUNDS);
     }
 
     @Override
@@ -73,21 +73,19 @@ public class MidnightPlantBlock extends BushBlock implements IGrowable, Generata
 
     @Override
     public boolean canRenderInLayer(BlockState state, BlockRenderLayer layer) {
-        return glowing ? layer == BlockRenderLayer.TRANSLUCENT || layer == BlockRenderLayer.CUTOUT : super.canRenderInLayer(state, layer);
+        return this.glowing ? layer == BlockRenderLayer.TRANSLUCENT || layer == BlockRenderLayer.CUTOUT : super.canRenderInLayer(state, layer);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public int getPackedLightmapCoords(BlockState state, IEnviromentBlockReader source, BlockPos pos) {
-        if (!glowing) {
-            return super.getPackedLightmapCoords(state, source, pos);
-        }
+        if (!this.glowing) return super.getPackedLightmapCoords(state, source, pos);
+
         if (MinecraftForgeClient.getRenderLayer() == BlockRenderLayer.CUTOUT) {
             return source.getCombinedLight(pos, 0);
+        } else {
+            return source.getCombinedLight(pos, 14);
         }
-        int skyLight = 14;
-        int blockLight = 14;
-        return skyLight << 20 | blockLight << 4;
     }
 
     @Override
@@ -113,7 +111,7 @@ public class MidnightPlantBlock extends BushBlock implements IGrowable, Generata
     @Override
     public void grow(World worldIn, Random rand, BlockPos pos, BlockState state) {
         if (this.growSupplier != null) {
-            MidnightDoublePlantBlock doublePlant = (MidnightDoublePlantBlock) growSupplier.get();
+            MidnightDoublePlantBlock doublePlant = (MidnightDoublePlantBlock) this.growSupplier.get();
             if (doublePlant.getDefaultState().isValidPosition(worldIn, pos) && worldIn.isAirBlock(pos.up())) {
                 doublePlant.placeAt(worldIn, pos, 2);
             }

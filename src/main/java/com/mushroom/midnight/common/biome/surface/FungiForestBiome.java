@@ -11,7 +11,7 @@ public class FungiForestBiome extends SurfaceBiome {
                 .grassColor(0x8489B5)
                 .skyColor(0x15292D)
                 .depth(0.155F)
-                .scale(0.07F)
+                .scale(0.1F)
         );
 
         MidnightBiomeConfigurator.addStructureFeatures(this);
@@ -21,8 +21,11 @@ public class FungiForestBiome extends SurfaceBiome {
 
         MidnightBiomeConfigurator.addLargeFungis(this);
         MidnightBiomeConfigurator.addLumen(this);
-        MidnightBiomeConfigurator.addDenseSmallFungis(this);
-        MidnightBiomeConfigurator.addDenseTallFungis(this);
+
+        MidnightBiomeConfigurator.addNightshroomFlowers(this);
+        MidnightBiomeConfigurator.addDewshroomFlowers(this);
+        MidnightBiomeConfigurator.addViridshroomFlowers(this);
+
         MidnightBiomeConfigurator.addDeadViridShroomAndCache(this);
         MidnightBiomeConfigurator.addGrasses(this);
         MidnightBiomeConfigurator.addBladeshrooms(this);

@@ -99,45 +99,31 @@ public class MidnightBiomeConfigurator {
         ));
     }
 
-    public static void addSmallFungis(ConfigurableBiome biome) {
+    public static void addNightshroomFlowers(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                MidnightFeatures.FUNGI_FLOWERS, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.COUNT_SURFACE_32, new FrequencyConfig(2)
+                MidnightFeatures.NIGHTSHROOM_FLOWERS, IFeatureConfig.NO_FEATURE_CONFIG,
+                MidnightPlacements.COUNT_SURFACE_32, new FrequencyConfig(10)
         ));
     }
 
-    public static void addDenseSmallFungis(ConfigurableBiome biome) {
+    public static void addDewshroomFlowers(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                MidnightFeatures.FUNGI_FLOWERS, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.COUNT_SURFACE_32, new FrequencyConfig(6)
+                MidnightFeatures.DEWSHROOM_FLOWERS, IFeatureConfig.NO_FEATURE_CONFIG,
+                MidnightPlacements.COUNT_SURFACE_32, new FrequencyConfig(10)
         ));
     }
 
-    public static void addSmallBogFungis(ConfigurableBiome biome) {
+    public static void addViridshroomFlowers(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                MidnightFeatures.BOG_FUNGI_FLOWERS, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.COUNT_SURFACE_32, new FrequencyConfig(2)
+                MidnightFeatures.VIRIDSHROOM_FLOWERS, IFeatureConfig.NO_FEATURE_CONFIG,
+                MidnightPlacements.COUNT_SURFACE_32, new FrequencyConfig(10)
         ));
     }
 
-    public static void addTallFungis(ConfigurableBiome biome) {
+    public static void addBogshroomFlowers(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                MidnightFeatures.TALL_FUNGI, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.COUNT_SURFACE_32, new FrequencyConfig(1)
-        ));
-    }
-
-    public static void addDenseTallFungis(ConfigurableBiome biome) {
-        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                MidnightFeatures.TALL_FUNGI, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.COUNT_SURFACE_32, new FrequencyConfig(6)
-        ));
-    }
-
-    public static void addTallBogFungis(ConfigurableBiome biome) {
-        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                MidnightFeatures.TALL_BOG_FUNGI, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.COUNT_SURFACE_32, new FrequencyConfig(6)
+                MidnightFeatures.BOGSHROOM_FLOWERS, IFeatureConfig.NO_FEATURE_CONFIG,
+                MidnightPlacements.COUNT_SURFACE_32, new FrequencyConfig(10)
         ));
     }
 
@@ -170,7 +156,7 @@ public class MidnightBiomeConfigurator {
     public static void addGrasses(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
                 Feature.GRASS, new GrassFeatureConfig(MidnightBlocks.GRASS.getDefaultState()),
-                MidnightPlacements.COUNT_SURFACE_DOUBLE, new FrequencyConfig(4)
+                MidnightPlacements.COUNT_SURFACE_DOUBLE, new FrequencyConfig(3)
         ));
 
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
@@ -338,20 +324,6 @@ public class MidnightBiomeConfigurator {
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
                 MidnightFeatures.DECEITFUL_MOSS, IFeatureConfig.NO_FEATURE_CONFIG,
                 MidnightPlacements.COUNT_SURFACE_DOUBLE, new FrequencyConfig(16)
-        ));
-    }
-
-    public static void addUndergroundSmallFungis(ConfigurableBiome biome) {
-        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                MidnightFeatures.FUNGI_FLOWERS, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.COUNT_UNDERGROUND_32, new FrequencyConfig(6)
-        ));
-    }
-
-    public static void addUndergroundTallFungis(ConfigurableBiome biome) {
-        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                MidnightFeatures.TALL_FUNGI, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.COUNT_UNDERGROUND_32, new FrequencyConfig(6)
         ));
     }
 

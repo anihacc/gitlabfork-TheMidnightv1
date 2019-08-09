@@ -8,6 +8,7 @@ public class VigilantForestBiome extends SurfaceBiome {
         super(new Properties()
                 .surfaceBuilder(MidnightSurfaceBuilders.SURFACE, MidnightSurfaceBuilders.GRASS_DIRT_MUD_CONFIG)
                 .category(Category.FOREST)
+                .grassColor(0x695F8C)
                 .depth(0.155F)
                 .scale(0.07F)
                 .fog(0.1F, 80.0F)
@@ -28,7 +29,8 @@ public class VigilantForestBiome extends SurfaceBiome {
         MidnightBiomeConfigurator.addVioleafs(this);
 
         MidnightBiomeConfigurator.addLumen(this);
-        MidnightBiomeConfigurator.addSmallFungis(this);
+        MidnightBiomeConfigurator.addNightshroomFlowers(this);
+
         MidnightBiomeConfigurator.addGrasses(this);
 
         MidnightBiomeConfigurator.addGlobalFeatures(this);

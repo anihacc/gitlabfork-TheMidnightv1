@@ -68,20 +68,13 @@ public class MidnightFungiHatBlock extends Block {
     @Override
     public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean isMoving) {
         super.onBlockAdded(state, world, pos, oldState, isMoving);
-
-        if (state.get(UP)) placeFungiInside(world, pos, Direction.UP);
-        if (state.get(DOWN)) placeFungiInside(world, pos, Direction.DOWN);
-        if (state.get(NORTH)) placeFungiInside(world, pos, Direction.NORTH);
-        if (state.get(SOUTH)) placeFungiInside(world, pos, Direction.SOUTH);
-        if (state.get(EAST)) placeFungiInside(world, pos, Direction.EAST);
-        if (state.get(WEST)) placeFungiInside(world, pos, Direction.WEST);
+        placeFungiInsides(world, state, pos);
     }
 
-    private static void placeFungiInside(World world, BlockPos pos, Direction direction) {
-        BlockPos insidePos = pos.offset(direction);
-        if (world.isAirBlock(insidePos)) {
-            world.setBlockState(insidePos, MidnightBlocks.FUNGI_INSIDE.getDefaultState());
-        }
+    @Override
+    public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+        super.neighborChanged(state, world, pos, block, fromPos, isMoving);
+        placeFungiInsides(world, state, pos);
     }
 
     @Override
@@ -98,25 +91,6 @@ public class MidnightFungiHatBlock extends Block {
     @Override
     public boolean canCreatureSpawn(BlockState state, IBlockReader world, BlockPos pos, EntitySpawnPlacementRegistry.PlacementType type, @Nullable EntityType<?> entityType) {
         return false;
-    }
-
-    private static BooleanProperty getFaceProperty(Direction direction) {
-        switch (direction) {
-            case DOWN:
-                return DOWN;
-            case UP:
-                return UP;
-            case NORTH:
-                return NORTH;
-            case SOUTH:
-                return SOUTH;
-            case WEST:
-                return WEST;
-            case EAST:
-                return EAST;
-            default:
-                throw new Error();
-        }
     }
 
     @Override
@@ -153,5 +127,38 @@ public class MidnightFungiHatBlock extends Block {
         }
 
         return state;
+    }
+
+    private static void placeFungiInsides(World world, BlockState state, BlockPos pos) {
+        for (Direction direction : Direction.values()) {
+            BooleanProperty property = getFaceProperty(direction);
+            if (state.get(property)) placeFungiInside(world, pos, direction);
+        }
+    }
+
+    private static void placeFungiInside(World world, BlockPos pos, Direction direction) {
+        BlockPos insidePos = pos.offset(direction);
+        if (world.isAirBlock(insidePos)) {
+            world.setBlockState(insidePos, MidnightBlocks.FUNGI_INSIDE.getDefaultState());
+        }
+    }
+
+    private static BooleanProperty getFaceProperty(Direction direction) {
+        switch (direction) {
+            case DOWN:
+                return DOWN;
+            case UP:
+                return UP;
+            case NORTH:
+                return NORTH;
+            case SOUTH:
+                return SOUTH;
+            case WEST:
+                return WEST;
+            case EAST:
+                return EAST;
+            default:
+                throw new Error();
+        }
     }
 }

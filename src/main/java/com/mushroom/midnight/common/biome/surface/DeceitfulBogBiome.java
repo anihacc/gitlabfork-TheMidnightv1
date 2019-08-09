@@ -11,7 +11,7 @@ public class DeceitfulBogBiome extends SurfaceBiome {
         super(new Properties()
                 .surfaceBuilder(MidnightSurfaceBuilders.BOG, MidnightSurfaceBuilders.PEAT_CONFIG)
                 .category(Category.SWAMP)
-                .grassColor(0x8893AD)
+                .grassColor(0x554E70)
                 .skyColor(0x1E1716)
                 .depth(-1F)
                 .scale(0.2F)
@@ -30,8 +30,8 @@ public class DeceitfulBogBiome extends SurfaceBiome {
         MidnightBiomeConfigurator.addDeadLogs(this);
 
         MidnightBiomeConfigurator.addBogweed(this);
-        MidnightBiomeConfigurator.addSmallBogFungis(this);
-        MidnightBiomeConfigurator.addTallBogFungis(this);
+        MidnightBiomeConfigurator.addBogshroomFlowers(this);
+        MidnightBiomeConfigurator.addDewshroomFlowers(this);
 
         MidnightBiomeConfigurator.addAlgaeAndMoss(this);
         MidnightBiomeConfigurator.addGrasses(this);

@@ -29,6 +29,7 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -36,7 +37,6 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.util.List;
 
@@ -151,7 +151,7 @@ public class CommonEventHandler {
     @SubscribeEvent
     public static void onSleep(PlayerSleepInBedEvent event) {
         if (event.getResultStatus() == null) {
-            PlayerEntity player = event.getEntityPlayer();
+            PlayerEntity player = event.getPlayer();
             BlockPos bedPos = player.getPosition(); // event.getPos() is nullable in the forge event
 
             List<RiftEntity> rifts = player.world.getEntitiesWithinAABB(RiftEntity.class, new AxisAlignedBB(bedPos).grow(6.0));

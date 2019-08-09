@@ -10,7 +10,7 @@ public class NightPlainsBiome extends SurfaceBiome {
         super(new Properties()
                 .surfaceBuilder(MidnightSurfaceBuilders.SURFACE, MidnightSurfaceBuilders.GRASS_DIRT_MUD_CONFIG)
                 .category(Category.PLAINS)
-                .grassColor(0xBAA3C6)
+                .grassColor(0xAFA6B5)
                 .depth(0.12F)
                 .scale(0.26F)
                 .ridgeWeight(0.0F)

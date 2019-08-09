@@ -21,7 +21,7 @@ public class AmbientSporeParticle extends MidnightParticle {
         this.motionX *= 0.1;
         this.motionY *= 0.1;
         this.motionZ *= 0.1;
-        this.maxAge = 200;
+        this.maxAge = 150;
         this.canCollide = true;
     }
 

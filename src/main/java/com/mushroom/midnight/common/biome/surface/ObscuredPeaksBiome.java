@@ -8,14 +8,15 @@ public class ObscuredPeaksBiome extends SurfaceBiome {
         super(new Properties()
                 .surfaceBuilder(MidnightSurfaceBuilders.SURFACE, MidnightSurfaceBuilders.NIGHTSTONE_CONFIG)
                 .category(Category.EXTREME_HILLS)
-                .depth(6.0F)
+                .depth(6.2F)
                 .scale(0.5F)
         );
 
         MidnightBiomeConfigurator.addStructureFeatures(this);
         MidnightBiomeConfigurator.addGlobalOres(this);
 
-        MidnightBiomeConfigurator.addSmallFungis(this);
+        MidnightBiomeConfigurator.addDewshroomFlowers(this);
+
         MidnightBiomeConfigurator.addLumen(this);
         MidnightBiomeConfigurator.addTrenchstoneBoulders(this);
         MidnightBiomeConfigurator.addGlobalFeatures(this);

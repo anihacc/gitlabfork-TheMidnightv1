@@ -12,6 +12,7 @@ public class RunebushGroveBiome extends SurfaceBiome {
                 .skyColor(0x1F3B4A)
                 .depth(0.155F)
                 .scale(0.07F)
+                .fog(0.1F, 80.0F)
         );
 
         MidnightBiomeConfigurator.addStructureFeatures(this);

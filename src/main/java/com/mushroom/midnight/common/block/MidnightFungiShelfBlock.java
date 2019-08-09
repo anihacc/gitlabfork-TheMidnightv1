@@ -45,6 +45,7 @@ public class MidnightFungiShelfBlock extends Block {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
+        if (context.getFace() == Direction.DOWN) return null;
         return this.getDefaultState().with(FACING, context.getFace());
     }
 

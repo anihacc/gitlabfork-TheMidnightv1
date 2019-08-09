@@ -15,7 +15,7 @@ public class BlackRidgeBiome extends SurfaceBiome {
         MidnightBiomeConfigurator.addStructureFeatures(this);
         MidnightBiomeConfigurator.addGlobalOres(this);
 
-        MidnightBiomeConfigurator.addSmallFungis(this);
+        MidnightBiomeConfigurator.addDewshroomFlowers(this);
         MidnightBiomeConfigurator.addLumen(this);
         MidnightBiomeConfigurator.addTrenchstoneBoulders(this);
         MidnightBiomeConfigurator.addGlobalFeatures(this);

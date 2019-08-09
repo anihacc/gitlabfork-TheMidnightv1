@@ -9,6 +9,7 @@ import com.mushroom.midnight.common.world.layer.CellSeedLayer;
 import com.mushroom.midnight.common.world.layer.CreateGroupPocketsLayer;
 import com.mushroom.midnight.common.world.layer.EdgeMergeLayer;
 import com.mushroom.midnight.common.world.layer.ProduceOutlineLayer;
+import com.mushroom.midnight.common.world.layer.ReplaceRandomLayer;
 import com.mushroom.midnight.common.world.layer.SeedGroupLayer;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
@@ -66,6 +67,8 @@ public final class BiomeLayerType<T> {
         int valleyId = Registry.BIOME.getId(MidnightSurfaceBiomes.PHANTASMAL_VALLEY);
 
         IAreaFactory<A> ridgeLayer = buildEdgeHighlightLayer(contextFactory, 100);
+        ridgeLayer = new ReplaceRandomLayer(0, 10).apply(contextFactory.apply(110), ridgeLayer);
+
         IAreaFactory<A> valleyLayer = buildEdgeHighlightLayer(contextFactory, 200);
 
         IAreaFactory<A> layer = new SeedGroupLayer(MidnightBiomeGroup.SURFACE).apply(contextFactory.apply(0));

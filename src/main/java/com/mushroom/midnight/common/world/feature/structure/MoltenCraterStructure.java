@@ -34,7 +34,7 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
 
     private static final int SEED = 0x9C55CF;
 
-    private static final int GRID_SIZE = 16;
+    private static final int GRID_SIZE = 20;
     private static final int SEPARATION = 8;
 
     private static final int MIN_RADIUS = 16;

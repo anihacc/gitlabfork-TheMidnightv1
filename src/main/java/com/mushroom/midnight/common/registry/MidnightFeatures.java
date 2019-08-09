@@ -2,12 +2,11 @@ package com.mushroom.midnight.common.registry;
 
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.world.feature.AlgaeFeature;
-import com.mushroom.midnight.common.world.feature.BogFungiFlowersFeature;
 import com.mushroom.midnight.common.world.feature.BogweedFlowersFeature;
 import com.mushroom.midnight.common.world.feature.CrystalClusterFeature;
 import com.mushroom.midnight.common.world.feature.CrystalFlowersFeature;
 import com.mushroom.midnight.common.world.feature.DeadLogFeature;
-import com.mushroom.midnight.common.world.feature.FungiFlowersFeature;
+import com.mushroom.midnight.common.world.feature.FungiPatchFeature;
 import com.mushroom.midnight.common.world.feature.GlobFungiFlowersFeature;
 import com.mushroom.midnight.common.world.feature.HeapFeature;
 import com.mushroom.midnight.common.world.feature.MidnightDoublePlantFeature;
@@ -16,8 +15,6 @@ import com.mushroom.midnight.common.world.feature.MossFeature;
 import com.mushroom.midnight.common.world.feature.NightstoneBoulderFeature;
 import com.mushroom.midnight.common.world.feature.ScatteredPlantFeature;
 import com.mushroom.midnight.common.world.feature.SpikeFeature;
-import com.mushroom.midnight.common.world.feature.TallBogFungiFeature;
-import com.mushroom.midnight.common.world.feature.TallFungiFeature;
 import com.mushroom.midnight.common.world.feature.TrenchstoneBoulderFeature;
 import com.mushroom.midnight.common.world.feature.UnstableBushFeature;
 import com.mushroom.midnight.common.world.feature.ViridshroomCacheFeature;
@@ -76,16 +73,16 @@ public class MidnightFeatures {
     public static final Feature<NoFeatureConfig> DECEITFUL_MOSS = new MossFeature(NoFeatureConfig::deserialize);
 
     public static final Feature<DoublePlantConfig> DOUBLE_PLANT = new MidnightDoublePlantFeature(DoublePlantConfig::deserialize);
-    public static final Feature<NoFeatureConfig> FUNGI_FLOWERS = new FungiFlowersFeature(NoFeatureConfig::deserialize);
-    public static final Feature<NoFeatureConfig> BOG_FUNGI_FLOWERS = new BogFungiFlowersFeature(NoFeatureConfig::deserialize);
+
+    public static final Feature<NoFeatureConfig> NIGHTSHROOM_FLOWERS = new FungiPatchFeature(NoFeatureConfig::deserialize, MidnightBlocks.NIGHTSHROOM.getDefaultState(), MidnightBlocks.DOUBLE_NIGHTSHROOM.getDefaultState(), SMALL_NIGHTSHROOM);
+    public static final Feature<NoFeatureConfig> DEWSHROOM_FLOWERS = new FungiPatchFeature(NoFeatureConfig::deserialize, MidnightBlocks.DEWSHROOM.getDefaultState(), MidnightBlocks.DOUBLE_DEWSHROOM.getDefaultState(), SMALL_DEWSHROOM);
+    public static final Feature<NoFeatureConfig> VIRIDSHROOM_FLOWERS = new FungiPatchFeature(NoFeatureConfig::deserialize, MidnightBlocks.VIRIDSHROOM.getDefaultState(), MidnightBlocks.DOUBLE_VIRIDSHROOM.getDefaultState(), SMALL_VIRIDSHROOM);
+    public static final Feature<NoFeatureConfig> BOGSHROOM_FLOWERS = new FungiPatchFeature(NoFeatureConfig::deserialize, MidnightBlocks.BOGSHROOM.getDefaultState(), MidnightBlocks.DOUBLE_BOGSHROOM.getDefaultState(), LARGE_BOGSHROOM);
+    public static final Feature<NoFeatureConfig> GLOB_FUNGI_FLOWERS = new GlobFungiFlowersFeature(NoFeatureConfig::deserialize);
     public static final Feature<NoFeatureConfig> BOGWEED_FLOWERS = new BogweedFlowersFeature(NoFeatureConfig::deserialize);
     public static final Feature<NoFeatureConfig> CRYSTAL_FLOWERS = new CrystalFlowersFeature(NoFeatureConfig::deserialize);
-    public static final Feature<NoFeatureConfig> GLOB_FUNGI_FLOWERS = new GlobFungiFlowersFeature(NoFeatureConfig::deserialize);
 
     public static final Feature<NoFeatureConfig> UNSTABLE_BUSH = new UnstableBushFeature(NoFeatureConfig::deserialize);
-
-    public static final Feature<NoFeatureConfig> TALL_FUNGI = new TallFungiFeature(NoFeatureConfig::deserialize);
-    public static final Feature<NoFeatureConfig> TALL_BOG_FUNGI = new TallBogFungiFeature(NoFeatureConfig::deserialize);
 
     public static final Feature<UniformCompositionConfig> HEAP = new HeapFeature(UniformCompositionConfig::deserialize);
     public static final Feature<UniformCompositionConfig> SPIKE = new SpikeFeature(UniformCompositionConfig::deserialize);
@@ -124,10 +121,10 @@ public class MidnightFeatures {
                 .add("deceitful_algae", DECEITFUL_ALGAE)
                 .add("deceitful_moss", DECEITFUL_MOSS)
                 .add("double_plant", DOUBLE_PLANT)
-                .add("fungi_flowers", FUNGI_FLOWERS)
-                .add("bog_fungi_flowers", BOG_FUNGI_FLOWERS)
-                .add("tall_fungi", TALL_FUNGI)
-                .add("tall_bog_fungi", TALL_BOG_FUNGI)
+                .add("nightshroom_flowers", NIGHTSHROOM_FLOWERS)
+                .add("dewshroom_flowers", DEWSHROOM_FLOWERS)
+                .add("viridshroom_flowers", VIRIDSHROOM_FLOWERS)
+                .add("bogshroom_flowers", BOGSHROOM_FLOWERS)
                 .add("bogweed_flowers", BOGWEED_FLOWERS)
                 .add("crystal_flowers", CRYSTAL_FLOWERS)
                 .add("glob_fungi_flowers", GLOB_FUNGI_FLOWERS)
