@@ -10,6 +10,7 @@ public class HillyVigilantForestBiome extends SurfaceBiome {
                 .category(Category.FOREST)
                 .depth(2.25F)
                 .scale(0.4F)
+                .fog(0.1F, 80.0F)
         );
 
         MidnightBiomeConfigurator.addStructureFeatures(this);

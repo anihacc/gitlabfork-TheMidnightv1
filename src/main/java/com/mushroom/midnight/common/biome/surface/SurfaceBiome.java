@@ -31,6 +31,9 @@ public abstract class SurfaceBiome extends Biome implements ConfigurableBiome {
     private final int foliageColor;
     private final int skyColor;
 
+    private final float fogStart;
+    private final float fogEnd;
+
     protected SurfaceBiome(Properties properties) {
         super(properties);
 
@@ -40,6 +43,9 @@ public abstract class SurfaceBiome extends Biome implements ConfigurableBiome {
         this.grassColor = properties.grassColor;
         this.foliageColor = properties.foliageColor;
         this.skyColor = properties.skyColor;
+
+        this.fogStart = properties.fogStart;
+        this.fogEnd = properties.fogEnd;
     }
 
     @Override
@@ -67,6 +73,14 @@ public abstract class SurfaceBiome extends Biome implements ConfigurableBiome {
 
     public int getSkyColor() {
         return this.skyColor;
+    }
+
+    public float getFogStart() {
+        return this.fogStart;
+    }
+
+    public float getFogEnd() {
+        return this.fogEnd;
     }
 
     @Override
@@ -116,6 +130,9 @@ public abstract class SurfaceBiome extends Biome implements ConfigurableBiome {
         private int foliageColor = 0x8F6DBC;
         private int skyColor = 0x171B32;
 
+        private float fogStart = 20.0F;
+        private float fogEnd = 200.0F;
+
         public Properties() {
             super.precipitation(RainType.NONE);
             super.downfall(0.0F);
@@ -146,6 +163,12 @@ public abstract class SurfaceBiome extends Biome implements ConfigurableBiome {
 
         public Properties skyColor(int skyColor) {
             this.skyColor = skyColor;
+            return this;
+        }
+
+        public Properties fog(float start, float end) {
+            this.fogStart = start;
+            this.fogEnd = end;
             return this;
         }
 

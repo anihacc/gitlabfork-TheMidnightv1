@@ -6,12 +6,11 @@ import com.mushroom.midnight.common.biome.BiomeLayers;
 import com.mushroom.midnight.common.biome.cavern.CavernousBiome;
 import com.mushroom.midnight.common.config.MidnightConfig;
 import com.mushroom.midnight.common.registry.MidnightDimensions;
-import com.mushroom.midnight.common.world.util.SkyColorInterpolator;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -31,8 +30,6 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class MidnightDimension extends Dimension {
-    private static final Vec3d LIGHTING_SKY_COLOR = new Vec3d(1.0, 0.35, 0.25);
-
     public MidnightDimension(World world, DimensionType type) {
         super(world, type);
     }
@@ -100,9 +97,10 @@ public class MidnightDimension extends Dimension {
         colors[1] = blockLight * 0.96F + 0.03F;
         colors[2] = blockLight * 0.94F + 0.16F;
         if (this.world.getLastLightningBolt() > 0) {
-            colors[0] = 0.95F;
-            colors[1] = 0.3F;
-            colors[2] = 0.3F;
+            float undergroundFactor = (float) MidnightAtmosphereController.INSTANCE.getUndergroundFactor();
+            colors[0] = MathHelper.lerp(undergroundFactor, 0.95F, colors[0]);
+            colors[1] = MathHelper.lerp(undergroundFactor, 0.3F, colors[1]);
+            colors[2] = MathHelper.lerp(undergroundFactor, 0.3F, colors[2]);
         }
     }
 
@@ -126,10 +124,12 @@ public class MidnightDimension extends Dimension {
     @Override
     @OnlyIn(Dist.CLIENT)
     public Vec3d getFogColor(float celestialAngle, float partialTicks) {
-        if (this.world.getLastLightningBolt() > 0 && Minecraft.getInstance().player.posY > 50) {
-            return LIGHTING_SKY_COLOR;
-        }
-        return SkyColorInterpolator.INSTANCE.get(partialTicks);
+        return MidnightAtmosphereController.INSTANCE.computeSkyColor();
+    }
+
+    @Override
+    public Vec3d getSkyColor(BlockPos cameraPos, float partialTicks) {
+        return MidnightAtmosphereController.INSTANCE.computeSkyColor();
     }
 
     @Override
@@ -190,12 +190,7 @@ public class MidnightDimension extends Dimension {
 
     @Override
     public double getVoidFogYFactor() {
-        return 0.0;
-    }
-
-    @Override
-    public Vec3d getSkyColor(BlockPos cameraPos, float partialTicks) {
-        return SkyColorInterpolator.INSTANCE.get(partialTicks);
+        return 1.0;
     }
 
     @Nullable

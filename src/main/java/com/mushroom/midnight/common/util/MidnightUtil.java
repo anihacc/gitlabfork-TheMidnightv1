@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 
@@ -57,5 +58,16 @@ public final class MidnightUtil {
         ItemEntity itemEntity = new ItemEntity(world, x, y, z, stack);
         world.addEntity(itemEntity);
         return itemEntity;
+    }
+
+    public static Vec3d lerp(Vec3d a, Vec3d b, double alpha) {
+        if (alpha <= 0.0) return a;
+        if (alpha >= 1.0) return b;
+
+        return new Vec3d(
+                a.x + (b.x - a.x) * alpha,
+                a.y + (b.y - a.y) * alpha,
+                a.z + (b.z - a.z) * alpha
+        );
     }
 }

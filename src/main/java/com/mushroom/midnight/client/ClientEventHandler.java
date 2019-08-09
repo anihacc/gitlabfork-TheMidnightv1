@@ -14,6 +14,7 @@ import com.mushroom.midnight.common.util.EntityUtil;
 import com.mushroom.midnight.common.util.MidnightUtil;
 import com.mushroom.midnight.common.util.ResetHookHandler;
 import com.mushroom.midnight.common.world.GlobalBridgeManager;
+import com.mushroom.midnight.common.world.MidnightAtmosphereController;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.MusicTicker;
@@ -147,8 +148,9 @@ public class ClientEventHandler {
 
         if (MidnightUtil.isMidnightDimension(entity.world)) {
             float farDistance = event.getFarPlaneDistance();
-            float fogStart = 20.0F;
-            float fogEnd = 200.0F;
+
+            float fogStart = (float) MidnightAtmosphereController.INSTANCE.getFogStart();
+            float fogEnd = (float) MidnightAtmosphereController.INSTANCE.getFogEnd();
 
             GlStateManager.fogStart(Math.min(fogStart, farDistance));
             GlStateManager.fogEnd(Math.min(fogEnd, farDistance));
