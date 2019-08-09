@@ -10,6 +10,6 @@ public class GreatCavernBiome extends CavernousBiome {
                 .heightScale(0.4F)
         );
 
-        MidnightBiomeConfigurator.addUndergroundSpawns(this);
+        MidnightBiomeConfigurator.addStandardUndergroundSpawns(this);
     }
 }

@@ -8,6 +8,7 @@ import com.mushroom.midnight.common.config.MidnightConfig;
 import com.mushroom.midnight.common.registry.MidnightDimensions;
 import com.mushroom.midnight.common.world.util.SkyColorInterpolator;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -18,6 +19,8 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.Heightmap;
+import net.minecraft.world.server.ChunkHolder;
 import net.minecraft.world.server.ServerChunkProvider;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
@@ -25,6 +28,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.IRenderHandler;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
 public class MidnightDimension extends Dimension {
     private static final Vec3d LIGHTING_SKY_COLOR = new Vec3d(1.0, 0.35, 0.25);
@@ -147,8 +151,7 @@ public class MidnightDimension extends Dimension {
             // disable here for custom spawner if needed
             //chunkProvider.setAllowedSpawnTypes(false, false);
 
-            // TODO
-            /*chunkProvider.chunkManager.func_223491_f().forEach(chunkHolder -> {
+            chunkProvider.chunkManager.func_223491_f().forEach(chunkHolder -> {
                 chunkHolder.func_219297_b().getNow(ChunkHolder.UNLOADED_CHUNK).left().ifPresent(chunk -> {
                     Random rand = this.world.rand;
 
@@ -166,7 +169,7 @@ public class MidnightDimension extends Dimension {
                         }
                     }
                 });
-            });*/
+            });
         }
     }
 
@@ -183,6 +186,11 @@ public class MidnightDimension extends Dimension {
     @Override
     public boolean doesXZShowFog(int x, int z) {
         return false;
+    }
+
+    @Override
+    public double getVoidFogYFactor() {
+        return 0.0;
     }
 
     @Override

@@ -33,6 +33,10 @@ public class MidnightBiomeConfigurator {
         biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(
                 MidnightStructures.MOLTEN_CRATER, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG)
         );
+
+        biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(
+                MidnightStructures.SHADOWROOT_GUARDTOWER, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG)
+        );
     }
 
     public static void addMoltenCrater(ConfigurableBiome biome) {
@@ -371,9 +375,6 @@ public class MidnightBiomeConfigurator {
     }
 
     public static void addShadowRootGuardTower(ConfigurableBiome biome) {
-        biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(
-                MidnightStructures.SHADOWROOT_GUARDTOWER, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG)
-        );
         biome.add(MidnightStructures.SHADOWROOT_GUARDTOWER, IFeatureConfig.NO_FEATURE_CONFIG);
     }
 
@@ -397,7 +398,7 @@ public class MidnightBiomeConfigurator {
         addMonster(biome, MidnightEntities.HUNTER, 5, 1, 2);
     }
 
-    public static void addUndergroundSpawns(ConfigurableBiome biome) {
+    public static void addStandardUndergroundSpawns(ConfigurableBiome biome) {
         addMonster(biome, MidnightEntities.STINGER, 100, 2, 4);
         addMonster(biome, EntityType.ENDERMAN, 10, 4, 4);
     }

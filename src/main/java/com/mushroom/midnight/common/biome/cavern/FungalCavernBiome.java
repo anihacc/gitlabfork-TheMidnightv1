@@ -27,6 +27,6 @@ public class FungalCavernBiome extends CavernousBiome {
 
         MidnightBiomeConfigurator.addUndergroundBulbFungi(this);
 
-        MidnightBiomeConfigurator.addUndergroundSpawns(this);
+        MidnightBiomeConfigurator.addStandardUndergroundSpawns(this);
     }
 }
