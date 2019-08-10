@@ -19,6 +19,13 @@ function initializeCoreMod() {
                 "name": "net.minecraft.client.renderer.entity.LivingRenderer"
             },
             "transformer": patch_living_renderer
+        },
+        "BiomeColorsTransformer": {
+            "target": {
+                "type": "CLASS",
+                "name": "net.minecraft.world.biome.BiomeColors"
+            },
+            "transformer": patch_biome_colors
         }
     }
 }
@@ -57,6 +64,31 @@ function patch_living_renderer(class_node) {
             instructions.insert(insn, insert);
             break;
         }
+    }
+
+    return class_node;
+}
+
+function patch_biome_colors(class_node) {
+    var api = Java.type('net.minecraftforge.coremod.api.ASMAPI');
+
+    var get_color_method = get_method(class_node, api.mapMethod("func_217614_a"));
+
+    var targets = [];
+
+    var instructions = get_color_method.instructions;
+    for (var i = 0; i < instructions.size(); i++) {
+        var insn = instructions.get(i);
+        if (insn.getOpcode() == Opcodes.IRETURN) {
+            targets.push(insn);
+        }
+    }
+
+    for (var i = 0; i < targets.length; i++) {
+        var insert = new InsnList();
+        insert.add(new VarInsnNode(Opcodes.ALOAD, 1));
+        insert.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/mushroom/midnight/client/GrassColorModifier", "modifyGrassColor", "(ILnet/minecraft/util/math/BlockPos;)I", false));
+        instructions.insertBefore(targets[i], insert);
     }
 
     return class_node;

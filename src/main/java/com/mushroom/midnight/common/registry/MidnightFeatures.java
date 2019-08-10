@@ -7,6 +7,7 @@ import com.mushroom.midnight.common.world.feature.BogweedFlowersFeature;
 import com.mushroom.midnight.common.world.feature.CrystalClusterFeature;
 import com.mushroom.midnight.common.world.feature.CrystalFlowersFeature;
 import com.mushroom.midnight.common.world.feature.DeadLogFeature;
+import com.mushroom.midnight.common.world.feature.FingeredGrassFeature;
 import com.mushroom.midnight.common.world.feature.FungiPatchFeature;
 import com.mushroom.midnight.common.world.feature.GlobFungiFlowersFeature;
 import com.mushroom.midnight.common.world.feature.HeapFeature;
@@ -73,6 +74,7 @@ public class MidnightFeatures {
     public static final Feature<NoFeatureConfig> DECEITFUL_ALGAE = new AlgaeFeature(NoFeatureConfig::deserialize);
     public static final Feature<NoFeatureConfig> DECEITFUL_MOSS = new MossFeature(NoFeatureConfig::deserialize);
     public static final Feature<NoFeatureConfig> BLADESHROOM = new BladeshroomFeature(NoFeatureConfig::deserialize);
+    public static final Feature<NoFeatureConfig> FINGERED_GRASS = new FingeredGrassFeature(NoFeatureConfig::deserialize);
 
     public static final Feature<DoublePlantConfig> DOUBLE_PLANT = new MidnightDoublePlantFeature(DoublePlantConfig::deserialize);
 
@@ -123,6 +125,7 @@ public class MidnightFeatures {
                 .add("deceitful_algae", DECEITFUL_ALGAE)
                 .add("deceitful_moss", DECEITFUL_MOSS)
                 .add("bladeshroom", BLADESHROOM)
+                .add("fingered_grass", FINGERED_GRASS)
                 .add("double_plant", DOUBLE_PLANT)
                 .add("nightshroom_flowers", NIGHTSHROOM_FLOWERS)
                 .add("dewshroom_flowers", DEWSHROOM_FLOWERS)

@@ -174,7 +174,7 @@ public class MidnightBiomeConfigurator {
 
     public static void addFingeredGrass(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                Feature.GRASS, new GrassFeatureConfig(MidnightBlocks.FINGERED_GRASS.getDefaultState()),
+                MidnightFeatures.FINGERED_GRASS, IFeatureConfig.NO_FEATURE_CONFIG,
                 MidnightPlacements.COUNT_SURFACE_DOUBLE, new FrequencyConfig(1)
         ));
     }
@@ -318,7 +318,7 @@ public class MidnightBiomeConfigurator {
     public static void addBladeshrooms(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
                 MidnightFeatures.BLADESHROOM, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.COUNT_SURFACE_DOUBLE, new FrequencyConfig(2)
+                MidnightPlacements.COUNT_SURFACE_32, new FrequencyConfig(2)
         ));
     }
 

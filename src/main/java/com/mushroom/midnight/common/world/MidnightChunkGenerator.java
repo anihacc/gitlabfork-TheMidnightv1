@@ -10,7 +10,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -23,6 +22,7 @@ import net.minecraft.world.gen.NoiseChunkGenerator;
 import net.minecraft.world.gen.PerlinNoiseGenerator;
 import net.minecraft.world.gen.WorldGenRegion;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.BitSet;
 import java.util.Collection;
