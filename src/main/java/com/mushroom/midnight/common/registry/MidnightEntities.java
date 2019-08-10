@@ -181,8 +181,8 @@ public class MidnightEntities {
         event.getRegistry().register(DECEITFUL_SNAPPER);
         SKULK.setRegistryName(MODID, "skulk");
         event.getRegistry().register(SKULK);
-        SHADE_SQUIRREL.setRegistryName(MODID, "shade_squirrel");
-        event.getRegistry().register(SHADE_SQUIRREL);
+//        SHADE_SQUIRREL.setRegistryName(MODID, "shade_squirrel");
+//        event.getRegistry().register(SHADE_SQUIRREL);
         THROWN_GEODE.setRegistryName(MODID, "thrown_geode");
         event.getRegistry().register(THROWN_GEODE);
         SPORE_BOMB.setRegistryName(MODID, "spore_bomb");
