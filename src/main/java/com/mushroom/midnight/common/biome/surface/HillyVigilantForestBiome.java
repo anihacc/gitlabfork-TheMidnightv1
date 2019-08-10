@@ -11,7 +11,7 @@ public class HillyVigilantForestBiome extends SurfaceBiome {
                 .grassColor(0x695F8C)
                 .depth(2.25F)
                 .scale(0.4F)
-                .fog(0.1F, 80.0F)
+                .fog(20.0F, 110.0F)
         );
 
         MidnightSurfaceConfigurator.addStructureFeatures(this);

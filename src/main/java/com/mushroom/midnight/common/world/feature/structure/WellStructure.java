@@ -45,7 +45,7 @@ public class WellStructure extends Feature<NoFeatureConfig> {
             this.templateCompiler = this.buildCompiler();
         }
 
-        CompiledTemplate template = this.templateCompiler.compile(world, random, pos.down(9));
+        CompiledTemplate template = this.templateCompiler.compile(world, random, pos.down(10));
         TemplateMarkers markers = template.markers;
 
 

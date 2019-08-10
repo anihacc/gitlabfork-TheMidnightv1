@@ -28,7 +28,7 @@ public class MidnightCavernConfigurator {
     public static void addCrystalotus(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
                 Feature.BUSH, new BushConfig(MidnightBlocks.CRYSTALOTUS.getDefaultState()),
-                MidnightPlacements.CHANCE_UNDERGROUND_DOUBLE, new ChanceConfig(6)
+                MidnightPlacements.CHANCE_UNDERGROUND_DOUBLE, new ChanceConfig(20)
         ));
     }
 

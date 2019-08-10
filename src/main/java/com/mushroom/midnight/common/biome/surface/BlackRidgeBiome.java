@@ -8,7 +8,7 @@ public class BlackRidgeBiome extends SurfaceBiome {
         super(new Properties()
                 .surfaceBuilder(MidnightSurfaceBuilders.SURFACE, MidnightSurfaceBuilders.NIGHTSTONE_CONFIG)
                 .category(Category.EXTREME_HILLS)
-                .depth(4.5F)
+                .depth(4.25F)
                 .scale(0.1F)
         );
 

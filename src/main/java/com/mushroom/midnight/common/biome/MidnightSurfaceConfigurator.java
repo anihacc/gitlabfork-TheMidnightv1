@@ -160,7 +160,7 @@ public class MidnightSurfaceConfigurator {
     public static void addFingeredGrass(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
                 MidnightFeatures.FINGERED_GRASS, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.COUNT_SURFACE_DOUBLE, new FrequencyConfig(1)
+                MidnightPlacements.COUNT_SURFACE_32, new FrequencyConfig(1)
         ));
     }
 
@@ -322,7 +322,7 @@ public class MidnightSurfaceConfigurator {
     public static void addWell(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(
                 MidnightFeatures.WELL, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.CHANCE_SURFACE, new ChanceConfig(100))
+                MidnightPlacements.CHANCE_SURFACE, new ChanceConfig(200))
         );
     }
 

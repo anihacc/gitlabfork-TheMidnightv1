@@ -8,8 +8,9 @@ public class ObscuredPlateauBiome extends SurfaceBiome {
         super(new Properties()
                 .surfaceBuilder(MidnightSurfaceBuilders.SURFACE, MidnightSurfaceBuilders.NIGHTSTONE_CONFIG)
                 .category(Category.EXTREME_HILLS)
-                .depth(5.0F)
-                .scale(0.01F)
+                .depth(4.9F)
+                .scale(0.2F)
+                .ridgeWeight(0.0F)
         );
 
         MidnightSurfaceConfigurator.addStructureFeatures(this);

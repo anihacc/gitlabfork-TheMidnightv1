@@ -10,8 +10,8 @@ public class PhantasmalValleyBiome extends SurfaceBiome {
         super(new Properties()
                 .surfaceBuilder(MidnightSurfaceBuilders.SURFACE, MidnightSurfaceBuilders.GRASS_DIRT_MUD_CONFIG)
                 .category(Category.RIVER)
-                .depth(-1.2F)
-                .scale(0.05F)
+                .depth(-1.7F)
+                .scale(0.07F)
                 .ridgeWeight(0.0F)
         );
 
