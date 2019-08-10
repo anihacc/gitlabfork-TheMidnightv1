@@ -1,3 +1,6 @@
 {
-  "parent": "midnight:block/glob_fungus"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "midnight:blocks/glob_fungus"
+  }
 }
