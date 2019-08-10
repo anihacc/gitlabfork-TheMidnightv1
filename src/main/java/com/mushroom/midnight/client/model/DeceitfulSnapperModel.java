@@ -8,13 +8,17 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class DeceitfulSnapperModel extends EntityModel<DeceitfulSnapperEntity> {
-    public RendererModel Body;
-    public RendererModel opened_mouth;
-    public RendererModel Mouth;
-    public RendererModel Tail1;
-    public RendererModel RightFin;
-    public RendererModel LeftFin;
-    public RendererModel Tail2;
+    public final RendererModel Body;
+    public final RendererModel opened_mouth;
+    public final RendererModel Mouth;
+    public final RendererModel Tail1;
+    public final RendererModel RightFin;
+    public final RendererModel LeftFin;
+    public final RendererModel Tail2;
+
+    private final RendererModel[] tail;
+
+    private final ModelPartAnimator animator = new ModelPartAnimator();
 
     public DeceitfulSnapperModel() {
         this.textureWidth = 64;
@@ -48,18 +52,34 @@ public class DeceitfulSnapperModel extends EntityModel<DeceitfulSnapperEntity> {
         this.Body.addChild(this.RightFin);
         this.Body.addChild(this.Tail1);
         this.Tail1.addChild(this.Tail2);
+
+        this.tail = new RendererModel[] { this.Body, this.Tail1, this.Tail2 };
     }
 
     @Override
-    public void render(DeceitfulSnapperEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+    public void render(DeceitfulSnapperEntity entity, float limbSwing, float limbSwingAmount, float age, float yaw, float pitch, float scale) {
+        this.setRotationAngles(entity, limbSwing, limbSwingAmount, age, yaw, pitch, scale);
+
         this.opened_mouth.isHidden = entity.ticksExisted % 200 < 150;
         this.Body.render(scale);
         this.Mouth.render(scale);
     }
 
-    public void setRotateAngle(RendererModel RendererModel, float x, float y, float z) {
-        RendererModel.rotateAngleX = x;
-        RendererModel.rotateAngleY = y;
-        RendererModel.rotateAngleZ = z;
+    @Override
+    public void setRotationAngles(DeceitfulSnapperEntity entity, float limbSwing, float limbSwingAmount, float age, float yaw, float pitch, float scale) {
+        super.setRotationAngles(entity, limbSwing, limbSwingAmount, age, yaw, pitch, scale);
+
+        this.animator.bob(this.Body, 0.125F, 0.25F, false, 0.0F, 0.0F, age, 1.0F);
+        this.animator.flap(this.RightFin, 0.125F, 0.125F, false, 0.0F, 0.5F, age, 1.0F);
+        this.animator.flap(this.LeftFin, 0.125F, 0.125F, true, 0.0F, 0.5F, age, 1.0F);
+
+        this.animator.chainSwing(this.tail, 1.0F, 1.0F, false, 1.0, limbSwing, limbSwingAmount);
+
+    }
+
+    public void setRotateAngle(RendererModel part, float x, float y, float z) {
+        part.rotateAngleX = x;
+        part.rotateAngleY = y;
+        part.rotateAngleZ = z;
     }
 }
