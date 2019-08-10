@@ -2,7 +2,6 @@ package com.mushroom.midnight.common.biome;
 
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
-import com.mushroom.midnight.common.registry.MidnightCarvers;
 import com.mushroom.midnight.common.registry.MidnightEntities;
 import com.mushroom.midnight.common.registry.MidnightFeatures;
 import com.mushroom.midnight.common.registry.MidnightPlacements;
@@ -19,7 +18,6 @@ import net.minecraft.world.gen.feature.DoublePlantConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.GrassFeatureConfig;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.ProbabilityConfig;
 import net.minecraft.world.gen.feature.SingleRandomFeature;
 import net.minecraft.world.gen.feature.TwoFeatureChoiceConfig;
 import net.minecraft.world.gen.placement.ChanceConfig;
@@ -29,7 +27,7 @@ import net.minecraft.world.gen.placement.HeightWithChanceConfig;
 import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 
-public class MidnightBiomeConfigurator {
+public class MidnightSurfaceConfigurator {
     public static void addStructureFeatures(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(
                 MidnightStructures.MOLTEN_CRATER, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG)
@@ -38,12 +36,6 @@ public class MidnightBiomeConfigurator {
         biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(
                 MidnightStructures.SHADOWROOT_GUARDTOWER, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG)
         );
-    }
-
-    public static void addCaves(ConfigurableBiome biome) {
-        biome.add(GenerationStage.Carving.AIR, Biome.createCarver(
-                MidnightCarvers.WIDE_CAVE, new ProbabilityConfig(1.0F / 7.0F)
-        ));
     }
 
     public static void addMoltenCrater(ConfigurableBiome biome) {
@@ -150,13 +142,6 @@ public class MidnightBiomeConfigurator {
         biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(
                 MidnightFeatures.CRYSTAL_SPIRE, new CrystalClusterConfig(MidnightBlocks.BLOOMCRYSTAL_ROCK.getDefaultState(), MidnightBlocks.BLOOMCRYSTAL.getDefaultState()),
                 MidnightPlacements.COUNT_SURFACE, new FrequencyConfig(2)
-        ));
-    }
-
-    public static void addRouxeClusters(ConfigurableBiome biome) {
-        biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(
-                MidnightFeatures.CRYSTAL_CLUSTER, new CrystalClusterConfig(MidnightBlocks.ROUXE_ROCK.getDefaultState(), MidnightBlocks.ROUXE.getDefaultState()),
-                MidnightPlacements.COUNT_UNDERGROUND, new FrequencyConfig(5)
         ));
     }
 
@@ -334,18 +319,6 @@ public class MidnightBiomeConfigurator {
         ));
     }
 
-    public static void addUndergroundBulbFungi(ConfigurableBiome biome) {
-        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                MidnightFeatures.GLOB_FUNGI_FLOWERS, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.COUNT_UNDERGROUND_32, new FrequencyConfig(7)
-        ));
-
-        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                MidnightFeatures.LARGE_GLOB_FUNGUS, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.COUNT_UNDERGROUND, new FrequencyConfig(3)
-        ));
-    }
-
     public static void addWell(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(
                 MidnightFeatures.WELL, IFeatureConfig.NO_FEATURE_CONFIG,
@@ -375,11 +348,6 @@ public class MidnightBiomeConfigurator {
 
     public static void addRockySpawns(ConfigurableBiome biome) {
         addMonster(biome, MidnightEntities.HUNTER, 5, 1, 2);
-    }
-
-    public static void addStandardUndergroundSpawns(ConfigurableBiome biome) {
-        addMonster(biome, MidnightEntities.STINGER, 100, 2, 4);
-        addMonster(biome, EntityType.ENDERMAN, 10, 4, 4);
     }
 
     public static void addForestSpawns(ConfigurableBiome biome) {

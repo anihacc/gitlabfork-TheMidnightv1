@@ -1,7 +1,7 @@
 package com.mushroom.midnight.common.biome.surface;
 
 import com.mushroom.midnight.Midnight;
-import com.mushroom.midnight.common.biome.MidnightBiomeConfigurator;
+import com.mushroom.midnight.common.biome.MidnightSurfaceConfigurator;
 import com.mushroom.midnight.common.biome.MidnightSurfaceBuilders;
 import com.mushroom.midnight.common.registry.MidnightEntities;
 import net.minecraft.world.biome.Biome;
@@ -17,22 +17,22 @@ public class WarpedFieldsBiome extends SurfaceBiome {
                 .ridgeWeight(0.0F)
         );
 
-        MidnightBiomeConfigurator.addStructureFeatures(this);
-        MidnightBiomeConfigurator.addGlobalOres(this);
+        MidnightSurfaceConfigurator.addStructureFeatures(this);
+        MidnightSurfaceConfigurator.addGlobalOres(this);
 
-        MidnightBiomeConfigurator.addLumen(this);
+        MidnightSurfaceConfigurator.addLumen(this);
 
-        MidnightBiomeConfigurator.addDewshroomFlowers(this);
-        MidnightBiomeConfigurator.addViridshroomFlowers(this);
+        MidnightSurfaceConfigurator.addDewshroomFlowers(this);
+        MidnightSurfaceConfigurator.addViridshroomFlowers(this);
 
-        MidnightBiomeConfigurator.addGrasses(this);
+        MidnightSurfaceConfigurator.addGrasses(this);
 
-        MidnightBiomeConfigurator.addSparseShadowrootTrees(this);
+        MidnightSurfaceConfigurator.addSparseShadowrootTrees(this);
 
-        MidnightBiomeConfigurator.addGlobalFeatures(this);
+        MidnightSurfaceConfigurator.addGlobalFeatures(this);
 
-        MidnightBiomeConfigurator.addStandardCreatureSpawns(this);
-        MidnightBiomeConfigurator.addStandardMonsterSpawns(this);
+        MidnightSurfaceConfigurator.addStandardCreatureSpawns(this);
+        MidnightSurfaceConfigurator.addStandardMonsterSpawns(this);
 
         this.add(Midnight.MIDNIGHT_MOB, new Biome.SpawnListEntry(MidnightEntities.HUNTER, 5, 0, 2));
     }

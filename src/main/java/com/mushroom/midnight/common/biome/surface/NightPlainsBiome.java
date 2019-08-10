@@ -1,7 +1,7 @@
 package com.mushroom.midnight.common.biome.surface;
 
 import com.mushroom.midnight.Midnight;
-import com.mushroom.midnight.common.biome.MidnightBiomeConfigurator;
+import com.mushroom.midnight.common.biome.MidnightSurfaceConfigurator;
 import com.mushroom.midnight.common.biome.MidnightSurfaceBuilders;
 import com.mushroom.midnight.common.registry.MidnightEntities;
 
@@ -16,21 +16,21 @@ public class NightPlainsBiome extends SurfaceBiome {
                 .ridgeWeight(0.0F)
         );
 
-        MidnightBiomeConfigurator.addStructureFeatures(this);
-        MidnightBiomeConfigurator.addMoltenCrater(this);
+        MidnightSurfaceConfigurator.addStructureFeatures(this);
+        MidnightSurfaceConfigurator.addMoltenCrater(this);
 
-        MidnightBiomeConfigurator.addGlobalOres(this);
+        MidnightSurfaceConfigurator.addGlobalOres(this);
 
-        MidnightBiomeConfigurator.addSparseShadowrootTrees(this);
-        MidnightBiomeConfigurator.addGrasses(this);
-        MidnightBiomeConfigurator.addFingeredGrass(this);
+        MidnightSurfaceConfigurator.addSparseShadowrootTrees(this);
+        MidnightSurfaceConfigurator.addGrasses(this);
+        MidnightSurfaceConfigurator.addFingeredGrass(this);
 
-        MidnightBiomeConfigurator.addNightstoneSpikesAndBoulders(this);
+        MidnightSurfaceConfigurator.addNightstoneSpikesAndBoulders(this);
 
-        MidnightBiomeConfigurator.addGlobalFeatures(this);
-        MidnightBiomeConfigurator.addStandardMonsterSpawns(this);
-        MidnightBiomeConfigurator.addStandardCreatureSpawns(this);
-        MidnightBiomeConfigurator.addWell(this);
+        MidnightSurfaceConfigurator.addGlobalFeatures(this);
+        MidnightSurfaceConfigurator.addStandardMonsterSpawns(this);
+        MidnightSurfaceConfigurator.addStandardCreatureSpawns(this);
+        MidnightSurfaceConfigurator.addWell(this);
 
         add(Midnight.MIDNIGHT_MOB, new SpawnListEntry(MidnightEntities.HUNTER, 5, 1, 2));
     }

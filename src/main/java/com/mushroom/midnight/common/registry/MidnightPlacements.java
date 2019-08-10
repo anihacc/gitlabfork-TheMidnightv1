@@ -32,6 +32,8 @@ public class MidnightPlacements {
 
     public static final Placement<FrequencyConfig> COUNT_UNDERGROUND = new CountSurfacePlacement(FrequencyConfig::deserialize, UndergroundPlacementLevel.INSTANCE);
     public static final Placement<FrequencyConfig> COUNT_UNDERGROUND_32 = new CountSurface32Placement(FrequencyConfig::deserialize, UndergroundPlacementLevel.INSTANCE);
+    public static final Placement<ChanceConfig> CHANCE_UNDERGROUND = new ChanceSurfacePlacement(ChanceConfig::deserialize, UndergroundPlacementLevel.INSTANCE);
+    public static final Placement<ChanceConfig> CHANCE_UNDERGROUND_DOUBLE = new ChanceSurfaceDoublePlacement(ChanceConfig::deserialize, UndergroundPlacementLevel.INSTANCE);
 
     public static void registerPlacements(IForgeRegistry<Placement<?>> registry) {
         RegUtil.generic(registry)
@@ -43,6 +45,8 @@ public class MidnightPlacements {
                 .add("chance_surface_double", CHANCE_SURFACE_DOUBLE)
                 .add("count_chance_surface_double", COUNT_CHANCE_SURFACE_DOUBLE)
                 .add("count_underground", COUNT_UNDERGROUND)
-                .add("count_underground_32", COUNT_UNDERGROUND_32);
+                .add("count_underground_32", COUNT_UNDERGROUND_32)
+                .add("chance_underground", CHANCE_UNDERGROUND)
+                .add("chance_underground_double", CHANCE_UNDERGROUND_DOUBLE);
     }
 }

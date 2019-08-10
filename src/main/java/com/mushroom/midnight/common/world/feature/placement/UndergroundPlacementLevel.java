@@ -21,13 +21,13 @@ public class UndergroundPlacementLevel implements PlacementLevel {
         IChunk chunk = world.getChunk(pos);
         Predicate<BlockState> predicate = heightmap.func_222684_d();
 
-        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos(pos);
 
         for (int y = 5; y < MidnightChunkGenerator.SURFACE_CAVE_BOUNDARY; y++) {
-            mutablePos.setPos(pos.getX(), y, pos.getZ());
+            mutablePos.setY(y);
 
             BlockState state = chunk.getBlockState(mutablePos);
-            if (predicate.test(state)) {
+            if (!predicate.test(state)) {
                 return mutablePos.toImmutable();
             }
         }

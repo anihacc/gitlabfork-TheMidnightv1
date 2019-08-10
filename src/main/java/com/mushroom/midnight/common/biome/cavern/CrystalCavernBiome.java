@@ -1,8 +1,8 @@
 package com.mushroom.midnight.common.biome.cavern;
 
 import com.mushroom.midnight.Midnight;
-import com.mushroom.midnight.common.biome.MidnightBiomeConfigurator;
 import com.mushroom.midnight.common.biome.MidnightSurfaceBuilders;
+import com.mushroom.midnight.common.biome.MidnightCavernConfigurator;
 import com.mushroom.midnight.common.registry.MidnightEntities;
 import net.minecraft.world.biome.Biome;
 
@@ -13,10 +13,11 @@ public class CrystalCavernBiome extends CavernousBiome {
                 .heightScale(0.4F)
         );
 
-        MidnightBiomeConfigurator.addCaves(this);
+        MidnightCavernConfigurator.addCaves(this);
 
-        MidnightBiomeConfigurator.addRouxeClusters(this);
-        MidnightBiomeConfigurator.addStandardUndergroundSpawns(this);
+        MidnightCavernConfigurator.addCrystalotus(this);
+        MidnightCavernConfigurator.addRouxeClusters(this);
+        MidnightCavernConfigurator.addStandardSpawns(this);
 
         this.add(Midnight.MIDNIGHT_MOB, new Biome.SpawnListEntry(MidnightEntities.NOVA, 100, 1, 2));
     }

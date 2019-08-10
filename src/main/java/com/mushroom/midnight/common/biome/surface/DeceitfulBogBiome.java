@@ -1,6 +1,6 @@
 package com.mushroom.midnight.common.biome.surface;
 
-import com.mushroom.midnight.common.biome.MidnightBiomeConfigurator;
+import com.mushroom.midnight.common.biome.MidnightSurfaceConfigurator;
 import com.mushroom.midnight.common.biome.MidnightSurfaceBuilders;
 import com.mushroom.midnight.common.registry.MidnightEntities;
 import net.minecraft.entity.EntityClassification;
@@ -19,27 +19,27 @@ public class DeceitfulBogBiome extends SurfaceBiome {
                 .fog(0.1F, 80.0F)
         );
 
-        MidnightBiomeConfigurator.addStructureFeatures(this);
-        MidnightBiomeConfigurator.addGlobalOres(this);
+        MidnightSurfaceConfigurator.addStructureFeatures(this);
+        MidnightSurfaceConfigurator.addGlobalOres(this);
 
-        MidnightBiomeConfigurator.addLargeBogshrooms(this);
+        MidnightSurfaceConfigurator.addLargeBogshrooms(this);
 
-        MidnightBiomeConfigurator.addBogDeadTrees(this);
+        MidnightSurfaceConfigurator.addBogDeadTrees(this);
 
-        MidnightBiomeConfigurator.addBogTrees(this);
-        MidnightBiomeConfigurator.addDeadLogs(this);
+        MidnightSurfaceConfigurator.addBogTrees(this);
+        MidnightSurfaceConfigurator.addDeadLogs(this);
 
-        MidnightBiomeConfigurator.addBogweed(this);
-        MidnightBiomeConfigurator.addBogshroomFlowers(this);
-        MidnightBiomeConfigurator.addDewshroomFlowers(this);
+        MidnightSurfaceConfigurator.addBogweed(this);
+        MidnightSurfaceConfigurator.addBogshroomFlowers(this);
+        MidnightSurfaceConfigurator.addDewshroomFlowers(this);
 
-        MidnightBiomeConfigurator.addAlgaeAndMoss(this);
-        MidnightBiomeConfigurator.addGrasses(this);
+        MidnightSurfaceConfigurator.addAlgaeAndMoss(this);
+        MidnightSurfaceConfigurator.addGrasses(this);
 
-        MidnightBiomeConfigurator.addGlobalFeatures(this);
+        MidnightSurfaceConfigurator.addGlobalFeatures(this);
 
-        MidnightBiomeConfigurator.addStandardCreatureSpawns(this);
-        MidnightBiomeConfigurator.addStandardMonsterSpawns(this);
+        MidnightSurfaceConfigurator.addStandardCreatureSpawns(this);
+        MidnightSurfaceConfigurator.addStandardMonsterSpawns(this);
 
         this.add(EntityClassification.WATER_CREATURE, new Biome.SpawnListEntry(MidnightEntities.DECEITFUL_SNAPPER, 100, 5, 10));
     }

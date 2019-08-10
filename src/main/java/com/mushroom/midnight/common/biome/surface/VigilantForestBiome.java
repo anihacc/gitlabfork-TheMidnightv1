@@ -1,6 +1,6 @@
 package com.mushroom.midnight.common.biome.surface;
 
-import com.mushroom.midnight.common.biome.MidnightBiomeConfigurator;
+import com.mushroom.midnight.common.biome.MidnightSurfaceConfigurator;
 import com.mushroom.midnight.common.biome.MidnightSurfaceBuilders;
 
 public class VigilantForestBiome extends SurfaceBiome {
@@ -14,29 +14,29 @@ public class VigilantForestBiome extends SurfaceBiome {
                 .fog(0.1F, 80.0F)
         );
 
-        MidnightBiomeConfigurator.addStructureFeatures(this);
-        MidnightBiomeConfigurator.addMoltenCrater(this);
+        MidnightSurfaceConfigurator.addStructureFeatures(this);
+        MidnightSurfaceConfigurator.addMoltenCrater(this);
 
-        MidnightBiomeConfigurator.addGlobalOres(this);
+        MidnightSurfaceConfigurator.addGlobalOres(this);
 
-        MidnightBiomeConfigurator.addShadowRootGuardTower(this);
+        MidnightSurfaceConfigurator.addShadowRootGuardTower(this);
 
-        MidnightBiomeConfigurator.addVigilantForestTrees(this);
-        MidnightBiomeConfigurator.addDeadLogs(this);
+        MidnightSurfaceConfigurator.addVigilantForestTrees(this);
+        MidnightSurfaceConfigurator.addDeadLogs(this);
 
-        MidnightBiomeConfigurator.addSparseSuavis(this);
-        MidnightBiomeConfigurator.addSparseDeadTrees(this);
-        MidnightBiomeConfigurator.addVioleafs(this);
+        MidnightSurfaceConfigurator.addSparseSuavis(this);
+        MidnightSurfaceConfigurator.addSparseDeadTrees(this);
+        MidnightSurfaceConfigurator.addVioleafs(this);
 
-        MidnightBiomeConfigurator.addLumen(this);
-        MidnightBiomeConfigurator.addNightshroomFlowers(this);
+        MidnightSurfaceConfigurator.addLumen(this);
+        MidnightSurfaceConfigurator.addNightshroomFlowers(this);
 
-        MidnightBiomeConfigurator.addGrasses(this);
+        MidnightSurfaceConfigurator.addGrasses(this);
 
-        MidnightBiomeConfigurator.addGlobalFeatures(this);
+        MidnightSurfaceConfigurator.addGlobalFeatures(this);
 
-        MidnightBiomeConfigurator.addStandardCreatureSpawns(this);
-        MidnightBiomeConfigurator.addStandardMonsterSpawns(this);
-        MidnightBiomeConfigurator.addForestSpawns(this);
+        MidnightSurfaceConfigurator.addStandardCreatureSpawns(this);
+        MidnightSurfaceConfigurator.addStandardMonsterSpawns(this);
+        MidnightSurfaceConfigurator.addForestSpawns(this);
     }
 }

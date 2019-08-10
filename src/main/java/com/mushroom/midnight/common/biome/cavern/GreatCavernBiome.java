@@ -1,6 +1,6 @@
 package com.mushroom.midnight.common.biome.cavern;
 
-import com.mushroom.midnight.common.biome.MidnightBiomeConfigurator;
+import com.mushroom.midnight.common.biome.MidnightCavernConfigurator;
 import com.mushroom.midnight.common.biome.MidnightSurfaceBuilders;
 
 public class GreatCavernBiome extends CavernousBiome {
@@ -10,8 +10,9 @@ public class GreatCavernBiome extends CavernousBiome {
                 .heightScale(0.4F)
         );
 
-        MidnightBiomeConfigurator.addCaves(this);
+        MidnightCavernConfigurator.addCaves(this);
 
-        MidnightBiomeConfigurator.addStandardUndergroundSpawns(this);
+        MidnightCavernConfigurator.addCrystalotus(this);
+        MidnightCavernConfigurator.addStandardSpawns(this);
     }
 }

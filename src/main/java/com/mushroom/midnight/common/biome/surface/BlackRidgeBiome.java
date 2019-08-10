@@ -1,6 +1,6 @@
 package com.mushroom.midnight.common.biome.surface;
 
-import com.mushroom.midnight.common.biome.MidnightBiomeConfigurator;
+import com.mushroom.midnight.common.biome.MidnightSurfaceConfigurator;
 import com.mushroom.midnight.common.biome.MidnightSurfaceBuilders;
 
 public class BlackRidgeBiome extends SurfaceBiome {
@@ -12,16 +12,16 @@ public class BlackRidgeBiome extends SurfaceBiome {
                 .scale(0.1F)
         );
 
-        MidnightBiomeConfigurator.addStructureFeatures(this);
-        MidnightBiomeConfigurator.addGlobalOres(this);
+        MidnightSurfaceConfigurator.addStructureFeatures(this);
+        MidnightSurfaceConfigurator.addGlobalOres(this);
 
-        MidnightBiomeConfigurator.addDewshroomFlowers(this);
-        MidnightBiomeConfigurator.addLumen(this);
-        MidnightBiomeConfigurator.addTrenchstoneBoulders(this);
-        MidnightBiomeConfigurator.addGlobalFeatures(this);
+        MidnightSurfaceConfigurator.addDewshroomFlowers(this);
+        MidnightSurfaceConfigurator.addLumen(this);
+        MidnightSurfaceConfigurator.addTrenchstoneBoulders(this);
+        MidnightSurfaceConfigurator.addGlobalFeatures(this);
 
-        MidnightBiomeConfigurator.addStandardMonsterSpawns(this);
-        MidnightBiomeConfigurator.addStandardCreatureSpawns(this);
-        MidnightBiomeConfigurator.addRockySpawns(this);
+        MidnightSurfaceConfigurator.addStandardMonsterSpawns(this);
+        MidnightSurfaceConfigurator.addStandardCreatureSpawns(this);
+        MidnightSurfaceConfigurator.addRockySpawns(this);
     }
 }

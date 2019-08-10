@@ -1,7 +1,7 @@
 package com.mushroom.midnight.common.biome.cavern;
 
-import com.mushroom.midnight.common.biome.MidnightBiomeConfigurator;
 import com.mushroom.midnight.common.biome.MidnightSurfaceBuilders;
+import com.mushroom.midnight.common.biome.MidnightCavernConfigurator;
 
 public class ClosedCavernBiome extends CavernousBiome {
     public ClosedCavernBiome() {
@@ -10,6 +10,6 @@ public class ClosedCavernBiome extends CavernousBiome {
                 .cavernDensity(5.0F)
         );
 
-        MidnightBiomeConfigurator.addCaves(this);
+        MidnightCavernConfigurator.addCaves(this);
     }
 }

@@ -1,7 +1,7 @@
 package com.mushroom.midnight.common.biome.surface;
 
 import com.mushroom.midnight.Midnight;
-import com.mushroom.midnight.common.biome.MidnightBiomeConfigurator;
+import com.mushroom.midnight.common.biome.MidnightSurfaceConfigurator;
 import com.mushroom.midnight.common.biome.MidnightSurfaceBuilders;
 import com.mushroom.midnight.common.registry.MidnightEntities;
 
@@ -15,15 +15,15 @@ public class PhantasmalValleyBiome extends SurfaceBiome {
                 .ridgeWeight(0.0F)
         );
 
-        MidnightBiomeConfigurator.addStructureFeatures(this);
-        MidnightBiomeConfigurator.addGlobalOres(this);
-        MidnightBiomeConfigurator.addGlobalFeatures(this);
+        MidnightSurfaceConfigurator.addStructureFeatures(this);
+        MidnightSurfaceConfigurator.addGlobalOres(this);
+        MidnightSurfaceConfigurator.addGlobalFeatures(this);
 
-        MidnightBiomeConfigurator.addDewshroomFlowers(this);
-        MidnightBiomeConfigurator.addViridshroomFlowers(this);
+        MidnightSurfaceConfigurator.addDewshroomFlowers(this);
+        MidnightSurfaceConfigurator.addViridshroomFlowers(this);
 
-        MidnightBiomeConfigurator.addStandardMonsterSpawns(this);
-        MidnightBiomeConfigurator.addStandardCreatureSpawns(this);
+        MidnightSurfaceConfigurator.addStandardMonsterSpawns(this);
+        MidnightSurfaceConfigurator.addStandardCreatureSpawns(this);
 
         this.add(Midnight.MIDNIGHT_MOB, new SpawnListEntry(MidnightEntities.HUNTER, 5, 1, 2));
     }

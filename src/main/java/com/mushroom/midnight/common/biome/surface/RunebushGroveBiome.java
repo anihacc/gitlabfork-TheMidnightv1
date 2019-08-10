@@ -1,6 +1,6 @@
 package com.mushroom.midnight.common.biome.surface;
 
-import com.mushroom.midnight.common.biome.MidnightBiomeConfigurator;
+import com.mushroom.midnight.common.biome.MidnightSurfaceConfigurator;
 import com.mushroom.midnight.common.biome.MidnightSurfaceBuilders;
 
 public class RunebushGroveBiome extends SurfaceBiome {
@@ -15,20 +15,20 @@ public class RunebushGroveBiome extends SurfaceBiome {
                 .fog(0.1F, 80.0F)
         );
 
-        MidnightBiomeConfigurator.addStructureFeatures(this);
-        MidnightBiomeConfigurator.addGlobalOres(this);
+        MidnightSurfaceConfigurator.addStructureFeatures(this);
+        MidnightSurfaceConfigurator.addGlobalOres(this);
 
-        MidnightBiomeConfigurator.addVigilantForestTrees(this);
-        MidnightBiomeConfigurator.addDeadLogs(this);
+        MidnightSurfaceConfigurator.addVigilantForestTrees(this);
+        MidnightSurfaceConfigurator.addDeadLogs(this);
 
-        MidnightBiomeConfigurator.addCommonSuavis(this);
-        MidnightBiomeConfigurator.addLumen(this);
-        MidnightBiomeConfigurator.addRunebushes(this);
+        MidnightSurfaceConfigurator.addCommonSuavis(this);
+        MidnightSurfaceConfigurator.addLumen(this);
+        MidnightSurfaceConfigurator.addRunebushes(this);
 
-        MidnightBiomeConfigurator.addGlobalFeatures(this);
+        MidnightSurfaceConfigurator.addGlobalFeatures(this);
 
-        MidnightBiomeConfigurator.addStandardCreatureSpawns(this);
-        MidnightBiomeConfigurator.addStandardMonsterSpawns(this);
-        MidnightBiomeConfigurator.addForestSpawns(this);
+        MidnightSurfaceConfigurator.addStandardCreatureSpawns(this);
+        MidnightSurfaceConfigurator.addStandardMonsterSpawns(this);
+        MidnightSurfaceConfigurator.addForestSpawns(this);
     }
 }
