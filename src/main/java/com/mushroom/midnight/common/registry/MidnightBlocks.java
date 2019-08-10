@@ -570,10 +570,10 @@ public class MidnightBlocks {
                 .add("nightshroom_sporch", props -> new SporchBlock(SporchBlock.SporchType.NIGHTSHROOM, props))
                 .add("dewshroom_sporch", props -> new SporchBlock(SporchBlock.SporchType.DEWSHROOM, props))
                 .add("viridshroom_sporch", props -> new SporchBlock(SporchBlock.SporchType.VIRIDSHROOM, props))
-                .add("bogshroom_wall_sporch", props -> new WallSporchBlock(SporchBlock.SporchType.BOGSHROOM, props.lootFrom(BOGSHROOM_SPORCH)))
-                .add("nightshroom_wall_sporch", props -> new WallSporchBlock(SporchBlock.SporchType.NIGHTSHROOM, props.lootFrom(NIGHTSHROOM_SPORCH)))
-                .add("dewshroom_wall_sporch", props -> new WallSporchBlock(SporchBlock.SporchType.DEWSHROOM, props.lootFrom(DEWSHROOM_SPORCH)))
-                .add("viridshroom_wall_sporch", props -> new WallSporchBlock(SporchBlock.SporchType.VIRIDSHROOM, props.lootFrom(VIRIDSHROOM_SPORCH)));
+                .add("bogshroom_wall_sporch", props -> new WallSporchBlock(SporchBlock.SporchType.BOGSHROOM, props))
+                .add("nightshroom_wall_sporch", props -> new WallSporchBlock(SporchBlock.SporchType.NIGHTSHROOM, props))
+                .add("dewshroom_wall_sporch", props -> new WallSporchBlock(SporchBlock.SporchType.DEWSHROOM, props))
+                .add("viridshroom_wall_sporch", props -> new WallSporchBlock(SporchBlock.SporchType.VIRIDSHROOM, props));
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.WOOD, MaterialColor.ADOBE).hardnessAndResistance(2f, 5f).sound(SoundType.WOOD))

@@ -30,7 +30,13 @@ public abstract class MidnightTreeFeature extends AbstractTreeFeature<NoFeatureC
     @Override
     protected final boolean place(Set<BlockPos> changedBlocks, IWorldGenerationReader world, Random random, BlockPos origin, MutableBoundingBox bounds) {
         WorldWrapper wrapper = new WorldWrapper((IWorld) world, changedBlocks, bounds);
-        return this.place(wrapper, random, origin);
+        boolean result = this.place(wrapper, random, origin);
+
+        if (bounds.minX > bounds.maxX) {
+            bounds.minX = bounds.minY = bounds.minZ = bounds.maxX = bounds.maxY = bounds.maxZ = 0;
+        }
+
+        return result;
     }
 
     protected Set<BlockPos> produceBlob(BlockPos origin, double radius) {

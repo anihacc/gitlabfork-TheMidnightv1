@@ -2,7 +2,8 @@
   "credit": "Made with Blockbench",
   "parent": "block/block",
   "textures": {
-    "0": "midnight:blocks/bladeshroom_stem"
+    "0": "midnight:blocks/bladeshroom_stem",
+    "particle": "midnight:blocks/bladeshroom_stem"
   },
   "elements": [
     {

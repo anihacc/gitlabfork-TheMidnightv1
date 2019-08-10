@@ -18,8 +18,6 @@ public class GlobFungusBlock extends MidnightPlantBlock implements IGrowable {
         this.tree = tree;
     }
 
-    // quantityDropped 1 GLOB_FUNGUS_HAND (+ SilkTouch + Shearable)
-
     @Override
     public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
         return true;

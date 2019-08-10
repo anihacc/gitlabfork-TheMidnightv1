@@ -1,8 +1,8 @@
 package com.mushroom.midnight.common.biome;
 
 import com.mushroom.midnight.Midnight;
-import com.mushroom.midnight.common.block.BladeshroomBlock;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
+import com.mushroom.midnight.common.registry.MidnightCarvers;
 import com.mushroom.midnight.common.registry.MidnightEntities;
 import com.mushroom.midnight.common.registry.MidnightFeatures;
 import com.mushroom.midnight.common.registry.MidnightPlacements;
@@ -19,6 +19,7 @@ import net.minecraft.world.gen.feature.DoublePlantConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.GrassFeatureConfig;
 import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.ProbabilityConfig;
 import net.minecraft.world.gen.feature.SingleRandomFeature;
 import net.minecraft.world.gen.feature.TwoFeatureChoiceConfig;
 import net.minecraft.world.gen.placement.ChanceConfig;
@@ -37,6 +38,12 @@ public class MidnightBiomeConfigurator {
         biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(
                 MidnightStructures.SHADOWROOT_GUARDTOWER, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG)
         );
+    }
+
+    public static void addCaves(ConfigurableBiome biome) {
+        biome.add(GenerationStage.Carving.AIR, Biome.createCarver(
+                MidnightCarvers.WIDE_CAVE, new ProbabilityConfig(1.0F / 7.0F)
+        ));
     }
 
     public static void addMoltenCrater(ConfigurableBiome biome) {
@@ -310,8 +317,8 @@ public class MidnightBiomeConfigurator {
 
     public static void addBladeshrooms(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                Feature.BUSH, new BushConfig(MidnightBlocks.BLADESHROOM.getDefaultState().with(BladeshroomBlock.STAGE, BladeshroomBlock.Stage.CAPPED)),
-                MidnightPlacements.COUNT_SURFACE_DOUBLE, new FrequencyConfig(1)
+                MidnightFeatures.BLADESHROOM, IFeatureConfig.NO_FEATURE_CONFIG,
+                MidnightPlacements.COUNT_SURFACE_DOUBLE, new FrequencyConfig(2)
         ));
     }
 

@@ -181,13 +181,18 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.NAGRILITE_PRESSURE_PLATE);
         this.add(MidnightBlocks.TENEBRUM_PRESSURE_PLATE);
         this.add(MidnightBlocks.MIDNIGHT_LEVER);
+        this.add(MidnightBlocks.TENEBRUM_ORE);
+        this.add(MidnightBlocks.EBONITE_ORE);
+        this.add(MidnightBlocks.GLOB_FUNGUS_HAT);
+
         this.add(MidnightBlocks.BOGSHROOM_SPORCH);
         this.add(MidnightBlocks.NIGHTSHROOM_SPORCH);
         this.add(MidnightBlocks.DEWSHROOM_SPORCH);
         this.add(MidnightBlocks.VIRIDSHROOM_SPORCH);
-        this.add(MidnightBlocks.TENEBRUM_ORE);
-        this.add(MidnightBlocks.EBONITE_ORE);
-        this.add(MidnightBlocks.GLOB_FUNGUS_HAT);
+        this.add(MidnightBlocks.BOGSHROOM_WALL_SPORCH, MidnightBlocks.BOGSHROOM_SPORCH);
+        this.add(MidnightBlocks.NIGHTSHROOM_WALL_SPORCH, MidnightBlocks.NIGHTSHROOM_SPORCH);
+        this.add(MidnightBlocks.DEWSHROOM_WALL_SPORCH, MidnightBlocks.DEWSHROOM_SPORCH);
+        this.add(MidnightBlocks.VIRIDSHROOM_WALL_SPORCH, MidnightBlocks.VIRIDSHROOM_SPORCH);
 
         this.addSheared(MidnightBlocks.BOGWEED);
         this.addSheared(MidnightBlocks.GHOST_PLANT);

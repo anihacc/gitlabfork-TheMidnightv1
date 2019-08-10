@@ -3,7 +3,8 @@
   "parent": "block/block",
   "textures": {
     "0": "midnight:blocks/bladeshroom_stem",
-    "1": "midnight:blocks/bladeshroom_cap"
+    "1": "midnight:blocks/bladeshroom_cap",
+    "particle": "midnight:blocks/bladeshroom_cap"
   },
   "elements": [
     {

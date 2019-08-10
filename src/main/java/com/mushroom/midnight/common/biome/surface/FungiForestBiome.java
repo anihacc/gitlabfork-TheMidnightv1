@@ -26,9 +26,9 @@ public class FungiForestBiome extends SurfaceBiome {
         MidnightBiomeConfigurator.addDewshroomFlowers(this);
         MidnightBiomeConfigurator.addViridshroomFlowers(this);
 
+        MidnightBiomeConfigurator.addBladeshrooms(this);
         MidnightBiomeConfigurator.addDeadViridShroomAndCache(this);
         MidnightBiomeConfigurator.addGrasses(this);
-        MidnightBiomeConfigurator.addBladeshrooms(this);
 
         MidnightBiomeConfigurator.addGlobalFeatures(this);
 

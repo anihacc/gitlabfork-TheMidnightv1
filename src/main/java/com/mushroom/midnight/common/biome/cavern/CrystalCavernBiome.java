@@ -13,6 +13,8 @@ public class CrystalCavernBiome extends CavernousBiome {
                 .heightScale(0.4F)
         );
 
+        MidnightBiomeConfigurator.addCaves(this);
+
         MidnightBiomeConfigurator.addRouxeClusters(this);
         MidnightBiomeConfigurator.addStandardUndergroundSpawns(this);
 
