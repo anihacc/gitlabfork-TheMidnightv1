@@ -3,6 +3,7 @@ package com.mushroom.midnight.common.biome;
 import com.mushroom.midnight.common.biome.cavern.CavernousBiome;
 import com.mushroom.midnight.common.registry.MidnightCavernousBiomes;
 import com.mushroom.midnight.common.registry.MidnightSurfaceBiomes;
+import com.mushroom.midnight.common.world.layer.AddHillsLayer;
 import com.mushroom.midnight.common.world.layer.AddOutlineLayer;
 import com.mushroom.midnight.common.world.layer.CavernSeedLayer;
 import com.mushroom.midnight.common.world.layer.CellSeedLayer;
@@ -72,18 +73,22 @@ public final class BiomeLayerType<T> {
         IAreaFactory<A> valleyLayer = buildEdgeHighlightLayer(contextFactory, 200);
 
         IAreaFactory<A> layer = new SeedGroupLayer(MidnightBiomeGroup.SURFACE).apply(contextFactory.apply(0));
-        layer = VoroniZoomLayer.INSTANCE.apply(contextFactory.apply(1000), layer);
+        layer = ZoomLayer.NORMAL.apply(contextFactory.apply(1000), layer);
 
-        layer = new CreateGroupPocketsLayer(MidnightBiomeGroup.SURFACE_POCKET, 9).apply(contextFactory.apply(2000), layer);
-        layer = ZoomLayer.FUZZY.apply(contextFactory.apply(3000), layer);
-        layer = new EdgeMergeLayer(id -> id != plateauId, ridgeId).apply(contextFactory.apply(4000), layer, ridgeLayer);
+        layer = new AddHillsLayer(MidnightBiomeGroup.SURFACE_HILLS, 5).apply(contextFactory.apply(2000), layer);
 
-        layer = LayerUtil.repeat(5000, ZoomLayer.NORMAL, layer, 2, contextFactory);
+        layer = ZoomLayer.NORMAL.apply(contextFactory.apply(3000), layer);
 
-        layer = new EdgeMergeLayer(id -> id == plateauId, valleyId).apply(contextFactory.apply(6000), layer, valleyLayer);
+        layer = new CreateGroupPocketsLayer(MidnightBiomeGroup.SURFACE_POCKET, 11).apply(contextFactory.apply(4000), layer);
+        layer = ZoomLayer.FUZZY.apply(contextFactory.apply(5000), layer);
+        layer = new EdgeMergeLayer(id -> id != plateauId, ridgeId).apply(contextFactory.apply(6000), layer, ridgeLayer);
 
-        layer = ZoomLayer.NORMAL.apply(contextFactory.apply(7000), layer);
-        layer = SmoothLayer.INSTANCE.apply(contextFactory.apply(8000), layer);
+        layer = LayerUtil.repeat(7000, ZoomLayer.NORMAL, layer, 2, contextFactory);
+
+        layer = new EdgeMergeLayer(id -> id == plateauId, valleyId).apply(contextFactory.apply(8000), layer, valleyLayer);
+
+        layer = ZoomLayer.NORMAL.apply(contextFactory.apply(9000), layer);
+        layer = SmoothLayer.INSTANCE.apply(contextFactory.apply(10000), layer);
 
         return BiomeProcedure.of(layer, contextFactory);
     }

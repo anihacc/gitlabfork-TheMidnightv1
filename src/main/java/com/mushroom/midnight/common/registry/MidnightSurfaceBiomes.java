@@ -93,16 +93,19 @@ public class MidnightSurfaceBiomes {
                 new BiomeSpawnEntry.Basic(WARPED_FIELDS, 40)
         );
 
+        MidnightBiomeGroup.SURFACE_HILLS.add(
+                new BiomeSpawnEntry.Basic(HILLY_VIGILANT_FOREST, 6)
+                        .canReplace(VIGILANT_FOREST),
+                new BiomeSpawnEntry.Basic(HILLY_FUNGI_FOREST, 6)
+                        .canReplace(FUNGI_FOREST)
+        );
+
         MidnightBiomeGroup.SURFACE_POCKET.add(
                 new BiomeSpawnEntry.Basic(OBSCURED_PEAKS, 10)
                         .canReplace(OBSCURED_PLATEAU, BLACK_RIDGE),
                 new BiomeSpawnEntry.Basic(CRYSTAL_SPIRES, 2),
                 new BiomeSpawnEntry.Basic(RUNEBUSH_GROVE, 3)
-                        .canReplace(VIGILANT_FOREST),
-                new BiomeSpawnEntry.Basic(HILLY_VIGILANT_FOREST, 6)
-                        .canReplace(VIGILANT_FOREST),
-                new BiomeSpawnEntry.Basic(HILLY_FUNGI_FOREST, 6)
-                        .canReplace(FUNGI_FOREST)
+                        .canReplace(VIGILANT_FOREST)
         );
     }
 

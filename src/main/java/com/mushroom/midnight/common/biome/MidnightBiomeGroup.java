@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 public enum MidnightBiomeGroup {
     SURFACE,
+    SURFACE_HILLS,
     SURFACE_POCKET,
     UNDERGROUND,
     UNDERGROUND_POCKET;
