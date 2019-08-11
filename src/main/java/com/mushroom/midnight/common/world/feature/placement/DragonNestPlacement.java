@@ -2,58 +2,49 @@ package com.mushroom.midnight.common.world.feature.placement;
 
 import com.mojang.datafixers.Dynamic;
 import com.mushroom.midnight.common.world.feature.structure.MoltenCraterStructure;
+import it.unimi.dsi.fastutil.longs.LongSet;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.chunk.ChunkStatus;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
-import net.minecraft.world.gen.feature.structure.StructureStart;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.placement.NoPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 
+import java.util.Objects;
 import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class DragonNestPlacement extends Placement<NoPlacementConfig> {
-    private static final int CRATER_RANGE_CHUNKS = 3;
-
     public DragonNestPlacement(Function<Dynamic<?>, ? extends NoPlacementConfig> deserialize) {
         super(deserialize);
     }
 
     @Override
     public Stream<BlockPos> getPositions(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random random, NoPlacementConfig config, BlockPos origin) {
-        if (!isNearCrater(world, random, origin)) {
+        int chunkX = origin.getX() >> 4;
+        int chunkZ = origin.getZ() >> 4;
+
+        IChunk chunk = world.getChunk(chunkX, chunkZ, ChunkStatus.STRUCTURE_REFERENCES);
+        LongSet references = chunk.getStructureReferences(MoltenCraterStructure.NAME);
+        if (references.isEmpty()) {
             return Stream.empty();
         }
 
         return IntStream.range(0, 64).mapToObj(i -> {
-            int offsetX = random.nextInt(16);
-            int offsetZ = random.nextInt(16);
-            return origin.add(offsetX, 0, offsetZ);
-        });
-    }
+            int x = random.nextInt(16);
+            int z = random.nextInt(16);
 
-    private static boolean isNearCrater(IWorld world, Random random, BlockPos chunkOrigin) {
-        if (random.nextInt(10) != 0) {
-            return false;
-        }
+            int maxY = SurfacePlacementLevel.INSTANCE.getSurfacePos(world, Heightmap.Type.MOTION_BLOCKING, origin.add(x, 0, z)).getY() + 32;
 
-        int chunkX = chunkOrigin.getX() >> 4;
-        int chunkZ = chunkOrigin.getZ() >> 4;
+            int y = random.nextInt(maxY);
+            if (!SurfacePlacementLevel.INSTANCE.containsY(world, y)) return null;
 
-        for (int deltaZ = -CRATER_RANGE_CHUNKS; deltaZ <= CRATER_RANGE_CHUNKS; deltaZ++) {
-            for (int deltaX = -CRATER_RANGE_CHUNKS; deltaX <= CRATER_RANGE_CHUNKS; deltaX++) {
-                IChunk chunk = world.getChunk(chunkX + deltaX, chunkZ + deltaZ);
-                StructureStart start = chunk.getStructureStart(MoltenCraterStructure.NAME);
-                if (start != null) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+            return origin.add(x, y, z);
+        }).filter(Objects::nonNull);
     }
 }

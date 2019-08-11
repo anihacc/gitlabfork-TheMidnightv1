@@ -22,7 +22,7 @@ public class DragonNestBlock extends HangablePlantBlock {
     @Override
     @SuppressWarnings("deprecation")
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        if (entity instanceof LivingEntity && !entity.world.isRemote && entity.ticksExisted % 20 == 0) {
+        if (entity instanceof LivingEntity && !entity.world.isRemote && entity.ticksExisted % 10 == 0) {
             ((LivingEntity) entity).addPotionEffect(new EffectInstance(MidnightEffects.DRAGON_GUARD, 100, 0, false, true));
         }
     }
@@ -31,7 +31,7 @@ public class DragonNestBlock extends HangablePlantBlock {
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
         super.animateTick(state, world, pos, rand);
-        if (rand.nextFloat() < 0.2f) {
+        if (rand.nextFloat() < 0.5f) {
             Vec3d offset = getOffset(state, world, pos);
             double distX = rand.nextFloat() * 0.6 - 0.3d;
             double posX = pos.getX() + 0.5d + offset.x + distX;
