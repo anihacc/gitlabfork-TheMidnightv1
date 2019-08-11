@@ -22,6 +22,7 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
+import java.util.List;
 
 public abstract class SurfaceBiome extends Biome implements ConfigurableBiome {
     private final float ridgeWeight;
@@ -114,13 +115,18 @@ public abstract class SurfaceBiome extends Biome implements ConfigurableBiome {
     }
 
     @Override
+    public void generateSurface(SharedSeedRandom random, IChunk chunk, int x, int z, int y, double depth, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed) {
+        this.buildSurface(random, chunk, x, z, y, depth, defaultBlock, defaultFluid, seaLevel, seed);
+    }
+
+    @Override
     public Collection<ConfiguredCarver<?>> getCarversFor(GenerationStage.Carving stage) {
         return this.carvers.get(stage);
     }
 
     @Override
-    public void generateSurface(SharedSeedRandom random, IChunk chunk, int x, int z, int y, double depth, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed) {
-        this.buildSurface(random, chunk, x, z, y, depth, defaultBlock, defaultFluid, seaLevel, seed);
+    public List<SpawnListEntry> getSpawnsFor(EntityClassification classification) {
+        return this.getSpawns(classification);
     }
 
     public static class Properties extends Biome.Builder {

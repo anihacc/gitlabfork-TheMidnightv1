@@ -43,7 +43,7 @@ public abstract class CavernousBiome extends ForgeRegistryEntry<CavernousBiome> 
     protected final Multimap<GenerationStage.Decoration, ConfiguredFeature<?>> features = HashMultimap.create();
     protected final List<ConfiguredFeature<?>> flowers = new ArrayList<>();
     protected final Map<Structure<?>, IFeatureConfig> structures = new HashMap<>();
-    protected final Multimap<EntityClassification, Biome.SpawnListEntry> spawns = HashMultimap.create();
+    protected final Map<EntityClassification, List<Biome.SpawnListEntry>> spawns = new HashMap<>();
 
     public CavernousBiome(Properties properties) {
         Preconditions.checkNotNull(properties.surfaceBuilder, "must have surfacebuilder");
@@ -76,7 +76,7 @@ public abstract class CavernousBiome extends ForgeRegistryEntry<CavernousBiome> 
 
     @Override
     public void add(EntityClassification classification, Biome.SpawnListEntry entry) {
-        this.spawns.put(classification, entry);
+        this.getSpawnsFor(classification).add(entry);
     }
 
     @Override
@@ -92,14 +92,19 @@ public abstract class CavernousBiome extends ForgeRegistryEntry<CavernousBiome> 
     }
 
     @Override
+    public void generateSurface(SharedSeedRandom random, IChunk chunk, int x, int z, int startY, double depth, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed) {
+        this.surfaceBuilder.setSeed(seed);
+        this.surfaceBuilder.buildSurface(random, chunk, Biomes.DEFAULT, x, z, startY, depth, defaultBlock, defaultFluid, seaLevel, seed);
+    }
+
+    @Override
     public Collection<ConfiguredCarver<?>> getCarversFor(GenerationStage.Carving stage) {
         return this.carvers.get(stage);
     }
 
     @Override
-    public void generateSurface(SharedSeedRandom random, IChunk chunk, int x, int z, int startY, double depth, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed) {
-        this.surfaceBuilder.setSeed(seed);
-        this.surfaceBuilder.buildSurface(random, chunk, Biomes.DEFAULT, x, z, startY, depth, defaultBlock, defaultFluid, seaLevel, seed);
+    public List<Biome.SpawnListEntry> getSpawnsFor(EntityClassification classification) {
+        return this.spawns.computeIfAbsent(classification, c -> new ArrayList<>());
     }
 
     public float getCavernDensity() {

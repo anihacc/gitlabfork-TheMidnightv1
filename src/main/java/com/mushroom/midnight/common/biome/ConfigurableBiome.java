@@ -16,6 +16,7 @@ import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface ConfigurableBiome {
     void add(GenerationStage.Decoration stage, ConfiguredFeature<?> feature);
@@ -28,7 +29,9 @@ public interface ConfigurableBiome {
 
     void placeFeatures(GenerationStage.Decoration stage, MidnightChunkGenerator generator, WorldGenRegion world, long seed, SharedSeedRandom random, BlockPos origin);
 
+    void generateSurface(SharedSeedRandom random, IChunk chunk, int x, int z, int y, double depth, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed);
+
     Collection<ConfiguredCarver<?>> getCarversFor(GenerationStage.Carving stage);
 
-    void generateSurface(SharedSeedRandom random, IChunk chunk, int x, int z, int y, double depth, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed);
+    List<Biome.SpawnListEntry> getSpawnsFor(EntityClassification classification);
 }

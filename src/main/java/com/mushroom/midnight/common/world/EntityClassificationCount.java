@@ -1,10 +1,12 @@
 package com.mushroom.midnight.common.world;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.function.Predicate;
 
 public class EntityClassificationCount {
     private final int[] counts;
@@ -26,6 +28,10 @@ public class EntityClassificationCount {
     }
 
     public static EntityClassificationCount count(ServerWorld world, Collection<EntityClassification> classifications) {
+        return count(world, classifications, entity -> true);
+    }
+
+    public static EntityClassificationCount count(ServerWorld world, Collection<EntityClassification> classifications, Predicate<Entity> predicate) {
         int[] counts = new int[EntityClassification.values().length];
 
         world.getEntities().forEach(entity -> {

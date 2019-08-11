@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class MidnightFurnaceBlock extends AbstractFurnaceBlock {
-    protected MidnightFurnaceBlock(Properties properties) {
+    public MidnightFurnaceBlock(Properties properties) {
         super(properties);
     }
 

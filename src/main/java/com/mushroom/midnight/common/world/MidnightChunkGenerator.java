@@ -4,7 +4,9 @@ import com.google.common.collect.Iterables;
 import com.mushroom.midnight.common.biome.BiomeLayers;
 import com.mushroom.midnight.common.biome.cavern.CavernousBiome;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
+import com.mushroom.midnight.common.world.feature.placement.UndergroundPlacementLevel;
 import com.mushroom.midnight.common.world.util.NoiseChunkPrimer;
+import net.minecraft.entity.EntityClassification;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -26,6 +28,7 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.BitSet;
 import java.util.Collection;
+import java.util.List;
 
 import static com.mushroom.midnight.common.world.MidnightNoiseGenerator.*;
 
@@ -184,6 +187,15 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
         if (this.world.getGameRules().getBoolean(GameRules.DO_MOB_SPAWNING)) {
             //this.world.getCapability(Midnight.WORLD_SPAWNERS_CAP).ifPresent(MidnightWorldSpawners::spawnAroundPlayers);
         }
+    }
+
+    @Override
+    public List<Biome.SpawnListEntry> getPossibleCreatures(EntityClassification classification, BlockPos pos) {
+        if (UndergroundPlacementLevel.INSTANCE.containsY(this.world, pos.getY())) {
+            CavernousBiome biome = this.getCavernousBiome(pos.getX(), pos.getZ());
+            return biome.getSpawnsFor(classification);
+        }
+        return super.getPossibleCreatures(classification, pos);
     }
 
     @Override

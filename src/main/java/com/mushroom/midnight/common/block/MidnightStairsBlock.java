@@ -28,7 +28,7 @@ import java.util.function.Supplier;
 public class MidnightStairsBlock extends StairsBlock {
     private final Supplier<BlockState> stateSupplier;
 
-    protected MidnightStairsBlock(Supplier<BlockState> stateSupplier, Properties properties) {
+    public MidnightStairsBlock(Supplier<BlockState> stateSupplier, Properties properties) {
         super(Blocks.AIR.getDefaultState(), properties);
         this.stateSupplier = stateSupplier;
     }

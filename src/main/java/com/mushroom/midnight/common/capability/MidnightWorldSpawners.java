@@ -4,13 +4,10 @@ import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.biome.cavern.CavernousBiome;
 import com.mushroom.midnight.common.biome.surface.SurfaceBiome;
 import com.mushroom.midnight.common.registry.MidnightSurfaceBiomes;
-import com.mushroom.midnight.common.world.MidnightEntitySpawner;
-import com.mushroom.midnight.common.world.feature.placement.SurfacePlacementLevel;
-import com.mushroom.midnight.common.world.feature.placement.UndergroundPlacementLevel;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
@@ -42,14 +39,14 @@ public interface MidnightWorldSpawners extends ICapabilityProvider {
 
     class SurfaceAndCave implements MidnightWorldSpawners {
         private final ServerWorld world;
-        private final MidnightEntitySpawner<SurfaceBiome> biomeEntitySpawner;
-        private final MidnightEntitySpawner<CavernousBiome> cavernEntitySpawner;
+//        private final MidnightEntitySpawner<SurfaceBiome> biomeEntitySpawner;
+//        private final MidnightEntitySpawner<CavernousBiome> cavernEntitySpawner;
 
         public SurfaceAndCave(ServerWorld world) {
             this.world = world;
 
-            this.biomeEntitySpawner = new MidnightEntitySpawner<>(this::getSurfaceSpawnBiome, SurfacePlacementLevel.INSTANCE);
-            this.cavernEntitySpawner = new MidnightEntitySpawner<>(this::getCavernSpawnBiome, UndergroundPlacementLevel.INSTANCE);
+//            this.biomeEntitySpawner = new MidnightEntitySpawner<>(this::getSurfaceSpawnBiome, SurfacePlacementLevel.INSTANCE, classifications);
+//            this.cavernEntitySpawner = new MidnightEntitySpawner<>(this::getCavernSpawnBiome, UndergroundPlacementLevel.INSTANCE, classifications);
         }
 
         private SurfaceBiome getSurfaceSpawnBiome(BlockPos pos) {

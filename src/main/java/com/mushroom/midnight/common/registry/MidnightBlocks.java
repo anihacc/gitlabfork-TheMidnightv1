@@ -394,12 +394,9 @@ public class MidnightBlocks {
                 .add("nightstone_brick_slab", SlabBlock::new)
                 .add("rockshroom_brick_slab", SlabBlock::new)
 
-                .add("nightstone_stairs", props -> new MidnightStairsBlock(() -> NIGHTSTONE.getDefaultState(), props) {
-                })
-                .add("nightstone_brick_stairs", props -> new MidnightStairsBlock(() -> NIGHTSTONE_BRICKS.getDefaultState(), props) {
-                })
-                .add("rockshroom_brick_stairs", props -> new MidnightStairsBlock(() -> ROCKSHROOM_BRICKS.getDefaultState(), props) {
-                })
+                .add("nightstone_stairs", props -> new MidnightStairsBlock(() -> NIGHTSTONE.getDefaultState(), props))
+                .add("nightstone_brick_stairs", props -> new MidnightStairsBlock(() -> NIGHTSTONE_BRICKS.getDefaultState(), props))
+                .add("rockshroom_brick_stairs", props -> new MidnightStairsBlock(() -> ROCKSHROOM_BRICKS.getDefaultState(), props))
 
                 .add("nightstone_wall", WallBlock::new)
                 .add("nightstone_brick_wall", WallBlock::new)
@@ -409,16 +406,14 @@ public class MidnightBlocks {
                 .withProperties(() -> Block.Properties.create(Material.ROCK).hardnessAndResistance(5f, 200f))
                 .add("trenchstone", props -> new BasicBlock(props.harvestTool(ToolType.PICKAXE).harvestLevel(2)))
                 .add("trenchstone_slab", SlabBlock::new)
-                .add("trenchstone_stairs", props -> new MidnightStairsBlock(() -> TRENCHSTONE.getDefaultState(), props) {
-                })
+                .add("trenchstone_stairs", props -> new MidnightStairsBlock(() -> TRENCHSTONE.getDefaultState(), props))
                 .add("trenchstone_wall", WallBlock::new);
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5f, 200f))
                 .add("trenchstone_bricks", props -> new BasicBlock(props.harvestTool(ToolType.PICKAXE).harvestLevel(2)))
                 .add("trenchstone_brick_slab", SlabBlock::new)
-                .add("trenchstone_brick_stairs", props -> new MidnightStairsBlock(() -> TRENCHSTONE_BRICKS.getDefaultState(), props) {
-                })
+                .add("trenchstone_brick_stairs", props -> new MidnightStairsBlock(() -> TRENCHSTONE_BRICKS.getDefaultState(), props))
                 .add("trenchstone_brick_wall", WallBlock::new);
 
         RegUtil.blocks(event.getRegistry())
@@ -441,14 +436,11 @@ public class MidnightBlocks {
                 .add("dark_willow_stripped_wood", props -> new LogBlock(MaterialColor.BROWN, props));
 
         RegUtil.blocks(event.getRegistry())
-                .withProperties(() ->
-                        Block.Properties.create(Material.ROCK)
-                                .hardnessAndResistance(3.5f)
-                                .lightValue(13)
-                                .tickRandomly()
-                )
-                .add("nightstone_furnace", props -> new MidnightFurnaceBlock(props) {
-                });
+                .add("nightstone_furnace", new MidnightFurnaceBlock(Block.Properties.create(Material.ROCK)
+                        .hardnessAndResistance(3.5f)
+                        .lightValue(13)
+                        .tickRandomly())
+                );
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.TALL_PLANTS)
@@ -562,19 +554,16 @@ public class MidnightBlocks {
                 .add("archaic_ore", new MidnightGemBlock(0))
                 .add("archaic_glass", new MidnightGlassBlock())
                 .add("archaic_glass_pane", new MidnightGlassPaneBlock())
-                .add("shadowroot_chest", new MidnightChestBlock(Block.Properties.from(Blocks.CHEST)) {
-                })
-                .add("dark_willow_chest", new MidnightChestBlock(Block.Properties.from(Blocks.CHEST)) {
-                })
-                .add("dead_wood_chest", new MidnightChestBlock(Block.Properties.from(Blocks.CHEST)) {
-                })
-                .add("nightshroom_chest", new MidnightChestBlock(Block.Properties.from(Blocks.CHEST)) {
-                })
-                .add("dewshroom_chest", new MidnightChestBlock(Block.Properties.from(Blocks.CHEST)) {
-                })
-                .add("viridshroom_chest", new MidnightChestBlock(Block.Properties.from(Blocks.CHEST)) {
-                })
                 .add("suavis", new SuavisBlock());
+
+        RegUtil.blocks(event.getRegistry())
+                .withProperties(() -> Block.Properties.from(Blocks.CHEST))
+                .add("shadowroot_chest", MidnightChestBlock::new)
+                .add("dark_willow_chest", MidnightChestBlock::new)
+                .add("dead_wood_chest", MidnightChestBlock::new)
+                .add("nightshroom_chest", MidnightChestBlock::new)
+                .add("dewshroom_chest", MidnightChestBlock::new)
+                .add("viridshroom_chest", MidnightChestBlock::new);
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.from(Blocks.TORCH))
@@ -603,21 +592,14 @@ public class MidnightBlocks {
                 .add("viridshroom_slab", SlabBlock::new)
                 .add("nightshroom_slab", SlabBlock::new)
 
-                .add("shadowroot_stairs", props -> new MidnightStairsBlock(() -> SHADOWROOT_PLANKS.getDefaultState(), props) {
-                })
-                .add("dead_wood_stairs", props -> new MidnightStairsBlock(() -> DEAD_WOOD_PLANKS.getDefaultState(), props) {
-                })
-                .add("dark_willow_stairs", props -> new MidnightStairsBlock(() -> DARK_WILLOW_PLANKS.getDefaultState(), props) {
-                })
-                .add("dewshroom_stairs", props -> new MidnightStairsBlock(() -> DEWSHROOM_PLANKS.getDefaultState(), props) {
-                })
-                .add("viridshroom_stairs", props -> new MidnightStairsBlock(() -> VIRIDSHROOM_PLANKS.getDefaultState(), props) {
-                })
-                .add("nightshroom_stairs", props -> new MidnightStairsBlock(() -> NIGHTSHROOM_PLANKS.getDefaultState(), props) {
-                })
+                .add("shadowroot_stairs", props -> new MidnightStairsBlock(() -> SHADOWROOT_PLANKS.getDefaultState(), props))
+                .add("dead_wood_stairs", props -> new MidnightStairsBlock(() -> DEAD_WOOD_PLANKS.getDefaultState(), props))
+                .add("dark_willow_stairs", props -> new MidnightStairsBlock(() -> DARK_WILLOW_PLANKS.getDefaultState(), props))
+                .add("dewshroom_stairs", props -> new MidnightStairsBlock(() -> DEWSHROOM_PLANKS.getDefaultState(), props))
+                .add("viridshroom_stairs", props -> new MidnightStairsBlock(() -> VIRIDSHROOM_PLANKS.getDefaultState(), props))
+                .add("nightshroom_stairs", props -> new MidnightStairsBlock(() -> NIGHTSHROOM_PLANKS.getDefaultState(), props))
 
-                .add("viridshroom_stem_cache", props -> new CacheBlock(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2f)) {
-                });
+                .add("viridshroom_stem_cache", props -> new CacheBlock(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2f)));
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.from(Blocks.CRAFTING_TABLE))
@@ -768,9 +750,9 @@ public class MidnightBlocks {
         RegUtil.items(event.getRegistry())
                 .withProperties(() -> new Item.Properties().group(MidnightItemGroups.BUILDING))
                 .addAll(BlockItem::new,
-                        SHADOWROOT_LOG, SHADOWROOT_STRIPPED_LOG, SHADOWROOT_WOOD, SHADOWROOT_STRIPPED_WOOD, SHADOWROOT_LEAVES, SHADOWROOT_PLANKS, 
-						DARK_WILLOW_LOG, DARK_WILLOW_STRIPPED_LOG, DARK_WILLOW_WOOD, DARK_WILLOW_STRIPPED_WOOD, DARK_WILLOW_LEAVES, DARK_WILLOW_PLANKS, 
-						DEAD_WOOD_LOG, DEAD_WOOD_STRIPPED_LOG, DEAD_WOOD, DEAD_WOOD_STRIPPED,
+                        SHADOWROOT_LOG, SHADOWROOT_STRIPPED_LOG, SHADOWROOT_WOOD, SHADOWROOT_STRIPPED_WOOD, SHADOWROOT_LEAVES, SHADOWROOT_PLANKS,
+                        DARK_WILLOW_LOG, DARK_WILLOW_STRIPPED_LOG, DARK_WILLOW_WOOD, DARK_WILLOW_STRIPPED_WOOD, DARK_WILLOW_LEAVES, DARK_WILLOW_PLANKS,
+                        DEAD_WOOD_LOG, DEAD_WOOD_STRIPPED_LOG, DEAD_WOOD, DEAD_WOOD_STRIPPED,
                         DEAD_WOOD_PLANKS, DEWSHROOM_PLANKS, VIRIDSHROOM_PLANKS, NIGHTSHROOM_PLANKS,
                         NIGHTSTONE, NIGHTSTONE_BRICKS, CHISELED_NIGHTSTONE_BRICKS, TRENCHSTONE, TRENCHSTONE_BRICKS,
                         DARK_PEARL_ORE, DARK_PEARL_BLOCK, TENEBRUM_ORE, TENEBRUM_BLOCK, NAGRILITE_ORE, NAGRILITE_BLOCK, EBONITE_ORE, EBONITE_BLOCK, ARCHAIC_ORE,
