@@ -4,12 +4,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
 
-public class ConfusionEffect extends GenericEffect {
+public class ConfusionEffect extends Effect {
     public ConfusionEffect() {
         super(EffectType.HARMFUL, 0x0);
     }

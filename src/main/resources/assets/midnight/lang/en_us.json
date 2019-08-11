@@ -56,7 +56,12 @@
   "block.midnight.tenebrum_block": "Tenebrum Block",
 
   "block.midnight.shadowroot_chest": "Shadowroot Chest",
-  "block.midnight.shadowroot_double_chest": "Shadowroot Double Chest",
+  "block.midnight.dark_willow_chest": "Dark Willow Chest",
+  "block.midnight.dead_wood_chest": "Dead Wood Chest",
+  "block.midnight.nightshroom_chest": "Nightshroom Chest",
+  "block.midnight.dewshroom_chest": "Dewshroom Chest",
+  "block.midnight.viridshroom_chest": "Viridshroom Chest",
+
   "block.midnight.nightstone_furnace": "Nightstone Furnace",
 
   "block.midnight.viridshroom_stem_cache": "Hidden Cache",
@@ -460,13 +465,13 @@
 
   "_comment": "Potions",
 
-  "potion.midnight.stunned": "Stunned",
-  "potion.midnight.pollinated": "Pollinated",
-  "potion.midnight.dragon_guard": "Dragon's Guard",
-  "potion.midnight.darkness": "Darkness",
-  "potion.midnight.tormented": "Tormented",
-  "potion.midnight.unstable_fall": "Unstable Fall",
-  "potion.midnight.confusion": "Confusion",
+  "effect.midnight.stunned": "Stunned",
+  "effect.midnight.pollinated": "Pollinated",
+  "effect.midnight.dragon_guard": "Dragon's Guard",
+  "effect.midnight.darkness": "Darkness",
+  "effect.midnight.tormented": "Tormented",
+  "effect.midnight.unstable_fall": "Unstable Fall",
+  "effect.midnight.confusion": "Confusion",
 
   "_comment": "DamageSources",
 

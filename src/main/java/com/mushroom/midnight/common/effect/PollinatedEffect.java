@@ -3,12 +3,13 @@ package com.mushroom.midnight.common.effect;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
-public class PollinatedEffect extends GenericEffect {
+public class PollinatedEffect extends Effect {
     private static final BlockState TENDRILWEED = MidnightBlocks.TENDRILWEED.getDefaultState();
 
     public PollinatedEffect() {

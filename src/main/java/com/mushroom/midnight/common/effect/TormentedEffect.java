@@ -2,10 +2,11 @@ package com.mushroom.midnight.common.effect;
 
 import com.mushroom.midnight.common.util.MidnightDamageSource;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
 import net.minecraft.util.DamageSource;
 
-public class TormentedEffect extends GenericEffect {
+public class TormentedEffect extends Effect {
     private static final DamageSource TORMENTED_DAMAGE = new MidnightDamageSource("tormented").setMagicDamage();
     private double posX, posZ;
 

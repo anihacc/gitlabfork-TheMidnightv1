@@ -1,10 +1,11 @@
 package com.mushroom.midnight.common.effect;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
 import net.minecraft.util.math.Vec3d;
 
-public class UnstableFallEffect extends GenericEffect {
+public class UnstableFallEffect extends Effect {
     public UnstableFallEffect() {
         super(EffectType.BENEFICIAL, 0x0);
     }
