@@ -6,7 +6,7 @@ import net.minecraft.potion.EffectType;
 import net.minecraft.util.DamageSource;
 
 public class TormentedEffect extends GenericEffect {
-    private static final DamageSource TORMENTED_DAMAGE = new MidnightDamageSource("tormented").setDamageBypassesArmor().setDamageIsAbsolute();
+    private static final DamageSource TORMENTED_DAMAGE = new MidnightDamageSource("tormented").setMagicDamage();
     private double posX, posZ;
 
     public TormentedEffect() {
@@ -26,6 +26,6 @@ public class TormentedEffect extends GenericEffect {
 
     @Override
     public boolean isReady(int duration, int amplifier) {
-        return duration % 10 == 0;
+        return duration % 20 == 0;
     }
 }

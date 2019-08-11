@@ -94,9 +94,10 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
     protected void registerAttributes() {
         super.registerAttributes();
         this.getAttributes().registerAttribute(SharedMonsterAttributes.FLYING_SPEED);
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0);
         this.getAttribute(SharedMonsterAttributes.FLYING_SPEED).setBaseValue(0.12);
-        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(64.0);
-        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0);
+        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(48.0);
+        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0);
     }
 
     @Override
@@ -180,7 +181,10 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
 
                 float theta = (float) Math.toRadians(this.rotationYaw);
                 living.knockBack(this, 0.3F, MathHelper.sin(theta), -MathHelper.cos(theta));
-                living.addPotionEffect(new EffectInstance(MidnightEffects.TORMENTED, 6 * 20));
+
+                if (this.rand.nextInt(2) == 0) {
+                    living.addPotionEffect(new EffectInstance(MidnightEffects.TORMENTED, 6 * 20));
+                }
 
                 this.animCap.setAnimation(this, AnimationCapability.Type.ATTACK, 10);
             }
