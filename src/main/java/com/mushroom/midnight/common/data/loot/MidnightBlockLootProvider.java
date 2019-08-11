@@ -53,12 +53,18 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.SHADOWROOT_LOG);
         this.add(MidnightBlocks.SHADOWROOT_STRIPPED_LOG);
         this.add(MidnightBlocks.SHADOWROOT_PLANKS);
+        this.add(MidnightBlocks.SHADOWROOT_WOOD);
+        this.add(MidnightBlocks.SHADOWROOT_STRIPPED_WOOD);
         this.add(MidnightBlocks.DEAD_WOOD_LOG);
         this.add(MidnightBlocks.DEAD_WOOD_STRIPPED_LOG);
         this.add(MidnightBlocks.DEAD_WOOD_PLANKS);
+        this.add(MidnightBlocks.DEAD_WOOD);
+        this.add(MidnightBlocks.DEAD_WOOD_STRIPPED);
         this.add(MidnightBlocks.DARK_WILLOW_LOG);
         this.add(MidnightBlocks.DARK_WILLOW_STRIPPED_LOG);
         this.add(MidnightBlocks.DARK_WILLOW_PLANKS);
+        this.add(MidnightBlocks.DARK_WILLOW_WOOD);
+        this.add(MidnightBlocks.DARK_WILLOW_STRIPPED_WOOD);
         this.add(MidnightBlocks.NIGHTSTONE);
         this.add(MidnightBlocks.NIGHTSTONE_BRICKS);
         this.add(MidnightBlocks.CHISELED_NIGHTSTONE_BRICKS);
