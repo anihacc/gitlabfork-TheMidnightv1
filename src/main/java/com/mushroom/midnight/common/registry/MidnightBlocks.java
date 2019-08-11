@@ -21,6 +21,7 @@ import com.mushroom.midnight.common.block.GlobFungusHatBlock;
 import com.mushroom.midnight.common.block.HangablePlantBlock;
 import com.mushroom.midnight.common.block.MiasmaSurfaceBlock;
 import com.mushroom.midnight.common.block.MidnightChestBlock;
+import com.mushroom.midnight.common.block.MidnightCraftingTableBlock;
 import com.mushroom.midnight.common.block.MidnightDoublePlantBlock;
 import com.mushroom.midnight.common.block.MidnightFluidBlock;
 import com.mushroom.midnight.common.block.MidnightFungiHatBlock;
@@ -56,7 +57,6 @@ import com.mushroom.midnight.common.world.tree.ShadowrootTree;
 import com.mushroom.midnight.common.world.tree.ViridshroomTree;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.CraftingTableBlock;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.block.FenceGateBlock;
@@ -621,18 +621,12 @@ public class MidnightBlocks {
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.from(Blocks.CRAFTING_TABLE))
-                .add("shadowroot_crafting_table", props -> new CraftingTableBlock(props) {
-                })
-                .add("dark_willow_crafting_table", props -> new CraftingTableBlock(props) {
-                })
-                .add("dead_wood_crafting_table", props -> new CraftingTableBlock(props) {
-                })
-                .add("nightshroom_crafting_table", props -> new CraftingTableBlock(props) {
-                })
-                .add("dewshroom_crafting_table", props -> new CraftingTableBlock(props) {
-                })
-                .add("viridshroom_crafting_table", props -> new CraftingTableBlock(props) {
-                });
+                .add("shadowroot_crafting_table", MidnightCraftingTableBlock::new)
+                .add("dark_willow_crafting_table", MidnightCraftingTableBlock::new)
+                .add("dead_wood_crafting_table", MidnightCraftingTableBlock::new)
+                .add("nightshroom_crafting_table", MidnightCraftingTableBlock::new)
+                .add("dewshroom_crafting_table", MidnightCraftingTableBlock::new)
+                .add("viridshroom_crafting_table", MidnightCraftingTableBlock::new);
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.IRON, MaterialColor.ADOBE).hardnessAndResistance(3f).sound(SoundType.METAL))
