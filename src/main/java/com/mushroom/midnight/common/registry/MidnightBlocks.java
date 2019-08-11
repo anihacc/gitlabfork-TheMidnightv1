@@ -99,11 +99,17 @@ public class MidnightBlocks {
     public static final Block SHADOWROOT_STRIPPED_LOG = Blocks.AIR;
     public static final Block SHADOWROOT_LEAVES = Blocks.AIR;
     public static final Block SHADOWROOT_PLANKS = Blocks.AIR;
+    public static final Block SHADOWROOT_WOOD = Blocks.AIR;
+    public static final Block SHADOWROOT_STRIPPED_WOOD = Blocks.AIR;
     public static final Block DEAD_WOOD_LOG = Blocks.AIR;
     public static final Block DEAD_WOOD_STRIPPED_LOG = Blocks.AIR;
+    public static final Block DEAD_WOOD = Blocks.AIR;
+    public static final Block DEAD_WOOD_STRIPPED = Blocks.AIR;
     public static final Block DEAD_WOOD_PLANKS = Blocks.AIR;
     public static final Block DARK_WILLOW_LOG = Blocks.AIR;
     public static final Block DARK_WILLOW_STRIPPED_LOG = Blocks.AIR;
+    public static final Block DARK_WILLOW_WOOD = Blocks.AIR;
+    public static final Block DARK_WILLOW_STRIPPED_WOOD = Blocks.AIR;
     public static final Block DARK_WILLOW_LEAVES = Blocks.AIR;
     public static final Block DARK_WILLOW_PLANKS = Blocks.AIR;
     public static final Block NIGHTSTONE = Blocks.AIR;
@@ -426,7 +432,13 @@ public class MidnightBlocks {
                 .add("dark_willow_log", props -> new LogBlock(MaterialColor.BROWN, props))
                 .add("shadowroot_stripped_log", props -> new LogBlock(MaterialColor.BROWN, props))
                 .add("dead_wood_stripped_log", props -> new LogBlock(MaterialColor.BROWN, props))
-                .add("dark_willow_stripped_log", props -> new LogBlock(MaterialColor.BROWN, props));
+                .add("dark_willow_stripped_log", props -> new LogBlock(MaterialColor.BROWN, props))
+                .add("shadowroot_wood", props -> new LogBlock(MaterialColor.BROWN, props))
+                .add("dead_wood", props -> new LogBlock(MaterialColor.BROWN, props))
+                .add("dark_willow_wood", props -> new LogBlock(MaterialColor.BROWN, props))
+                .add("shadowroot_stripped_wood", props -> new LogBlock(MaterialColor.BROWN, props))
+                .add("dead_wood_stripped", props -> new LogBlock(MaterialColor.BROWN, props))
+                .add("dark_willow_stripped_wood", props -> new LogBlock(MaterialColor.BROWN, props));
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() ->
@@ -762,7 +774,9 @@ public class MidnightBlocks {
         RegUtil.items(event.getRegistry())
                 .withProperties(() -> new Item.Properties().group(MidnightItemGroups.BUILDING))
                 .addAll(BlockItem::new,
-                        SHADOWROOT_LOG, SHADOWROOT_STRIPPED_LOG, SHADOWROOT_LEAVES, SHADOWROOT_PLANKS, DARK_WILLOW_LOG, DARK_WILLOW_STRIPPED_LOG, DARK_WILLOW_LEAVES, DARK_WILLOW_PLANKS, DEAD_WOOD_LOG, DEAD_WOOD_STRIPPED_LOG,
+                        SHADOWROOT_LOG, SHADOWROOT_STRIPPED_LOG, SHADOWROOT_WOOD, SHADOWROOT_STRIPPED_WOOD, SHADOWROOT_LEAVES, SHADOWROOT_PLANKS, 
+						DARK_WILLOW_LOG, DARK_WILLOW_STRIPPED_LOG, DARK_WILLOW_WOOD, DARK_WILLOW_STRIPPED_WOOD, DARK_WILLOW_LEAVES, DARK_WILLOW_PLANKS, 
+						DEAD_WOOD_LOG, DEAD_WOOD_STRIPPED_LOG, DEAD_WOOD, DEAD_WOOD_STRIPPED,
                         DEAD_WOOD_PLANKS, DEWSHROOM_PLANKS, VIRIDSHROOM_PLANKS, NIGHTSHROOM_PLANKS,
                         NIGHTSTONE, NIGHTSTONE_BRICKS, CHISELED_NIGHTSTONE_BRICKS, TRENCHSTONE, TRENCHSTONE_BRICKS,
                         DARK_PEARL_ORE, DARK_PEARL_BLOCK, TENEBRUM_ORE, TENEBRUM_BLOCK, NAGRILITE_ORE, NAGRILITE_BLOCK, EBONITE_ORE, EBONITE_BLOCK, ARCHAIC_ORE,
