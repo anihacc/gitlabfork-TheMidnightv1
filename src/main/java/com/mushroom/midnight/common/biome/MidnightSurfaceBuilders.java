@@ -49,18 +49,30 @@ public final class MidnightSurfaceBuilders {
             MidnightBlocks.NIGHTSTONE.getDefaultState()
     );
 
-    public static final SurfaceBuilder<SurfaceBuilderConfig> BOG = new BogSurfaceBuilder(SurfaceBuilderConfig::deserialize);
+    public static final SurfaceBuilderConfig COARSE_DIRT_CONFIG = new SurfaceBuilderConfig(
+            MidnightBlocks.COARSE_DIRT.getDefaultState(),
+            MidnightBlocks.COARSE_DIRT.getDefaultState(),
+            MidnightBlocks.COARSE_DIRT.getDefaultState()
+    );
 
-    private static class BogSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
-        public BogSurfaceBuilder(Function<Dynamic<?>, ? extends SurfaceBuilderConfig> deserialize) {
+    public static final SurfaceBuilder<SurfaceBuilderConfig> PATCHED_MUD = new PatchedSurfaceBuilder(SurfaceBuilderConfig::deserialize, MUD_CONFIG, 0.05);
+    public static final SurfaceBuilder<SurfaceBuilderConfig> PATCHED_COARSE_DIRT = new PatchedSurfaceBuilder(SurfaceBuilderConfig::deserialize, COARSE_DIRT_CONFIG, -1.75);
+
+    private static class PatchedSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
+        private final SurfaceBuilderConfig patchConfig;
+        private final double threshold;
+
+        public PatchedSurfaceBuilder(Function<Dynamic<?>, ? extends SurfaceBuilderConfig> deserialize, SurfaceBuilderConfig patchConfig, double threshold) {
             super(deserialize);
+            this.patchConfig = patchConfig;
+            this.threshold = threshold;
         }
 
         @Override
         public void buildSurface(Random random, IChunk chunk, Biome biome, int x, int z, int startHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
             noise += (random.nextDouble() - 0.5) * 0.1;
-            if (noise < 0.05) {
-                config = MUD_CONFIG;
+            if (noise < this.threshold) {
+                config = this.patchConfig;
             }
 
             SURFACE.buildSurface(random, chunk, biome, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, config);

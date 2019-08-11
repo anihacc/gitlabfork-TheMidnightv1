@@ -9,7 +9,7 @@ import net.minecraft.world.biome.Biome;
 public class DeceitfulBogBiome extends SurfaceBiome {
     public DeceitfulBogBiome() {
         super(new Properties()
-                .surfaceBuilder(MidnightSurfaceBuilders.BOG, MidnightSurfaceBuilders.PEAT_CONFIG)
+                .surfaceBuilder(MidnightSurfaceBuilders.PATCHED_MUD, MidnightSurfaceBuilders.PEAT_CONFIG)
                 .category(Category.SWAMP)
                 .grassColor(0x554E70)
                 .skyColor(0x1E1716)

@@ -6,7 +6,7 @@ import com.mushroom.midnight.common.biome.MidnightSurfaceBuilders;
 public class FungiForestBiome extends SurfaceBiome {
     public FungiForestBiome() {
         super(new Properties()
-                .surfaceBuilder(MidnightSurfaceBuilders.SURFACE, MidnightSurfaceBuilders.GRASS_DIRT_MUD_CONFIG)
+                .surfaceBuilder(MidnightSurfaceBuilders.PATCHED_COARSE_DIRT, MidnightSurfaceBuilders.GRASS_DIRT_MUD_CONFIG)
                 .category(Category.FOREST)
                 .grassColor(0x8489B5)
                 .skyColor(0x15292D)
