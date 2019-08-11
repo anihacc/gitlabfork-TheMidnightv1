@@ -4,6 +4,7 @@ import com.mojang.datafixers.Dynamic;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.world.MidnightChunkGenerator;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -56,6 +57,8 @@ public class MidnightCaveCarver extends CaveWorldCarver {
 
     @Override
     protected boolean canCarveBlock(BlockState state, BlockState aboveState) {
+        if (state.getBlock() == Blocks.BEDROCK) return false;
+
         Material material = state.getMaterial();
         Material aboveMaterial = aboveState.getMaterial();
         return (material == Material.ROCK || material == Material.EARTH || material == Material.ORGANIC)
