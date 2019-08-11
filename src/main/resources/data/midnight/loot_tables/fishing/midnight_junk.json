@@ -6,8 +6,8 @@
       "entries": [
         {
           "type": "item",
-          "name": "minecraft:leather_boots",
-          "weight": 10,
+          "name": "midnight:rockshroom_boots",
+          "weight": 5,
           "functions": [
             {
               "function": "set_damage",
@@ -20,34 +20,8 @@
         },
         {
           "type": "item",
-          "name": "minecraft:leather",
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "minecraft:bone",
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "minecraft:potion",
-          "weight": 10,
-          "functions": [
-            {
-              "function": "set_nbt",
-              "tag": "{Potion:\"minecraft:water\"}"
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "minecraft:string",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "minecraft:fishing_rod",
-          "weight": 2,
+          "name": "midnight:rockshroom_leggings",
+          "weight": 3,
           "functions": [
             {
               "function": "set_damage",
@@ -60,33 +34,85 @@
         },
         {
           "type": "item",
-          "name": "minecraft:bowl",
-          "weight": 10
-        },
-        {
-          "type": "item",
-          "name": "minecraft:stick",
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "minecraft:ink_sac",
-          "weight": 1,
+          "name": "midnight:rockshroom_chestplate",
+          "weight": 3,
           "functions": [
             {
-              "function": "set_count",
-              "count": 10
+              "function": "set_damage",
+              "damage": {
+                "min": 0,
+                "max": 0.90
+              }
             }
           ]
         },
         {
           "type": "item",
-          "name": "minecraft:tripwire_hook",
+          "name": "midnight:rockshroom_helmet",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0,
+                "max": 0.90
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "midnight:bladeshroom_spores",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "midnight:geode",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "midnight:unstable_fruit_blue",
+          "weight": 5
+        },
+        {
+          "type": "item",
+          "name": "midnight:unstable_fruit_lime",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "midnight:unstable_fruit_green",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "midnight:archaic_shard",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "midnight:dark_stick",
+          "weight": 5
+        },
+        {
+          "type": "item",
+          "name": "midnight:bogshroom_powder",
           "weight": 10
         },
         {
           "type": "item",
-          "name": "minecraft:rotten_flesh",
+          "name": "midnight:nightshroom_powder",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "midnight:viridshroom_powder",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "midnight:dewshroom_powder",
           "weight": 10
         }
       ]

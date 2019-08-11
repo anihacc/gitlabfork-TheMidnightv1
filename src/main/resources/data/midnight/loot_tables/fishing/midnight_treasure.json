@@ -6,72 +6,43 @@
       "entries": [
         {
           "type": "item",
-          "name": "minecraft:lily_pad",
+          "name": "midnight:crystalotus",
           "weight": 1
         },
         {
           "type": "item",
-          "name": "minecraft:name_tag",
+          "name": "midnight:stinger_egg",
           "weight": 1
         },
         {
           "type": "item",
-          "name": "minecraft:saddle",
+          "name": "midnight:violeaf",
           "weight": 1
         },
         {
           "type": "item",
-          "name": "minecraft:bow",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "set_damage",
-              "damage": {
-                "min": 0,
-                "max": 0.25
-              }
-            },
-            {
-              "function": "enchant_with_levels",
-              "levels": 30,
-              "treasure": true
-            }
-          ]
+          "name": "midnight:ebonite",
+          "weight": 1
         },
         {
           "type": "item",
-          "name": "minecraft:fishing_rod",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "set_damage",
-              "damage": {
-                "min": 0,
-                "max": 0.25
-              }
-            },
-            {
-              "function": "enchant_with_levels",
-              "levels": 30,
-              "treasure": true
-            }
-          ]
+          "name": "midnight:nagrilite_nugget",
+          "weight": 1
         },
         {
           "type": "item",
-          "name": "minecraft:book",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "enchant_with_levels",
-              "levels": 30,
-              "treasure": true
-            }
-          ]
+          "name": "midnight:nagrilite_ingot",
+          "weight": 1
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:nautilus_shell"
+          "type": "item",
+          "name": "midnight:tenebrum_nugget",
+          "weight": 1
+        }
+        {
+          "type": "item",
+          "name": "midnight:tenebrum_ingot",
+          "weight": 1
         }
       ]
     }
