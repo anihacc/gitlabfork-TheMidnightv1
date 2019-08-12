@@ -18,7 +18,7 @@ import java.util.function.Function;
 
 public class LargeBogshroomFeature extends TemplateTreeFeature {
     private static final ResourceLocation[] TEMPLATES = new ResourceLocation[] {
-            new ResourceLocation(Midnight.MODID, "mushroom/bogshroom")
+            new ResourceLocation(Midnight.MODID, "mushroom/bogshroom_large")
     };
 
     private static final BlockState STEM = MidnightBlocks.BOGSHROOM_STEM.getDefaultState();

@@ -35,6 +35,7 @@ import com.mushroom.midnight.common.world.feature.tree.MediumDewshroomFeature;
 import com.mushroom.midnight.common.world.feature.tree.MediumNightshroomFeature;
 import com.mushroom.midnight.common.world.feature.tree.MediumViridshroomFeature;
 import com.mushroom.midnight.common.world.feature.tree.ShadowrootTreeFeature;
+import com.mushroom.midnight.common.world.feature.tree.SmallBogshroomFeature;
 import com.mushroom.midnight.common.world.feature.tree.SmallDewshroomFeature;
 import com.mushroom.midnight.common.world.feature.tree.SmallNightshroomFeature;
 import com.mushroom.midnight.common.world.feature.tree.SmallViridshroomFeature;
@@ -55,9 +56,9 @@ public class MidnightFeatures {
     public static final Feature<NoFeatureConfig> DEAD_TREE = new DeadTreeFeature(NoFeatureConfig::deserialize, ShelfAttachProcessor.FOREST_SHELF_BLOCKS);
     public static final Feature<NoFeatureConfig> BOG_DEAD_TREE = new DeadTreeFeature(NoFeatureConfig::deserialize, ShelfAttachProcessor.SHELF_BLOCKS);
     public static final Feature<NoFeatureConfig> DEAD_LOG = new DeadLogFeature(NoFeatureConfig::deserialize);
-    public static final AbstractTreeFeature<NoFeatureConfig> LARGE_BOGSHROOM = new LargeBogshroomFeature(NoFeatureConfig::deserialize);
     public static final AbstractTreeFeature<NoFeatureConfig> LARGE_GLOB_FUNGUS = new LargeGlobFungusFeature(NoFeatureConfig::deserialize);
 
+    public static final AbstractTreeFeature<NoFeatureConfig> LARGE_BOGSHROOM = new LargeBogshroomFeature(NoFeatureConfig::deserialize);
     public static final AbstractTreeFeature<NoFeatureConfig> LARGE_NIGHTSHROOM = new LargeNightshroomFeature(NoFeatureConfig::deserialize);
     public static final AbstractTreeFeature<NoFeatureConfig> LARGE_DEWSHROOM = new LargeDewshroomFeature(NoFeatureConfig::deserialize);
     public static final AbstractTreeFeature<NoFeatureConfig> LARGE_VIRIDSHROOM = new LargeViridshroomFeature(NoFeatureConfig::deserialize);
@@ -66,6 +67,7 @@ public class MidnightFeatures {
     public static final AbstractTreeFeature<NoFeatureConfig> MEDIUM_DEWSHROOM = new MediumDewshroomFeature(NoFeatureConfig::deserialize);
     public static final AbstractTreeFeature<NoFeatureConfig> MEDIUM_VIRIDSHROOM = new MediumViridshroomFeature(NoFeatureConfig::deserialize);
 
+    public static final AbstractTreeFeature<NoFeatureConfig> SMALL_BOGSHROOM = new SmallBogshroomFeature(NoFeatureConfig::deserialize);
     public static final AbstractTreeFeature<NoFeatureConfig> SMALL_NIGHTSHROOM = new SmallNightshroomFeature(NoFeatureConfig::deserialize);
     public static final AbstractTreeFeature<NoFeatureConfig> SMALL_DEWSHROOM = new SmallDewshroomFeature(NoFeatureConfig::deserialize);
     public static final AbstractTreeFeature<NoFeatureConfig> SMALL_VIRIDSHROOM = new SmallViridshroomFeature(NoFeatureConfig::deserialize);
@@ -117,6 +119,7 @@ public class MidnightFeatures {
                 .add("medium_nightshroom", MEDIUM_NIGHTSHROOM)
                 .add("medium_dewshroom", MEDIUM_DEWSHROOM)
                 .add("medium_viridshroom", MEDIUM_VIRIDSHROOM)
+                .add("small_bogshroom", SMALL_BOGSHROOM)
                 .add("small_nightshroom", SMALL_NIGHTSHROOM)
                 .add("small_dewshroom", SMALL_DEWSHROOM)
                 .add("small_viridshroom", SMALL_VIRIDSHROOM)

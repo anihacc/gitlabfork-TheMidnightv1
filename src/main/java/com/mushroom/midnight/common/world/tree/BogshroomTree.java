@@ -12,6 +12,7 @@ public class BogshroomTree extends Tree {
     @Nullable
     @Override
     protected AbstractTreeFeature<NoFeatureConfig> getTreeFeature(Random random) {
-        return MidnightFeatures.LARGE_BOGSHROOM;
+        int value = random.nextInt(10);
+        return value >= 7 ? MidnightFeatures.LARGE_BOGSHROOM : MidnightFeatures.SMALL_BOGSHROOM;
     }
 }

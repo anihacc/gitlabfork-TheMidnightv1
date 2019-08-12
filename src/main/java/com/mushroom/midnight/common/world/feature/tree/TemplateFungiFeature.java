@@ -61,13 +61,18 @@ public abstract class TemplateFungiFeature extends MidnightTreeFeature {
     }
 
     protected TemplateCompiler buildCompiler() {
-        return TemplateCompiler.of(this.templates)
+        TemplateCompiler compiler = TemplateCompiler.of(this.templates)
                 .withAnchor(ANCHOR_MARKER)
                 .withSettingConfigurator(RotatedSettingConfigurator.INSTANCE)
                 .withProcessor(this::processState)
                 .withPostProcessor(new ExtendRootsProcessor(this.stem))
-                .withPostProcessor(new ShelfAttachProcessor(this::canPlaceShelf, ShelfAttachProcessor.FOREST_SHELF_BLOCKS))
-                .withPostProcessor(new RootsAttachProcessor(6, this.roots));
+                .withPostProcessor(new ShelfAttachProcessor(this::canPlaceShelf, ShelfAttachProcessor.FOREST_SHELF_BLOCKS));
+
+        if (this.roots.length > 0) {
+            compiler = compiler.withPostProcessor(new RootsAttachProcessor(6, this.roots));
+        }
+
+        return compiler;
     }
 
     @Override

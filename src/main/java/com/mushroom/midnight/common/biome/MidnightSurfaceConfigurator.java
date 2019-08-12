@@ -269,7 +269,10 @@ public class MidnightSurfaceConfigurator {
 
     public static void addLargeBogshrooms(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                MidnightFeatures.LARGE_BOGSHROOM, IFeatureConfig.NO_FEATURE_CONFIG,
+                Feature.RANDOM_BOOLEAN_SELECTOR, new TwoFeatureChoiceConfig(
+                        MidnightFeatures.LARGE_BOGSHROOM, IFeatureConfig.NO_FEATURE_CONFIG,
+                        MidnightFeatures.SMALL_BOGSHROOM, IFeatureConfig.NO_FEATURE_CONFIG
+                ),
                 MidnightPlacements.CHANCE_SURFACE, new ChanceConfig(3)
         ));
     }
