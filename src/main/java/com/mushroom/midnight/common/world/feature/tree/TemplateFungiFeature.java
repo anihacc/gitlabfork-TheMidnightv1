@@ -32,7 +32,7 @@ import java.util.Random;
 import java.util.function.Function;
 
 public abstract class TemplateFungiFeature extends MidnightTreeFeature {
-    private static final int MAX_DEPTH = 4;
+    private static final int MAX_DEPTH = 3;
 
     private static final String ANCHOR_MARKER = "origin";
     private static final String TRUNK_TOP_MARKER = "trunk_top";

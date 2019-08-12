@@ -46,11 +46,11 @@ public class MidnightCavernousBiomes {
 
     public static void onInit() {
         MidnightBiomeGroup.UNDERGROUND.add(
-                new BiomeSpawnEntry.Basic(GREAT_CAVERN, 100)
+                new BiomeSpawnEntry(GREAT_CAVERN, 100)
         );
 
         MidnightBiomeGroup.UNDERGROUND_POCKET.add(
-                new BiomeSpawnEntry.Basic(CRYSTAL_CAVERN, 10)
+                new BiomeSpawnEntry(CRYSTAL_CAVERN, 8)
                         .canReplace(GREAT_CAVERN)
         );
     }

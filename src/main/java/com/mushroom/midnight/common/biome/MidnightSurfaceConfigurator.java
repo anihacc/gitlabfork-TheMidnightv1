@@ -231,7 +231,7 @@ public class MidnightSurfaceConfigurator {
     public static void addDeadLogs(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
                 MidnightFeatures.DEAD_LOG, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.COUNT_SURFACE, new FrequencyConfig(5)
+                MidnightPlacements.COUNT_SURFACE, new FrequencyConfig(3)
         ));
     }
 

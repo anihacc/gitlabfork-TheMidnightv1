@@ -131,7 +131,7 @@ public class Midnight {
         MidnightSurfaceBiomes.onInit();
         MidnightCavernousBiomes.onInit();
 
-        //NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
+//        BiomeLayerRenderer.renderDebug();
     }
 
     private void setupMessages() {

@@ -19,18 +19,22 @@ public class ShadowrootGuardTowerStructure extends ScatteredStructure<NoFeatureC
         super(p_i51491_1_);
     }
 
+    @Override
     public String getStructureName() {
         return "ShadowrootGuardTower";
     }
 
+    @Override
     public int getSize() {
         return 3;
     }
 
+    @Override
     public Structure.IStartFactory getStartFactory() {
         return ShadowrootGuardTowerStructure.Start::new;
     }
 
+    @Override
     protected int getSeedModifier() {
         return 14357618;
     }
@@ -40,6 +44,7 @@ public class ShadowrootGuardTowerStructure extends ScatteredStructure<NoFeatureC
             super(p_i50678_1_, p_i50678_2_, p_i50678_3_, p_i50678_4_, p_i50678_5_, p_i50678_6_, p_i50678_7_);
         }
 
+        @Override
         public void init(ChunkGenerator<?> generator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn) {
             int i = chunkX * 16;
             int j = chunkZ * 16;

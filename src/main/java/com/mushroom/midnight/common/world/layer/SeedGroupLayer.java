@@ -16,7 +16,7 @@ public class SeedGroupLayer implements IAreaTransformer0 {
     public int apply(INoiseRandom random, int x, int y) {
         MidnightBiomeGroup.Pool pool = this.group.getGlobalPool();
 
-        BiomeSpawnEntry entry = pool.selectEntry(random::random);
+        BiomeSpawnEntry entry = pool.selectWeight(random::random);
         if (entry != null) {
             return entry.getBiomeId();
         } else {

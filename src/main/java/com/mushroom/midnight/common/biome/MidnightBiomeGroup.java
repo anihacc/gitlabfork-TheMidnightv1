@@ -59,25 +59,39 @@ public enum MidnightBiomeGroup {
 
     public interface Pool {
         @Nullable
-        BiomeSpawnEntry selectEntry(INumberGenerator numberGenerator);
+        BiomeSpawnEntry selectWeight(INumberGenerator numberGenerator);
+
+        @Nullable
+        BiomeSpawnEntry selectChance(INumberGenerator numberGenerator);
     }
 
-    private static class ListPool implements Pool{
+    private static class ListPool implements Pool {
         private final List<BiomeSpawnEntry> entries;
         private final int totalWeight;
 
-        private ListPool (List<BiomeSpawnEntry> entries) {
+        private ListPool(List<BiomeSpawnEntry> entries) {
             this.entries = entries;
-            this.totalWeight = entries.stream().mapToInt(BiomeSpawnEntry::getWeight).sum();
+            this.totalWeight = entries.stream().mapToInt(BiomeSpawnEntry::getValue).sum();
         }
 
         @Override
         @Nullable
-        public BiomeSpawnEntry selectEntry(INumberGenerator numberGenerator) {
+        public BiomeSpawnEntry selectWeight(INumberGenerator numberGenerator) {
             int weight = numberGenerator.nextInt(this.totalWeight);
             for (BiomeSpawnEntry entry : this.entries) {
-                weight -= entry.getWeight();
+                weight -= entry.getValue();
                 if (weight < 0) {
+                    return entry;
+                }
+            }
+            return null;
+        }
+
+        @Nullable
+        @Override
+        public BiomeSpawnEntry selectChance(INumberGenerator numberGenerator) {
+            for (BiomeSpawnEntry entry : this.entries) {
+                if (numberGenerator.nextInt(entry.getValue()) == 0) {
                     return entry;
                 }
             }
@@ -93,7 +107,13 @@ public enum MidnightBiomeGroup {
 
         @Nullable
         @Override
-        public BiomeSpawnEntry selectEntry(INumberGenerator numberGenerator) {
+        public BiomeSpawnEntry selectWeight(INumberGenerator numberGenerator) {
+            return null;
+        }
+
+        @Nullable
+        @Override
+        public BiomeSpawnEntry selectChance(INumberGenerator numberGenerator) {
             return null;
         }
     }
