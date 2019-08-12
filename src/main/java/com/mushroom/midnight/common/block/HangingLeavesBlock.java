@@ -2,20 +2,21 @@ package com.mushroom.midnight.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.state.IntegerProperty;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 
 public class HangingLeavesBlock extends MidnightPlantBlock {
-    private static final IntegerProperty LENGTH = IntegerProperty.create("length", 0, 3);
-    private static final VoxelShape BOUNDS = makeCuboidShape(3.0, 3.0, 3.0, 13.0, 16.0, 13.0);
+    private static final BooleanProperty IS_TIP = BooleanProperty.create("is_tip");
+    private static final VoxelShape BOUNDS = makeCuboidShape(1.0, 0.0, 1.0, 15.0, 16.0, 15.0);
 
     public HangingLeavesBlock(Properties properties) {
         super(properties, false);
@@ -23,11 +24,13 @@ public class HangingLeavesBlock extends MidnightPlantBlock {
 
     @Override
     public BlockState updatePostPlacement(BlockState state, Direction face, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
-        int length = 0;
-        if (facingState.getBlock() == this) {
-            length = Math.min(facingState.get(LENGTH) + 1, 3);
+        state = super.updatePostPlacement(state, face, facingState, world, currentPos, facingPos);
+        if (state.getBlock() == this) {
+            BlockState belowState = world.getBlockState(currentPos.down());
+            return state.with(IS_TIP, belowState.getBlock() != this);
         }
-        return state.with(LENGTH, length);
+
+        return state;
     }
 
     @Override
@@ -36,8 +39,18 @@ public class HangingLeavesBlock extends MidnightPlantBlock {
     }
 
     @Override
+    public VoxelShape getRaytraceShape(BlockState state, IBlockReader world, BlockPos pos) {
+        return VoxelShapes.fullCube();
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
+        return VoxelShapes.empty();
+    }
+
+    @Override
     public boolean isValidGround(BlockState state, IBlockReader world, BlockPos pos) {
-        return state.isIn(BlockTags.LEAVES) || state.getBlock() == this;
+        return state.getBlock() == this || Block.doesSideFillSquare(state.getCollisionShape(world, pos), Direction.DOWN);
     }
 
     @Override
@@ -47,7 +60,17 @@ public class HangingLeavesBlock extends MidnightPlantBlock {
     }
 
     @Override
+    public boolean isLadder(BlockState state, IWorldReader world, BlockPos pos, LivingEntity entity) {
+        return true;
+    }
+
+    @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(LENGTH);
+        builder.add(IS_TIP);
+    }
+
+    @Override
+    public OffsetType getOffsetType() {
+        return OffsetType.NONE;
     }
 }
