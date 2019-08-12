@@ -24,7 +24,7 @@ public class HangingLeavesAttachProcessor implements TemplatePostProcessor {
             BlockPos attachPos = pos.down();
 
             if (world.isAirBlock(attachPos)) {
-                int flags = Constants.BlockFlags.NOTIFY_LISTENERS | Constants.BlockFlags.UPDATE_NEIGHBORS;
+                int flags = Constants.BlockFlags.NOTIFY_LISTENERS;
 
                 world.setBlockState(attachPos, this.state.with(HangingLeavesBlock.IS_BASE, true), flags);
                 if (random.nextInt(2) == 0) {
