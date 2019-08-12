@@ -31,7 +31,7 @@ public class DeceitfulBogBiome extends SurfaceBiome {
 
         MidnightSurfaceConfigurator.addBogweed(this);
         MidnightSurfaceConfigurator.addBogshroomFlowers(this);
-        MidnightSurfaceConfigurator.addDewshroomFlowers(this);
+        MidnightSurfaceConfigurator.addViridshroomFlowers(this);
 
         MidnightSurfaceConfigurator.addAlgaeAndMoss(this);
         MidnightSurfaceConfigurator.addGrasses(this);
