@@ -43,7 +43,6 @@ public class MidnightPlantBlock extends BushBlock implements IGrowable, Generata
         super(properties.lightValue(glowing ? 12 : 0));
         this.glowing = glowing;
         this.growSupplier = growSupplier;
-        //setCreativeTab(MidnightItemGroups.DECORATION);
     }
 
     public MidnightPlantBlock setReplacable() {

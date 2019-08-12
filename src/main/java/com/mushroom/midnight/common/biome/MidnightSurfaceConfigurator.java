@@ -82,7 +82,7 @@ public class MidnightSurfaceConfigurator {
 
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
                 MidnightFeatures.UNSTABLE_BUSH, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.CHANCE_SURFACE_DOUBLE, new ChanceConfig(5)
+                MidnightPlacements.CHANCE_SURFACE_DOUBLE, new ChanceConfig(2)
         ));
     }
 

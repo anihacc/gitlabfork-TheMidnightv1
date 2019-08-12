@@ -3,7 +3,6 @@ package com.mushroom.midnight.common.world.feature;
 import com.mojang.datafixers.Dynamic;
 import com.mushroom.midnight.common.block.UnstableBushBloomedBlock;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
-import com.mushroom.midnight.common.registry.MidnightTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
@@ -40,7 +39,7 @@ public class UnstableBushFeature extends Feature<NoFeatureConfig> {
 
             BlockState state = BUSHES[rand.nextInt(BUSHES.length)];
 
-            if (world.isAirBlock(pos) && world.getBlockState(pos.down()).isIn(MidnightTags.Blocks.PLANTABLE_GROUNDS)) {
+            if (world.isAirBlock(pos) && state.isValidPosition(world, pos)) {
                 world.setBlockState(pos, state, Constants.BlockFlags.NOTIFY_LISTENERS);
                 result = true;
             }
