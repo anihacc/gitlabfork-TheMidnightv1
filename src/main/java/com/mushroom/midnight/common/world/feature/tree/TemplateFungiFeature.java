@@ -89,6 +89,10 @@ public abstract class TemplateFungiFeature extends MidnightTreeFeature {
         TemplateMarkers markers = template.markers;
 
         BlockPos anchor = markers.lookupAny(ANCHOR_MARKER);
+        if (anchor == null) {
+            anchor = origin;
+        }
+
         BlockPos trunkTop = markers.lookupAny(TRUNK_TOP_MARKER);
         Collection<BlockPos> trunkCorners = markers.lookup(TRUNK_CORNER_MARKER);
         if (trunkTop == null || trunkCorners.isEmpty()) {

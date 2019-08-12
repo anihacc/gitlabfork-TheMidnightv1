@@ -78,6 +78,9 @@ public class TemplateCompiler {
 
         PlacementSettings settings = this.buildPlacementSettings(random);
         Template template = templateManager.getTemplate(templateId);
+        if (template == null) {
+            throw new IllegalStateException("Could not load template for id " + templateId);
+        }
 
         TemplateMarkers markers = compileMarkers(BlockPos.ZERO, settings, template);
 

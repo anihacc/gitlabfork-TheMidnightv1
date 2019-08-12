@@ -12,7 +12,7 @@ import java.util.function.Function;
 
 public class SmallBogshroomFeature extends TemplateFungiFeature {
     private static final ResourceLocation[] TEMPLATES = new ResourceLocation[] {
-            new ResourceLocation(Midnight.MODID, "trees/small_bogshroom"),
+            new ResourceLocation(Midnight.MODID, "mushroom/bogshroom_small"),
     };
 
     private static final BlockState STEM = MidnightBlocks.BOGSHROOM_STEM.getDefaultState();
