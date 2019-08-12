@@ -1,0 +1,13 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "half": {
+      "lower": {
+        "model": "midnight:block/double_mistshroom_lower"
+      },
+      "upper": {
+        "model": "midnight:block/double_mistshroom_upper"
+      }
+    }
+  }
+}

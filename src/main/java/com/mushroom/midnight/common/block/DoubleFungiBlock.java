@@ -25,6 +25,10 @@ public class DoubleFungiBlock extends MidnightDoublePlantBlock {
         this.setDefaultState(this.stateContainer.getBaseState().with(STAGE, 0).with(HALF, DoubleBlockHalf.LOWER));
     }
 
+    public DoubleFungiBlock(Properties properties) {
+        this(properties, null);
+    }
+
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader world, BlockPos pos) {
         return state.isNormalCube(world, pos);
@@ -42,6 +46,7 @@ public class DoubleFungiBlock extends MidnightDoublePlantBlock {
 
     @Override
     public void grow(World world, Random rand, BlockPos pos, BlockState state) {
+        if (this.tree == null) return;
         if (state.get(STAGE) == 0) {
             world.setBlockState(pos, state.cycle(STAGE), 4);
         } else if (ForgeEventFactory.saplingGrowTree(world, rand, pos)) {

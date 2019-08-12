@@ -121,6 +121,13 @@ public class MidnightSurfaceConfigurator {
         ));
     }
 
+    public static void addMistshroomFlowers(ConfigurableBiome biome) {
+        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
+                MidnightFeatures.MISTSHROOM_FLOWERS, IFeatureConfig.NO_FEATURE_CONFIG,
+                MidnightPlacements.COUNT_SURFACE_32, new FrequencyConfig(10)
+        ));
+    }
+
     public static void addCrystalFlowers(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
                 MidnightFeatures.CRYSTAL_FLOWERS, IFeatureConfig.NO_FEATURE_CONFIG,

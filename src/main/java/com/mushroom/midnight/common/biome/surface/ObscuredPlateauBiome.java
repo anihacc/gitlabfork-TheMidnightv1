@@ -16,7 +16,7 @@ public class ObscuredPlateauBiome extends SurfaceBiome {
         MidnightSurfaceConfigurator.addStructureFeatures(this);
         MidnightSurfaceConfigurator.addGlobalOres(this);
 
-        MidnightSurfaceConfigurator.addDewshroomFlowers(this);
+        MidnightSurfaceConfigurator.addMistshroomFlowers(this);
         MidnightSurfaceConfigurator.addLumen(this);
 
         MidnightSurfaceConfigurator.addTrenchstoneBoulders(this);

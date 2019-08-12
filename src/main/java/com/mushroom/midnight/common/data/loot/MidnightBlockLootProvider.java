@@ -104,6 +104,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.BOGSHROOM);
         this.add(MidnightBlocks.BOGSHROOM_SHELF);
         this.add(MidnightBlocks.BOGSHROOM_STEM);
+        this.add(MidnightBlocks.MISTSHROOM);
         this.add(MidnightBlocks.GLOB_FUNGUS);
         this.add(MidnightBlocks.ROCKSHROOM);
         this.add(MidnightBlocks.ROCKSHROOM_BRICKS);
@@ -211,6 +212,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.addDoubleBlock(MidnightBlocks.DOUBLE_DEWSHROOM);
         this.addDoubleBlock(MidnightBlocks.DOUBLE_VIRIDSHROOM);
         this.addDoubleBlock(MidnightBlocks.DOUBLE_BOGSHROOM);
+        this.addDoubleBlock(MidnightBlocks.DOUBLE_MISTSHROOM);
         this.addDoubleBlock(MidnightBlocks.DOUBLE_LUMEN_BUD);
         this.addShearedDoubleBlock(MidnightBlocks.TALL_GRASS);
 

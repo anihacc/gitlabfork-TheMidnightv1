@@ -84,6 +84,7 @@ public class MidnightFeatures {
     public static final Feature<NoFeatureConfig> DEWSHROOM_FLOWERS = new FungiPatchFeature(NoFeatureConfig::deserialize, MidnightBlocks.DEWSHROOM.getDefaultState(), MidnightBlocks.DOUBLE_DEWSHROOM.getDefaultState(), SMALL_DEWSHROOM);
     public static final Feature<NoFeatureConfig> VIRIDSHROOM_FLOWERS = new FungiPatchFeature(NoFeatureConfig::deserialize, MidnightBlocks.VIRIDSHROOM.getDefaultState(), MidnightBlocks.DOUBLE_VIRIDSHROOM.getDefaultState(), SMALL_VIRIDSHROOM);
     public static final Feature<NoFeatureConfig> BOGSHROOM_FLOWERS = new FungiPatchFeature(NoFeatureConfig::deserialize, MidnightBlocks.BOGSHROOM.getDefaultState(), MidnightBlocks.DOUBLE_BOGSHROOM.getDefaultState(), LARGE_BOGSHROOM);
+    public static final Feature<NoFeatureConfig> MISTSHROOM_FLOWERS = new FungiPatchFeature(NoFeatureConfig::deserialize, MidnightBlocks.MISTSHROOM.getDefaultState(), MidnightBlocks.DOUBLE_MISTSHROOM.getDefaultState());
     public static final Feature<NoFeatureConfig> GLOB_FUNGI_FLOWERS = new GlobFungiFlowersFeature(NoFeatureConfig::deserialize);
     public static final Feature<NoFeatureConfig> BOGWEED_FLOWERS = new BogweedFlowersFeature(NoFeatureConfig::deserialize);
     public static final Feature<NoFeatureConfig> CRYSTAL_FLOWERS = new CrystalFlowersFeature(NoFeatureConfig::deserialize);
@@ -135,6 +136,7 @@ public class MidnightFeatures {
                 .add("dewshroom_flowers", DEWSHROOM_FLOWERS)
                 .add("viridshroom_flowers", VIRIDSHROOM_FLOWERS)
                 .add("bogshroom_flowers", BOGSHROOM_FLOWERS)
+                .add("mistshroom_flowers", MISTSHROOM_FLOWERS)
                 .add("bogweed_flowers", BOGWEED_FLOWERS)
                 .add("crystal_flowers", CRYSTAL_FLOWERS)
                 .add("glob_fungi_flowers", GLOB_FUNGI_FLOWERS)

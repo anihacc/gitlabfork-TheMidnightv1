@@ -195,6 +195,9 @@ public class MidnightBlocks {
     public static final Block BOGSHROOM_STEM = Blocks.AIR;
     public static final Block BOGSHROOM_HAT = Blocks.AIR;
 
+    public static final Block MISTSHROOM = Blocks.AIR;
+    public static final Block DOUBLE_MISTSHROOM = Blocks.AIR;
+
     public static final Block GLOB_FUNGUS = Blocks.AIR;
     public static final Block GLOB_FUNGUS_STEM = Blocks.AIR;
     public static final Block GLOB_FUNGUS_HAT = Blocks.AIR;
@@ -457,11 +460,14 @@ public class MidnightBlocks {
                 .add("dewshroom", props -> new FungiBlock(props, true, () -> DOUBLE_DEWSHROOM))
                 .add("viridshroom", props -> new FungiBlock(props, true, () -> DOUBLE_VIRIDSHROOM))
                 .add("bogshroom", props -> new FungiBlock(props, true, () -> DOUBLE_BOGSHROOM))
+                .add("mistshroom", props -> new FungiBlock(props, true, () -> DOUBLE_MISTSHROOM))
 
                 .add("double_nightshroom", props -> new DoubleFungiBlock(props, new NightshroomTree()))
                 .add("double_dewshroom", props -> new DoubleFungiBlock(props, new DewshroomTree()))
                 .add("double_viridshroom", props -> new DoubleFungiBlock(props, new ViridshroomTree()))
                 .add("double_bogshroom", props -> new DoubleFungiBlock(props, new BogshroomTree()))
+                .add("double_mistshroom", DoubleFungiBlock::new)
+
                 .add("lumen_bud", props -> new MidnightPlantBlock(props, true, () -> DOUBLE_LUMEN_BUD))
                 .add("double_lumen_bud", props -> new MidnightDoublePlantBlock(props, true))
                 .add("glob_fungus", props -> new GlobFungusBlock(props, new GlobFungusTree()))
@@ -767,7 +773,7 @@ public class MidnightBlocks {
                         NIGHTSTONE, NIGHTSTONE_BRICKS, CHISELED_NIGHTSTONE_BRICKS, TRENCHSTONE, TRENCHSTONE_BRICKS,
                         DARK_PEARL_ORE, DARK_PEARL_BLOCK, TENEBRUM_ORE, TENEBRUM_BLOCK, NAGRILITE_ORE, NAGRILITE_BLOCK, EBONITE_ORE, EBONITE_BLOCK, ARCHAIC_ORE,
                         COARSE_DIRT, DIRT, GRASS_BLOCK, MYCELIUM,
-                        BOGSHROOM_HAT, BOGSHROOM_STEM, NIGHTSHROOM_STEM, NIGHTSHROOM_HAT, DEWSHROOM_STEM, DEWSHROOM_HAT, VIRIDSHROOM_STEM, VIRIDSHROOM_HAT, GLOB_FUNGUS_HAT, GLOB_FUNGUS_STEM,
+                        BOGSHROOM_HAT, BOGSHROOM_STEM, NIGHTSHROOM_STEM, NIGHTSHROOM_HAT, DEWSHROOM_STEM, DEWSHROOM_HAT, VIRIDSHROOM_STEM, VIRIDSHROOM_HAT, GLOB_FUNGUS_HAT, GLOB_FUNGUS_STEM, MISTSHROOM, DOUBLE_MISTSHROOM,
                         ROCKSHROOM, ROCKSHROOM_BRICKS, BLOOMCRYSTAL_ROCK, ROUXE_ROCK, ARCHAIC_GLASS, ARCHAIC_GLASS_PANE, MIASMA_SURFACE, DECEITFUL_PEAT, DECEITFUL_MUD, // MIASMA, DARK_WATER
                         SHADOWROOT_STAIRS, DEAD_WOOD_STAIRS, DARK_WILLOW_STAIRS, NIGHTSTONE_STAIRS, NIGHTSTONE_BRICK_STAIRS, TRENCHSTONE_STAIRS, TRENCHSTONE_BRICK_STAIRS,
                         DEWSHROOM_STAIRS, VIRIDSHROOM_STAIRS, NIGHTSHROOM_STAIRS, ROCKSHROOM_BRICK_STAIRS,
