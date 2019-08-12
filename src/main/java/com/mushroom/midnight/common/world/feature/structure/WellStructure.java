@@ -6,7 +6,6 @@ import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.world.template.CompiledTemplate;
 import com.mushroom.midnight.common.world.template.RotatedSettingConfigurator;
 import com.mushroom.midnight.common.world.template.TemplateCompiler;
-import com.mushroom.midnight.common.world.template.TemplateMarkers;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -26,13 +25,16 @@ import java.util.Random;
 import java.util.function.Function;
 
 public class WellStructure extends Feature<NoFeatureConfig> {
-    protected final ResourceLocation template;
+    protected static final ResourceLocation[] TEMPLATES = new ResourceLocation[] {
+            new ResourceLocation(Midnight.MODID, "well"),
+            new ResourceLocation(Midnight.MODID, "well_dead"),
+            new ResourceLocation(Midnight.MODID, "well_shadowroot")
+    };
 
     private TemplateCompiler templateCompiler;
 
-    public WellStructure(Function<Dynamic<?>, ? extends NoFeatureConfig> p_i49910_1_) {
-        super(p_i49910_1_);
-        this.template = new ResourceLocation(Midnight.MODID, "well");
+    public WellStructure(Function<Dynamic<?>, ? extends NoFeatureConfig> deserialize) {
+        super(deserialize);
     }
 
     @Override
@@ -46,23 +48,20 @@ public class WellStructure extends Feature<NoFeatureConfig> {
         }
 
         CompiledTemplate template = this.templateCompiler.compile(world, random, pos.down(10));
-        TemplateMarkers markers = template.markers;
-
-
         template.addTo(world, random, 2 | 16);
 
         return true;
     }
 
-    protected static boolean isMidnightGrassBlock(IWorldGenerationBaseReader worldIn, BlockPos pos) {
-        return worldIn.hasBlockState(pos, (p_214586_0_) -> {
-            Block block = p_214586_0_.getBlock();
+    protected static boolean isMidnightGrassBlock(IWorldGenerationBaseReader world, BlockPos pos) {
+        return world.hasBlockState(pos, state -> {
+            Block block = state.getBlock();
             return block == MidnightBlocks.GRASS_BLOCK;
         });
     }
 
     protected TemplateCompiler buildCompiler() {
-        return TemplateCompiler.of(this.template)
+        return TemplateCompiler.of(TEMPLATES)
                 .withSettingConfigurator(RotatedSettingConfigurator.INSTANCE)
                 .withProcessor(this::processState);
     }
@@ -70,11 +69,6 @@ public class WellStructure extends Feature<NoFeatureConfig> {
     protected Template.BlockInfo processState(IWorldReader world, BlockPos origin, Template.BlockInfo srcInfo, Template.BlockInfo info, PlacementSettings settings) {
         BlockState state = info.state;
         Block block = state.getBlock();
-        if (block == Blocks.STRUCTURE_BLOCK || block == Blocks.AIR) {
-            return null;
-        }
-        return info;
+        return block == Blocks.STRUCTURE_BLOCK || block == Blocks.AIR ? null : info;
     }
-
-
 }
