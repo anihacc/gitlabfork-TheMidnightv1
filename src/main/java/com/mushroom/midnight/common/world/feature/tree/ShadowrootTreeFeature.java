@@ -64,7 +64,9 @@ public class ShadowrootTreeFeature extends MidnightTreeFeature {
             }
 
             for (BlockPos leafPos : leafPositions) {
-                this.setBlockState(world, leafPos, LEAVES);
+                if (canGrowInto(world, leafPos)) {
+                    this.setBlockState(world, leafPos, LEAVES);
+                }
             }
 
             return true;
