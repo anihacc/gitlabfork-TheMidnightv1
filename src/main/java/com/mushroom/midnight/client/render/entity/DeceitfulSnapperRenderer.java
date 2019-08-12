@@ -30,6 +30,14 @@ public class DeceitfulSnapperRenderer extends MobRenderer<DeceitfulSnapperEntity
     }
 
     @Override
+    protected void applyRotations(DeceitfulSnapperEntity entity, float age, float yaw, float pitch) {
+        super.applyRotations(entity, age, yaw, pitch);
+        if (!entity.isInWater()) {
+            GlStateManager.rotatef(90.0F, 0.0F, 0.0F, 1.0F);
+        }
+    }
+
+    @Override
     protected float getDeathMaxRotation(DeceitfulSnapperEntity entity) {
         return 180f;
     }
