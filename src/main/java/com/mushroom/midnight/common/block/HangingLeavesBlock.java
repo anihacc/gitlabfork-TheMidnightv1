@@ -16,6 +16,8 @@ import net.minecraft.world.IWorldReader;
 
 public class HangingLeavesBlock extends MidnightPlantBlock {
     private static final BooleanProperty IS_TIP = BooleanProperty.create("is_tip");
+    private static final BooleanProperty IS_BASE = BooleanProperty.create("is_base");
+
     private static final VoxelShape BOUNDS = makeCuboidShape(1.0, 0.0, 1.0, 15.0, 16.0, 15.0);
 
     public HangingLeavesBlock(Properties properties) {
@@ -26,8 +28,11 @@ public class HangingLeavesBlock extends MidnightPlantBlock {
     public BlockState updatePostPlacement(BlockState state, Direction face, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
         state = super.updatePostPlacement(state, face, facingState, world, currentPos, facingPos);
         if (state.getBlock() == this) {
+            BlockState aboveState = world.getBlockState(currentPos.up());
             BlockState belowState = world.getBlockState(currentPos.down());
-            return state.with(IS_TIP, belowState.getBlock() != this);
+            return state
+                    .with(IS_TIP, belowState.getBlock() != this)
+                    .with(IS_BASE, aboveState.getBlock() != this);
         }
 
         return state;
@@ -50,7 +55,10 @@ public class HangingLeavesBlock extends MidnightPlantBlock {
 
     @Override
     public boolean isValidGround(BlockState state, IBlockReader world, BlockPos pos) {
-        return state.getBlock() == this || Block.doesSideFillSquare(state.getCollisionShape(world, pos), Direction.DOWN);
+        if (state.getBlock() == this) {
+            return state.get(IS_BASE);
+        }
+        return Block.doesSideFillSquare(state.getCollisionShape(world, pos), Direction.DOWN);
     }
 
     @Override
@@ -66,7 +74,7 @@ public class HangingLeavesBlock extends MidnightPlantBlock {
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(IS_TIP);
+        builder.add(IS_TIP, IS_BASE);
     }
 
     @Override
