@@ -48,8 +48,7 @@ public class MidnightBiomeProvider extends BiomeProvider {
         Set<Biome> biomes = new HashSet<>();
         for (int localY = 0; localY < height; localY++) {
             for (int localX = 0; localX < width; localX++) {
-                Biome biome = this.layers.noise.sample(localX + x, localY + y);
-                biomes.add(biome);
+                biomes.add(this.layers.noise.sample(localX + x, localY + y));
             }
         }
 

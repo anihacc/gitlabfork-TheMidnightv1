@@ -87,17 +87,15 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
     public boolean hasStartAt(ChunkGenerator<?> generator, Random random, int chunkX, int chunkZ) {
         ChunkPos startPos = this.getStartPositionForPosition(generator, random, chunkX, chunkZ, 0, 0);
         if (chunkX == startPos.x && chunkZ == startPos.z) {
-            BiomeProvider biomeProvider = generator.getBiomeProvider();
-            boolean hasStructure = biomeProvider.getBiomesInSquare((chunkX << 4) + 9, (chunkZ << 4) + 9, MIN_RADIUS)
-                    .stream()
-                    .allMatch(biome -> generator.hasStructure(biome, this));
+            SharedSeedRandom seedRandom = (SharedSeedRandom) random;
+            seedRandom.setLargeFeatureSeed(generator.getSeed(), chunkX, chunkZ);
 
-            if (hasStructure) {
-                SharedSeedRandom seedRandom = (SharedSeedRandom) random;
-                seedRandom.setLargeFeatureSeed(generator.getSeed(), chunkX, chunkZ);
-
-                Metadata metadata = Metadata.generate(seedRandom, generator, chunkX, chunkZ);
-                return metadata.isValid();
+            Metadata metadata = Metadata.generate(seedRandom, generator, chunkX, chunkZ);
+            if (metadata.isValid()) {
+                BiomeProvider biomeProvider = generator.getBiomeProvider();
+                return biomeProvider.getBiomesInSquare((chunkX << 4) + 9, (chunkZ << 4) + 9, metadata.radius)
+                        .stream()
+                        .allMatch(biome -> generator.hasStructure(biome, this));
             }
         }
 
