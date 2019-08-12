@@ -88,13 +88,8 @@ public class MidnightSurfaceConfigurator {
 
     public static void addLumen(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                Feature.BUSH, new BushConfig(MidnightBlocks.LUMEN_BUD.getDefaultState()),
+                MidnightFeatures.LUMEN_FLOWERS, IFeatureConfig.NO_FEATURE_CONFIG,
                 MidnightPlacements.COUNT_SURFACE_DOUBLE, new FrequencyConfig(1)
-        ));
-
-        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                MidnightFeatures.DOUBLE_PLANT, new DoublePlantConfig(MidnightBlocks.DOUBLE_LUMEN_BUD.getDefaultState()),
-                MidnightPlacements.CHANCE_SURFACE_DOUBLE, new ChanceConfig(3)
         ));
     }
 
@@ -194,7 +189,7 @@ public class MidnightSurfaceConfigurator {
     public static void addSparseSuavis(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
                 MidnightFeatures.SUAVIS, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.CHANCE_SURFACE_DOUBLE, new ChanceConfig(4)
+                MidnightPlacements.CHANCE_SURFACE_DOUBLE, new ChanceConfig(2)
         ));
     }
 

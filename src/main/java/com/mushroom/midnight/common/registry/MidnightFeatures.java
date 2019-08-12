@@ -87,6 +87,7 @@ public class MidnightFeatures {
     public static final Feature<NoFeatureConfig> GLOB_FUNGI_FLOWERS = new GlobFungiFlowersFeature(NoFeatureConfig::deserialize);
     public static final Feature<NoFeatureConfig> BOGWEED_FLOWERS = new BogweedFlowersFeature(NoFeatureConfig::deserialize);
     public static final Feature<NoFeatureConfig> CRYSTAL_FLOWERS = new CrystalFlowersFeature(NoFeatureConfig::deserialize);
+    public static final Feature<NoFeatureConfig> LUMEN_FLOWERS = new FungiPatchFeature(NoFeatureConfig::deserialize, MidnightBlocks.LUMEN_BUD.getDefaultState(), MidnightBlocks.DOUBLE_LUMEN_BUD.getDefaultState());
 
     public static final Feature<NoFeatureConfig> UNSTABLE_BUSH = new UnstableBushFeature(NoFeatureConfig::deserialize);
 
@@ -137,6 +138,7 @@ public class MidnightFeatures {
                 .add("bogweed_flowers", BOGWEED_FLOWERS)
                 .add("crystal_flowers", CRYSTAL_FLOWERS)
                 .add("glob_fungi_flowers", GLOB_FUNGI_FLOWERS)
+                .add("lumen_flowers", LUMEN_FLOWERS)
                 .add("unstable_bush", UNSTABLE_BUSH)
                 .add("heap", HEAP)
                 .add("spike", SPIKE)

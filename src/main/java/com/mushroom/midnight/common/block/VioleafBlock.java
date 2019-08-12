@@ -35,7 +35,6 @@ public class VioleafBlock extends MidnightPlantBlock implements IGrowable {
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(IS_GROWN);
-        super.fillStateContainer(builder);
     }
 
     @Override

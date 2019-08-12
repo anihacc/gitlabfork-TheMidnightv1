@@ -205,6 +205,8 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.addSheared(MidnightBlocks.FINGERED_GRASS);
         this.addSheared(MidnightBlocks.GRASS);
 
+        this.addSheared(MidnightBlocks.HANGING_DARK_WILLOW_LEAVES);
+
         this.addDoubleBlock(MidnightBlocks.DOUBLE_NIGHTSHROOM);
         this.addDoubleBlock(MidnightBlocks.DOUBLE_DEWSHROOM);
         this.addDoubleBlock(MidnightBlocks.DOUBLE_VIRIDSHROOM);

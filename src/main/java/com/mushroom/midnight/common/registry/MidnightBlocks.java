@@ -19,6 +19,7 @@ import com.mushroom.midnight.common.block.FungiInsideBlock;
 import com.mushroom.midnight.common.block.GlobFungusBlock;
 import com.mushroom.midnight.common.block.GlobFungusHatBlock;
 import com.mushroom.midnight.common.block.HangablePlantBlock;
+import com.mushroom.midnight.common.block.HangingLeavesBlock;
 import com.mushroom.midnight.common.block.MiasmaSurfaceBlock;
 import com.mushroom.midnight.common.block.MidnightChestBlock;
 import com.mushroom.midnight.common.block.MidnightCraftingTableBlock;
@@ -112,6 +113,8 @@ public class MidnightBlocks {
     public static final Block DARK_WILLOW_STRIPPED_WOOD = Blocks.AIR;
     public static final Block DARK_WILLOW_LEAVES = Blocks.AIR;
     public static final Block DARK_WILLOW_PLANKS = Blocks.AIR;
+    public static final Block HANGING_DARK_WILLOW_LEAVES = Blocks.AIR;
+
     public static final Block NIGHTSTONE = Blocks.AIR;
     public static final Block NIGHTSTONE_BRICKS = Blocks.AIR;
     public static final Block CHISELED_NIGHTSTONE_BRICKS = Blocks.AIR;
@@ -509,6 +512,13 @@ public class MidnightBlocks {
                 .add("dark_willow_leaves", LeavesBlock::new);
 
         RegUtil.blocks(event.getRegistry())
+                .withProperties(() -> Block.Properties.create(Material.LEAVES)
+                        .hardnessAndResistance(0.0F)
+                        .sound(SoundType.PLANT)
+                )
+                .add("hanging_dark_willow_leaves", HangingLeavesBlock::new);
+
+        RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.PLANTS)
                         .hardnessAndResistance(0f)
                         .doesNotBlockMovement()
@@ -751,7 +761,7 @@ public class MidnightBlocks {
                 .withProperties(() -> new Item.Properties().group(MidnightItemGroups.BUILDING))
                 .addAll(BlockItem::new,
                         SHADOWROOT_LOG, SHADOWROOT_STRIPPED_LOG, SHADOWROOT_WOOD, SHADOWROOT_STRIPPED_WOOD, SHADOWROOT_LEAVES, SHADOWROOT_PLANKS,
-                        DARK_WILLOW_LOG, DARK_WILLOW_STRIPPED_LOG, DARK_WILLOW_WOOD, DARK_WILLOW_STRIPPED_WOOD, DARK_WILLOW_LEAVES, DARK_WILLOW_PLANKS,
+                        DARK_WILLOW_LOG, DARK_WILLOW_STRIPPED_LOG, DARK_WILLOW_WOOD, DARK_WILLOW_STRIPPED_WOOD, DARK_WILLOW_LEAVES, DARK_WILLOW_PLANKS, HANGING_DARK_WILLOW_LEAVES,
                         DEAD_WOOD_LOG, DEAD_WOOD_STRIPPED_LOG, DEAD_WOOD, DEAD_WOOD_STRIPPED,
                         DEAD_WOOD_PLANKS, DEWSHROOM_PLANKS, VIRIDSHROOM_PLANKS, NIGHTSHROOM_PLANKS,
                         NIGHTSTONE, NIGHTSTONE_BRICKS, CHISELED_NIGHTSTONE_BRICKS, TRENCHSTONE, TRENCHSTONE_BRICKS,

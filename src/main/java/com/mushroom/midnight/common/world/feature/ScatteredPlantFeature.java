@@ -26,7 +26,7 @@ public class ScatteredPlantFeature extends Feature<NoFeatureConfig> {
     public boolean place(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random random, BlockPos origin, NoFeatureConfig config) {
         boolean result = false;
 
-        for (int i = 0; i < 64; i++) {
+        for (int i = 0; i < 32; i++) {
             BlockPos pos = origin.add(
                     random.nextInt(8) - random.nextInt(8),
                     random.nextInt(4) - random.nextInt(4),

@@ -1,19 +1,17 @@
 {
   "forge_marker": 1,
   "variants": {
-    "is_grown": {
-      "true": [
-        {"model": "midnight:block/violeaf", "y": 0},
-        {"model": "midnight:block/violeaf", "y": 90},
-        {"model": "midnight:block/violeaf", "y": 180},
-        {"model": "midnight:block/violeaf", "y": 270}
-      ],
-      "false": [
-        {"model": "midnight:block/violeaf_decayed", "y": 0},
-        {"model": "midnight:block/violeaf_decayed", "y": 90},
-        {"model": "midnight:block/violeaf_decayed", "y": 180},
-        {"model": "midnight:block/violeaf_decayed", "y": 270}
-      ]
-    }
+    "is_grown=false": [
+      {"model": "midnight:block/violeaf_decayed", "y": 0},
+      {"model": "midnight:block/violeaf_decayed", "y": 90},
+      {"model": "midnight:block/violeaf_decayed", "y": 180},
+      {"model": "midnight:block/violeaf_decayed", "y": 270}
+    ],
+    "is_grown=true": [
+      {"model": "midnight:block/violeaf", "y": 0},
+      {"model": "midnight:block/violeaf", "y": 90},
+      {"model": "midnight:block/violeaf", "y": 180},
+      {"model": "midnight:block/violeaf", "y": 270}
+    ]
   }
 }

@@ -27,11 +27,15 @@ public class FungiPatchFeature extends FlowersFeature {
         this.tree = tree;
     }
 
+    public FungiPatchFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> deserialize, BlockState fungi, BlockState tallFungi) {
+        this(deserialize, fungi, tallFungi, null);
+    }
+
     @Override
     public boolean place(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos origin, NoFeatureConfig config) {
         boolean result = false;
 
-        if (rand.nextFloat() < 0.05F) {
+        if (rand.nextFloat() < 0.05F && this.tree != null) {
             result |= this.tree.place(world, generator, rand, origin, config);
         }
 
