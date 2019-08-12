@@ -65,6 +65,7 @@ public final class BiomeLayerType<T> {
     private static <A extends IArea, C extends IExtendedNoiseRandom<A>> BiomeProcedure<A> buildSurface(LongFunction<C> contextFactory) {
         int ridgeId = Registry.BIOME.getId(MidnightSurfaceBiomes.BLACK_RIDGE);
         int plateauId = Registry.BIOME.getId(MidnightSurfaceBiomes.OBSCURED_PLATEAU);
+        int peakId = Registry.BIOME.getId(MidnightSurfaceBiomes.OBSCURED_PEAKS);
         int valleyId = Registry.BIOME.getId(MidnightSurfaceBiomes.PHANTASMAL_VALLEY);
 
         IAreaFactory<A> ridgeLayer = buildEdgeHighlightLayer(contextFactory, 100);
@@ -83,7 +84,7 @@ public final class BiomeLayerType<T> {
         layer = ZoomLayer.FUZZY.apply(contextFactory.apply(6000), layer);
         layer = SmoothLayer.INSTANCE.apply(contextFactory.apply(7000), layer);
 
-        layer = new EdgeMergeLayer(id -> id != plateauId, ridgeId).apply(contextFactory.apply(8000), layer, ridgeLayer);
+        layer = new EdgeMergeLayer(id -> id != plateauId && id != peakId, ridgeId).apply(contextFactory.apply(8000), layer, ridgeLayer);
 
         layer = LayerUtil.repeat(9000, ZoomLayer.NORMAL, layer, 2, contextFactory);
 

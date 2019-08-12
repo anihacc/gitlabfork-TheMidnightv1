@@ -25,7 +25,7 @@ public class FingeredGrassFeature extends Feature<NoFeatureConfig> {
     public boolean place(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos origin, NoFeatureConfig config) {
         boolean result = false;
 
-        for (int i = 0; i < 192; ++i) {
+        for (int i = 0; i < 256; ++i) {
             BlockPos pos = origin.add(
                     rand.nextInt(10) - rand.nextInt(10),
                     rand.nextInt(4) - rand.nextInt(4),
