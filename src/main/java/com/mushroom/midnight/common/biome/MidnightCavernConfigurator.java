@@ -32,6 +32,13 @@ public class MidnightCavernConfigurator {
         ));
     }
 
+    public static void addTendrilweed(ConfigurableBiome biome) {
+        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
+                Feature.BUSH, new BushConfig(MidnightBlocks.TENDRILWEED.getDefaultState()),
+                MidnightPlacements.COUNT_UNDERGROUND_32, new FrequencyConfig(1)
+        ));
+    }
+
     public static void addRouxeClusters(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(
                 MidnightFeatures.CRYSTAL_CLUSTER, new CrystalClusterConfig(MidnightBlocks.ROUXE_ROCK.getDefaultState(), MidnightBlocks.ROUXE.getDefaultState()),

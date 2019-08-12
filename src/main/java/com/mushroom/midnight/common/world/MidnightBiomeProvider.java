@@ -9,7 +9,6 @@ import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.feature.structure.Structure;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -47,7 +46,13 @@ public class MidnightBiomeProvider extends BiomeProvider {
         int height = maxY - minY + 1;
 
         Set<Biome> biomes = new HashSet<>();
-        Collections.addAll(biomes, this.layers.noise.sample(minX, minY, width, height));
+        for (int localY = 0; localY < height; localY++) {
+            for (int localX = 0; localX < width; localX++) {
+                Biome biome = this.layers.noise.sample(localX + x, localY + y);
+                biomes.add(biome);
+            }
+        }
+
         return biomes;
     }
 

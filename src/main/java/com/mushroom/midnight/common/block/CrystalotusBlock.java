@@ -9,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IEnviromentBlockReader;
 import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nullable;
@@ -51,5 +52,10 @@ public class CrystalotusBlock extends BushBlock {
     @Override
     public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
         return true;
+    }
+
+    @Override
+    public int getPackedLightmapCoords(BlockState state, IEnviromentBlockReader world, BlockPos pos) {
+        return world.getCombinedLight(pos, 13);
     }
 }

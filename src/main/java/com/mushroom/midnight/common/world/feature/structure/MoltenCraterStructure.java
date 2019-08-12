@@ -16,6 +16,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -86,9 +87,18 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
     public boolean hasStartAt(ChunkGenerator<?> generator, Random random, int chunkX, int chunkZ) {
         ChunkPos startPos = this.getStartPositionForPosition(generator, random, chunkX, chunkZ, 0, 0);
         if (chunkX == startPos.x && chunkZ == startPos.z) {
-            BlockPos pos = new BlockPos((chunkX << 4) + 9, 0, (chunkZ << 4) + 9);
-            Biome biome = generator.getBiomeProvider().getBiome(pos);
-            return generator.hasStructure(biome, this);
+            BiomeProvider biomeProvider = generator.getBiomeProvider();
+            boolean hasStructure = biomeProvider.getBiomesInSquare((chunkX << 4) + 9, (chunkZ << 4) + 9, MIN_RADIUS)
+                    .stream()
+                    .allMatch(biome -> generator.hasStructure(biome, this));
+
+            if (hasStructure) {
+                SharedSeedRandom seedRandom = (SharedSeedRandom) random;
+                seedRandom.setLargeFeatureSeed(generator.getSeed(), chunkX, chunkZ);
+
+                Metadata metadata = Metadata.generate(seedRandom, generator, chunkX, chunkZ);
+                return metadata.isValid();
+            }
         }
 
         return false;
@@ -109,6 +119,50 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
         return CHUNK_RADIUS;
     }
 
+    private static class Metadata {
+        final int originX;
+        final int originY;
+        final int originZ;
+        final int radius;
+
+        Metadata(int originX, int originY, int originZ, int radius) {
+            this.originX = originX;
+            this.originY = originY;
+            this.originZ = originZ;
+            this.radius = radius;
+        }
+
+        static Metadata generate(SharedSeedRandom random, ChunkGenerator<?> generator, int chunkX, int chunkZ) {
+            int originX = (chunkX << 4) + random.nextInt(16);
+            int originZ = (chunkZ << 4) + random.nextInt(16);
+            int originY = generator.func_222531_c(originX, originZ, Heightmap.Type.WORLD_SURFACE_WG);
+
+            int radius = random.nextInt(MAX_RADIUS - MIN_RADIUS + 1) + MIN_RADIUS;
+
+            return new Metadata(originX, originY, originZ, radius);
+        }
+
+        boolean isValid() {
+            return this.originY < MAX_GENERATION_Y;
+        }
+
+        CompoundNBT serialize(CompoundNBT compound) {
+            compound.putInt("origin_x", this.originX);
+            compound.putInt("origin_y", this.originY);
+            compound.putInt("origin_z", this.originZ);
+            compound.putInt("radius", this.radius);
+            return compound;
+        }
+
+        static Metadata deserialize(CompoundNBT compound) {
+            int originX = compound.getInt("origin_x");
+            int originY = compound.getInt("origin_y");
+            int originZ = compound.getInt("origin_z");
+            int radius = compound.getInt("radius");
+            return new MoltenCraterStructure.Metadata(originX, originY, originZ, radius);
+        }
+    }
+
     public static class Start extends StructureStart {
         Start(Structure<?> structure, int chunkX, int chunkZ, Biome biome, MutableBoundingBox bounds, int reference, long seed) {
             super(structure, chunkX, chunkZ, biome, bounds, reference, seed);
@@ -116,68 +170,47 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
 
         @Override
         public void init(ChunkGenerator<?> generator, TemplateManager templateManager, int chunkX, int chunkZ, Biome biome) {
-            int originX = (chunkX << 4) + this.rand.nextInt(16);
-            int originZ = (chunkZ << 4) + this.rand.nextInt(16);
-            int originY = generator.func_222531_c(originX, originZ, Heightmap.Type.WORLD_SURFACE_WG);
-
-            int radius = this.rand.nextInt(MAX_RADIUS - MIN_RADIUS + 1) + MIN_RADIUS;
-
-            this.components.add(new Piece(originX, originY, originZ, radius));
+            Metadata metadata = Metadata.generate(this.rand, generator, chunkX, chunkZ);
+            this.components.add(new Piece(metadata));
             this.recalculateStructureSize();
         }
     }
 
     public static class Piece extends StructurePiece {
-        private int originX;
-        private int originY;
-        private int originZ;
-        private int radius;
+        private Metadata metadata;
 
-        Piece(int originX, int originY, int originZ, int radius) {
+        Piece(Metadata metadata) {
             super(MidnightStructurePieces.MOLTEN_CRATER, 0);
-            this.originX = originX;
-            this.originY = originY;
-            this.originZ = originZ;
-            this.radius = radius;
+            this.metadata = metadata;
             this.initBounds();
         }
 
         public Piece(TemplateManager templateManager, CompoundNBT compound) {
             super(MidnightStructurePieces.MOLTEN_CRATER, compound);
-            this.originX = compound.getInt("origin_x");
-            this.originY = compound.getInt("origin_y");
-            this.originZ = compound.getInt("origin_z");
-            this.radius = compound.getInt("radius");
+            this.metadata = Metadata.deserialize(compound);
             this.initBounds();
         }
 
         private void initBounds() {
-            int fullRadius = this.radius + EDGE_DEPTH;
+            int fullRadius = this.metadata.radius + EDGE_DEPTH;
 
             this.boundingBox = new MutableBoundingBox(
-                    this.originX - fullRadius,
-                    this.originY - fullRadius / SCALE_Y,
-                    this.originZ - fullRadius,
-                    this.originX + fullRadius,
-                    this.originY + fullRadius / SCALE_Y,
-                    this.originZ + fullRadius
+                    this.metadata.originX - fullRadius,
+                    this.metadata.originY - fullRadius / SCALE_Y,
+                    this.metadata.originZ - fullRadius,
+                    this.metadata.originX + fullRadius,
+                    this.metadata.originY + fullRadius / SCALE_Y,
+                    this.metadata.originZ + fullRadius
             );
         }
 
         @Override
         protected void readAdditional(CompoundNBT compound) {
-            compound.putInt("origin_x", this.originX);
-            compound.putInt("origin_y", this.originY);
-            compound.putInt("origin_z", this.originZ);
-            compound.putInt("radius", this.radius);
+            this.metadata.serialize(compound);
         }
 
         @Override
         public boolean addComponentParts(IWorld world, Random random, MutableBoundingBox bounds, ChunkPos chunkPos) {
-            if (this.originY >= MAX_GENERATION_Y) {
-                return true;
-            }
-
             int minX = Math.max(this.boundingBox.minX, bounds.minX);
             int maxX = Math.min(this.boundingBox.maxX, bounds.maxX);
 
@@ -201,11 +234,11 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
         }
 
         private void carveCrater(IWorld world, BlockPos minPos, BlockPos maxPos) {
-            int edgeRadius = this.radius + EDGE_DEPTH;
+            int edgeRadius = this.metadata.radius + EDGE_DEPTH;
 
-            int radiusSquared = this.radius * this.radius;
+            int radiusSquared = this.metadata.radius * this.metadata.radius;
             int edgeRadiusSquared = edgeRadius * edgeRadius;
-            int poolLevel = this.originY - (this.radius / SCALE_Y) + POOL_DEPTH;
+            int poolLevel = this.metadata.originY - (this.metadata.radius / SCALE_Y) + POOL_DEPTH;
 
             for (BlockPos pos : BlockPos.getAllInBoxMutable(minPos, maxPos)) {
                 double noise = (NOISE_SAMPLER.get(pos.getX(), pos.getY(), pos.getZ()) + 1.0) * 8.0;
@@ -239,15 +272,15 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
         }
 
         private void decorateSurface(IWorld world, Random random, BlockPos minPos, BlockPos maxPos) {
-            int edgeRadius = this.radius + EDGE_DEPTH;
+            int edgeRadius = this.metadata.radius + EDGE_DEPTH;
             int edgeRadiusSquared = edgeRadius * edgeRadius;
 
             BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 
             for (int z = minPos.getZ(); z <= maxPos.getZ(); z++) {
                 for (int x = minPos.getX(); x <= maxPos.getX(); x++) {
-                    int deltaX = x - this.originX;
-                    int deltaZ = z - this.originZ;
+                    int deltaX = x - this.metadata.originX;
+                    int deltaZ = z - this.metadata.originZ;
                     int distanceSquared = deltaX * deltaX + deltaZ * deltaZ;
 
                     if (distanceSquared <= edgeRadiusSquared) {
@@ -277,9 +310,9 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
         }
 
         private double computeDistanceToCenterSquared(int x, int y, int z) {
-            int deltaX = x - this.originX;
-            int deltaY = Math.min(y - this.originY, 0) * SCALE_Y;
-            int deltaZ = z - this.originZ;
+            int deltaX = x - this.metadata.originX;
+            int deltaY = Math.min(y - this.metadata.originY, 0) * SCALE_Y;
+            int deltaZ = z - this.metadata.originZ;
             return deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ;
         }
     }
