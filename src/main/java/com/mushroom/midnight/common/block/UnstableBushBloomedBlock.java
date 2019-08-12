@@ -37,7 +37,7 @@ public class UnstableBushBloomedBlock extends MidnightPlantBlock implements IGro
     private final Supplier<Item> fruitSupplier;
 
     public UnstableBushBloomedBlock(Block.Properties properties, Supplier<Item> fruitSupplier) {
-        super(properties, false);
+        super(properties, true);
         this.fruitSupplier = fruitSupplier;
         setDefaultState(this.stateContainer.getBaseState().with(HAS_FRUIT, false));
     }
