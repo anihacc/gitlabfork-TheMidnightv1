@@ -17,6 +17,7 @@ import com.mushroom.midnight.common.world.feature.MossFeature;
 import com.mushroom.midnight.common.world.feature.NightstoneBoulderFeature;
 import com.mushroom.midnight.common.world.feature.ScatteredPlantFeature;
 import com.mushroom.midnight.common.world.feature.SpikeFeature;
+import com.mushroom.midnight.common.world.feature.StingerEggFeature;
 import com.mushroom.midnight.common.world.feature.TrenchstoneBoulderFeature;
 import com.mushroom.midnight.common.world.feature.UnstableBushFeature;
 import com.mushroom.midnight.common.world.feature.ViridshroomCacheFeature;
@@ -100,6 +101,7 @@ public class MidnightFeatures {
     public static final Feature<CrystalClusterConfig> CRYSTAL_SPIRE = new CrystalClusterFeature(CrystalClusterConfig::deserialize, 4, 13);
 
     public static final Feature<MidnightOreConfig> ORE = new MidnightOreFeature(MidnightOreConfig::deserialize);
+    public static final Feature<NoFeatureConfig> STINGER_EGG = new StingerEggFeature(NoFeatureConfig::deserialize);
 
     //structure
     public static final Feature<NoFeatureConfig> WELL = new WellStructure(NoFeatureConfig::deserialize);
@@ -149,6 +151,7 @@ public class MidnightFeatures {
                 .add("crystal_cluster", CRYSTAL_CLUSTER)
                 .add("crystal_spire", CRYSTAL_SPIRE)
                 .add("ore", ORE)
+                .add("stinger_egg", STINGER_EGG)
                 .add("well", WELL);
     }
 }

@@ -12,7 +12,7 @@ public class GreatCavernBiome extends CavernousBiome {
 
         MidnightCavernConfigurator.addCaves(this);
 
-        MidnightCavernConfigurator.addCrystalotus(this);
+        MidnightCavernConfigurator.addStandardFeatures(this);
         MidnightCavernConfigurator.addStandardSpawns(this);
     }
 }

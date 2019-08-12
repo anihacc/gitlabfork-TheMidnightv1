@@ -15,7 +15,7 @@ public class CrystalCavernBiome extends CavernousBiome {
 
         MidnightCavernConfigurator.addCaves(this);
 
-        MidnightCavernConfigurator.addCrystalotus(this);
+        MidnightCavernConfigurator.addStandardFeatures(this);
         MidnightCavernConfigurator.addRouxeClusters(this);
         MidnightCavernConfigurator.addTendrilweed(this);
 
