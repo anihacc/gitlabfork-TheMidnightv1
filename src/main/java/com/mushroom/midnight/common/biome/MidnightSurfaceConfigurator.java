@@ -247,11 +247,13 @@ public class MidnightSurfaceConfigurator {
 
     public static void addBogTrees(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                Feature.RANDOM_BOOLEAN_SELECTOR, new TwoFeatureChoiceConfig(
-                        MidnightFeatures.SHADOWROOT_TREE, IFeatureConfig.NO_FEATURE_CONFIG,
-                        MidnightFeatures.DARK_WILLOW_TREE, IFeatureConfig.NO_FEATURE_CONFIG
-                ),
-                MidnightPlacements.COUNT_SURFACE, new FrequencyConfig(4)
+                MidnightFeatures.DARK_WILLOW_TREE, IFeatureConfig.NO_FEATURE_CONFIG,
+                MidnightPlacements.COUNT_SURFACE, new FrequencyConfig(3)
+        ));
+
+        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
+                MidnightFeatures.SHADOWROOT_TREE, IFeatureConfig.NO_FEATURE_CONFIG,
+                MidnightPlacements.COUNT_SURFACE, new FrequencyConfig(1)
         ));
     }
 

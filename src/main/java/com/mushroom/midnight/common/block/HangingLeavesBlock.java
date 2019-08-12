@@ -15,8 +15,8 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 
 public class HangingLeavesBlock extends MidnightPlantBlock {
-    private static final BooleanProperty IS_TIP = BooleanProperty.create("is_tip");
-    private static final BooleanProperty IS_BASE = BooleanProperty.create("is_base");
+    public static final BooleanProperty IS_TIP = BooleanProperty.create("is_tip");
+    public static final BooleanProperty IS_BASE = BooleanProperty.create("is_base");
 
     private static final VoxelShape BOUNDS = makeCuboidShape(1.0, 0.0, 1.0, 15.0, 16.0, 15.0);
 

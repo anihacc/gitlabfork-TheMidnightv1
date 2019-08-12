@@ -3,6 +3,8 @@ package com.mushroom.midnight.common.world.feature.tree;
 import com.mojang.datafixers.Dynamic;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
+import com.mushroom.midnight.common.world.template.HangingLeavesAttachProcessor;
+import com.mushroom.midnight.common.world.template.TemplateCompiler;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -23,5 +25,11 @@ public class DarkWillowTreeFeature extends TemplateTreeFeature {
     public DarkWillowTreeFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> deserialize) {
         super(deserialize, TEMPLATES, LOG, LEAVES);
         this.setSapling((IPlantable) MidnightBlocks.DARK_WILLOW_SAPLING);
+    }
+
+    @Override
+    protected TemplateCompiler buildCompiler() {
+        return super.buildCompiler()
+                .withPostProcessor(new HangingLeavesAttachProcessor(3, MidnightBlocks.HANGING_DARK_WILLOW_LEAVES.getDefaultState()));
     }
 }
