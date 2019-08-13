@@ -10,6 +10,7 @@ import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.ModDimension;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.world.RegisterDimensionsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -18,19 +19,22 @@ import java.util.function.BiFunction;
 
 @Mod.EventBusSubscriber(modid = Midnight.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MidnightDimensions {
+    private static final ModDimension MIDNIGHT = new ModDimension() {
+        @Override
+        public BiFunction<World, DimensionType, ? extends Dimension> getFactory() {
+            return MidnightDimension::new;
+        }
+    };
+
     @SubscribeEvent
     public static void registerModDimensions(RegistryEvent.Register<ModDimension> event) {
-        ModDimension midnight = new ModDimension() {
-            @Override
-            public BiFunction<World, DimensionType, ? extends Dimension> getFactory() {
-                return MidnightDimension::new;
-            }
-        };
-
         RegUtil.generic(event.getRegistry())
-                .add("midnight", midnight);
+                .add("midnight", MIDNIGHT);
+    }
 
-        DimensionManager.registerDimension(midnight.getRegistryName(), midnight, null, false);
+    @SubscribeEvent
+    public static void registerDimensions(RegisterDimensionsEvent event) {
+        DimensionManager.registerDimension(MIDNIGHT.getRegistryName(), MIDNIGHT, null, false);
     }
 
     @Nonnull
