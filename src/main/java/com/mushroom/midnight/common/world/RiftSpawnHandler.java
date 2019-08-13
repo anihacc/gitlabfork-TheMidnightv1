@@ -5,19 +5,20 @@ import com.mushroom.midnight.common.config.MidnightConfig;
 import com.mushroom.midnight.common.entity.RiftAttachment;
 import com.mushroom.midnight.common.entity.RiftBridge;
 import com.mushroom.midnight.common.entity.RiftEntity;
-import com.mushroom.midnight.common.util.MidnightUtil;
 import com.mushroom.midnight.common.registry.MidnightDimensions;
 import com.mushroom.midnight.common.registry.MidnightEntities;
 import com.mushroom.midnight.common.registry.MidnightGameRules;
+import com.mushroom.midnight.common.util.MidnightUtil;
 import com.mushroom.midnight.common.util.WorldUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.LightType;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.LogicalSidedProvider;
@@ -57,13 +58,13 @@ public class RiftSpawnHandler {
         World endpointWorld = DimensionManager.getWorld(server, MidnightDimensions.midnight(), false, false);
         if (!world.isDaytime()) {
             Random random = world.rand;
-            Set<BlockPos> spawnRegions = collectPlayerRegions(world.getPlayers());
+            Set<ChunkPos> spawnRegions = collectPlayerRegions(world.getPlayers());
 
             if (endpointWorld != null) {
                 spawnRegions.addAll(collectPlayerRegions(endpointWorld.getPlayers()));
             }
 
-            for (BlockPos spawnRegion : spawnRegions) {
+            for (ChunkPos spawnRegion : spawnRegions) {
                 if (random.nextInt(MidnightConfig.general.riftSpawnRarity.get()) == 0) {
                     BlockPos riftPosition = generateRiftPosition(random, spawnRegion);
                     if (endpointWorld != null && (world.getWorldBorder().contains(riftPosition) != endpointWorld.getWorldBorder().contains(riftPosition))) {
@@ -79,18 +80,20 @@ public class RiftSpawnHandler {
         }
     }
 
-    private static Set<BlockPos> collectPlayerRegions(List<? extends PlayerEntity> players) {
-        Set<BlockPos> spawnRegions = new HashSet<>();
+    private static Set<ChunkPos> collectPlayerRegions(List<? extends PlayerEntity> players) {
+        Set<ChunkPos> spawnRegions = new HashSet<>();
 
         for (PlayerEntity player : players) {
             int regionX = (int) player.posX >> 5;
-            int regionY = (int) player.posY >> 5;
             int regionZ = (int) player.posZ >> 5;
-            BlockPos.getAllInBox(
-                    regionX - REGION_RANGE, regionY - REGION_RANGE, regionZ - REGION_RANGE,
-                    regionX + REGION_RANGE, regionY + REGION_RANGE, regionZ + REGION_RANGE
-            ).forEach(spawnRegions::add);
+
+            for (int z = regionZ - REGION_RANGE; z <= regionZ + REGION_RANGE; z++) {
+                for (int x = regionX - REGION_RANGE; x <= regionX + REGION_RANGE; x++) {
+                    spawnRegions.add(new ChunkPos(x, z));
+                }
+            }
         }
+
         return spawnRegions;
     }
 
@@ -135,10 +138,9 @@ public class RiftSpawnHandler {
         return MidnightUtil.isMidnightDimension(world) || (!world.containsAnyLiquid(bounds) && world.getLightFor(LightType.BLOCK, pos) < 4);
     }
 
-    private static BlockPos generateRiftPosition(Random random, BlockPos region) {
-        int x = (region.getX() << 5) + random.nextInt(32);
-        int y = (region.getY() << 5) + random.nextInt(32);
-        int z = (region.getZ() << 5) + random.nextInt(32);
-        return new BlockPos(x, y, z);
+    private static BlockPos generateRiftPosition(Random random, ChunkPos region) {
+        int x = (region.x << 5) + random.nextInt(32);
+        int z = (region.z << 5) + random.nextInt(32);
+        return new BlockPos(x, random.nextInt(256), z);
     }
 }
