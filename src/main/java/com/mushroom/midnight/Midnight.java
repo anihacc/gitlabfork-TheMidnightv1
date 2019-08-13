@@ -36,6 +36,7 @@ import com.mushroom.midnight.common.network.ItemActivationMessage;
 import com.mushroom.midnight.common.network.RockshroomBrokenMessage;
 import com.mushroom.midnight.common.registry.MidnightCavernousBiomes;
 import com.mushroom.midnight.common.registry.MidnightCriterion;
+import com.mushroom.midnight.common.registry.MidnightDimensions;
 import com.mushroom.midnight.common.registry.MidnightGameRules;
 import com.mushroom.midnight.common.registry.MidnightItemGroups;
 import com.mushroom.midnight.common.registry.MidnightSurfaceBiomes;
@@ -47,6 +48,7 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -109,6 +111,8 @@ public class Midnight {
         bus.addListener(this::setup);
         bus.addListener(this::registerModels);
         bus.addListener(this::gatherData);
+
+        MinecraftForge.EVENT_BUS.addListener(MidnightDimensions::registerDimensions);
 
         FluidRegistry.enableUniversalBucket();
     }

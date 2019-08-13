@@ -28,11 +28,9 @@ public class MidnightDimensions {
 
     @SubscribeEvent
     public static void registerModDimensions(RegistryEvent.Register<ModDimension> event) {
-        RegUtil.generic(event.getRegistry())
-                .add("midnight", MIDNIGHT);
+        RegUtil.generic(event.getRegistry()).add("midnight", MIDNIGHT);
     }
 
-    @SubscribeEvent
     public static void registerDimensions(RegisterDimensionsEvent event) {
         DimensionManager.registerDimension(MIDNIGHT.getRegistryName(), MIDNIGHT, null, false);
     }
