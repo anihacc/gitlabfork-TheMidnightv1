@@ -4,6 +4,7 @@ import net.minecraft.item.IItemTier;
 import net.minecraft.item.crafting.Ingredient;
 
 import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
 public class MidnightItemTiers {
     public static final IItemTier SHADOWROOT = new Builder()
@@ -12,7 +13,7 @@ public class MidnightItemTiers {
             .withEfficiency(2.0F)
             .withAttackDamage(0.0F)
             .withEnchantability(14)
-            .withRepairMaterial(Ingredient.fromItems(MidnightBlocks.SHADOWROOT_PLANKS))
+            .withRepairMaterial(() -> Ingredient.fromItems(MidnightBlocks.SHADOWROOT_PLANKS))
             .build();
 
     public static final IItemTier NIGHTSTONE = new Builder()
@@ -21,7 +22,7 @@ public class MidnightItemTiers {
             .withEfficiency(4.0F)
             .withAttackDamage(1.0F)
             .withEnchantability(5)
-            .withRepairMaterial(Ingredient.fromItems(MidnightBlocks.NIGHTSTONE))
+            .withRepairMaterial(() -> Ingredient.fromItems(MidnightBlocks.NIGHTSTONE))
             .build();
 
     public static final IItemTier EBONITE = new Builder()
@@ -30,7 +31,7 @@ public class MidnightItemTiers {
             .withEfficiency(6.0F)
             .withAttackDamage(2.0F)
             .withEnchantability(8)
-            .withRepairMaterial(Ingredient.fromItems(MidnightItems.EBONITE))
+            .withRepairMaterial(() -> Ingredient.fromItems(MidnightItems.EBONITE))
             .build();
 
     public static final IItemTier NAGRILITE = new Builder()
@@ -39,7 +40,7 @@ public class MidnightItemTiers {
             .withEfficiency(3.0F)
             .withAttackDamage(3.0F)
             .withEnchantability(10)
-            .withRepairMaterial(Ingredient.fromItems(MidnightItems.NAGRILITE_INGOT))
+            .withRepairMaterial(() -> Ingredient.fromItems(MidnightItems.NAGRILITE_INGOT))
             .build();
 
     public static final IItemTier TENEBRUM = new Builder()
@@ -48,7 +49,7 @@ public class MidnightItemTiers {
             .withEfficiency(10.0F)
             .withAttackDamage(4.0F)
             .withEnchantability(10)
-            .withRepairMaterial(Ingredient.fromItems(MidnightItems.TENEBRUM_INGOT))
+            .withRepairMaterial(() -> Ingredient.fromItems(MidnightItems.TENEBRUM_INGOT))
             .build();
 
     private static class Builder {
@@ -57,7 +58,7 @@ public class MidnightItemTiers {
         private float attackDamage;
         private int harvestLevel;
         private int enchantability;
-        private Ingredient repairMaterial;
+        private Supplier<Ingredient> repairMaterial;
 
         public Builder withMaxUses(int maxUses) {
             this.maxUses = maxUses;
@@ -84,13 +85,15 @@ public class MidnightItemTiers {
             return this;
         }
 
-        public Builder withRepairMaterial(Ingredient repairMaterial) {
+        public Builder withRepairMaterial(Supplier<Ingredient> repairMaterial) {
             this.repairMaterial = repairMaterial;
             return this;
         }
 
         public IItemTier build() {
             return new IItemTier() {
+                private Ingredient repairMaterial;
+
                 @Override
                 public int getMaxUses() {
                     return Builder.this.maxUses;
@@ -119,7 +122,10 @@ public class MidnightItemTiers {
                 @Override
                 @Nonnull
                 public Ingredient getRepairMaterial() {
-                    return Builder.this.repairMaterial;
+                    if (this.repairMaterial == null) {
+                        this.repairMaterial = Builder.this.repairMaterial.get();
+                    }
+                    return this.repairMaterial;
                 }
             };
         }
