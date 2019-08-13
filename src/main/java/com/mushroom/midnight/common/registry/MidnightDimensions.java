@@ -32,7 +32,10 @@ public class MidnightDimensions {
     }
 
     public static void registerDimensions(RegisterDimensionsEvent event) {
-        DimensionManager.registerDimension(MIDNIGHT.getRegistryName(), MIDNIGHT, null, false);
+        // forge why?
+        if (DimensionType.byName(MIDNIGHT.getRegistryName()) == null) {
+            DimensionManager.registerDimension(MIDNIGHT.getRegistryName(), MIDNIGHT, null, false);
+        }
     }
 
     @Nonnull
