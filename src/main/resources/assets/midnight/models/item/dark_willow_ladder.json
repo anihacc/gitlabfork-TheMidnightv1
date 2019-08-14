@@ -1,3 +1,6 @@
 {
-  "parent": "midnight:block/dark_willow_ladder"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "midnight:blocks/dark_willow_ladder"
+  }
 }

@@ -1,3 +1,6 @@
 {
-  "parent": "midnight:block/viridshroom_ladder"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "midnight:blocks/viridshroom_ladder"
+  }
 }
