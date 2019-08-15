@@ -5,9 +5,6 @@ import com.mushroom.midnight.client.ClientProxy;
 import com.mushroom.midnight.client.model.MidnightModelRegistry;
 import com.mushroom.midnight.common.ServerProxy;
 import com.mushroom.midnight.common.capability.AnimationCapability;
-import com.mushroom.midnight.common.capability.CavernousBiomeStore;
-import com.mushroom.midnight.common.capability.DelegatedStorage;
-import com.mushroom.midnight.common.capability.MidnightWorldSpawners;
 import com.mushroom.midnight.common.capability.NullStorage;
 import com.mushroom.midnight.common.capability.RiftTraveller;
 import com.mushroom.midnight.common.capability.RifterCapturable;
@@ -91,14 +88,8 @@ public class Midnight {
     @CapabilityInject(RifterCapturable.class)
     public static final Capability<RifterCapturable> RIFTER_CAPTURABLE_CAP = RegUtil.injected();
 
-    @CapabilityInject(CavernousBiomeStore.class)
-    public static final Capability<CavernousBiomeStore> CAVERNOUS_BIOME_CAP = RegUtil.injected();
-
     @CapabilityInject(AnimationCapability.class)
     public static final Capability<AnimationCapability> ANIMATION_CAP = RegUtil.injected();
-
-    @CapabilityInject(MidnightWorldSpawners.class)
-    public static final Capability<MidnightWorldSpawners> WORLD_SPAWNERS_CAP = RegUtil.injected();
 
     public Midnight() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, MidnightConfig.CLIENT_SPEC);
@@ -120,9 +111,7 @@ public class Midnight {
     private void setup(FMLCommonSetupEvent event) {
         CapabilityManager.INSTANCE.register(RiftTraveller.class, new NullStorage<>(), RiftTraveller::new);
         CapabilityManager.INSTANCE.register(RifterCapturable.class, new NullStorage<>(), RifterCapturable::new);
-        CapabilityManager.INSTANCE.register(CavernousBiomeStore.class, new DelegatedStorage<>(), CavernousBiomeStore::new);
         CapabilityManager.INSTANCE.register(AnimationCapability.class, new NullStorage<>(), AnimationCapability::new);
-        CapabilityManager.INSTANCE.register(MidnightWorldSpawners.class, new NullStorage<>(), MidnightWorldSpawners.Void::new);
 
         Reflection.initialize(MidnightCriterion.class, MidnightItemGroups.class, MidnightGameRules.class);
 

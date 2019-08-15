@@ -15,6 +15,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.function.BiFunction;
 
 @Mod.EventBusSubscriber(modid = Midnight.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -25,6 +26,8 @@ public class MidnightDimensions {
             return MidnightDimension::new;
         }
     };
+
+    private static final ResourceLocation MIDNIGHT_ID = new ResourceLocation(Midnight.MODID, "midnight");
 
     @SubscribeEvent
     public static void registerModDimensions(RegistryEvent.Register<ModDimension> event) {
@@ -40,8 +43,13 @@ public class MidnightDimensions {
 
     @Nonnull
     public static DimensionType midnight() {
-        DimensionType dimension = DimensionType.byName(new ResourceLocation(Midnight.MODID, "midnight"));
+        DimensionType dimension = DimensionType.byName(MIDNIGHT_ID);
         Preconditions.checkNotNull(dimension, "dimension not yet initialized");
         return dimension;
+    }
+
+    @Nullable
+    public static DimensionType midnightOrNull() {
+        return DimensionType.byName(MIDNIGHT_ID);
     }
 }

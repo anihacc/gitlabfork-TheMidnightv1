@@ -1,8 +1,6 @@
 package com.mushroom.midnight.common;
 
 import com.mushroom.midnight.Midnight;
-import com.mushroom.midnight.common.capability.CavernousBiomeStore;
-import com.mushroom.midnight.common.capability.MidnightWorldSpawners;
 import com.mushroom.midnight.common.capability.RiftTraveller;
 import com.mushroom.midnight.common.capability.RifterCapturable;
 import com.mushroom.midnight.common.config.MidnightConfig;
@@ -11,7 +9,6 @@ import com.mushroom.midnight.common.event.RifterCaptureEvent;
 import com.mushroom.midnight.common.event.RifterReleaseEvent;
 import com.mushroom.midnight.common.registry.MidnightDimensions;
 import com.mushroom.midnight.common.registry.MidnightEffects;
-import com.mushroom.midnight.common.util.MidnightUtil;
 import com.mushroom.midnight.common.world.GlobalBridgeManager;
 import com.mushroom.midnight.common.world.RiftSpawnHandler;
 import net.minecraft.entity.Entity;
@@ -25,9 +22,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.dimension.DimensionType;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityEvent;
@@ -64,25 +59,6 @@ public class CommonEventHandler {
                 }
             }
             event.addCapability(new ResourceLocation(Midnight.MODID, "rifter_captured"), new RifterCapturable());
-        }
-    }
-
-    @SubscribeEvent
-    public static void onAttachChunkCapabilities(AttachCapabilitiesEvent<Chunk> event) {
-        if (MidnightUtil.isMidnightDimension(event.getObject().getWorld())) {
-            event.addCapability(new ResourceLocation(Midnight.MODID, "cavernous_biomes"), new CavernousBiomeStore());
-        }
-    }
-
-    @SubscribeEvent
-    public static void onAttachWorldCapabilities(AttachCapabilitiesEvent<World> event) {
-        World world = event.getObject();
-
-        if (MidnightUtil.isMidnightDimension(world)) {
-            if (!world.isRemote && world instanceof ServerWorld) {
-                MidnightWorldSpawners spawners = new MidnightWorldSpawners.SurfaceAndCave((ServerWorld) world);
-                event.addCapability(new ResourceLocation(Midnight.MODID, "world_spawners"), spawners);
-            }
         }
     }
 
@@ -164,7 +140,7 @@ public class CommonEventHandler {
 
     @SubscribeEvent
     public static void onPlaySound(PlaySoundAtEntityEvent event) {
-        if (TICKING_DIMENSION.get() == MidnightDimensions.midnight()) {
+        if (TICKING_DIMENSION.get() == MidnightDimensions.midnightOrNull()) {
             event.setVolume(event.getVolume() * SOUND_TRAVEL_DISTANCE_MULTIPLIER);
         }
     }
