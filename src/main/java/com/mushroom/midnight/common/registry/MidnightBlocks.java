@@ -804,7 +804,7 @@ public class MidnightBlocks {
                 .add("malignant_green_plant_block", RiftPlantBlock::new);
 
         RegUtil.blocks(event.getRegistry())
-                .withProperties(() -> Block.Properties.create(Material.PLANTS).hardnessAndResistance(1.0F).sound(SoundType.PLANT).lightValue(5))
+                .withProperties(() -> Block.Properties.create(Material.PLANTS).hardnessAndResistance(1.0F).sound(SoundType.PLANT).lightValue(12))
                 .add("glowing_malignant_blue_plant_block", RiftPlantBlock::new)
                 .add("glowing_malignant_red_plant_block", RiftPlantBlock::new)
                 .add("glowing_malignant_purple_plant_block", RiftPlantBlock::new)
@@ -822,7 +822,7 @@ public class MidnightBlocks {
                 .add("malignant_green_bridging_vines", BridgingVinesBlock::new);
 
         RegUtil.blocks(event.getRegistry())
-                .withProperties(() -> Block.Properties.create(Material.TALL_PLANTS).hardnessAndResistance(0.0F).sound(SoundType.PLANT).lightValue(5))
+                .withProperties(() -> Block.Properties.create(Material.TALL_PLANTS).hardnessAndResistance(0.0F).sound(SoundType.PLANT).lightValue(12))
                 .add("glowing_malignant_blue_hanging_vines", HangingVinesBlock::new)
                 .add("glowing_malignant_red_hanging_vines", HangingVinesBlock::new)
                 .add("glowing_malignant_purple_hanging_vines", HangingVinesBlock::new)
