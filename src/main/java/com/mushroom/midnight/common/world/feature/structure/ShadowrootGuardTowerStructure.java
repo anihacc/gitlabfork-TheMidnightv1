@@ -50,7 +50,7 @@ public class ShadowrootGuardTowerStructure extends ScatteredStructure<NoFeatureC
             int j = chunkZ * 16;
             BlockPos blockpos = new BlockPos(i, 90, j);
             Rotation rotation = Rotation.values()[this.rand.nextInt(Rotation.values().length)];
-            ShadowrootGuardTowerPieces.addTowerPieces(templateManagerIn, blockpos, rotation, this.components, this.rand);
+            ShadowrootGuardTowerPieces.addTowerPieces(templateManagerIn, blockpos, rotation, this.components);
             this.recalculateStructureSize();
         }
     }

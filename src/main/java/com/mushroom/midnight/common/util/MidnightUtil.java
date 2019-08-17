@@ -1,7 +1,6 @@
 package com.mushroom.midnight.common.util;
 
 import com.google.common.base.Preconditions;
-import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.registry.MidnightDimensions;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -12,7 +11,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.util.FakePlayer;
 
 import javax.annotation.Nullable;
@@ -26,14 +24,7 @@ public final class MidnightUtil {
 
     public static boolean isMidnightDimension(@Nullable World world) {
         if (world == null) return false;
-
-        DimensionType dimension = MidnightDimensions.midnightOrNull();
-        if (dimension == null) {
-            Midnight.LOGGER.warn("Midnight dimension not yet initialized; cannot check dimension");
-            return false;
-        }
-
-        return world.dimension.getType() == dimension;
+        return world.dimension.getType().getModType() == MidnightDimensions.MIDNIGHT;
     }
 
     public static boolean isNotFakePlayer(@Nullable Entity entity) {

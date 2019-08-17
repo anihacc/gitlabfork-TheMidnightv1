@@ -7,8 +7,8 @@ import com.mushroom.midnight.common.config.MidnightConfig;
 import com.mushroom.midnight.common.entity.RiftEntity;
 import com.mushroom.midnight.common.event.RifterCaptureEvent;
 import com.mushroom.midnight.common.event.RifterReleaseEvent;
-import com.mushroom.midnight.common.registry.MidnightDimensions;
 import com.mushroom.midnight.common.registry.MidnightEffects;
+import com.mushroom.midnight.common.util.MidnightUtil;
 import com.mushroom.midnight.common.world.GlobalBridgeManager;
 import com.mushroom.midnight.common.world.RiftSpawnHandler;
 import net.minecraft.entity.Entity;
@@ -22,7 +22,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityEvent;
@@ -38,7 +37,8 @@ import java.util.List;
 @Mod.EventBusSubscriber(modid = Midnight.MODID)
 public class CommonEventHandler {
     public static final float SOUND_TRAVEL_DISTANCE_MULTIPLIER = 2.0F;
-    private static final ThreadLocal<DimensionType> TICKING_DIMENSION = ThreadLocal.withInitial(() -> null);
+
+    private static final ThreadLocal<Boolean> IS_TICKING_MIDNIGHT = ThreadLocal.withInitial(() -> false);
 
     @SubscribeEvent
     public static void onAttachEntityCapabilities(AttachCapabilitiesEvent<Entity> event) {
@@ -76,9 +76,9 @@ public class CommonEventHandler {
                 GlobalBridgeManager.getServer().update();
             }
 
-            TICKING_DIMENSION.set(world.dimension.getType());
+            IS_TICKING_MIDNIGHT.set(MidnightUtil.isMidnightDimension(world));
         } else {
-            TICKING_DIMENSION.set(null);
+            IS_TICKING_MIDNIGHT.set(false);
         }
     }
 
@@ -140,7 +140,7 @@ public class CommonEventHandler {
 
     @SubscribeEvent
     public static void onPlaySound(PlaySoundAtEntityEvent event) {
-        if (TICKING_DIMENSION.get() == MidnightDimensions.midnightOrNull()) {
+        if (IS_TICKING_MIDNIGHT.get()) {
             event.setVolume(event.getVolume() * SOUND_TRAVEL_DISTANCE_MULTIPLIER);
         }
     }

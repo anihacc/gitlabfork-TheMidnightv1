@@ -1,6 +1,5 @@
 package com.mushroom.midnight.common.registry;
 
-import com.google.common.base.Preconditions;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.world.MidnightDimension;
 import net.minecraft.util.ResourceLocation;
@@ -14,13 +13,11 @@ import net.minecraftforge.event.world.RegisterDimensionsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.function.BiFunction;
 
 @Mod.EventBusSubscriber(modid = Midnight.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MidnightDimensions {
-    private static final ModDimension MIDNIGHT = new ModDimension() {
+    public static final ModDimension MIDNIGHT = new ModDimension() {
         @Override
         public BiFunction<World, DimensionType, ? extends Dimension> getFactory() {
             return MidnightDimension::new;
@@ -35,21 +32,12 @@ public class MidnightDimensions {
     }
 
     public static void registerDimensions(RegisterDimensionsEvent event) {
-        // forge why?
-        if (DimensionType.byName(MIDNIGHT.getRegistryName()) == null) {
-            DimensionManager.registerDimension(MIDNIGHT.getRegistryName(), MIDNIGHT, null, false);
+        if (DimensionType.byName(MIDNIGHT_ID) == null) {
+            DimensionManager.registerDimension(MIDNIGHT_ID, MIDNIGHT, null, false);
         }
     }
 
-    @Nonnull
     public static DimensionType midnight() {
-        DimensionType dimension = DimensionType.byName(MIDNIGHT_ID);
-        Preconditions.checkNotNull(dimension, "dimension not yet initialized");
-        return dimension;
-    }
-
-    @Nullable
-    public static DimensionType midnightOrNull() {
         return DimensionType.byName(MIDNIGHT_ID);
     }
 }

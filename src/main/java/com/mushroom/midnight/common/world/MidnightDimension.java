@@ -5,7 +5,6 @@ import com.mushroom.midnight.common.biome.BiomeLayerType;
 import com.mushroom.midnight.common.biome.BiomeLayers;
 import com.mushroom.midnight.common.biome.cavern.CavernousBiome;
 import com.mushroom.midnight.common.config.MidnightConfig;
-import com.mushroom.midnight.common.registry.MidnightDimensions;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -58,12 +57,7 @@ public class MidnightDimension extends Dimension {
 
     @Override
     public int getActualHeight() {
-        return 255;
-    }
-
-    @Override
-    public DimensionType getType() {
-        return MidnightDimensions.midnight();
+        return 256;
     }
 
     @Override

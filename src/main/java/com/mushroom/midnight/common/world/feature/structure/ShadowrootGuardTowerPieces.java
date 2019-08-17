@@ -2,7 +2,7 @@ package com.mushroom.midnight.common.world.feature.structure;
 
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.registry.MidnightLootTables;
-import com.mushroom.midnight.common.registry.MidnightStructurePieceType;
+import com.mushroom.midnight.common.registry.MidnightStructurePieces;
 import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ChestTileEntity;
@@ -26,47 +26,45 @@ import java.util.List;
 import java.util.Random;
 
 public class ShadowrootGuardTowerPieces {
-    private static final ResourceLocation field_202592_e = new ResourceLocation(Midnight.MODID, "shadowroot_guardtower");
+    private static final ResourceLocation LOCATION = new ResourceLocation(Midnight.MODID, "shadowroot_guardtower");
 
-    public static void addTowerPieces(TemplateManager p_207617_0_, BlockPos p_207617_1_, Rotation p_207617_2_, List<StructurePiece> p_207617_3_, Random p_207617_4_) {
-
-        p_207617_3_.add(new ShadowrootGuardTowerPieces.Piece(p_207617_0_, field_202592_e, p_207617_1_, p_207617_2_, 0));
+    public static void addTowerPieces(TemplateManager templateManager, BlockPos origin, Rotation rotation, List<StructurePiece> pieces) {
+        pieces.add(new ShadowrootGuardTowerPieces.Piece(templateManager, LOCATION, origin, rotation));
     }
 
     public static class Piece extends TemplateStructurePiece {
-        private final ResourceLocation field_207615_d;
-        private final Rotation field_207616_e;
+        private final ResourceLocation templateLocation;
+        private final Rotation rotation;
 
-        public Piece(TemplateManager p_i49313_1_, ResourceLocation p_i49313_2_, BlockPos p_i49313_3_, Rotation p_i49313_4_, int p_i49313_5_) {
-            super(MidnightStructurePieceType.SHADOWROOT_GUARDTOWER, 0);
-            this.field_207615_d = p_i49313_2_;
-            this.templatePosition = p_i49313_3_;
-            this.field_207616_e = p_i49313_4_;
-            this.func_207614_a(p_i49313_1_);
+        public Piece(TemplateManager templateManager, ResourceLocation templateLocation, BlockPos position, Rotation rotation) {
+            super(MidnightStructurePieces.SHADOWROOT_GUARDTOWER, 0);
+            this.templateLocation = templateLocation;
+            this.templatePosition = position;
+            this.rotation = rotation;
+            this.setup(templateManager);
         }
 
-        public Piece(TemplateManager p_i50566_1_, CompoundNBT p_i50566_2_) {
-            super(MidnightStructurePieceType.SHADOWROOT_GUARDTOWER, p_i50566_2_);
-            this.field_207615_d = new ResourceLocation(p_i50566_2_.getString("Template"));
-            this.field_207616_e = Rotation.valueOf(p_i50566_2_.getString("Rot"));
-            this.func_207614_a(p_i50566_1_);
+        public Piece(TemplateManager templateManager, CompoundNBT compound) {
+            super(MidnightStructurePieces.SHADOWROOT_GUARDTOWER, compound);
+            this.templateLocation = new ResourceLocation(compound.getString("Template"));
+            this.rotation = Rotation.valueOf(compound.getString("Rot"));
+            this.setup(templateManager);
         }
 
-        private void func_207614_a(TemplateManager p_207614_1_) {
-            Template template = p_207614_1_.getTemplateDefaulted(this.field_207615_d);
-            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(this.field_207616_e).setMirror(Mirror.NONE).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
+        private void setup(TemplateManager templateManager) {
+            Template template = templateManager.getTemplateDefaulted(this.templateLocation);
+            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(this.rotation).setMirror(Mirror.NONE).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
             this.setup(template, this.templatePosition, placementsettings);
         }
 
-        /**
-         * (abstract) Helper method to read subclass data from NBT
-         */
-        protected void readAdditional(CompoundNBT tagCompound) {
-            super.readAdditional(tagCompound);
-            tagCompound.putString("Template", this.field_207615_d.toString());
-            tagCompound.putString("Rot", this.field_207616_e.name());
+        @Override
+        protected void readAdditional(CompoundNBT compound) {
+            super.readAdditional(compound);
+            compound.putString("Template", this.templateLocation.toString());
+            compound.putString("Rot", this.rotation.name());
         }
 
+        @Override
         protected void handleDataMarker(String function, BlockPos pos, IWorld worldIn, Random rand, MutableBoundingBox sbb) {
             if ("chest".equals(function)) {
                 worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
@@ -74,24 +72,26 @@ public class ShadowrootGuardTowerPieces {
                 if (tileentity instanceof ChestTileEntity) {
                     ((ChestTileEntity) tileentity).setLootTable(MidnightLootTables.LOOT_TABLE_SHADOWROOT_GUARDTOWER, rand.nextLong());
                 }
-
             }
         }
 
-        /**
-         * second Part of Structure generating, this for example places Spiderwebs, Mob Spawners, it closes Mineshafts at
-         * the end, it adds Fences...
-         */
-        public boolean addComponentParts(IWorld worldIn, Random randomIn, MutableBoundingBox structureBoundingBoxIn, ChunkPos p_74875_4_) {
-            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(this.field_207616_e).setMirror(Mirror.NONE).addProcessor(BlockIgnoreStructureProcessor.AIR_AND_STRUCTURE_BLOCK);
-            BlockPos blockpos1 = this.templatePosition.add(Template.transformedBlockPos(placementsettings, new BlockPos(5, 0, 3)));
-            int i = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE_WG, blockpos1.getX(), blockpos1.getZ());
-            BlockPos blockpos2 = this.templatePosition;
-            this.templatePosition = this.templatePosition.add(0, i - 90 - 1, 0);
-            boolean flag = super.addComponentParts(worldIn, randomIn, structureBoundingBoxIn, p_74875_4_);
+        @Override
+        public boolean addComponentParts(IWorld world, Random random, MutableBoundingBox bounds, ChunkPos chunkPos) {
+            PlacementSettings settings = new PlacementSettings()
+                    .setRotation(this.rotation)
+                    .setMirror(Mirror.NONE)
+                    .addProcessor(BlockIgnoreStructureProcessor.AIR_AND_STRUCTURE_BLOCK);
 
-            this.templatePosition = blockpos2;
-            return flag;
+            BlockPos origin = this.templatePosition.add(Template.transformedBlockPos(settings, new BlockPos(5, 0, 3)));
+            int height = world.getHeight(Heightmap.Type.WORLD_SURFACE_WG, origin.getX(), origin.getZ());
+
+            BlockPos templateOrigin = this.templatePosition;
+
+            this.templatePosition = this.templatePosition.add(0, height - 90 - 1, 0);
+            boolean result = super.addComponentParts(world, random, bounds, chunkPos);
+            this.templatePosition = templateOrigin;
+
+            return result;
         }
     }
 }
