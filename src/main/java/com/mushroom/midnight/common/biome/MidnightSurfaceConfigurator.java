@@ -1,6 +1,7 @@
 package com.mushroom.midnight.common.biome;
 
 import com.mushroom.midnight.Midnight;
+import com.mushroom.midnight.common.block.VioleafBlock;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightEntities;
 import com.mushroom.midnight.common.registry.MidnightFeatures;
@@ -216,7 +217,7 @@ public class MidnightSurfaceConfigurator {
 
     public static void addVioleafs(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                Feature.BUSH, new BushConfig(MidnightBlocks.VIOLEAF.getDefaultState()),
+                Feature.BUSH, new BushConfig(MidnightBlocks.VIOLEAF.getDefaultState().with(VioleafBlock.IS_GROWN, true)),
                 MidnightPlacements.COUNT_SURFACE_DOUBLE, new FrequencyConfig(2)
         ));
     }

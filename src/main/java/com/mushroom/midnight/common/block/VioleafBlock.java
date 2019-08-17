@@ -25,11 +25,11 @@ import java.util.Random;
 
 @SuppressWarnings("deprecation")
 public class VioleafBlock extends MidnightPlantBlock implements IGrowable {
-    private static final BooleanProperty IS_GROWN = BooleanProperty.create("is_grown");
+    public static final BooleanProperty IS_GROWN = BooleanProperty.create("is_grown");
 
     public VioleafBlock(Properties properties) {
         super(properties, false);
-        setDefaultState(stateContainer.getBaseState().with(IS_GROWN, true));
+        setDefaultState(stateContainer.getBaseState().with(IS_GROWN, false));
     }
 
     @Override
