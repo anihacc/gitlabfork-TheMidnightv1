@@ -26,7 +26,7 @@ public class ShadowrootGuardTowerStructure extends ScatteredStructure<NoFeatureC
 
     @Override
     public int getSize() {
-        return 3;
+        return 2;
     }
 
     @Override
@@ -37,6 +37,16 @@ public class ShadowrootGuardTowerStructure extends ScatteredStructure<NoFeatureC
     @Override
     protected int getSeedModifier() {
         return 14357618;
+    }
+
+    @Override
+    protected int getBiomeFeatureDistance(ChunkGenerator<?> generator) {
+        return 16;
+    }
+
+    @Override
+    protected int getBiomeFeatureSeparation(ChunkGenerator<?> generator) {
+        return 8;
     }
 
     public static class Start extends StructureStart {

@@ -236,10 +236,10 @@ public class MidnightSurfaceConfigurator {
         ));
     }
 
-    public static void addDeadLogs(ConfigurableBiome biome) {
+    public static void addFallenDeadLogs(ConfigurableBiome biome) {
         biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                MidnightFeatures.DEAD_LOG, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.COUNT_SURFACE, new FrequencyConfig(3)
+                MidnightFeatures.FALLEN_DEAD_LOG, IFeatureConfig.NO_FEATURE_CONFIG,
+                MidnightPlacements.COUNT_SURFACE, new FrequencyConfig(2)
         ));
     }
 

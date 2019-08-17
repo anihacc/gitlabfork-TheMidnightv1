@@ -16,12 +16,12 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 import java.util.Random;
 import java.util.function.Function;
 
-public class DeadLogFeature extends Feature<NoFeatureConfig> {
+public class FallenDeadLogFeature extends Feature<NoFeatureConfig> {
     private static final Direction[] HORIZONTALS = new Direction[] { Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST };
 
     private static final BlockState LOG = MidnightBlocks.DEAD_WOOD_LOG.getDefaultState();
 
-    public DeadLogFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> deserialize) {
+    public FallenDeadLogFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> deserialize) {
         super(deserialize);
     }
 

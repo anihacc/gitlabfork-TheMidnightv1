@@ -6,7 +6,7 @@ import com.mushroom.midnight.common.world.feature.BladeshroomFeature;
 import com.mushroom.midnight.common.world.feature.BogweedFlowersFeature;
 import com.mushroom.midnight.common.world.feature.CrystalClusterFeature;
 import com.mushroom.midnight.common.world.feature.CrystalFlowersFeature;
-import com.mushroom.midnight.common.world.feature.DeadLogFeature;
+import com.mushroom.midnight.common.world.feature.FallenDeadLogFeature;
 import com.mushroom.midnight.common.world.feature.FingeredGrassFeature;
 import com.mushroom.midnight.common.world.feature.FungiPatchFeature;
 import com.mushroom.midnight.common.world.feature.GlobFungiFlowersFeature;
@@ -56,7 +56,7 @@ public class MidnightFeatures {
     public static final AbstractTreeFeature<NoFeatureConfig> DARK_WILLOW_TREE = new DarkWillowTreeFeature(NoFeatureConfig::deserialize);
     public static final Feature<NoFeatureConfig> DEAD_TREE = new DeadTreeFeature(NoFeatureConfig::deserialize, ShelfAttachProcessor.FOREST_SHELF_BLOCKS);
     public static final Feature<NoFeatureConfig> BOG_DEAD_TREE = new DeadTreeFeature(NoFeatureConfig::deserialize, ShelfAttachProcessor.SHELF_BLOCKS);
-    public static final Feature<NoFeatureConfig> DEAD_LOG = new DeadLogFeature(NoFeatureConfig::deserialize);
+    public static final Feature<NoFeatureConfig> FALLEN_DEAD_LOG = new FallenDeadLogFeature(NoFeatureConfig::deserialize);
     public static final AbstractTreeFeature<NoFeatureConfig> LARGE_GLOB_FUNGUS = new LargeGlobFungusFeature(NoFeatureConfig::deserialize);
 
     public static final AbstractTreeFeature<NoFeatureConfig> LARGE_BOGSHROOM = new LargeBogshroomFeature(NoFeatureConfig::deserialize);
@@ -114,7 +114,7 @@ public class MidnightFeatures {
                 .add("dark_willow_tree", DARK_WILLOW_TREE)
                 .add("dead_tree", DEAD_TREE)
                 .add("bog_dead_tree", BOG_DEAD_TREE)
-                .add("dead_log", DEAD_LOG)
+                .add("fallen_dead_log", FALLEN_DEAD_LOG)
                 .add("large_bogshroom", LARGE_BOGSHROOM)
                 .add("large_glob_fungus", LARGE_GLOB_FUNGUS)
                 .add("large_nightshroom", LARGE_NIGHTSHROOM)

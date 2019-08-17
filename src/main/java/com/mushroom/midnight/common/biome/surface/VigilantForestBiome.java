@@ -22,7 +22,7 @@ public class VigilantForestBiome extends SurfaceBiome {
         MidnightSurfaceConfigurator.addShadowRootGuardTower(this);
 
         MidnightSurfaceConfigurator.addVigilantForestTrees(this);
-        MidnightSurfaceConfigurator.addDeadLogs(this);
+        MidnightSurfaceConfigurator.addFallenDeadLogs(this);
 
         MidnightSurfaceConfigurator.addSparseSuavis(this);
         MidnightSurfaceConfigurator.addSparseDeadTrees(this);

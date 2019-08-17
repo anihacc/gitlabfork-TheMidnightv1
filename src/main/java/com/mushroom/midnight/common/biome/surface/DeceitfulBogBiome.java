@@ -27,7 +27,7 @@ public class DeceitfulBogBiome extends SurfaceBiome {
         MidnightSurfaceConfigurator.addBogDeadTrees(this);
 
         MidnightSurfaceConfigurator.addBogTrees(this);
-        MidnightSurfaceConfigurator.addDeadLogs(this);
+        MidnightSurfaceConfigurator.addFallenDeadLogs(this);
 
         MidnightSurfaceConfigurator.addBogweed(this);
         MidnightSurfaceConfigurator.addBogshroomFlowers(this);
