@@ -1,8 +1,7 @@
 {
   "parent": "block/thin_block",
   "textures": {
-    "moss": "midnight:blocks/deceitful_moss",
-	"particle": "midnight:blocks/deceitful_moss"
+	"particle": "#moss"
   },
   "elements": [
     {

@@ -192,6 +192,31 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.EBONITE_ORE);
         this.add(MidnightBlocks.GLOB_FUNGUS_HAT);
 
+        this.add(MidnightBlocks.MALIGNANT_BLUE_PLANT_BLOCK);
+        this.add(MidnightBlocks.MALIGNANT_RED_PLANT_BLOCK);
+        this.add(MidnightBlocks.MALIGNANT_PURPLE_PLANT_BLOCK);
+        this.add(MidnightBlocks.MALIGNANT_GREEN_PLANT_BLOCK);
+        this.add(MidnightBlocks.GLOWING_MALIGNANT_BLUE_PLANT_BLOCK);
+        this.add(MidnightBlocks.GLOWING_MALIGNANT_RED_PLANT_BLOCK);
+        this.add(MidnightBlocks.GLOWING_MALIGNANT_PURPLE_PLANT_BLOCK);
+        this.add(MidnightBlocks.GLOWING_MALIGNANT_GREEN_PLANT_BLOCK);
+        this.add(MidnightBlocks.MALIGNANT_BLUE_HANGING_VINES);
+        this.add(MidnightBlocks.MALIGNANT_RED_HANGING_VINES);
+        this.add(MidnightBlocks.MALIGNANT_PURPLE_HANGING_VINES);
+        this.add(MidnightBlocks.MALIGNANT_GREEN_HANGING_VINES);
+        this.add(MidnightBlocks.GLOWING_MALIGNANT_BLUE_HANGING_VINES);
+        this.add(MidnightBlocks.GLOWING_MALIGNANT_RED_HANGING_VINES);
+        this.add(MidnightBlocks.GLOWING_MALIGNANT_PURPLE_HANGING_VINES);
+        this.add(MidnightBlocks.GLOWING_MALIGNANT_GREEN_HANGING_VINES);
+        this.add(MidnightBlocks.MALIGNANT_BLUE_PLANT_SURFACE);
+        this.add(MidnightBlocks.MALIGNANT_RED_PLANT_SURFACE);
+        this.add(MidnightBlocks.MALIGNANT_PURPLE_PLANT_SURFACE);
+        this.add(MidnightBlocks.MALIGNANT_GREEN_PLANT_SURFACE);
+        this.add(MidnightBlocks.MALIGNANT_BLUE_BRIDGING_VINES);
+        this.add(MidnightBlocks.MALIGNANT_RED_BRIDGING_VINES);
+        this.add(MidnightBlocks.MALIGNANT_PURPLE_BRIDGING_VINES);
+        this.add(MidnightBlocks.MALIGNANT_GREEN_BRIDGING_VINES);
+
         this.add(MidnightBlocks.BOGSHROOM_SPORCH);
         this.add(MidnightBlocks.NIGHTSHROOM_SPORCH);
         this.add(MidnightBlocks.DEWSHROOM_SPORCH);

@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "midnight:blocks/glowing_malignant_blue_hanging_vines"
+  }
+}

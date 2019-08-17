@@ -5,11 +5,11 @@ import com.mushroom.midnight.common.block.BasicBlock;
 import com.mushroom.midnight.common.block.BladeshroomBlock;
 import com.mushroom.midnight.common.block.BloomCrystalBlock;
 import com.mushroom.midnight.common.block.BogweedBlock;
+import com.mushroom.midnight.common.block.BridgingVinesBlock;
 import com.mushroom.midnight.common.block.CacheBlock;
 import com.mushroom.midnight.common.block.CrystalBlock;
 import com.mushroom.midnight.common.block.CrystalotusBlock;
 import com.mushroom.midnight.common.block.DeceitfulAlgaeBlock;
-import com.mushroom.midnight.common.block.DeceitfulMossBlock;
 import com.mushroom.midnight.common.block.DeceitfulMudBlock;
 import com.mushroom.midnight.common.block.DoubleFungiBlock;
 import com.mushroom.midnight.common.block.DragonNestBlock;
@@ -20,6 +20,7 @@ import com.mushroom.midnight.common.block.GlobFungusBlock;
 import com.mushroom.midnight.common.block.GlobFungusHatBlock;
 import com.mushroom.midnight.common.block.HangablePlantBlock;
 import com.mushroom.midnight.common.block.HangingLeavesBlock;
+import com.mushroom.midnight.common.block.HangingVinesBlock;
 import com.mushroom.midnight.common.block.MiasmaSurfaceBlock;
 import com.mushroom.midnight.common.block.MidnightChestBlock;
 import com.mushroom.midnight.common.block.MidnightCraftingTableBlock;
@@ -37,6 +38,8 @@ import com.mushroom.midnight.common.block.MidnightPlantBlock;
 import com.mushroom.midnight.common.block.MidnightSaplingBlock;
 import com.mushroom.midnight.common.block.MidnightStairsBlock;
 import com.mushroom.midnight.common.block.MidnightWoodPlankBlock;
+import com.mushroom.midnight.common.block.MossBlock;
+import com.mushroom.midnight.common.block.RiftPlantBlock;
 import com.mushroom.midnight.common.block.RockshroomBlock;
 import com.mushroom.midnight.common.block.SoilBlock;
 import com.mushroom.midnight.common.block.SporchBlock;
@@ -356,6 +359,36 @@ public class MidnightBlocks {
 
     public static final Block MIDNIGHT_LEVER = Blocks.AIR;
 
+    public static final Block MALIGNANT_BLUE_PLANT_BLOCK = Blocks.AIR;
+    public static final Block MALIGNANT_RED_PLANT_BLOCK = Blocks.AIR;
+    public static final Block MALIGNANT_PURPLE_PLANT_BLOCK = Blocks.AIR;
+    public static final Block MALIGNANT_GREEN_PLANT_BLOCK = Blocks.AIR;
+
+    public static final Block GLOWING_MALIGNANT_BLUE_PLANT_BLOCK = Blocks.AIR;
+    public static final Block GLOWING_MALIGNANT_RED_PLANT_BLOCK = Blocks.AIR;
+    public static final Block GLOWING_MALIGNANT_PURPLE_PLANT_BLOCK = Blocks.AIR;
+    public static final Block GLOWING_MALIGNANT_GREEN_PLANT_BLOCK = Blocks.AIR;
+
+    public static final Block MALIGNANT_BLUE_HANGING_VINES = Blocks.AIR;
+    public static final Block MALIGNANT_RED_HANGING_VINES = Blocks.AIR;
+    public static final Block MALIGNANT_PURPLE_HANGING_VINES = Blocks.AIR;
+    public static final Block MALIGNANT_GREEN_HANGING_VINES = Blocks.AIR;
+
+    public static final Block GLOWING_MALIGNANT_BLUE_HANGING_VINES = Blocks.AIR;
+    public static final Block GLOWING_MALIGNANT_RED_HANGING_VINES = Blocks.AIR;
+    public static final Block GLOWING_MALIGNANT_PURPLE_HANGING_VINES = Blocks.AIR;
+    public static final Block GLOWING_MALIGNANT_GREEN_HANGING_VINES = Blocks.AIR;
+
+    public static final Block MALIGNANT_BLUE_PLANT_SURFACE = Blocks.AIR;
+    public static final Block MALIGNANT_RED_PLANT_SURFACE = Blocks.AIR;
+    public static final Block MALIGNANT_PURPLE_PLANT_SURFACE = Blocks.AIR;
+    public static final Block MALIGNANT_GREEN_PLANT_SURFACE = Blocks.AIR;
+
+    public static final Block MALIGNANT_BLUE_BRIDGING_VINES = Blocks.AIR;
+    public static final Block MALIGNANT_RED_BRIDGING_VINES = Blocks.AIR;
+    public static final Block MALIGNANT_PURPLE_BRIDGING_VINES = Blocks.AIR;
+    public static final Block MALIGNANT_GREEN_BRIDGING_VINES = Blocks.AIR;
+
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         RegUtil.blocks(event.getRegistry())
@@ -480,8 +513,6 @@ public class MidnightBlocks {
                 .add("bladeshroom", props -> new BladeshroomBlock(props.tickRandomly()))
                 .add("crystal_flower", props -> new MidnightPlantBlock(props, true))
                 .add("runebush", props -> new MidnightPlantBlock(props, false))
-                .add("deceitful_algae", new DeceitfulAlgaeBlock())
-                .add("deceitful_moss", new DeceitfulMossBlock())
                 .add("crystalotus", new CrystalotusBlock())
                 .add("unstable_bush", props -> new UnstableBushBlock(props.tickRandomly()))
                 .add("unstable_bush_blue_bloomed", props -> new UnstableBushBloomedBlock(props.tickRandomly(), () -> MidnightItems.BLUE_UNSTABLE_FRUIT))
@@ -495,6 +526,11 @@ public class MidnightBlocks {
                 .add("nightshroom_flowering_roots", props -> new HangablePlantBlock(props, true))
                 .add("dewshroom_flowering_roots", props -> new HangablePlantBlock(props, true))
                 .add("viridshroom_flowering_roots", props -> new HangablePlantBlock(props, true));
+
+        RegUtil.blocks(event.getRegistry())
+                .withProperties(() -> Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.PLANT))
+                .add("deceitful_algae", props -> new DeceitfulAlgaeBlock(props.hardnessAndResistance(0.0F)))
+                .add("deceitful_moss", props -> new MossBlock(props.hardnessAndResistance(0.2f, 0f)));
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.WOOD)
@@ -759,6 +795,45 @@ public class MidnightBlocks {
                         .lightValue(15)
                         .noDrops()
                 ));
+
+        RegUtil.blocks(event.getRegistry())
+                .withProperties(() -> Block.Properties.create(Material.PLANTS).hardnessAndResistance(1.0F).sound(SoundType.PLANT))
+                .add("malignant_blue_plant_block", RiftPlantBlock::new)
+                .add("malignant_red_plant_block", RiftPlantBlock::new)
+                .add("malignant_purple_plant_block", RiftPlantBlock::new)
+                .add("malignant_green_plant_block", RiftPlantBlock::new);
+
+        RegUtil.blocks(event.getRegistry())
+                .withProperties(() -> Block.Properties.create(Material.PLANTS).hardnessAndResistance(1.0F).sound(SoundType.PLANT).lightValue(5))
+                .add("glowing_malignant_blue_plant_block", RiftPlantBlock::new)
+                .add("glowing_malignant_red_plant_block", RiftPlantBlock::new)
+                .add("glowing_malignant_purple_plant_block", RiftPlantBlock::new)
+                .add("glowing_malignant_green_plant_block", RiftPlantBlock::new);
+
+        RegUtil.blocks(event.getRegistry())
+                .withProperties(() -> Block.Properties.create(Material.TALL_PLANTS).hardnessAndResistance(0.0F).sound(SoundType.PLANT))
+                .add("malignant_blue_hanging_vines", HangingVinesBlock::new)
+                .add("malignant_red_hanging_vines", HangingVinesBlock::new)
+                .add("malignant_purple_hanging_vines", HangingVinesBlock::new)
+                .add("malignant_green_hanging_vines", HangingVinesBlock::new)
+                .add("malignant_blue_bridging_vines", BridgingVinesBlock::new)
+                .add("malignant_red_bridging_vines", BridgingVinesBlock::new)
+                .add("malignant_purple_bridging_vines", BridgingVinesBlock::new)
+                .add("malignant_green_bridging_vines", BridgingVinesBlock::new);
+
+        RegUtil.blocks(event.getRegistry())
+                .withProperties(() -> Block.Properties.create(Material.TALL_PLANTS).hardnessAndResistance(0.0F).sound(SoundType.PLANT).lightValue(5))
+                .add("glowing_malignant_blue_hanging_vines", HangingVinesBlock::new)
+                .add("glowing_malignant_red_hanging_vines", HangingVinesBlock::new)
+                .add("glowing_malignant_purple_hanging_vines", HangingVinesBlock::new)
+                .add("glowing_malignant_green_hanging_vines", HangingVinesBlock::new);
+
+        RegUtil.blocks(event.getRegistry())
+                .withProperties(() -> Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0.2F, 0.0F).sound(SoundType.PLANT))
+                .add("malignant_blue_plant_surface", MossBlock::new)
+                .add("malignant_red_plant_surface", MossBlock::new)
+                .add("malignant_purple_plant_surface", MossBlock::new)
+                .add("malignant_green_plant_surface", MossBlock::new);
     }
 
     @SubscribeEvent
@@ -777,7 +852,9 @@ public class MidnightBlocks {
                         ROCKSHROOM, ROCKSHROOM_BRICKS, BLOOMCRYSTAL_ROCK, ROUXE_ROCK, ARCHAIC_GLASS, ARCHAIC_GLASS_PANE, MIASMA_SURFACE, DECEITFUL_PEAT, DECEITFUL_MUD, // MIASMA, DARK_WATER
                         SHADOWROOT_STAIRS, DEAD_WOOD_STAIRS, DARK_WILLOW_STAIRS, NIGHTSTONE_STAIRS, NIGHTSTONE_BRICK_STAIRS, TRENCHSTONE_STAIRS, TRENCHSTONE_BRICK_STAIRS,
                         DEWSHROOM_STAIRS, VIRIDSHROOM_STAIRS, NIGHTSHROOM_STAIRS, ROCKSHROOM_BRICK_STAIRS,
-                        SHADOWROOT_SLAB, DEAD_WOOD_SLAB, DARK_WILLOW_SLAB, NIGHTSTONE_SLAB, NIGHTSTONE_BRICK_SLAB, TRENCHSTONE_SLAB, TRENCHSTONE_BRICK_SLAB, DEWSHROOM_SLAB, VIRIDSHROOM_SLAB, NIGHTSHROOM_SLAB, ROCKSHROOM_BRICK_SLAB
+                        SHADOWROOT_SLAB, DEAD_WOOD_SLAB, DARK_WILLOW_SLAB, NIGHTSTONE_SLAB, NIGHTSTONE_BRICK_SLAB, TRENCHSTONE_SLAB, TRENCHSTONE_BRICK_SLAB, DEWSHROOM_SLAB, VIRIDSHROOM_SLAB, NIGHTSHROOM_SLAB, ROCKSHROOM_BRICK_SLAB,
+                        MALIGNANT_BLUE_PLANT_BLOCK, MALIGNANT_RED_PLANT_BLOCK, MALIGNANT_PURPLE_PLANT_BLOCK, MALIGNANT_GREEN_PLANT_BLOCK,
+                        GLOWING_MALIGNANT_BLUE_PLANT_BLOCK, GLOWING_MALIGNANT_RED_PLANT_BLOCK, GLOWING_MALIGNANT_PURPLE_PLANT_BLOCK, GLOWING_MALIGNANT_GREEN_PLANT_BLOCK
                 );
         RegUtil.items(event.getRegistry())
                 .withProperties(() -> new Item.Properties().group(MidnightItemGroups.DECORATION))
@@ -796,7 +873,11 @@ public class MidnightBlocks {
                         SUAVIS, STINGER_EGG, CRYSTALOTUS, MIDNIGHT_LEVER,
                         SHADOWROOT_BUTTON, DEAD_WOOD_BUTTON, DARK_WILLOW_BUTTON, DEWSHROOM_BUTTON, VIRIDSHROOM_BUTTON, NIGHTSHROOM_BUTTON, NIGHTSTONE_BUTTON, TRENCHSTONE_BUTTON, ROCKSHROOM_BRICK_BUTTON,
                         SHADOWROOT_PRESSURE_PLATE, DEAD_WOOD_PRESSURE_PLATE, DARK_WILLOW_PRESSURE_PLATE, DEWSHROOM_PRESSURE_PLATE, VIRIDSHROOM_PRESSURE_PLATE, NIGHTSHROOM_PRESSURE_PLATE, NIGHTSTONE_PRESSURE_PLATE,
-                        TRENCHSTONE_PRESSURE_PLATE, ROCKSHROOM_BRICK_PRESSURE_PLATE, NAGRILITE_PRESSURE_PLATE, TENEBRUM_PRESSURE_PLATE
+                        TRENCHSTONE_PRESSURE_PLATE, ROCKSHROOM_BRICK_PRESSURE_PLATE, NAGRILITE_PRESSURE_PLATE, TENEBRUM_PRESSURE_PLATE,
+                        MALIGNANT_BLUE_HANGING_VINES, MALIGNANT_RED_HANGING_VINES, MALIGNANT_PURPLE_HANGING_VINES, MALIGNANT_GREEN_HANGING_VINES,
+                        GLOWING_MALIGNANT_BLUE_HANGING_VINES, GLOWING_MALIGNANT_RED_HANGING_VINES, GLOWING_MALIGNANT_PURPLE_HANGING_VINES, GLOWING_MALIGNANT_GREEN_HANGING_VINES,
+                        MALIGNANT_BLUE_PLANT_SURFACE, MALIGNANT_RED_PLANT_SURFACE, MALIGNANT_PURPLE_PLANT_SURFACE, MALIGNANT_GREEN_PLANT_SURFACE,
+                        MALIGNANT_BLUE_BRIDGING_VINES, MALIGNANT_RED_BRIDGING_VINES, MALIGNANT_PURPLE_BRIDGING_VINES, MALIGNANT_GREEN_BRIDGING_VINES
                 ) //, FUNGI_INSIDE, UNSTABLE_BUSH, UNSTABLE_BUSH_BLUE_BLOOMED, UNSTABLE_BUSH_GREEN_BLOOMED, UNSTABLE_BUSH_LIME_BLOOMED, BLADESHROOM,
                 .add(DECEITFUL_ALGAE, DeceitfulAlgaeItem::new)
                 .add(NIGHTSHROOM_SPORCH, (block, props) -> new WallOrFloorItem(NIGHTSHROOM_SPORCH, NIGHTSHROOM_WALL_SPORCH, props))

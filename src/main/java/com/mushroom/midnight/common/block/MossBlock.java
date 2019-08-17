@@ -5,9 +5,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DirectionalBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
@@ -28,12 +25,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
-public class DeceitfulMossBlock extends DirectionalBlock {
+public class MossBlock extends DirectionalBlock {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     private static final DirectionalShape SHAPE = new DirectionalShape(0.0, 0.0, 14.0, 16.0, 16.0, 16.0);
 
-    public DeceitfulMossBlock() {
-        super(Properties.create(Material.PLANTS, MaterialColor.PURPLE_TERRACOTTA).hardnessAndResistance(0.2f, 0f).doesNotBlockMovement().sound(SoundType.PLANT));
+    public MossBlock(Properties properties) {
+        super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
     }
 

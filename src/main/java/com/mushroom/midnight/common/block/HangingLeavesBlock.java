@@ -7,21 +7,16 @@ import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 
-public class HangingLeavesBlock extends MidnightPlantBlock {
+public class HangingLeavesBlock extends HangingVinesBlock {
     public static final BooleanProperty IS_TIP = BooleanProperty.create("is_tip");
     public static final BooleanProperty IS_BASE = BooleanProperty.create("is_base");
 
-    private static final VoxelShape BOUNDS = makeCuboidShape(1.0, 0.0, 1.0, 15.0, 16.0, 15.0);
-
     public HangingLeavesBlock(Properties properties) {
-        super(properties, false);
+        super(properties);
     }
 
     @Override
@@ -39,32 +34,11 @@ public class HangingLeavesBlock extends MidnightPlantBlock {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
-        return BOUNDS;
-    }
-
-    @Override
-    public VoxelShape getRaytraceShape(BlockState state, IBlockReader world, BlockPos pos) {
-        return VoxelShapes.fullCube();
-    }
-
-    @Override
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
-        return VoxelShapes.empty();
-    }
-
-    @Override
     public boolean isValidGround(BlockState state, IBlockReader world, BlockPos pos) {
         if (state.getBlock() == this) {
             return state.get(IS_BASE);
         }
-        return Block.doesSideFillSquare(state.getCollisionShape(world, pos), Direction.DOWN);
-    }
-
-    @Override
-    public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-        BlockPos abovePos = pos.up();
-        return this.isValidGround(world.getBlockState(abovePos), world, abovePos);
+        return super.isValidGround(state, world, pos);
     }
 
     @Override
@@ -75,10 +49,5 @@ public class HangingLeavesBlock extends MidnightPlantBlock {
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(IS_TIP, IS_BASE);
-    }
-
-    @Override
-    public OffsetType getOffsetType() {
-        return OffsetType.NONE;
     }
 }
