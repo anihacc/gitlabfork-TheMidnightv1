@@ -87,6 +87,15 @@ public class MidnightBlockTagsProvider extends BlockTagsProvider {
                 Blocks.FARMLAND,
                 Blocks.DIRT
         );
+
+        this.getBuilder(MidnightTags.Blocks.PLANKS).add(
+                MidnightBlocks.DARK_WILLOW_PLANKS,
+                MidnightBlocks.SHADOWROOT_PLANKS,
+                MidnightBlocks.DEAD_WOOD_PLANKS,
+                MidnightBlocks.NIGHTSHROOM_PLANKS,
+                MidnightBlocks.DEWSHROOM_PLANKS,
+                MidnightBlocks.VIRIDSHROOM_PLANKS
+        );
     }
 
     @Override

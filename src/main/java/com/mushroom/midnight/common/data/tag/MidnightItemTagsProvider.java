@@ -18,6 +18,7 @@ public class MidnightItemTagsProvider extends ItemTagsProvider {
         this.copy(MidnightTags.Blocks.VIRIDSHROOM, MidnightTags.Items.VIRIDSHROOM);
         this.copy(MidnightTags.Blocks.FUNGI_STEMS, MidnightTags.Items.FUNGI_STEMS);
         this.copy(MidnightTags.Blocks.LOGS, MidnightTags.Items.LOGS);
+        this.copy(MidnightTags.Blocks.PLANKS, MidnightTags.Items.PLANKS);
 
         this.getBuilder(MidnightTags.Items.SPORE_BOMBS).add(
                 MidnightItems.NIGHTSHROOM_SPORE_BOMB,

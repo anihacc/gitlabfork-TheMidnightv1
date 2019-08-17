@@ -2,6 +2,7 @@ package com.mushroom.midnight.common.data.recipe;
 
 import com.mushroom.midnight.common.data.Triggers;
 import com.mushroom.midnight.common.registry.MidnightItems;
+import com.mushroom.midnight.common.registry.MidnightTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
@@ -15,6 +16,13 @@ public final class MidnightFabricatedRecipes extends MidnightRecipeProvider {
 
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shapedRecipe(MidnightItems.DARK_STICK, 4)
+                .patternLine("#")
+                .patternLine("#")
+                .key('#', MidnightTags.Items.PLANKS)
+                .addCriterion("has_planks", Triggers.hasItem(MidnightTags.Items.PLANKS))
+                .build(consumer);
+
         ShapedRecipeBuilder.shapedRecipe(MidnightItems.BOGSHROOM_SPORE_BOMB)
                 .patternLine(" # ")
                 .patternLine("#o#")

@@ -25,6 +25,7 @@ public class MidnightTags {
         public static final Tag<Block> DEWSHROOM = tag("dewshroom");
         public static final Tag<Block> NIGHTSHROOM = tag("nightshroom");
         public static final Tag<Block> VIRIDSHROOM = tag("viridshroom");
+        public static final Tag<Block> PLANKS = tag("planks");
 
         private static Tag<Block> tag(String name) {
             return new BlockTags.Wrapper(new ResourceLocation(MODID, name));
@@ -41,6 +42,7 @@ public class MidnightTags {
         public static final Tag<Item> DEWSHROOM = tag("dewshroom");
         public static final Tag<Item> NIGHTSHROOM = tag("nightshroom");
         public static final Tag<Item> VIRIDSHROOM = tag("viridshroom");
+        public static final Tag<Item> PLANKS = tag("planks");
 
         private static Tag<Item> tag(String name) {
             return new ItemTags.Wrapper(new ResourceLocation(MODID, name));

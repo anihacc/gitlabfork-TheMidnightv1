@@ -6,11 +6,11 @@
   ],
   "key": {
     "#": {
-      "tag": "midnight:midnight_planks"
+      "tag": "midnight:planks"
     }
   },
   "result": {
-    "item": "midnight:dark_stick,
+    "item": "midnight:dark_stick",
     "count": 4
   }
 }

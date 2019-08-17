@@ -6,16 +6,10 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "midnight:hanging_dark_willow_leaves"
+          "name": "midnight:mistshroom"
         }
       ],
       "conditions": [
-        {
-          "condition": "minecraft:match_tool",
-          "predicate": {
-            "item": "minecraft:shears"
-          }
-        },
         {
           "condition": "minecraft:survives_explosion"
         }
