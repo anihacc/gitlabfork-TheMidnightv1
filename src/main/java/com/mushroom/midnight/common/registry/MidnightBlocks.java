@@ -556,6 +556,7 @@ public class MidnightBlocks {
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.LEAVES)
                         .hardnessAndResistance(0.0F)
+                        .doesNotBlockMovement()
                         .sound(SoundType.PLANT)
                 )
                 .add("hanging_dark_willow_leaves", HangingLeavesBlock::new);
