@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 
 public class MalignantFlowerBlock extends MidnightPlantBlock {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
-    private static final DirectionalShape SHAPE = new DirectionalShape(2d, 0d, 2d, 14d, 13d, 14d);
+    private static final DirectionalShape SHAPE = new DirectionalShape(2d, 2d, 0d, 14d, 14d, 13d);
 
     public MalignantFlowerBlock(Properties properties) {
         super(properties, true);
@@ -74,5 +74,10 @@ public class MalignantFlowerBlock extends MidnightPlantBlock {
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING);
         super.fillStateContainer(builder);
+    }
+
+    @Override
+    public OffsetType getOffsetType() {
+        return OffsetType.NONE;
     }
 }

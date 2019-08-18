@@ -75,4 +75,10 @@ public class DoubleMalignantFlowerBlock extends MidnightDoublePlantBlock {
         builder.add(FACING);
         super.fillStateContainer(builder);
     }
+
+
+    @Override
+    public OffsetType getOffsetType() {
+        return OffsetType.NONE;
+    }
 }
