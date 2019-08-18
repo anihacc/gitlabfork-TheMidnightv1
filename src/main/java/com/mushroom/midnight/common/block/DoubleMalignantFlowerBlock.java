@@ -2,7 +2,9 @@ package com.mushroom.midnight.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.DirectionProperty;
@@ -71,11 +73,30 @@ public class DoubleMalignantFlowerBlock extends MidnightDoublePlantBlock {
     }
 
     @Override
+    public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        DoubleBlockHalf half = state.get(HALF);
+
+        Direction facing = state.get(FACING);
+        BlockPos oppositePos = half == DoubleBlockHalf.LOWER ? pos.offset(facing) : pos.offset(facing.getOpposite());
+
+        BlockState oppositeState = world.getBlockState(oppositePos);
+        if (oppositeState.getBlock() == this && oppositeState.get(HALF) != half) {
+            world.setBlockState(oppositePos, Blocks.AIR.getDefaultState(), 35);
+            world.playEvent(player, 2001, oppositePos, Block.getStateId(oppositeState));
+            if (!world.isRemote && !player.isCreative()) {
+                spawnDrops(state, world, pos, null, player, player.getHeldItemMainhand());
+                spawnDrops(oppositeState, world, oppositePos, null, player, player.getHeldItemMainhand());
+            }
+        }
+
+        super.onBlockHarvested(world, pos, state, player);
+    }
+
+    @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING);
         super.fillStateContainer(builder);
     }
-
 
     @Override
     public OffsetType getOffsetType() {

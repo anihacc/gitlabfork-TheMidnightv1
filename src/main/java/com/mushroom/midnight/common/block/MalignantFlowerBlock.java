@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 
 public class MalignantFlowerBlock extends MidnightPlantBlock {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
-    private static final DirectionalShape SHAPE = new DirectionalShape(2d, 2d, 0d, 14d, 14d, 13d);
+    private static final DirectionalShape SHAPE = new DirectionalShape(2d, 2d, 2d, 14d, 14d, 16d);
 
     public MalignantFlowerBlock(Properties properties) {
         super(properties, true);
