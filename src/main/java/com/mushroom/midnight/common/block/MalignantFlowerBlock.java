@@ -25,7 +25,7 @@ public class MalignantFlowerBlock extends MidnightPlantBlock {
     private static final DirectionalShape SHAPE = new DirectionalShape(2d, 0d, 2d, 14d, 13d, 14d);
 
     public MalignantFlowerBlock(Properties properties) {
-        super(properties);
+        super(properties, true);
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.UP));
     }
 

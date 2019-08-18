@@ -21,7 +21,7 @@ public class DoubleMalignantFlowerBlock extends MidnightDoublePlantBlock {
     private static final DirectionalShape SHAPE = new DirectionalShape(2d, 0d, 2d, 14d, 13d, 14d);
 
     public DoubleMalignantFlowerBlock(Properties properties) {
-        super(properties, false);
+        super(properties, true);
         this.setDefaultState(this.stateContainer.getBaseState().with(HALF, DoubleBlockHalf.LOWER).with(FACING, Direction.UP));
     }
 
