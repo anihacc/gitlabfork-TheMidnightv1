@@ -22,6 +22,7 @@ public class HangingLeavesBlock extends MidnightPlantBlock {
 
     public HangingLeavesBlock(Properties properties) {
         super(properties, false);
+        this.setDefaultState(this.stateContainer.getBaseState().with(IS_BASE, true).with(IS_TIP, false));
     }
 
     @Override
