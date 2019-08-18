@@ -3,7 +3,9 @@ package com.mushroom.midnight.common.block;
 import com.mushroom.midnight.common.util.DirectionalShape;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.DoubleBlockHalf;
@@ -13,6 +15,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
@@ -28,6 +31,11 @@ public class DoubleMalignantFlowerBlock extends MidnightDoublePlantBlock {
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
         return SHAPE.get(state.get(FACING));
+    }
+
+    @Override
+    protected boolean isValidGround(BlockState state, IBlockReader world, BlockPos pos) {
+        return Block.isOpaque(state.getCollisionShape(world, pos));
     }
 
     @Override
@@ -57,10 +65,18 @@ public class DoubleMalignantFlowerBlock extends MidnightDoublePlantBlock {
             facing = Direction.UP;
         }
 
-        BlockState state = super.getStateForPlacement(context);
-        if (state == null) return null;
+        BlockPos pos = context.getPos();
+        BlockPos abovePos = pos.offset(facing);
+        if (pos.getY() >= context.getWorld().getDimension().getHeight() - 1 || !context.getWorld().getBlockState(abovePos).isReplaceable(context)) {
+            return null;
+        }
 
-        return state.with(FACING, facing);
+        return this.getDefaultState().with(FACING, facing);
+    }
+
+    @Override
+    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        world.setBlockState(pos.offset(state.get(FACING)), state.with(HALF, DoubleBlockHalf.UPPER), 3);
     }
 
     @Override

@@ -35,6 +35,11 @@ public class MalignantFlowerBlock extends MidnightPlantBlock {
     }
 
     @Override
+    protected boolean isValidGround(BlockState state, IBlockReader world, BlockPos pos) {
+        return Block.isOpaque(state.getCollisionShape(world, pos));
+    }
+
+    @Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
         Direction facing = state.get(FACING);
         BlockPos attachedPos = pos.offset(facing.getOpposite());
