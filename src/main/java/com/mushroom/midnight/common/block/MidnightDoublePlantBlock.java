@@ -14,6 +14,8 @@ import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
@@ -26,10 +28,16 @@ import java.util.Random;
 
 public class MidnightDoublePlantBlock extends MidnightPlantBlock {
     protected static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+    private static final VoxelShape SHAPE = Block.makeCuboidShape(2.0, 0.0, 2.0, 14.0, 16.0, 14.0);
 
     public MidnightDoublePlantBlock(Properties properties, boolean glowing) {
         super(properties, glowing);
         setDefaultState(this.stateContainer.getBaseState().with(HALF, DoubleBlockHalf.LOWER));
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
+        return SHAPE;
     }
 
     @Override

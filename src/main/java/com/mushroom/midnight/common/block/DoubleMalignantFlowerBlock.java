@@ -1,6 +1,5 @@
 package com.mushroom.midnight.common.block;
 
-import com.mushroom.midnight.common.util.DirectionalShape;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
@@ -11,8 +10,6 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
@@ -21,16 +18,10 @@ import javax.annotation.Nullable;
 
 public class DoubleMalignantFlowerBlock extends MidnightDoublePlantBlock {
     public static final DirectionProperty FACING = DirectionProperty.create("facing", Direction.Plane.VERTICAL);
-    private static final DirectionalShape SHAPE = new DirectionalShape(2d, 0d, 2d, 14d, 13d, 14d);
 
     public DoubleMalignantFlowerBlock(Properties properties) {
         super(properties, true);
         this.setDefaultState(this.stateContainer.getBaseState().with(HALF, DoubleBlockHalf.LOWER).with(FACING, Direction.UP));
-    }
-
-    @Override
-    public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
-        return SHAPE.get(state.get(FACING));
     }
 
     @Override
