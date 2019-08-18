@@ -17,6 +17,7 @@ public class HangingLeavesBlock extends HangingVinesBlock {
 
     public HangingLeavesBlock(Properties properties) {
         super(properties);
+        this.setDefaultState(this.stateContainer.getBaseState().with(IS_BASE, true).with(IS_TIP, false));
     }
 
     @Override

@@ -11,11 +11,17 @@ import java.util.Random;
 
 public class HangingLeavesAttachProcessor implements TemplatePostProcessor {
     private final int attachChance;
-    private final BlockState state;
+    private final BlockState baseState;
+    private final BlockState tipState;
 
     public HangingLeavesAttachProcessor(int attachChance, BlockState state) {
         this.attachChance = attachChance;
-        this.state = state;
+        this.baseState = state
+                .with(HangingLeavesBlock.IS_BASE, true)
+                .with(HangingLeavesBlock.IS_TIP, false);
+        this.tipState = state
+                .with(HangingLeavesBlock.IS_BASE, false)
+                .with(HangingLeavesBlock.IS_TIP, true);
     }
 
     @Override
@@ -26,9 +32,9 @@ public class HangingLeavesAttachProcessor implements TemplatePostProcessor {
             if (world.isAirBlock(attachPos)) {
                 int flags = Constants.BlockFlags.NOTIFY_LISTENERS;
 
-                world.setBlockState(attachPos, this.state.with(HangingLeavesBlock.IS_BASE, true), flags);
+                world.setBlockState(attachPos, this.baseState, flags);
                 if (random.nextInt(2) == 0) {
-                    world.setBlockState(attachPos.down(), this.state.with(HangingLeavesBlock.IS_TIP, true), flags);
+                    world.setBlockState(attachPos.down(), this.tipState, flags);
                 }
             }
         }
