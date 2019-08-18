@@ -34,9 +34,9 @@ public class MidnightDoublePlantBlock extends MidnightPlantBlock {
 
     @Override
     public BlockState updatePostPlacement(BlockState currentState, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
-        DoubleBlockHalf doubleblockhalf = currentState.get(HALF);
-        if (facing.getAxis() != Direction.Axis.Y || doubleblockhalf == DoubleBlockHalf.LOWER != (facing == Direction.UP) || facingState.getBlock() == this && facingState.get(HALF) != doubleblockhalf) {
-            return doubleblockhalf == DoubleBlockHalf.LOWER && facing == Direction.DOWN && !currentState.isValidPosition(world, currentPos) ? Blocks.AIR.getDefaultState() : super.updatePostPlacement(currentState, facing, facingState, world, currentPos, facingPos);
+        DoubleBlockHalf half = currentState.get(HALF);
+        if (facing.getAxis() != Direction.Axis.Y || half == DoubleBlockHalf.LOWER != (facing == Direction.UP) || facingState.getBlock() == this && facingState.get(HALF) != half) {
+            return half == DoubleBlockHalf.LOWER && facing == Direction.DOWN && !currentState.isValidPosition(world, currentPos) ? Blocks.AIR.getDefaultState() : super.updatePostPlacement(currentState, facing, facingState, world, currentPos, facingPos);
         } else {
             return Blocks.AIR.getDefaultState();
         }
@@ -45,13 +45,16 @@ public class MidnightDoublePlantBlock extends MidnightPlantBlock {
     @Override
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        BlockPos blockpos = context.getPos();
-        return blockpos.getY() < context.getWorld().getDimension().getHeight() - 1 && context.getWorld().getBlockState(blockpos.up()).isReplaceable(context) ? super.getStateForPlacement(context) : null;
+        BlockPos pos = context.getPos();
+        if (pos.getY() >= context.getWorld().getDimension().getHeight() - 1 || !context.getWorld().getBlockState(pos.up()).isReplaceable(context)) {
+            return null;
+        }
+        return super.getStateForPlacement(context);
     }
 
     @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-        worldIn.setBlockState(pos.up(), this.getDefaultState().with(HALF, DoubleBlockHalf.UPPER), 3);
+    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        world.setBlockState(pos.up(), state.with(HALF, DoubleBlockHalf.UPPER), 3);
     }
 
     @Override

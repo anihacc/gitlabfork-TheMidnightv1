@@ -67,13 +67,13 @@
 
   "block.midnight.viridshroom_stem_cache": "Hidden Cache",
 
-  "block.midnight.shadowroot_crafting_table": "Shadowroot Crafting Table", 
-  "block.midnight.dark_willow_crafting_table": "Dark Willow Crafting Table", 
-  "block.midnight.dead_wood_crafting_table": "Dead Wood Crafting Table", 
-  "block.midnight.viridshroom_crafting_table": "Viridshroom Crafting Table", 
-  "block.midnight.dewshroom_crafting_table": "Dewshroom Crafting Table", 
-  "block.midnight.nightshroom_crafting_table": "Nightshroom Crafting Table", 
-  
+  "block.midnight.shadowroot_crafting_table": "Shadowroot Crafting Table",
+  "block.midnight.dark_willow_crafting_table": "Dark Willow Crafting Table",
+  "block.midnight.dead_wood_crafting_table": "Dead Wood Crafting Table",
+  "block.midnight.viridshroom_crafting_table": "Viridshroom Crafting Table",
+  "block.midnight.dewshroom_crafting_table": "Dewshroom Crafting Table",
+  "block.midnight.nightshroom_crafting_table": "Nightshroom Crafting Table",
+
   "block.midnight.grass": "Midnight Grass",
   "block.midnight.tall_grass": "Tall Midnight Grass",
 
@@ -298,6 +298,27 @@
   "block.midnight.malignant_purple_bridging_vines": "Malignant Purple Bridging Vines",
   "block.midnight.malignant_green_bridging_vines":"Malignant Green Bridging Vines",
 
+  "block.midnight.malignant_foxglove":  "Malignant Foxglove",
+  "block.midnight.malignant_hemlock": "Malignant Hemlock",
+  "block.midnight.malignant_hyacinth":  "Malignant Hyacinth",
+  "block.midnight.malignant_ivy": "Malignant Ivy",
+  "block.midnight.malignant_larkspur":  "Malignant Larkspur",
+  "block.midnight.malignant_lily": "Malignant Lily",
+  "block.midnight.malignant_mandrake":  "Malignant Mandrake",
+  "block.midnight.malignant_moonseed": "Malignant Moonseed",
+  "block.midnight.malignant_nettle":  "Malignant Nettle",
+  "block.midnight.malignant_ragweed": "Malignant Ragweed",
+  "block.midnight.malignant_snakeroot":  "Malignant Snakeroot",
+  "block.midnight.malignant_spindle": "Malignant Spindle",
+  "block.midnight.malignant_tailflower":  "Malignant Tailflower",
+  "block.midnight.malignant_thistle": "Malignant Thistle",
+  "block.midnight.malignant_wallflower":  "Malignant Wallflower",
+  "block.midnight.malignant_wolfsbane": "Malignant Wolfsbane",
+  "block.midnight.malignant_baneberry":  "Malignant Baneberry",
+  "block.midnight.malignant_bloodroot": "Malignant Bloodroot",
+  "block.midnight.malignant_nightshade":  "Malignant Nightshade",
+  "block.midnight.malignant_wisteria": "Malignant Wisteria",
+
   "_comment": "Items",
 
   "item.midnight.bogshroom_powder": "Bogshroom Powder",
@@ -337,11 +358,11 @@
 
   "item.midnight.bladeshroom_cap": "Bladeshroom Cap",
   "item.midnight.bladeshroom_spores": "Bladeshroom Spores",
-  
+
   "item.midnight.deceitful_snapper_bucket": "Bucket of Deceitful Snapper",
-  
+
   "_comment": "Spawn Eggs",
-  
+
   "item.midnight.rifter_spawn_egg": "Rifter Spawn Egg",
   "item.midnight.hunter_spawn_egg": "Hunter Spawn Egg",
   "item.midnight.nova_spawn_egg": "Nova Spawn Egg",
@@ -396,7 +417,7 @@
   "item.midnight.tenebrum_chestplate": "Tenebrum Chestplate",
   "item.midnight.tenebrum_leggings": "Tenebrum Leggings",
   "item.midnight.tenebrum_boots": "Tenebrum Boots",
-  
+
   "_comment": "Fluids",
 
   "fluid.midnight.miasma": "Miasma",

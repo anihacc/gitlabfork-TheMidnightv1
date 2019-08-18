@@ -12,6 +12,7 @@ import com.mushroom.midnight.common.block.CrystalotusBlock;
 import com.mushroom.midnight.common.block.DeceitfulAlgaeBlock;
 import com.mushroom.midnight.common.block.DeceitfulMudBlock;
 import com.mushroom.midnight.common.block.DoubleFungiBlock;
+import com.mushroom.midnight.common.block.DoubleMalignantFlowerBlock;
 import com.mushroom.midnight.common.block.DragonNestBlock;
 import com.mushroom.midnight.common.block.FingeredGrassBlock;
 import com.mushroom.midnight.common.block.FungiBlock;
@@ -21,6 +22,7 @@ import com.mushroom.midnight.common.block.GlobFungusHatBlock;
 import com.mushroom.midnight.common.block.HangablePlantBlock;
 import com.mushroom.midnight.common.block.HangingLeavesBlock;
 import com.mushroom.midnight.common.block.HangingVinesBlock;
+import com.mushroom.midnight.common.block.MalignantFlowerBlock;
 import com.mushroom.midnight.common.block.MiasmaSurfaceBlock;
 import com.mushroom.midnight.common.block.MidnightChestBlock;
 import com.mushroom.midnight.common.block.MidnightCraftingTableBlock;
@@ -388,6 +390,28 @@ public class MidnightBlocks {
     public static final Block MALIGNANT_RED_BRIDGING_VINES = Blocks.AIR;
     public static final Block MALIGNANT_PURPLE_BRIDGING_VINES = Blocks.AIR;
     public static final Block MALIGNANT_GREEN_BRIDGING_VINES = Blocks.AIR;
+
+    public static final Block MALIGNANT_FOXGLOVE = Blocks.AIR;
+    public static final Block MALIGNANT_HEMLOCK = Blocks.AIR;
+    public static final Block MALIGNANT_HYACINTH = Blocks.AIR;
+    public static final Block MALIGNANT_IVY = Blocks.AIR;
+    public static final Block MALIGNANT_LARKSPUR = Blocks.AIR;
+    public static final Block MALIGNANT_LILY = Blocks.AIR;
+    public static final Block MALIGNANT_MANDRAKE = Blocks.AIR;
+    public static final Block MALIGNANT_MOONSEED = Blocks.AIR;
+    public static final Block MALIGNANT_NETTLE = Blocks.AIR;
+    public static final Block MALIGNANT_RAGWEED = Blocks.AIR;
+    public static final Block MALIGNANT_SNAKEROOT = Blocks.AIR;
+    public static final Block MALIGNANT_SPINDLE = Blocks.AIR;
+    public static final Block MALIGNANT_TAILFLOWER = Blocks.AIR;
+    public static final Block MALIGNANT_THISTLE = Blocks.AIR;
+    public static final Block MALIGNANT_WALLFLOWER = Blocks.AIR;
+    public static final Block MALIGNANT_WOLFSBANE = Blocks.AIR;
+
+    public static final Block MALIGNANT_BANEBERRY = Blocks.AIR;
+    public static final Block MALIGNANT_BLOODROOT = Blocks.AIR;
+    public static final Block MALIGNANT_NIGHTSHADE = Blocks.AIR;
+    public static final Block MALIGNANT_WISTERIA = Blocks.AIR;
 
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
@@ -835,6 +859,29 @@ public class MidnightBlocks {
                 .add("malignant_red_plant_surface", MossBlock::new)
                 .add("malignant_purple_plant_surface", MossBlock::new)
                 .add("malignant_green_plant_surface", MossBlock::new);
+
+        RegUtil.blocks(event.getRegistry())
+                .withProperties(() -> Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0F).sound(SoundType.PLANT))
+                .add("malignant_foxglove", MalignantFlowerBlock::new)
+                .add("malignant_hemlock", MalignantFlowerBlock::new)
+                .add("malignant_hyacinth", MalignantFlowerBlock::new)
+                .add("malignant_ivy", MalignantFlowerBlock::new)
+                .add("malignant_larkspur", MalignantFlowerBlock::new)
+                .add("malignant_lily", MalignantFlowerBlock::new)
+                .add("malignant_mandrake", MalignantFlowerBlock::new)
+                .add("malignant_moonseed", MalignantFlowerBlock::new)
+                .add("malignant_nettle", MalignantFlowerBlock::new)
+                .add("malignant_ragweed", MalignantFlowerBlock::new)
+                .add("malignant_snakeroot", MalignantFlowerBlock::new)
+                .add("malignant_spindle", MalignantFlowerBlock::new)
+                .add("malignant_tailflower", MalignantFlowerBlock::new)
+                .add("malignant_thistle", MalignantFlowerBlock::new)
+                .add("malignant_wallflower", MalignantFlowerBlock::new)
+                .add("malignant_wolfsbane", MalignantFlowerBlock::new)
+                .add("malignant_baneberry", DoubleMalignantFlowerBlock::new)
+                .add("malignant_bloodroot", DoubleMalignantFlowerBlock::new)
+                .add("malignant_nightshade", DoubleMalignantFlowerBlock::new)
+                .add("malignant_wisteria", DoubleMalignantFlowerBlock::new);
     }
 
     @SubscribeEvent
@@ -878,7 +925,9 @@ public class MidnightBlocks {
                         MALIGNANT_BLUE_HANGING_VINES, MALIGNANT_RED_HANGING_VINES, MALIGNANT_PURPLE_HANGING_VINES, MALIGNANT_GREEN_HANGING_VINES,
                         GLOWING_MALIGNANT_BLUE_HANGING_VINES, GLOWING_MALIGNANT_RED_HANGING_VINES, GLOWING_MALIGNANT_PURPLE_HANGING_VINES, GLOWING_MALIGNANT_GREEN_HANGING_VINES,
                         MALIGNANT_BLUE_PLANT_SURFACE, MALIGNANT_RED_PLANT_SURFACE, MALIGNANT_PURPLE_PLANT_SURFACE, MALIGNANT_GREEN_PLANT_SURFACE,
-                        MALIGNANT_BLUE_BRIDGING_VINES, MALIGNANT_RED_BRIDGING_VINES, MALIGNANT_PURPLE_BRIDGING_VINES, MALIGNANT_GREEN_BRIDGING_VINES
+                        MALIGNANT_BLUE_BRIDGING_VINES, MALIGNANT_RED_BRIDGING_VINES, MALIGNANT_PURPLE_BRIDGING_VINES, MALIGNANT_GREEN_BRIDGING_VINES,
+                        MALIGNANT_FOXGLOVE, MALIGNANT_HEMLOCK, MALIGNANT_HYACINTH, MALIGNANT_IVY, MALIGNANT_LARKSPUR, MALIGNANT_LILY, MALIGNANT_MANDRAKE, MALIGNANT_MOONSEED, MALIGNANT_NETTLE, MALIGNANT_RAGWEED, MALIGNANT_SNAKEROOT, MALIGNANT_SPINDLE, MALIGNANT_TAILFLOWER, MALIGNANT_THISTLE, MALIGNANT_WALLFLOWER, MALIGNANT_WOLFSBANE,
+                        MALIGNANT_BANEBERRY, MALIGNANT_BLOODROOT, MALIGNANT_NIGHTSHADE, MALIGNANT_WISTERIA
                 ) //, FUNGI_INSIDE, UNSTABLE_BUSH, UNSTABLE_BUSH_BLUE_BLOOMED, UNSTABLE_BUSH_GREEN_BLOOMED, UNSTABLE_BUSH_LIME_BLOOMED, BLADESHROOM,
                 .add(DECEITFUL_ALGAE, DeceitfulAlgaeItem::new)
                 .add(NIGHTSHROOM_SPORCH, (block, props) -> new WallOrFloorItem(NIGHTSHROOM_SPORCH, NIGHTSHROOM_WALL_SPORCH, props))

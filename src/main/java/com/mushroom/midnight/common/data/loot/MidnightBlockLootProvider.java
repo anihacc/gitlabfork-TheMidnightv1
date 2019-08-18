@@ -217,6 +217,28 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.MALIGNANT_PURPLE_BRIDGING_VINES);
         this.add(MidnightBlocks.MALIGNANT_GREEN_BRIDGING_VINES);
 
+        this.add(MidnightBlocks.MALIGNANT_FOXGLOVE);
+        this.add(MidnightBlocks.MALIGNANT_HEMLOCK);
+        this.add(MidnightBlocks.MALIGNANT_HYACINTH);
+        this.add(MidnightBlocks.MALIGNANT_IVY);
+        this.add(MidnightBlocks.MALIGNANT_LARKSPUR);
+        this.add(MidnightBlocks.MALIGNANT_LILY);
+        this.add(MidnightBlocks.MALIGNANT_MANDRAKE);
+        this.add(MidnightBlocks.MALIGNANT_MOONSEED);
+        this.add(MidnightBlocks.MALIGNANT_NETTLE);
+        this.add(MidnightBlocks.MALIGNANT_RAGWEED);
+        this.add(MidnightBlocks.MALIGNANT_SNAKEROOT);
+        this.add(MidnightBlocks.MALIGNANT_SPINDLE);
+        this.add(MidnightBlocks.MALIGNANT_TAILFLOWER);
+        this.add(MidnightBlocks.MALIGNANT_THISTLE);
+        this.add(MidnightBlocks.MALIGNANT_WALLFLOWER);
+        this.add(MidnightBlocks.MALIGNANT_WOLFSBANE);
+
+        this.addDoubleBlock(MidnightBlocks.MALIGNANT_BANEBERRY);
+        this.addDoubleBlock(MidnightBlocks.MALIGNANT_BLOODROOT);
+        this.addDoubleBlock(MidnightBlocks.MALIGNANT_NIGHTSHADE);
+        this.addDoubleBlock(MidnightBlocks.MALIGNANT_WISTERIA);
+
         this.add(MidnightBlocks.BOGSHROOM_SPORCH);
         this.add(MidnightBlocks.NIGHTSHROOM_SPORCH);
         this.add(MidnightBlocks.DEWSHROOM_SPORCH);
