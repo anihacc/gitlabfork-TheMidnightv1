@@ -89,7 +89,7 @@ public class DoubleMalignantFlowerBlock extends MidnightDoublePlantBlock {
             }
         }
 
-        super.onBlockHarvested(world, pos, state, player);
+        world.playEvent(player, 2001, pos, getStateId(state));
     }
 
     @Override
