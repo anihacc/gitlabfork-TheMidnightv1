@@ -112,23 +112,19 @@
 	],
 	"display": {
 		"thirdperson_righthand": {
-			"rotation": [0, -90, 0],
-			"translation": [1, -5, 3]
+			"translation": [0, -5, 1]
 		},
 		"thirdperson_lefthand": {
-			"rotation": [0, -90, 0],
-			"translation": [1, -5, 3]
+			"translation": [0, -5, 1]
 		},
 		"firstperson_righthand": {
-			"rotation": [0, -90, 0],
 			"translation": [0, -6.5, 0]
 		},
 		"firstperson_lefthand": {
-			"rotation": [0, -90, 0],
 			"translation": [0, -6.5, 0]
 		},
 		"ground": {
-			"scale": [0.5, 0.5, 0.5]
+			"scale": [0.5, 0.51, 0.5]
 		},
 		"gui": {
 			"rotation": [0, 139, 27],
@@ -147,13 +143,4 @@
 			"children": [0, 1, 2, 3, 4, 5, 6, 7]
 		}
 	]
-    },
-    "overrides": [
-        {
-            "predicate": {
-                "blocking": 1
-            },
-            "model": "item/rockshroom_shield_active"
-        }
-    ]
 }
