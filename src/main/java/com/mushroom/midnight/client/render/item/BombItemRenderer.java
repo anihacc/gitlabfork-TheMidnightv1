@@ -36,11 +36,9 @@ public class BombItemRenderer extends ItemStackTileEntityRenderer {
             }
             bindTexture(item.getBombType());
             GlStateManager.pushMatrix();
-            GlStateManager.enableCull();
             GlStateManager.translatef(0.5f, 0.45f, 0.5f);
             GlStateManager.rotatef(180f, -1f, 0f, 0f);
             this.modelBomb.render();
-            GlStateManager.disableCull();
             GlStateManager.popMatrix();
         }
     }
