@@ -702,7 +702,7 @@ public class MidnightBlocks {
                 .add("dead_wood_crafting_table", MidnightCraftingTableBlock::new)
                 .add("nightshroom_crafting_table", MidnightCraftingTableBlock::new)
                 .add("dewshroom_crafting_table", MidnightCraftingTableBlock::new)
-                .add("viridshroom_crafting_table", MidnightCraftingTableBlock::new);
+                .add("viridshroom_crafting_table", MidnightCraftingTableBlock::new)
                 .add("bogshroom_crafting_table", MidnightCraftingTableBlock::new);
 
         RegUtil.blocks(event.getRegistry())
@@ -759,7 +759,7 @@ public class MidnightBlocks {
                 .add("dark_willow_fence_gate", FenceGateBlock::new)
                 .add("dewshroom_fence_gate", FenceGateBlock::new)
                 .add("viridshroom_fence_gate", FenceGateBlock::new)
-                .add("nightshroom_fence_gate", FenceGateBlock::new);
+                .add("nightshroom_fence_gate", FenceGateBlock::new)
                 .add("bogshroom_fence_gate", FenceGateBlock::new);
 
         RegUtil.blocks(event.getRegistry())
