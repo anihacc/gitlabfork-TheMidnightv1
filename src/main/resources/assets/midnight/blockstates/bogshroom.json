@@ -1,8 +1,26 @@
 {
+  "forge_marker": 1,
+  "defaults": {
+    "model": "forge:multi-layer",
+    "transform": "forge:default-block",
+    "custom": {
+      "base": "midnight:bogshroom#base",
+      "Cutout": "midnight:bogshroom#base",
+      "Translucent": "midnight:bogshroom#glow"
+    }
+  },
   "variants": {
-    "": [
+    "normal": [{}],
+    "base": [
       {
-        "model": "midnight:block/bogshroom"
+        "model": "cross",
+        "textures": {"cross": "midnight:blocks/bogshroom"}
+      }
+    ],
+    "glow": [
+      {
+        "model": "cross",
+        "textures": {"cross": "midnight:blocks/bogshroom_glow"}
       }
     ]
   }

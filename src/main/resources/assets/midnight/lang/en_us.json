@@ -62,6 +62,7 @@
   "block.midnight.nightshroom_chest": "Nightshroom Chest",
   "block.midnight.dewshroom_chest": "Dewshroom Chest",
   "block.midnight.viridshroom_chest": "Viridshroom Chest",
+  "block.midnight.bogshroom_chest": "Bogshroom Chest",
 
   "block.midnight.nightstone_furnace": "Nightstone Furnace",
 
@@ -73,6 +74,7 @@
   "block.midnight.viridshroom_crafting_table": "Viridshroom Crafting Table",
   "block.midnight.dewshroom_crafting_table": "Dewshroom Crafting Table",
   "block.midnight.nightshroom_crafting_table": "Nightshroom Crafting Table",
+  "block.midnight.bogshroom_crafting_table": "Bogshroom Crafting Table",
 
   "block.midnight.grass": "Midnight Grass",
   "block.midnight.tall_grass": "Tall Midnight Grass",
@@ -126,8 +128,10 @@
   "block.midnight.bogshroom": "Bogshroom",
   "block.midnight.double_bogshroom": "Tall Bogshroom",
   "block.midnight.bogshroom_stem": "Bogshroom Stem",
+  "block.midnight.bogshroom_planks": "Bogshroom Planks",
   "block.midnight.bogshroom_hat": "Bogshroom Cap",
   "block.midnight.bogshroom_shelf": "Bogshroom Shelf",
+  "block.midnight.bogshroom_trapdoor": "Bogshroom Trapdoor",
 
   "block.midnight.mistshroom": "Mistshroom",
   "block.midnight.double_mistshroom": "Tall Mistshroom",
@@ -167,6 +171,7 @@
   "block.midnight.dewshroom_ladder": "Dewshroom Ladder",
   "block.midnight.viridshroom_ladder": "Viridshroom Ladder",
   "block.midnight.nightshroom_ladder": "Nightshroom Ladder",
+  "block.midnight.nightshroom_ladder": "Bogshroom Ladder",
 
   "block.midnight.shadowroot_slab": "Shadowroot Slab",
   "block.midnight.shadowroot_double_slab": "Shadowroot Double Slab",
@@ -188,6 +193,8 @@
   "block.midnight.viridshroom_double_slab": "Viridshroom Double Slab",
   "block.midnight.nightshroom_slab": "Nightshroom Slab",
   "block.midnight.nightshroom_double_slab": "Nightshroom Double Slab",
+  "block.midnight.bogshroom_slab": "Bogshroom Slab",
+  "block.midnight.bogshroom_double_slab": "Bogshroom Double Slab",
   "block.midnight.rockshroom_brick_slab": "Rockshroom Brick Slab",
   "block.midnight.rockshroom_brick_double_slab": "Rockshroom Brick Double Slab",
 
@@ -201,6 +208,7 @@
   "block.midnight.dewshroom_stairs": "Dewshroom Stairs",
   "block.midnight.viridshroom_stairs": "Viridshroom Stairs",
   "block.midnight.nightshroom_stairs": "Nightshroom Stairs",
+  "block.midnight.bogshroom_stairs": "Bogshroom Stairs",
   "block.midnight.rockshroom_brick_stairs": "Rockshroom Brick Stairs",
 
   "block.midnight.shadowroot_fence": "Shadowroot Fence",
@@ -209,6 +217,7 @@
   "block.midnight.dewshroom_fence": "Dewshroom Fence",
   "block.midnight.viridshroom_fence": "Viridshroom Fence",
   "block.midnight.nightshroom_fence": "Nightshroom Fence",
+  "block.midnight.bogshroom_fence": "Bogshroom Fence",
 
   "block.midnight.nightstone_wall": "Nightstone Wall",
   "block.midnight.nightstone_brick_wall": "Nightstone Brick Wall",
@@ -222,6 +231,7 @@
   "block.midnight.dewshroom_fence_gate": "Dewshroom Fence Gate",
   "block.midnight.viridshroom_fence_gate": "Viridshroom Fence Gate",
   "block.midnight.nightshroom_fence_gate": "Nightshroom Fence Gate",
+  "block.midnight.bogshroom_fence_gate": "Bogshroom Fence Gate",
 
   "block.midnight.suavis": "Suavis",
   "block.midnight.rockshroom": "Rockshroom",
@@ -247,6 +257,7 @@
   "block.midnight.dewshroom_button": "Dewshroom Button",
   "block.midnight.viridshroom_button": "Viridshroom Button",
   "block.midnight.nightshroom_button": "Nightshroom Button",
+  "block.midnight.bogshroom_button": "Bogshroom Button",
   "block.midnight.nightstone_button": "Nightstone Button",
   "block.midnight.trenchstone_button": "Trenchstone Button",
   "block.midnight.rockshroom_brick_button": "Rockshroom Bricks Button",
@@ -257,6 +268,7 @@
   "block.midnight.dewshroom_pressure_plate": "Dewshroom Pressure Plate",
   "block.midnight.viridshroom_pressure_plate": "Viridshroom Pressure Plate",
   "block.midnight.nightshroom_pressure_plate": "Nightshroom Pressure Plate",
+  "block.midnight.bogshroom_pressure_plate": "Bogshroom Pressure Plate",
   "block.midnight.nightstone_pressure_plate": "Nightstone Pressure Plate",
   "block.midnight.trenchstone_pressure_plate": "Trenchstone Pressure Plate",
   "block.midnight.rockshroom_brick_pressure_plate": "Rockshroom Bricks Pressure Plate",
@@ -272,6 +284,7 @@
   "block.midnight.nightshroom_door": "Nightshroom Door",
   "block.midnight.dewshroom_door": "Dewshroom Door",
   "block.midnight.viridshroom_door": "Viridshroom Door",
+  "block.midnight.bogshroom_door": "Bogshroom Door",
 
   "block.midnight.malignant_blue_plant_block": "Malignant Blue Plant Block",
   "block.midnight.malignant_red_plant_block":"Malignant Red Plant Block",
