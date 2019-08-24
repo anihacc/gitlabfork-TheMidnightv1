@@ -1,7 +1,7 @@
 package com.mushroom.midnight.common.registry;
 
 import com.mushroom.midnight.client.render.item.MidnightChestItemRenderer;
-import com.mushroom.midnight.common.block.BasicBlock;
+import com.mushroom.midnight.common.block.GlowingBlock;
 import com.mushroom.midnight.common.block.BladeshroomBlock;
 import com.mushroom.midnight.common.block.BloomCrystalBlock;
 import com.mushroom.midnight.common.block.BogweedBlock;
@@ -462,9 +462,9 @@ public class MidnightBlocks {
                         .sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).harvestLevel(0)
                 )
                 .add("nightstone", props -> new SoilBlock(props, true))
-                .add("nightstone_bricks", BasicBlock::new)
-                .add("chiseled_nightstone_bricks", BasicBlock::new)
-                .add("rockshroom_bricks", BasicBlock::new)
+                .add("nightstone_bricks", Block::new)
+                .add("chiseled_nightstone_bricks", Block::new)
+                .add("rockshroom_bricks", Block::new)
 
                 .add("nightstone_slab", SlabBlock::new)
                 .add("nightstone_brick_slab", SlabBlock::new)
@@ -480,14 +480,14 @@ public class MidnightBlocks {
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.ROCK).hardnessAndResistance(5f, 200f))
-                .add("trenchstone", props -> new BasicBlock(props.harvestTool(ToolType.PICKAXE).harvestLevel(2)))
+                .add("trenchstone", props -> new Block(props.harvestTool(ToolType.PICKAXE).harvestLevel(2)))
                 .add("trenchstone_slab", SlabBlock::new)
                 .add("trenchstone_stairs", props -> new MidnightStairsBlock(() -> TRENCHSTONE.getDefaultState(), props))
                 .add("trenchstone_wall", WallBlock::new);
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5f, 200f))
-                .add("trenchstone_bricks", props -> new BasicBlock(props.harvestTool(ToolType.PICKAXE).harvestLevel(2)))
+                .add("trenchstone_bricks", props -> new Block(props.harvestTool(ToolType.PICKAXE).harvestLevel(2)))
                 .add("trenchstone_brick_slab", SlabBlock::new)
                 .add("trenchstone_brick_stairs", props -> new MidnightStairsBlock(() -> TRENCHSTONE_BRICKS.getDefaultState(), props))
                 .add("trenchstone_brick_wall", WallBlock::new);
@@ -624,18 +624,18 @@ public class MidnightBlocks {
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.IRON).hardnessAndResistance(3f, 0f).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE).harvestLevel(0))
-                .add("dark_pearl_block", BasicBlock::new)
-                .add("tenebrum_block", BasicBlock::new)
-                .add("nagrilite_block", BasicBlock::new)
-                .add("ebonite_block", BasicBlock::new);
+                .add("dark_pearl_block", Block::new)
+                .add("tenebrum_block", Block::new)
+                .add("nagrilite_block", Block::new)
+                .add("ebonite_block", Block::new);
 
         RegUtil.blocks(event.getRegistry())
                 .add("rockshroom", new RockshroomBlock())
                 .add("stinger_egg", new StingerEggBlock())
                 .add("bloomcrystal", new BloomCrystalBlock(Block.Properties.create(Material.ROCK, MaterialColor.PINK).hardnessAndResistance(2.0F).sound(SoundType.GLASS).lightValue(15).tickRandomly()))
-                .add("bloomcrystal_rock", new BasicBlock(Block.Properties.create(Material.ROCK, MaterialColor.PINK).sound(SoundType.GLASS).lightValue(14).hardnessAndResistance(4f).harvestTool(ToolType.PICKAXE).harvestLevel(1)))
+                .add("bloomcrystal_rock", new Block(Block.Properties.create(Material.ROCK, MaterialColor.PINK).sound(SoundType.GLASS).lightValue(14).hardnessAndResistance(4f).harvestTool(ToolType.PICKAXE).harvestLevel(1)))
                 .add("rouxe", new CrystalBlock(Block.Properties.create(Material.ROCK, MaterialColor.RED).hardnessAndResistance(2.0F).sound(SoundType.GLASS).lightValue(3)))
-                .add("rouxe_rock", new BasicBlock(Block.Properties.create(Material.ROCK, MaterialColor.RED).sound(SoundType.GLASS).lightValue(2).hardnessAndResistance(4f).harvestTool(ToolType.PICKAXE).harvestLevel(1)).withGlow())
+                .add("rouxe_rock", new GlowingBlock(Block.Properties.create(Material.ROCK, MaterialColor.RED).sound(SoundType.GLASS).lightValue(2).hardnessAndResistance(4f).harvestTool(ToolType.PICKAXE).harvestLevel(1)))
                 .add("miasma_surface", new MiasmaSurfaceBlock())
                 .add("dark_pearl_ore", new MidnightGemBlock(0))
                 .add("tenebrum_ore", new MidnightOreBlock(2))
