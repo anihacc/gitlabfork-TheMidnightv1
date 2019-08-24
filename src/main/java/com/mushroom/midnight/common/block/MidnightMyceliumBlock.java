@@ -13,9 +13,9 @@ import net.minecraftforge.client.MinecraftForgeClient;
 
 import java.util.Random;
 
-public class MidnightMyceliumBlock extends SoilBlock {
+public class MidnightMyceliumBlock extends NightstoneBlock {
     public MidnightMyceliumBlock(Block.Properties properties) {
-        super(properties, true);
+        super(properties);
     }
 
     @OnlyIn(Dist.CLIENT)

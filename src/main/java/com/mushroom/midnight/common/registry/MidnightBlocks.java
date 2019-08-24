@@ -37,6 +37,7 @@ import com.mushroom.midnight.common.block.MidnightPlantBlock;
 import com.mushroom.midnight.common.block.MidnightSaplingBlock;
 import com.mushroom.midnight.common.block.MidnightStairsBlock;
 import com.mushroom.midnight.common.block.MidnightWoodPlankBlock;
+import com.mushroom.midnight.common.block.NightstoneBlock;
 import com.mushroom.midnight.common.block.RockshroomBlock;
 import com.mushroom.midnight.common.block.SoilBlock;
 import com.mushroom.midnight.common.block.SporchBlock;
@@ -391,7 +392,7 @@ public class MidnightBlocks {
                         .hardnessAndResistance(1.5f, 10f)
                         .sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).harvestLevel(0)
                 )
-                .add("nightstone", props -> new SoilBlock(props, true))
+                .add("nightstone", NightstoneBlock::new)
                 .add("nightstone_bricks", BasicBlock::new)
                 .add("chiseled_nightstone_bricks", BasicBlock::new)
                 .add("rockshroom_bricks", BasicBlock::new)
