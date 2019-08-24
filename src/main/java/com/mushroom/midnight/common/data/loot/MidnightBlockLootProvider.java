@@ -81,6 +81,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.NIGHTSHROOM_CRAFTING_TABLE);
         this.add(MidnightBlocks.DEWSHROOM_CRAFTING_TABLE);
         this.add(MidnightBlocks.VIRIDSHROOM_CRAFTING_TABLE);
+        this.add(MidnightBlocks.BOGSHROOM_CRAFTING_TABLE);
         this.add(MidnightBlocks.COARSE_DIRT);
         this.add(MidnightBlocks.DIRT);
         this.add(MidnightBlocks.NIGHTSHROOM);
@@ -104,6 +105,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.BOGSHROOM);
         this.add(MidnightBlocks.BOGSHROOM_SHELF);
         this.add(MidnightBlocks.BOGSHROOM_STEM);
+        this.add(MidnightBlocks.BOGSHROOM_PLANKS);
         this.add(MidnightBlocks.MISTSHROOM);
         this.add(MidnightBlocks.GLOB_FUNGUS);
         this.add(MidnightBlocks.ROCKSHROOM);
@@ -123,6 +125,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.NIGHTSHROOM_TRAPDOOR);
         this.add(MidnightBlocks.DEWSHROOM_TRAPDOOR);
         this.add(MidnightBlocks.VIRIDSHROOM_TRAPDOOR);
+        this.add(MidnightBlocks.BOGSHROOM_TRAPDOOR);
         this.add(MidnightBlocks.BLOOMCRYSTAL);
         this.add(MidnightBlocks.BLOOMCRYSTAL_ROCK);
         this.add(MidnightBlocks.ROUXE);
@@ -141,6 +144,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.TRENCHSTONE_BRICK_STAIRS);
         this.add(MidnightBlocks.DEWSHROOM_STAIRS);
         this.add(MidnightBlocks.VIRIDSHROOM_STAIRS);
+        this.add(MidnightBlocks.BOGSHROOM_STAIRS);
         this.add(MidnightBlocks.NIGHTSHROOM_STAIRS);
         this.add(MidnightBlocks.ROCKSHROOM_BRICK_STAIRS);
         this.add(MidnightBlocks.SHADOWROOT_FENCE);
@@ -153,18 +157,21 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.ROCKSHROOM_BRICK_WALL);
         this.add(MidnightBlocks.DEWSHROOM_FENCE);
         this.add(MidnightBlocks.VIRIDSHROOM_FENCE);
+        this.add(MidnightBlocks.BOGSHROOM_FENCE);
         this.add(MidnightBlocks.NIGHTSHROOM_FENCE);
         this.add(MidnightBlocks.SHADOWROOT_FENCE_GATE);
         this.add(MidnightBlocks.DEAD_WOOD_FENCE_GATE);
         this.add(MidnightBlocks.DARK_WILLOW_FENCE_GATE);
         this.add(MidnightBlocks.DEWSHROOM_FENCE_GATE);
         this.add(MidnightBlocks.VIRIDSHROOM_FENCE_GATE);
+        this.add(MidnightBlocks.BOGSHROOM_FENCE_GATE);
         this.add(MidnightBlocks.NIGHTSHROOM_FENCE_GATE);
         this.add(MidnightBlocks.SHADOWROOT_LADDER);
         this.add(MidnightBlocks.DEAD_WOOD_LADDER);
         this.add(MidnightBlocks.DARK_WILLOW_LADDER);
         this.add(MidnightBlocks.DEWSHROOM_LADDER);
         this.add(MidnightBlocks.VIRIDSHROOM_LADDER);
+        this.add(MidnightBlocks.BOGSHROOM_LADDER);
         this.add(MidnightBlocks.NIGHTSHROOM_LADDER);
         this.add(MidnightBlocks.CRYSTALOTUS);
         this.add(MidnightBlocks.SHADOWROOT_BUTTON);
@@ -172,6 +179,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.DARK_WILLOW_BUTTON);
         this.add(MidnightBlocks.DEWSHROOM_BUTTON);
         this.add(MidnightBlocks.VIRIDSHROOM_BUTTON);
+        this.add(MidnightBlocks.BOGSHROOM_BUTTON);
         this.add(MidnightBlocks.NIGHTSHROOM_BUTTON);
         this.add(MidnightBlocks.NIGHTSTONE_BUTTON);
         this.add(MidnightBlocks.TRENCHSTONE_BUTTON);
@@ -181,6 +189,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.DARK_WILLOW_PRESSURE_PLATE);
         this.add(MidnightBlocks.DEWSHROOM_PRESSURE_PLATE);
         this.add(MidnightBlocks.VIRIDSHROOM_PRESSURE_PLATE);
+        this.add(MidnightBlocks.BOGSHROOM_PRESSURE_PLATE);
         this.add(MidnightBlocks.NIGHTSHROOM_PRESSURE_PLATE);
         this.add(MidnightBlocks.NIGHTSTONE_PRESSURE_PLATE);
         this.add(MidnightBlocks.TRENCHSTONE_PRESSURE_PLATE);
@@ -190,6 +199,53 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.MIDNIGHT_LEVER);
         this.add(MidnightBlocks.TENEBRUM_ORE);
         this.add(MidnightBlocks.GLOB_FUNGUS_HAT);
+
+        this.add(MidnightBlocks.MALIGNANT_BLUE_PLANT_BLOCK);
+        this.add(MidnightBlocks.MALIGNANT_RED_PLANT_BLOCK);
+        this.add(MidnightBlocks.MALIGNANT_PURPLE_PLANT_BLOCK);
+        this.add(MidnightBlocks.MALIGNANT_GREEN_PLANT_BLOCK);
+        this.add(MidnightBlocks.GLOWING_MALIGNANT_BLUE_PLANT_BLOCK);
+        this.add(MidnightBlocks.GLOWING_MALIGNANT_RED_PLANT_BLOCK);
+        this.add(MidnightBlocks.GLOWING_MALIGNANT_PURPLE_PLANT_BLOCK);
+        this.add(MidnightBlocks.GLOWING_MALIGNANT_GREEN_PLANT_BLOCK);
+        this.add(MidnightBlocks.MALIGNANT_BLUE_HANGING_VINES);
+        this.add(MidnightBlocks.MALIGNANT_RED_HANGING_VINES);
+        this.add(MidnightBlocks.MALIGNANT_PURPLE_HANGING_VINES);
+        this.add(MidnightBlocks.MALIGNANT_GREEN_HANGING_VINES);
+        this.add(MidnightBlocks.GLOWING_MALIGNANT_BLUE_HANGING_VINES);
+        this.add(MidnightBlocks.GLOWING_MALIGNANT_RED_HANGING_VINES);
+        this.add(MidnightBlocks.GLOWING_MALIGNANT_PURPLE_HANGING_VINES);
+        this.add(MidnightBlocks.GLOWING_MALIGNANT_GREEN_HANGING_VINES);
+        this.add(MidnightBlocks.MALIGNANT_BLUE_PLANT_SURFACE);
+        this.add(MidnightBlocks.MALIGNANT_RED_PLANT_SURFACE);
+        this.add(MidnightBlocks.MALIGNANT_PURPLE_PLANT_SURFACE);
+        this.add(MidnightBlocks.MALIGNANT_GREEN_PLANT_SURFACE);
+        this.add(MidnightBlocks.MALIGNANT_BLUE_BRIDGING_VINES);
+        this.add(MidnightBlocks.MALIGNANT_RED_BRIDGING_VINES);
+        this.add(MidnightBlocks.MALIGNANT_PURPLE_BRIDGING_VINES);
+        this.add(MidnightBlocks.MALIGNANT_GREEN_BRIDGING_VINES);
+
+        this.add(MidnightBlocks.MALIGNANT_FOXGLOVE);
+        this.add(MidnightBlocks.MALIGNANT_HEMLOCK);
+        this.add(MidnightBlocks.MALIGNANT_HYACINTH);
+        this.add(MidnightBlocks.MALIGNANT_IVY);
+        this.add(MidnightBlocks.MALIGNANT_LARKSPUR);
+        this.add(MidnightBlocks.MALIGNANT_LILY);
+        this.add(MidnightBlocks.MALIGNANT_MANDRAKE);
+        this.add(MidnightBlocks.MALIGNANT_MOONSEED);
+        this.add(MidnightBlocks.MALIGNANT_NETTLE);
+        this.add(MidnightBlocks.MALIGNANT_RAGWEED);
+        this.add(MidnightBlocks.MALIGNANT_SNAKEROOT);
+        this.add(MidnightBlocks.MALIGNANT_SPINDLE);
+        this.add(MidnightBlocks.MALIGNANT_TAILFLOWER);
+        this.add(MidnightBlocks.MALIGNANT_THISTLE);
+        this.add(MidnightBlocks.MALIGNANT_WALLFLOWER);
+        this.add(MidnightBlocks.MALIGNANT_WOLFSBANE);
+
+        this.addDoubleBlock(MidnightBlocks.MALIGNANT_BANEBERRY);
+        this.addDoubleBlock(MidnightBlocks.MALIGNANT_BLOODROOT);
+        this.addDoubleBlock(MidnightBlocks.MALIGNANT_NIGHTSHADE);
+        this.addDoubleBlock(MidnightBlocks.MALIGNANT_WISTERIA);
 
         this.add(MidnightBlocks.BOGSHROOM_SPORCH);
         this.add(MidnightBlocks.NIGHTSHROOM_SPORCH);
@@ -222,6 +278,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.addDoubleBlock(MidnightBlocks.NIGHTSHROOM_DOOR);
         this.addDoubleBlock(MidnightBlocks.DEWSHROOM_DOOR);
         this.addDoubleBlock(MidnightBlocks.VIRIDSHROOM_DOOR);
+        this.addDoubleBlock(MidnightBlocks.BOGSHROOM_DOOR);
 
         this.addSilkTouched(MidnightBlocks.ARCHAIC_GLASS);
         this.addSilkTouched(MidnightBlocks.ARCHAIC_GLASS_PANE);
@@ -235,6 +292,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.addSlab(MidnightBlocks.TRENCHSTONE_BRICK_SLAB);
         this.addSlab(MidnightBlocks.DEWSHROOM_SLAB);
         this.addSlab(MidnightBlocks.VIRIDSHROOM_SLAB);
+        this.addSlab(MidnightBlocks.BOGSHROOM_SLAB);
         this.addSlab(MidnightBlocks.NIGHTSHROOM_SLAB);
         this.addSlab(MidnightBlocks.ROCKSHROOM_BRICK_SLAB);
 
@@ -265,6 +323,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.NIGHTSHROOM_CHEST, MidnightBlockLootProvider::copyName);
         this.add(MidnightBlocks.DEWSHROOM_CHEST, MidnightBlockLootProvider::copyName);
         this.add(MidnightBlocks.VIRIDSHROOM_CHEST, MidnightBlockLootProvider::copyName);
+        this.add(MidnightBlocks.BOGSHROOM_CHEST, MidnightBlockLootProvider::copyName);
         this.add(MidnightBlocks.NIGHTSTONE_FURNACE, MidnightBlockLootProvider::copyName);
 
         this.add(MidnightBlocks.BLADESHROOM, block -> LootTable.builder().addLootPool(

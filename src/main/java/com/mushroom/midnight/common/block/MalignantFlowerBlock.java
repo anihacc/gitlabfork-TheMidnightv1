@@ -4,15 +4,10 @@ import com.mushroom.midnight.common.util.DirectionalShape;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.DirectionalBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
@@ -20,21 +15,18 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IEnviromentBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
-public class DeceitfulMossBlock extends DirectionalBlock {
+public class MalignantFlowerBlock extends MidnightPlantBlock {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
-    private static final DirectionalShape SHAPE = new DirectionalShape(0.0, 0.0, 14.0, 16.0, 16.0, 16.0);
+    private static final DirectionalShape SHAPE = new DirectionalShape(2d, 2d, 2d, 14d, 14d, 16d);
 
-    public DeceitfulMossBlock() {
-        super(Properties.create(Material.PLANTS, MaterialColor.PURPLE_TERRACOTTA).hardnessAndResistance(0.2f, 0f).doesNotBlockMovement().sound(SoundType.PLANT));
-        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+    public MalignantFlowerBlock(Properties properties) {
+        super(properties, true);
+        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.UP));
     }
 
     @Override
@@ -43,15 +35,15 @@ public class DeceitfulMossBlock extends DirectionalBlock {
     }
 
     @Override
-    public boolean propagatesSkylightDown(BlockState state, IBlockReader world, BlockPos pos) {
-        return true;
+    protected boolean isValidGround(BlockState state, IBlockReader world, BlockPos pos) {
+        return Block.isOpaque(state.getCollisionShape(world, pos));
     }
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
         Direction facing = state.get(FACING);
         BlockPos attachedPos = pos.offset(facing.getOpposite());
-        return Block.hasSolidSide(world.getBlockState(attachedPos), world, attachedPos, facing);
+        return this.isValidGround(world.getBlockState(attachedPos), world, attachedPos);
     }
 
     @Override
@@ -74,8 +66,8 @@ public class DeceitfulMossBlock extends DirectionalBlock {
     }
 
     @Override
-    public BlockState mirror(BlockState state, Mirror mirrorIn) {
-        return state.rotate(mirrorIn.toRotation(state.get(FACING)));
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.toRotation(state.get(FACING)));
     }
 
     @Override
@@ -85,22 +77,7 @@ public class DeceitfulMossBlock extends DirectionalBlock {
     }
 
     @Override
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.CUTOUT;
-    }
-
-    @Override
-    public boolean canBeReplacedByLeaves(BlockState state, IWorldReader world, BlockPos pos) {
-        return true;
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public boolean doesSideBlockRendering(BlockState state, IEnviromentBlockReader world, BlockPos pos, Direction side) {
-        if (side == Direction.UP) {
-            return true;
-        }
-        BlockState neighbor = world.getBlockState(pos.offset(side));
-        return neighbor.getBlock() != this && shouldSideBeRendered(state, world, pos, side);
+    public OffsetType getOffsetType() {
+        return OffsetType.NONE;
     }
 }

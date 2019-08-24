@@ -1,7 +1,7 @@
 package com.mushroom.midnight.common.registry;
 
-import com.google.common.base.Strings;
 import com.mojang.brigadier.arguments.BoolArgumentType;
+import joptsimple.internal.Strings;
 import net.minecraft.world.GameRules;
 
 public class MidnightGameRules {

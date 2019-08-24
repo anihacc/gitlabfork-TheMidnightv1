@@ -3,8 +3,6 @@ package com.mushroom.midnight.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BushBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.math.BlockPos;
@@ -16,8 +14,8 @@ import net.minecraftforge.common.PlantType;
 public class DeceitfulAlgaeBlock extends BushBlock {
     private static final VoxelShape SHAPE = Block.makeCuboidShape(1.0, 0.0, 1.0, 15.0, 1.5, 15.0);
 
-    public DeceitfulAlgaeBlock() {
-        super(Properties.create(Material.PLANTS).hardnessAndResistance(0f).sound(SoundType.PLANT));
+    public DeceitfulAlgaeBlock(Properties properties) {
+        super(properties);
     }
 
     @Override

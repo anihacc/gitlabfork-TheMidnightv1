@@ -1,7 +1,7 @@
 package com.mushroom.midnight.common.world.feature;
 
 import com.mojang.datafixers.Dynamic;
-import com.mushroom.midnight.common.block.DeceitfulMossBlock;
+import com.mushroom.midnight.common.block.MossBlock;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
@@ -34,7 +34,7 @@ public class MossFeature extends Feature<NoFeatureConfig> {
             );
 
             Direction direction = Direction.random(rand);
-            BlockState state = BLOCK.with(DeceitfulMossBlock.FACING, direction);
+            BlockState state = BLOCK.with(MossBlock.FACING, direction);
 
             if (world.isAirBlock(pos) && state.isValidPosition(world, pos)) {
                 this.setBlockState(world, pos, state);
