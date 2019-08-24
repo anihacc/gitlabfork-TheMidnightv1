@@ -1,7 +1,6 @@
 package com.mushroom.midnight.common.registry;
 
 import com.mushroom.midnight.client.render.item.MidnightChestItemRenderer;
-import com.mushroom.midnight.common.block.GlowingBlock;
 import com.mushroom.midnight.common.block.BladeshroomBlock;
 import com.mushroom.midnight.common.block.BloomCrystalBlock;
 import com.mushroom.midnight.common.block.BogweedBlock;
@@ -19,6 +18,7 @@ import com.mushroom.midnight.common.block.FungiBlock;
 import com.mushroom.midnight.common.block.FungiInsideBlock;
 import com.mushroom.midnight.common.block.GlobFungusBlock;
 import com.mushroom.midnight.common.block.GlobFungusHatBlock;
+import com.mushroom.midnight.common.block.GlowingBlock;
 import com.mushroom.midnight.common.block.HangablePlantBlock;
 import com.mushroom.midnight.common.block.HangingLeavesBlock;
 import com.mushroom.midnight.common.block.HangingVinesBlock;
@@ -41,6 +41,7 @@ import com.mushroom.midnight.common.block.MidnightSaplingBlock;
 import com.mushroom.midnight.common.block.MidnightStairsBlock;
 import com.mushroom.midnight.common.block.MidnightWoodPlankBlock;
 import com.mushroom.midnight.common.block.MossBlock;
+import com.mushroom.midnight.common.block.NightstoneBlock;
 import com.mushroom.midnight.common.block.RiftPlantBlock;
 import com.mushroom.midnight.common.block.RockshroomBlock;
 import com.mushroom.midnight.common.block.SoilBlock;
@@ -201,8 +202,8 @@ public class MidnightBlocks {
     public static final Block BOGSHROOM_SHELF = Blocks.AIR;
     public static final Block BOGSHROOM_STEM = Blocks.AIR;
     public static final Block BOGSHROOM_HAT = Blocks.AIR;
-	
-    public static final Block BOGSHROOM_PLANKS = Blocks.AIR;	
+
+    public static final Block BOGSHROOM_PLANKS = Blocks.AIR;
 
     public static final Block MISTSHROOM = Blocks.AIR;
     public static final Block DOUBLE_MISTSHROOM = Blocks.AIR;
@@ -461,7 +462,7 @@ public class MidnightBlocks {
                         .hardnessAndResistance(1.5f, 10f)
                         .sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).harvestLevel(0)
                 )
-                .add("nightstone", props -> new SoilBlock(props, true))
+                .add("nightstone", NightstoneBlock::new)
                 .add("nightstone_bricks", Block::new)
                 .add("chiseled_nightstone_bricks", Block::new)
                 .add("rockshroom_bricks", Block::new)
@@ -937,7 +938,7 @@ public class MidnightBlocks {
         RegUtil.items(event.getRegistry())
                 .withProperties(() -> new Item.Properties().group(MidnightItemGroups.DECORATION))
                 .addAll(BlockItem::new, SHADOWROOT_CRAFTING_TABLE, DARK_WILLOW_CRAFTING_TABLE, DEAD_WOOD_CRAFTING_TABLE, NIGHTSHROOM_CRAFTING_TABLE, DEWSHROOM_CRAFTING_TABLE, VIRIDSHROOM_CRAFTING_TABLE, BOGSHROOM_CRAFTING_TABLE,
-                        NIGHTSTONE_FURNACE, SHADOWROOT_SAPLING, DARK_WILLOW_SAPLING, 
+                        NIGHTSTONE_FURNACE, SHADOWROOT_SAPLING, DARK_WILLOW_SAPLING,
                         GRASS, TALL_GRASS, ROUXE, BLOOMCRYSTAL, GLOB_FUNGUS, DECEITFUL_MOSS,
                         NIGHTSHROOM, DOUBLE_NIGHTSHROOM, NIGHTSHROOM_SHELF, DEWSHROOM, DOUBLE_DEWSHROOM, DEWSHROOM_SHELF, VIRIDSHROOM, DOUBLE_VIRIDSHROOM, VIRIDSHROOM_SHELF, BOGSHROOM, DOUBLE_BOGSHROOM, BOGSHROOM_SHELF, MISTSHROOM, DOUBLE_MISTSHROOM,
                         LUMEN_BUD, DOUBLE_LUMEN_BUD, BOGWEED, GHOST_PLANT, FINGERED_GRASS, TENDRILWEED, RUNEBUSH, DRAGON_NEST, VIOLEAF, CRYSTAL_FLOWER,
