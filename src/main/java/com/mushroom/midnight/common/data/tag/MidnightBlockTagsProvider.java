@@ -94,7 +94,8 @@ public class MidnightBlockTagsProvider extends BlockTagsProvider {
                 MidnightBlocks.DEAD_WOOD_PLANKS,
                 MidnightBlocks.NIGHTSHROOM_PLANKS,
                 MidnightBlocks.DEWSHROOM_PLANKS,
-                MidnightBlocks.VIRIDSHROOM_PLANKS
+                MidnightBlocks.VIRIDSHROOM_PLANKS,
+                MidnightBlocks.BOGSHROOM_PLANKS
         );
     }
 

@@ -23,7 +23,7 @@ public class MidnightTileEntities {
         event.getRegistry().registerAll(
                 TileEntityType.Builder.create(MidnightChestTileEntity::new,
                         MidnightBlocks.SHADOWROOT_CHEST, MidnightBlocks.DEAD_WOOD_CHEST, MidnightBlocks.DARK_WILLOW_CHEST,
-                        MidnightBlocks.NIGHTSHROOM_CHEST, MidnightBlocks.DEWSHROOM_CHEST, MidnightBlocks.VIRIDSHROOM_CHEST
+                        MidnightBlocks.NIGHTSHROOM_CHEST, MidnightBlocks.DEWSHROOM_CHEST, MidnightBlocks.VIRIDSHROOM_CHEST, MidnightBlocks.BOGSHROOM_CHEST
                 ).build(null).setRegistryName(MODID, "midnight_chest"),
                 TileEntityType.Builder.create(MidnightFurnaceTileEntity::new, MidnightBlocks.NIGHTSTONE_FURNACE).build(null).setRegistryName(MODID, "midnight_furnace"),
                 TileEntityType.Builder.create(CacheTileEntity::new, MidnightBlocks.VIRIDSHROOM_STEM_CACHE).build(null).setRegistryName(MODID, "cache")

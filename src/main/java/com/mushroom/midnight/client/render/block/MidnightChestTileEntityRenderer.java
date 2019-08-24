@@ -33,6 +33,8 @@ public class MidnightChestTileEntityRenderer extends TileEntityRenderer<Midnight
     private static final ResourceLocation TEXTURE_DEWSHROOM_NORMAL = new ResourceLocation(MODID, "textures/entities/chest/dewshroom_chest.png");
     private static final ResourceLocation TEXTURE_VIRIDSHROOM_DOUBLE = new ResourceLocation(MODID, "textures/entities/chest/viridshroom_chest_double.png");
     private static final ResourceLocation TEXTURE_VIRIDSHROOM_NORMAL = new ResourceLocation(MODID, "textures/entities/chest/viridshroom_chest.png");
+    private static final ResourceLocation TEXTURE_BOGSHROOM_DOUBLE = new ResourceLocation(MODID, "textures/entities/chest/bogshroom_chest_double.png");
+    private static final ResourceLocation TEXTURE_BOGSHROOM_NORMAL = new ResourceLocation(MODID, "textures/entities/chest/bogshroom_chest.png");
     private final ChestModel simpleChest = new ChestModel();
     private final LargeChestModel largeChest = new LargeChestModel();
 
@@ -40,6 +42,7 @@ public class MidnightChestTileEntityRenderer extends TileEntityRenderer<Midnight
     }
 
     private void bindTexture(Block chestModel, int destroyStage, boolean isDouble) {
+        // TODO: This is horrible
         ResourceLocation rl = TEXTURE_SHADOWROOT_NORMAL;
         if (destroyStage >= 0) {
             rl = DESTROY_STAGES[destroyStage];
@@ -55,6 +58,8 @@ public class MidnightChestTileEntityRenderer extends TileEntityRenderer<Midnight
             rl = isDouble ? TEXTURE_DEWSHROOM_DOUBLE : TEXTURE_DEWSHROOM_NORMAL;
         } else if (chestModel == MidnightBlocks.VIRIDSHROOM_CHEST) {
             rl = isDouble ? TEXTURE_VIRIDSHROOM_DOUBLE : TEXTURE_VIRIDSHROOM_NORMAL;
+        } else if (chestModel == MidnightBlocks.BOGSHROOM_CHEST) {
+            rl = isDouble ? TEXTURE_BOGSHROOM_DOUBLE : TEXTURE_BOGSHROOM_NORMAL;
         }
         bindTexture(rl);
     }
@@ -92,10 +97,10 @@ public class MidnightChestTileEntityRenderer extends TileEntityRenderer<Midnight
 
             GlStateManager.pushMatrix();
             GlStateManager.enableRescaleNormal();
-            GlStateManager.translatef((float)x, (float)y + 1.0F, (float)z + 1.0F);
+            GlStateManager.translatef((float) x, (float) y + 1.0F, (float) z + 1.0F);
             GlStateManager.scalef(1.0F, -1.0F, -1.0F);
             float f = state.get(ChestBlock.FACING).getHorizontalAngle();
-            if ((double)Math.abs(f) > 1.0E-5D) {
+            if ((double) Math.abs(f) > 1.0E-5D) {
                 GlStateManager.translatef(0.5F, 0.5F, 0.5F);
                 GlStateManager.rotatef(f, 0.0F, 1.0F, 0.0F);
                 GlStateManager.translatef(-0.5F, -0.5F, -0.5F);

@@ -99,11 +99,25 @@ public final class MidnightWoodenRecipes extends MidnightRecipeProvider {
                 .addStairs(MidnightBlocks.VIRIDSHROOM_STAIRS)
                 .addTrapDoor(MidnightBlocks.VIRIDSHROOM_TRAPDOOR);
 
+        recipes.ofMaterial(MidnightBlocks.BOGSHROOM_PLANKS)
+                .addButton(MidnightBlocks.BOGSHROOM_BUTTON)
+                .addChest(MidnightBlocks.BOGSHROOM_CHEST)
+                .addCraftingTable(MidnightBlocks.BOGSHROOM_CRAFTING_TABLE)
+                .addDoor(MidnightBlocks.BOGSHROOM_DOOR)
+                .addFence(MidnightBlocks.BOGSHROOM_FENCE)
+                .addFenceGate(MidnightBlocks.BOGSHROOM_FENCE_GATE)
+                .addLadder(MidnightBlocks.BOGSHROOM_LADDER)
+                .addPressurePlate(MidnightBlocks.BOGSHROOM_PRESSURE_PLATE)
+                .addSlab(MidnightBlocks.BOGSHROOM_SLAB)
+                .addStairs(MidnightBlocks.BOGSHROOM_STAIRS)
+                .addTrapDoor(MidnightBlocks.BOGSHROOM_TRAPDOOR);
+
         recipes.addPlanks(MidnightBlocks.DARK_WILLOW_LOG, MidnightBlocks.DARK_WILLOW_PLANKS);
         recipes.addPlanks(MidnightBlocks.SHADOWROOT_LOG, MidnightBlocks.SHADOWROOT_PLANKS);
         recipes.addPlanks(MidnightBlocks.DEAD_WOOD_LOG, MidnightBlocks.DEAD_WOOD_PLANKS);
         recipes.addPlanks(MidnightBlocks.NIGHTSHROOM_STEM, MidnightBlocks.NIGHTSHROOM_PLANKS);
         recipes.addPlanks(MidnightBlocks.DEWSHROOM_STEM, MidnightBlocks.DEWSHROOM_PLANKS);
         recipes.addPlanks(MidnightBlocks.VIRIDSHROOM_STEM, MidnightBlocks.VIRIDSHROOM_PLANKS);
+        recipes.addPlanks(MidnightBlocks.BOGSHROOM_STEM, MidnightBlocks.BOGSHROOM_PLANKS);
     }
 }
