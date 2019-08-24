@@ -189,7 +189,6 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.TENEBRUM_PRESSURE_PLATE);
         this.add(MidnightBlocks.MIDNIGHT_LEVER);
         this.add(MidnightBlocks.TENEBRUM_ORE);
-        this.add(MidnightBlocks.EBONITE_ORE);
         this.add(MidnightBlocks.GLOB_FUNGUS_HAT);
 
         this.add(MidnightBlocks.BOGSHROOM_SPORCH);
@@ -249,6 +248,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
 
         this.addGem(MidnightBlocks.DARK_PEARL_ORE, MidnightItems.GEODE);
         this.addGem(MidnightBlocks.ARCHAIC_ORE, MidnightItems.ARCHAIC_SHARD);
+        this.addGem(MidnightBlocks.EBONITE_ORE, MidnightItems.EBONITE);
 
         this.add(MidnightBlocks.UNSTABLE_BUSH, MidnightItems.UNSTABLE_SEEDS);
 
