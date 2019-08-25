@@ -3,7 +3,7 @@ package com.mushroom.midnight.client;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.sound.MidnightCaveSound;
 import com.mushroom.midnight.client.sound.MidnightIdleSound;
-import com.mushroom.midnight.common.entity.util.ToggleAnimation;
+import com.mushroom.midnight.common.util.SlidingToggle;
 import com.mushroom.midnight.common.util.MidnightUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
@@ -21,7 +21,7 @@ public class IdleSoundController {
     private static final ISound IDLE_SOUND = new MidnightIdleSound();
     private static final ISound CAVE_IDLE_SOUND = new MidnightCaveSound();
 
-    public static final ToggleAnimation CAVE_ANIMATION = new ToggleAnimation(20);
+    public static final SlidingToggle CAVE_ANIMATION = new SlidingToggle(20);
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {

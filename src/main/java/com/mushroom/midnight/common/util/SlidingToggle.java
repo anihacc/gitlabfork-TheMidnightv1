@@ -1,20 +1,22 @@
-package com.mushroom.midnight.common.entity.util;
+package com.mushroom.midnight.common.util;
 
 import net.minecraft.nbt.CompoundNBT;
 
-public class ToggleAnimation {
+public class SlidingToggle {
     private final int length;
 
     private int rate = 1;
 
     private boolean state;
     private int timer;
+    private int prevTimer;
 
-    public ToggleAnimation(int length) {
+    public SlidingToggle(int length) {
         this.length = length;
     }
 
     public void update() {
+        this.prevTimer = this.timer;
         if (this.state) {
             this.timer = Math.min(this.timer + this.rate, this.length);
         } else {
@@ -46,6 +48,11 @@ public class ToggleAnimation {
         return this.timer / (float) this.length;
     }
 
+    public float getScale(float partialTicks) {
+        float timer = this.prevTimer + (this.timer - this.prevTimer) * partialTicks;
+        return timer / this.length;
+    }
+
     public CompoundNBT serialize(CompoundNBT compound) {
         compound.putBoolean("state", this.state);
         compound.putShort("timer", (short) this.timer);
@@ -61,6 +68,6 @@ public class ToggleAnimation {
 
     @Override
     public String toString() {
-        return "ToggleAnimation{state=" + this.state + ", timer=" + this.timer + '}';
+        return "SlidingToggle{state=" + this.state + ", timer=" + this.timer + '}';
     }
 }

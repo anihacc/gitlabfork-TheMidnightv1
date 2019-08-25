@@ -24,9 +24,6 @@ public class RiftPortalBlockRenderer extends TileEntityRenderer<RiftPortalTileEn
     public void render(RiftPortalTileEntity entity, double x, double y, double z, float partialTicks, int destroyStage) {
         if (entity == null) return;
 
-        double ticks = CLIENT.world.getGameTime() + partialTicks;
-        float alphaLevel = (float) Math.sin(ticks * 0.08) / 2.0F + 0.5F;
-
         BlockPos pos = entity.getPos();
         long seed = MathHelper.getCoordinateRandom(pos.getX(), pos.getY(), pos.getZ());
         long textureSeed = seed ^ 8211203336981069197L;
@@ -40,18 +37,19 @@ public class RiftPortalBlockRenderer extends TileEntityRenderer<RiftPortalTileEn
 
         GlStateManager.disableBlend();
         GlStateManager.enableAlphaTest();
-        GlStateManager.alphaFunc(GL11.GL_GREATER, alphaLevel);
         GlStateManager.polygonOffset(-1.0F, -10.0F);
         GlStateManager.enablePolygonOffset();
+
+        GlStateManager.alphaFunc(GL11.GL_GREATER, entity.getCloseAnimation(partialTicks));
 
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 
         BLOCK_MODEL.render();
 
+        GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
+
         GlStateManager.polygonOffset(0.0F, 0.0F);
         GlStateManager.disablePolygonOffset();
-
-        GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
 
         GlStateManager.popMatrix();
     }
