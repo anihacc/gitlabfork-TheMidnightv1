@@ -211,7 +211,7 @@ public class MidnightBlocks {
     public static final Block GLOB_FUNGUS = Blocks.AIR;
     public static final Block GLOB_FUNGUS_STEM = Blocks.AIR;
     public static final Block GLOB_FUNGUS_HAT = Blocks.AIR;
-    public static final Block GLOB_FUNGUS_STALk = Blocks.AIR;
+    public static final Block GLOB_FUNGUS_STALK = Blocks.AIR;
     public static final Block GLOB_FUNGUS_THATCH = Blocks.AIR;
 
     public static final Block ROCKSHROOM = Blocks.AIR;
