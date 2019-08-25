@@ -1,6 +1,7 @@
 {
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "midnight:blocks/dead_wood_stripped_log"
-  }
+    "parent": "block/cube_column",
+    "textures": {
+        "end": "midnight:blocks/dead_wood_stripped_log",
+        "side": "midnight:blocks/dead_wood_stripped_log"
+    }
 }

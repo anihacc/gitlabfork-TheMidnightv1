@@ -1,6 +1,7 @@
 {
-  "parent": "block/cube_all",
+  "parent": "block/cube_column",
   "textures": {
-    "all": "midnight:blocks/dark_willow_log"
+    "end": "midnight:blocks/dark_willow_log",
+    "side": "midnight:blocks/dark_willow_log"
   }
 }

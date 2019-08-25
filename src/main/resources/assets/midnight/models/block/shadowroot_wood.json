@@ -1,6 +1,7 @@
 {
-  "parent": "block/cube_all",
+  "parent": "block/cube_column",
   "textures": {
-    "all": "midnight:blocks/shadowroot_log"
+    "end": "midnight:blocks/shadowroot_log",
+    "side": "midnight:blocks/shadowroot_log"
   }
 }
