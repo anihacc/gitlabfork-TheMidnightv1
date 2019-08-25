@@ -1,3 +1,3 @@
 @javax.annotation.ParametersAreNonnullByDefault
 @mcp.MethodsReturnNonnullByDefault
-package com.mushroom.midnight.common.tile.base;
+package com.mushroom.midnight.common.tile;

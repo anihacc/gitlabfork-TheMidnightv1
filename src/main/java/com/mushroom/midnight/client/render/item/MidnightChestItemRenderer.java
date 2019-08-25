@@ -1,6 +1,6 @@
 package com.mushroom.midnight.client.render.item;
 
-import com.mushroom.midnight.common.tile.base.MidnightChestTileEntity;
+import com.mushroom.midnight.common.tile.MidnightChestTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;

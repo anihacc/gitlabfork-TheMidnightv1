@@ -3,7 +3,7 @@ package com.mushroom.midnight.client.render.block;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mushroom.midnight.common.block.MidnightChestBlock;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
-import com.mushroom.midnight.common.tile.base.MidnightChestTileEntity;
+import com.mushroom.midnight.common.tile.MidnightChestTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
@@ -20,7 +20,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import static com.mushroom.midnight.Midnight.MODID;
 
 @OnlyIn(Dist.CLIENT)
-public class MidnightChestTileEntityRenderer extends TileEntityRenderer<MidnightChestTileEntity> {
+public class MidnightChestBlockRenderer extends TileEntityRenderer<MidnightChestTileEntity> {
     private static final ResourceLocation TEXTURE_SHADOWROOT_DOUBLE = new ResourceLocation(MODID, "textures/entities/chest/shadowroot_chest_double.png");
     private static final ResourceLocation TEXTURE_SHADOWROOT_NORMAL = new ResourceLocation(MODID, "textures/entities/chest/shadowroot_chest.png");
     private static final ResourceLocation TEXTURE_DARK_WILLOW_DOUBLE = new ResourceLocation(MODID, "textures/entities/chest/dark_willow_chest_double.png");
@@ -38,7 +38,7 @@ public class MidnightChestTileEntityRenderer extends TileEntityRenderer<Midnight
     private final ChestModel simpleChest = new ChestModel();
     private final LargeChestModel largeChest = new LargeChestModel();
 
-    public MidnightChestTileEntityRenderer() {
+    public MidnightChestBlockRenderer() {
     }
 
     private void bindTexture(Block chestModel, int destroyStage, boolean isDouble) {

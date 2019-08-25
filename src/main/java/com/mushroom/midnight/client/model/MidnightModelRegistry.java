@@ -1,7 +1,8 @@
 package com.mushroom.midnight.client.model;
 
-import com.mushroom.midnight.client.render.block.CacheTileEntityRenderer;
-import com.mushroom.midnight.client.render.block.MidnightChestTileEntityRenderer;
+import com.mushroom.midnight.client.render.block.CacheBlockRenderer;
+import com.mushroom.midnight.client.render.block.MidnightChestBlockRenderer;
+import com.mushroom.midnight.client.render.block.RiftPortalBlockRenderer;
 import com.mushroom.midnight.client.render.entity.BladeshroomCapRenderer;
 import com.mushroom.midnight.client.render.entity.CloudRenderer;
 import com.mushroom.midnight.client.render.entity.CrystalBugRenderer;
@@ -33,8 +34,9 @@ import com.mushroom.midnight.common.entity.projectile.NovaSpikeEntity;
 import com.mushroom.midnight.common.entity.projectile.SporeBombEntity;
 import com.mushroom.midnight.common.entity.projectile.ThrownGeodeEntity;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
-import com.mushroom.midnight.common.tile.base.CacheTileEntity;
-import com.mushroom.midnight.common.tile.base.MidnightChestTileEntity;
+import com.mushroom.midnight.common.tile.CacheTileEntity;
+import com.mushroom.midnight.common.tile.MidnightChestTileEntity;
+import com.mushroom.midnight.common.tile.RiftPortalTileEntity;
 import com.mushroom.midnight.common.util.MidnightUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -75,8 +77,10 @@ public class MidnightModelRegistry {
         RenderingRegistry.registerEntityRenderingHandler(SporeBombEntity.class, manager -> new SpriteRenderer(MC.getRenderManager(), MC.getItemRenderer()));
         RenderingRegistry.registerEntityRenderingHandler(CloudEntity.class, CloudRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(NovaSpikeEntity.class, NovaSpikeRenderer::new);
-        ClientRegistry.bindTileEntitySpecialRenderer(MidnightChestTileEntity.class, new MidnightChestTileEntityRenderer());
-        ClientRegistry.bindTileEntitySpecialRenderer(CacheTileEntity.class, new CacheTileEntityRenderer());
+
+        ClientRegistry.bindTileEntitySpecialRenderer(MidnightChestTileEntity.class, new MidnightChestBlockRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(CacheTileEntity.class, new CacheBlockRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(RiftPortalTileEntity.class, new RiftPortalBlockRenderer());
 
         BlockColors blockColors = MC.getBlockColors();
         ItemColors itemColors = MC.getItemColors();

@@ -1,8 +1,9 @@
 package com.mushroom.midnight.common.registry;
 
-import com.mushroom.midnight.common.tile.base.CacheTileEntity;
-import com.mushroom.midnight.common.tile.base.MidnightChestTileEntity;
-import com.mushroom.midnight.common.tile.base.MidnightFurnaceTileEntity;
+import com.mushroom.midnight.common.tile.CacheTileEntity;
+import com.mushroom.midnight.common.tile.MidnightChestTileEntity;
+import com.mushroom.midnight.common.tile.MidnightFurnaceTileEntity;
+import com.mushroom.midnight.common.tile.RiftPortalTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,15 +19,17 @@ public class MidnightTileEntities {
     public static final TileEntityType<?> MIDNIGHT_FURNACE = TileEntityType.FURNACE;
     public static final TileEntityType<?> CACHE = TileEntityType.CHEST;
 
+    public static final TileEntityType<?> RIFT_PORTAL = TileEntityType.END_PORTAL;
+
     @SubscribeEvent
     public static void registerTileEntity(final RegistryEvent.Register<TileEntityType<?>> event) {
-        event.getRegistry().registerAll(
-                TileEntityType.Builder.create(MidnightChestTileEntity::new,
+        RegUtil.generic(event.getRegistry())
+                .add("midnight_chest", TileEntityType.Builder.create(MidnightChestTileEntity::new,
                         MidnightBlocks.SHADOWROOT_CHEST, MidnightBlocks.DEAD_WOOD_CHEST, MidnightBlocks.DARK_WILLOW_CHEST,
                         MidnightBlocks.NIGHTSHROOM_CHEST, MidnightBlocks.DEWSHROOM_CHEST, MidnightBlocks.VIRIDSHROOM_CHEST, MidnightBlocks.BOGSHROOM_CHEST
-                ).build(null).setRegistryName(MODID, "midnight_chest"),
-                TileEntityType.Builder.create(MidnightFurnaceTileEntity::new, MidnightBlocks.NIGHTSTONE_FURNACE).build(null).setRegistryName(MODID, "midnight_furnace"),
-                TileEntityType.Builder.create(CacheTileEntity::new, MidnightBlocks.VIRIDSHROOM_STEM_CACHE).build(null).setRegistryName(MODID, "cache")
-        );
+                ).build(null))
+                .add("midnight_furnace", TileEntityType.Builder.create(MidnightFurnaceTileEntity::new, MidnightBlocks.NIGHTSTONE_FURNACE).build(null))
+                .add("cache", TileEntityType.Builder.create(CacheTileEntity::new, MidnightBlocks.VIRIDSHROOM_STEM_CACHE).build(null))
+                .add("rift_portal", TileEntityType.Builder.create(RiftPortalTileEntity::new, MidnightBlocks.RIFT_PORTAL).build(null));
     }
 }

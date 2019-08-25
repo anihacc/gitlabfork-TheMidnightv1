@@ -1,4 +1,4 @@
-package com.mushroom.midnight.common.tile.base;
+package com.mushroom.midnight.common.tile;
 
 import com.mushroom.midnight.common.registry.MidnightTileEntities;
 import net.minecraft.entity.player.PlayerInventory;

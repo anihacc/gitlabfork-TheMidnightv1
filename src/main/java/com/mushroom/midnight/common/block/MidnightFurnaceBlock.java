@@ -2,7 +2,7 @@ package com.mushroom.midnight.common.block;
 
 import com.mushroom.midnight.client.particle.FurnaceFlameParticle;
 import com.mushroom.midnight.common.registry.MidnightTileEntities;
-import com.mushroom.midnight.common.tile.base.MidnightFurnaceTileEntity;
+import com.mushroom.midnight.common.tile.MidnightFurnaceTileEntity;
 import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
