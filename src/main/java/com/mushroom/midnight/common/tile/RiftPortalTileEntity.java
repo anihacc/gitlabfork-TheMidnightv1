@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 
 public class RiftPortalTileEntity extends TileEntity implements ITickableTileEntity {
-    private final SlidingToggle closed = new SlidingToggle(30);
+    private final SlidingToggle closed = new SlidingToggle(30).initialize(true);
 
     public RiftPortalTileEntity(TileEntityType<?> type) {
         super(type);
@@ -21,8 +21,8 @@ public class RiftPortalTileEntity extends TileEntity implements ITickableTileEnt
     @Override
     public void tick() {
         if (this.world.rand.nextInt(3) == 0) {
-            long time = this.world.getDayTime();
-            this.closed.set(time > 0 && time < 13000);
+            long time = this.world.getDayTime() % 24000;
+            this.closed.set(time >= 0 && time <= 13000);
         }
 
         this.closed.update();
@@ -43,6 +43,11 @@ public class RiftPortalTileEntity extends TileEntity implements ITickableTileEnt
         if (compound.contains("closed")) {
             this.closed.deserialize(compound.getCompound("closed"));
         }
+    }
+
+    @Override
+    public CompoundNBT getUpdateTag() {
+        return this.write(new CompoundNBT());
     }
 
     public float getCloseAnimation(float partialTicks) {

@@ -15,6 +15,12 @@ public class SlidingToggle {
         this.length = length;
     }
 
+    public SlidingToggle initialize(boolean state) {
+        this.state = state;
+        this.timer = this.prevTimer = state ? this.length : 0;
+        return this;
+    }
+
     public void update() {
         this.prevTimer = this.timer;
         if (this.state) {
