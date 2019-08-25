@@ -22,6 +22,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.BitSet;
 import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = Midnight.MODID)
@@ -29,7 +30,6 @@ public class EntranceRiftGenerator {
     private static final INoiseSampler WARP_NOISE = new PerlinNoiseSampler(new Random(8555034668646880878L));
 
     private static final int OUTER_RADIUS = 2;
-    private static final int BUFFER_RADIUS = 2;
 
     private static final double PORTAL_RADIUS = 3.0;
 
@@ -63,10 +63,10 @@ public class EntranceRiftGenerator {
 
         int craterRadius = random.nextInt(3) + 7;
         int radius = craterRadius + OUTER_RADIUS;
-
         int totalDepth = craterRadius / 2;
 
-        DistanceField distanceField = this.generateDistanceField(origin.getX(), origin.getZ(), radius);
+        CoverMask coverMask = new CoverMask(radius + 6);
+        DistanceField distanceField = this.generateDistanceField(origin.getX(), origin.getZ(), radius + 2);
 
         for (int z = -radius; z <= radius; z++) {
             for (int x = -radius; x <= radius; x++) {
@@ -85,9 +85,57 @@ public class EntranceRiftGenerator {
                 BlockState surfaceState = this.computeSurfaceState(distance, radius, random);
 
                 mutablePos.setY(origin.getY() - depth);
+
                 this.setBlockState(world, mutablePos, surfaceState);
+                coverMask.put(x, z);
             }
         }
+
+        this.generateTendrils(world, random, origin, radius, coverMask);
+    }
+
+    private void generateTendrils(World world, Random random, BlockPos origin, int radius, CoverMask coverMask) {
+        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+
+        float angle = 0.0F;
+        float angleStep = 15.0F;
+
+        float distance = radius + 3.0F;
+
+        while (angle < 360.0F - angleStep) {
+            angle += angleStep;
+
+            double angleRad = Math.toRadians(angle);
+
+            int x = MathHelper.floor(Math.sin(angleRad) * distance);
+            int z = MathHelper.floor(Math.cos(angleRad) * distance);
+
+            x += random.nextInt(3) - random.nextInt(3);
+            z += random.nextInt(3) - random.nextInt(3);
+
+            while (!coverMask.has(x, z) && coverMask.contains(x, z)) {
+                mutablePos.setPos(origin.getX() + x, origin.getY(), origin.getZ() + z);
+
+                this.setBlockState(world, mutablePos, MidnightBlocks.MALIGNANT_RED_PLANT_BLOCK.getDefaultState());
+                coverMask.put(x, z);
+
+                Direction.Axis axis = this.chooseTendrilAxis(random, x, z);
+                if (axis == Direction.Axis.X) {
+                    x -= MathHelper.signum(x);
+                } else {
+                    z -= MathHelper.signum(z);
+                }
+            }
+        }
+    }
+
+    private Direction.Axis chooseTendrilAxis(Random random, int x, int z) {
+        if (x == 0) {
+            return Direction.Axis.Z;
+        } else if (z == 0) {
+            return Direction.Axis.X;
+        }
+        return random.nextBoolean() ? Direction.Axis.X : Direction.Axis.Z;
     }
 
     private BlockState computeSurfaceState(double distance, double radius, Random random) {
@@ -112,12 +160,10 @@ public class EntranceRiftGenerator {
     }
 
     private DistanceField generateDistanceField(int originX, int originZ, int radius) {
-        int bufferedRadius = radius + BUFFER_RADIUS;
+        DistanceField field = new DistanceField(radius);
 
-        DistanceField field = new DistanceField(bufferedRadius);
-
-        for (int z = -bufferedRadius; z <= bufferedRadius; z++) {
-            for (int x = -bufferedRadius; x <= bufferedRadius; x++) {
+        for (int z = -radius; z <= radius; z++) {
+            for (int x = -radius; x <= radius; x++) {
                 int distanceSq = x * x + z * z;
 
                 double warp = WARP_NOISE.get(originX + x, originZ + z);
@@ -140,14 +186,11 @@ public class EntranceRiftGenerator {
         world.setBlockState(pos, state, Constants.BlockFlags.NOTIFY_LISTENERS | Constants.BlockFlags.NOTIFY_NEIGHBORS);
     }
 
-    private static class DistanceField {
+    private static class DistanceField extends CircleField {
         private final float[] field;
-        private final int radius;
-        private final int diameter;
 
         DistanceField(int radius) {
-            this.radius = radius;
-            this.diameter = radius * 2 + 1;
+            super(radius);
             this.field = new float[this.diameter * this.diameter];
         }
 
@@ -163,13 +206,45 @@ public class EntranceRiftGenerator {
             }
             return this.field[this.index(x, z)];
         }
+    }
 
-        private int index(int x, int z) {
-            return (x + this.radius) + (z + this.radius) * this.diameter;
+    private static class CoverMask extends CircleField {
+        private final BitSet bitSet;
+
+        CoverMask(int radius) {
+            super(radius);
+            this.bitSet = new BitSet(this.diameter * this.diameter);
         }
 
-        private boolean contains(int x, int z) {
+        void put(int x, int z) {
+            if (this.contains(x, z)) {
+                this.bitSet.set(this.index(x, z));
+            }
+        }
+
+        boolean has(int x, int z) {
+            if (!this.contains(x, z)) {
+                return false;
+            }
+            return this.bitSet.get(this.index(x, z));
+        }
+    }
+
+    private static abstract class CircleField {
+        final int radius;
+        final int diameter;
+
+        CircleField(int radius) {
+            this.radius = radius;
+            this.diameter = radius * 2 + 1;
+        }
+
+        public boolean contains(int x, int z) {
             return x >= -this.radius && z >= -this.radius && x <= this.radius && z <= this.radius;
+        }
+
+        int index(int x, int z) {
+            return (x + this.radius) + (z + this.radius) * this.diameter;
         }
     }
 }
