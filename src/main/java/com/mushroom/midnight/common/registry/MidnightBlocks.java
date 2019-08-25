@@ -211,6 +211,8 @@ public class MidnightBlocks {
     public static final Block GLOB_FUNGUS = Blocks.AIR;
     public static final Block GLOB_FUNGUS_STEM = Blocks.AIR;
     public static final Block GLOB_FUNGUS_HAT = Blocks.AIR;
+    public static final Block GLOB_FUNGUS_STALk = Blocks.AIR;
+    public static final Block GLOB_FUNGUS_THATCH = Blocks.AIR;
 
     public static final Block ROCKSHROOM = Blocks.AIR;
     public static final Block ROCKSHROOM_BRICKS = Blocks.AIR;
@@ -580,6 +582,8 @@ public class MidnightBlocks {
                 .add("viridshroom_stem", Block::new)
                 .add("bogshroom_stem", Block::new)
                 .add("glob_fungus_stem", props -> new LogBlock(MaterialColor.BROWN, props.hardnessAndResistance(0.5f)))
+                .add("glob_fungus_stalk", props -> new LogBlock(MaterialColor.BROWN, props.hardnessAndResistance(0.5f)))
+                .add("glob_fungus_thatch", props -> new LogBlock(MaterialColor.BROWN, props.hardnessAndResistance(0.5f)))
                 .add("fungi_inside", new FungiInsideBlock(Block.Properties.create(Material.AIR).doesNotBlockMovement()));
 
         RegUtil.blocks(event.getRegistry())
@@ -927,7 +931,7 @@ public class MidnightBlocks {
                         NIGHTSTONE, NIGHTSTONE_BRICKS, CHISELED_NIGHTSTONE_BRICKS, TRENCHSTONE, TRENCHSTONE_BRICKS,
                         DARK_PEARL_ORE, DARK_PEARL_BLOCK, TENEBRUM_ORE, TENEBRUM_BLOCK, NAGRILITE_ORE, NAGRILITE_BLOCK, EBONITE_ORE, EBONITE_BLOCK, ARCHAIC_ORE,
                         COARSE_DIRT, DIRT, GRASS_BLOCK, MYCELIUM,
-                        BOGSHROOM_HAT, BOGSHROOM_STEM, NIGHTSHROOM_STEM, NIGHTSHROOM_HAT, DEWSHROOM_STEM, DEWSHROOM_HAT, VIRIDSHROOM_STEM, VIRIDSHROOM_HAT, GLOB_FUNGUS_HAT, GLOB_FUNGUS_STEM,
+                        BOGSHROOM_HAT, BOGSHROOM_STEM, NIGHTSHROOM_STEM, NIGHTSHROOM_HAT, DEWSHROOM_STEM, DEWSHROOM_HAT, VIRIDSHROOM_STEM, VIRIDSHROOM_HAT, GLOB_FUNGUS_HAT, GLOB_FUNGUS_STEM, GLOB_FUNGUS_STALK, GLOB_FUNGUS_THATCH
                         ROCKSHROOM, ROCKSHROOM_BRICKS, BLOOMCRYSTAL_ROCK, ROUXE_ROCK, ARCHAIC_GLASS, ARCHAIC_GLASS_PANE, MIASMA_SURFACE, DECEITFUL_PEAT, DECEITFUL_MUD, // MIASMA, DARK_WATER
                         SHADOWROOT_STAIRS, DEAD_WOOD_STAIRS, DARK_WILLOW_STAIRS, NIGHTSTONE_STAIRS, NIGHTSTONE_BRICK_STAIRS, TRENCHSTONE_STAIRS, TRENCHSTONE_BRICK_STAIRS,
                         DEWSHROOM_STAIRS, VIRIDSHROOM_STAIRS, NIGHTSHROOM_STAIRS, BOGSHROOM_STAIRS, ROCKSHROOM_BRICK_STAIRS,
