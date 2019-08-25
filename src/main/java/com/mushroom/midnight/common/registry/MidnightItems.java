@@ -16,7 +16,6 @@ import com.mushroom.midnight.common.item.tool.MidnightHoeItem;
 import com.mushroom.midnight.common.item.tool.MidnightPickaxeItem;
 import com.mushroom.midnight.common.item.tool.MidnightShieldItem;
 import com.mushroom.midnight.common.item.tool.MidnightShovelItem;
-import com.mushroom.midnight.common.util.CompassRotationGetter;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.BlockNamedItem;
@@ -27,7 +26,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Items;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.item.SwordItem;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -235,6 +233,7 @@ public class MidnightItems {
                 .add("skulk_spawn_egg", props -> new SpawnEggItem(MidnightEntities.SKULK, 0x4B5065, 0x4E268A, props));
 //                .add("shade_squirrel_spawn_egg", props -> new SpawnEggItem(MidnightEntities.SHADE_SQUIRREL, 0x4f435a, 0xdccf70, props))
 
-        Items.COMPASS.addPropertyOverride(new ResourceLocation("angle"), new CompassRotationGetter());
+        // TODO: Reimplement
+//        Items.COMPASS.addPropertyOverride(new ResourceLocation("angle"), new CompassRotationGetter());
     }
 }

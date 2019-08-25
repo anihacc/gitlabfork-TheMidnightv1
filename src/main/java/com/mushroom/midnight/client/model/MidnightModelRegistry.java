@@ -11,14 +11,12 @@ import com.mushroom.midnight.client.render.entity.NightStagRenderer;
 import com.mushroom.midnight.client.render.entity.NovaRenderer;
 import com.mushroom.midnight.client.render.entity.NovaSpikeRenderer;
 import com.mushroom.midnight.client.render.entity.PenumbrianRenderer;
-import com.mushroom.midnight.client.render.entity.RiftRenderer;
 import com.mushroom.midnight.client.render.entity.RifterRenderer;
 import com.mushroom.midnight.client.render.entity.ShadeSquirrelRenderer;
 import com.mushroom.midnight.client.render.entity.SkulkRenderer;
 import com.mushroom.midnight.client.render.entity.StingerRenderer;
 import com.mushroom.midnight.client.render.entity.TreeHopperRenderer;
 import com.mushroom.midnight.common.entity.CloudEntity;
-import com.mushroom.midnight.common.entity.RiftEntity;
 import com.mushroom.midnight.common.entity.creature.CrystalBugEntity;
 import com.mushroom.midnight.common.entity.creature.DeceitfulSnapperEntity;
 import com.mushroom.midnight.common.entity.creature.HunterEntity;
@@ -61,7 +59,6 @@ public class MidnightModelRegistry {
     private static final int DEFAULT_FOLIAGE_COLOR = 0x8F6DBC;
 
     public static void registerModels(ModelRegistryEvent event) {
-        RenderingRegistry.registerEntityRenderingHandler(RiftEntity.class, RiftRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(RifterEntity.class, RifterRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(HunterEntity.class, HunterRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(BladeshroomCapEntity.class, BladeshroomCapRenderer::new);

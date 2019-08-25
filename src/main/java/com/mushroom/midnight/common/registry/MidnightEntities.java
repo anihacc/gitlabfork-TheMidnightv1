@@ -1,7 +1,6 @@
 package com.mushroom.midnight.common.registry;
 
 import com.mushroom.midnight.common.entity.CloudEntity;
-import com.mushroom.midnight.common.entity.RiftEntity;
 import com.mushroom.midnight.common.entity.creature.CrystalBugEntity;
 import com.mushroom.midnight.common.entity.creature.DeceitfulSnapperEntity;
 import com.mushroom.midnight.common.entity.creature.HunterEntity;
@@ -41,14 +40,6 @@ import static com.mushroom.midnight.Midnight.*;
 @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(MODID)
 public class MidnightEntities {
-    public static final EntityType<RiftEntity> RIFT = EntityType.Builder.<RiftEntity>create(RiftEntity::new, EntityClassification.MISC)
-            .setTrackingRange(1024)
-            .setUpdateInterval(20)
-            .setShouldReceiveVelocityUpdates(false)
-            .size(1.8f, 4.0f)
-            .setCustomClientFactory(RiftEntity::new)
-            .immuneToFire()
-            .build(MODID + ":rift");
     public static final EntityType<RifterEntity> RIFTER = EntityType.Builder.create(RifterEntity::new, MIDNIGHT_MOB)
             .setTrackingRange(80)
             .setUpdateInterval(3)
@@ -155,8 +146,6 @@ public class MidnightEntities {
 
     @SubscribeEvent
     public static void onRegisterEntities(final RegistryEvent.Register<EntityType<?>> event) {
-        RIFT.setRegistryName(MODID, "rift");
-        event.getRegistry().register(RIFT);
         RIFTER.setRegistryName(MODID, "rifter");
         event.getRegistry().register(RIFTER);
         HUNTER.setRegistryName(MODID, "hunter");

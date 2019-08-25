@@ -3,17 +3,14 @@ package com.mushroom.midnight.client;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.particle.MidnightParticles;
-import com.mushroom.midnight.client.sound.IdleRiftSound;
 import com.mushroom.midnight.common.capability.RifterCapturable;
 import com.mushroom.midnight.common.config.MidnightConfig;
-import com.mushroom.midnight.common.entity.RiftEntity;
 import com.mushroom.midnight.common.registry.MidnightEffects;
 import com.mushroom.midnight.common.registry.MidnightSounds;
 import com.mushroom.midnight.common.registry.MidnightSurfaceBiomes;
 import com.mushroom.midnight.common.util.EntityUtil;
 import com.mushroom.midnight.common.util.MidnightUtil;
 import com.mushroom.midnight.common.util.ResetHookHandler;
-import com.mushroom.midnight.common.world.GlobalBridgeManager;
 import com.mushroom.midnight.common.world.MidnightAtmosphereController;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
@@ -29,7 +26,6 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraftforge.api.distmarker.Dist;
@@ -38,14 +34,12 @@ import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
@@ -91,27 +85,9 @@ public class ClientEventHandler {
                 if (MidnightUtil.isMidnightDimension(player.world)) {
                     spawnAmbientParticles(player);
                     playAmbientSounds(player);
-                } else {
-                    pullSelfPlayer(player);
                 }
 
                 SENSITIVITY_HOOK.apply(player.isPotionActive(MidnightEffects.STUNNED));
-            } else if (event.phase == TickEvent.Phase.START) {
-                GlobalBridgeManager.getClient().update();
-            }
-        }
-    }
-
-    private static void pullSelfPlayer(ClientPlayerEntity player) {
-        AxisAlignedBB pullBounds = player.getBoundingBox().grow(RiftEntity.PULL_RADIUS);
-        List<RiftEntity> rifts = player.world.getEntitiesWithinAABB(RiftEntity.class, pullBounds);
-        for (RiftEntity rift : rifts) {
-            if (!rift.wasUsed()) {
-                double pullIntensity = rift.getPullIntensity();
-                if (pullIntensity > 0.0 && player.isSleeping()) {
-                    cancelSleep(player);
-                }
-                rift.pullEntity(pullIntensity, player);
             }
         }
     }
@@ -244,14 +220,6 @@ public class ClientEventHandler {
             playingMusic = SimpleSound.music(sound);
 
             event.setResultSound(playingMusic);
-        }
-    }
-
-    @SubscribeEvent
-    public static void onSpawnEntity(EntityJoinWorldEvent event) {
-        Entity entity = event.getEntity();
-        if (entity instanceof RiftEntity && event.getWorld().isRemote) {
-            CLIENT.getSoundHandler().play(new IdleRiftSound((RiftEntity) entity));
         }
     }
 

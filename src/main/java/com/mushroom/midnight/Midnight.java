@@ -25,9 +25,6 @@ import com.mushroom.midnight.common.loot.InBlockLootCondition;
 import com.mushroom.midnight.common.loot.IsChildLootCondition;
 import com.mushroom.midnight.common.network.AnimationMessage;
 import com.mushroom.midnight.common.network.BombExplosionMessage;
-import com.mushroom.midnight.common.network.BridgeCreateMessage;
-import com.mushroom.midnight.common.network.BridgeRemovalMessage;
-import com.mushroom.midnight.common.network.BridgeStateMessage;
 import com.mushroom.midnight.common.network.CaptureEntityMessage;
 import com.mushroom.midnight.common.network.ItemActivationMessage;
 import com.mushroom.midnight.common.network.RockshroomBrokenMessage;
@@ -65,7 +62,7 @@ import org.apache.logging.log4j.Logger;
 @Mod.EventBusSubscriber(modid = Midnight.MODID)
 public class Midnight {
     public static final String MODID = "midnight";
-    public static final String NETWORK_PROTOCOL = "1";
+    public static final String NETWORK_PROTOCOL = "2";
 
     public static final Logger LOGGER = LogManager.getLogger(Midnight.class);
     public static final IProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
@@ -129,37 +126,22 @@ public class Midnight {
                 .consumer(CaptureEntityMessage::handle)
                 .add();
 
-        CHANNEL.messageBuilder(BridgeCreateMessage.class, 1)
-                .encoder(BridgeCreateMessage::serialize).decoder(BridgeCreateMessage::deserialize)
-                .consumer(BridgeCreateMessage::handle)
-                .add();
-
-        CHANNEL.messageBuilder(BridgeStateMessage.class, 2)
-                .encoder(BridgeStateMessage::serialize).decoder(BridgeStateMessage::deserialize)
-                .consumer(BridgeStateMessage::handle)
-                .add();
-
-        CHANNEL.messageBuilder(BridgeRemovalMessage.class, 3)
-                .encoder(BridgeRemovalMessage::serialize).decoder(BridgeRemovalMessage::deserialize)
-                .consumer(BridgeRemovalMessage::handle)
-                .add();
-
-        CHANNEL.messageBuilder(AnimationMessage.class, 4)
+        CHANNEL.messageBuilder(AnimationMessage.class, 1)
                 .encoder(AnimationMessage::serialize).decoder(AnimationMessage::deserialize)
                 .consumer(AnimationMessage::handle)
                 .add();
 
-        CHANNEL.messageBuilder(RockshroomBrokenMessage.class, 5)
+        CHANNEL.messageBuilder(RockshroomBrokenMessage.class, 2)
                 .encoder(RockshroomBrokenMessage::serialize).decoder(RockshroomBrokenMessage::deserialize)
                 .consumer(RockshroomBrokenMessage::handle)
                 .add();
 
-        CHANNEL.messageBuilder(ItemActivationMessage.class, 6)
+        CHANNEL.messageBuilder(ItemActivationMessage.class, 3)
                 .encoder(ItemActivationMessage::serialize).decoder(ItemActivationMessage::deserialize)
                 .consumer(ItemActivationMessage::handle)
                 .add();
 
-        CHANNEL.messageBuilder(BombExplosionMessage.class, 7)
+        CHANNEL.messageBuilder(BombExplosionMessage.class, 4)
                 .encoder(BombExplosionMessage::serialize).decoder(BombExplosionMessage::deserialize)
                 .consumer(BombExplosionMessage::handle)
                 .add();

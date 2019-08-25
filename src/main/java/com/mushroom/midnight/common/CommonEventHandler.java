@@ -4,13 +4,10 @@ import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.capability.RiftTraveller;
 import com.mushroom.midnight.common.capability.RifterCapturable;
 import com.mushroom.midnight.common.config.MidnightConfig;
-import com.mushroom.midnight.common.entity.RiftEntity;
 import com.mushroom.midnight.common.event.RifterCaptureEvent;
 import com.mushroom.midnight.common.event.RifterReleaseEvent;
 import com.mushroom.midnight.common.registry.MidnightEffects;
 import com.mushroom.midnight.common.util.MidnightUtil;
-import com.mushroom.midnight.common.world.GlobalBridgeManager;
-import com.mushroom.midnight.common.world.RiftSpawnHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -18,9 +15,6 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
@@ -28,11 +22,8 @@ import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.List;
 
 @Mod.EventBusSubscriber(modid = Midnight.MODID)
 public class CommonEventHandler {
@@ -72,20 +63,9 @@ public class CommonEventHandler {
     public static void onWorldTick(TickEvent.WorldTickEvent event) {
         if (event.phase == TickEvent.Phase.START) {
             World world = event.world;
-            if (!world.isRemote) {
-                GlobalBridgeManager.getServer().update();
-            }
-
             IS_TICKING_MIDNIGHT.set(MidnightUtil.isMidnightDimension(world));
         } else {
             IS_TICKING_MIDNIGHT.set(false);
-        }
-    }
-
-    @SubscribeEvent
-    public static void onServerTick(TickEvent.ServerTickEvent event) {
-        if (MidnightConfig.general.riftSpawnRarity.get() > 0 && event.phase == TickEvent.Phase.END) {
-            RiftSpawnHandler.update();
         }
     }
 
@@ -124,7 +104,8 @@ public class CommonEventHandler {
         }
     }
 
-    @SubscribeEvent
+    // TODO: Reimplement with new rifts
+    /*@SubscribeEvent
     public static void onSleep(PlayerSleepInBedEvent event) {
         if (event.getResultStatus() == null) {
             PlayerEntity player = event.getPlayer();
@@ -136,7 +117,7 @@ public class CommonEventHandler {
                 player.sendStatusMessage(new TranslationTextComponent("status.midnight.rift_nearby"), true);
             }
         }
-    }
+    }*/
 
     @SubscribeEvent
     public static void onPlaySound(PlaySoundAtEntityEvent event) {

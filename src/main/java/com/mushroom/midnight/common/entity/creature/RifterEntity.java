@@ -1,26 +1,18 @@
 package com.mushroom.midnight.common.entity.creature;
 
-import com.google.common.collect.ImmutableList;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.capability.RifterCapturable;
-import com.mushroom.midnight.common.entity.IRiftTraveler;
-import com.mushroom.midnight.common.entity.RiftEntity;
-import com.mushroom.midnight.common.entity.RiftTravelEntry;
 import com.mushroom.midnight.common.entity.TargetIdleTracker;
 import com.mushroom.midnight.common.entity.task.RifterCaptureGoalGoal;
-import com.mushroom.midnight.common.entity.task.RifterKeepNearRiftGoal;
 import com.mushroom.midnight.common.entity.task.RifterMeleeGoal;
-import com.mushroom.midnight.common.entity.task.RifterReturnGoal;
 import com.mushroom.midnight.common.entity.task.RifterTeleportGoal;
-import com.mushroom.midnight.common.entity.task.RifterTransportGoal;
 import com.mushroom.midnight.common.entity.util.DragSolver;
-import com.mushroom.midnight.common.entity.util.EntityReference;
 import com.mushroom.midnight.common.event.RifterCaptureEvent;
 import com.mushroom.midnight.common.event.RifterReleaseEvent;
-import com.mushroom.midnight.common.util.MidnightUtil;
 import com.mushroom.midnight.common.network.CaptureEntityMessage;
 import com.mushroom.midnight.common.registry.MidnightEffects;
 import com.mushroom.midnight.common.registry.MidnightSounds;
+import com.mushroom.midnight.common.util.MidnightUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -46,7 +38,6 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -54,13 +45,9 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 import javax.annotation.Nullable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import java.util.UUID;
 
-public class RifterEntity extends MonsterEntity implements IRiftTraveler, IEntityAdditionalSpawnData {
+public class RifterEntity extends MonsterEntity implements IEntityAdditionalSpawnData {
     public static final float HOME_SCALE_MODIFIER = 1.4F;
 
     private static final UUID SPEED_MODIFIER_ID = UUID.fromString("3b8cda1f-c11d-478b-98b1-6144940c7ba1");
@@ -77,7 +64,6 @@ public class RifterEntity extends MonsterEntity implements IRiftTraveler, IEntit
     private static final double RIFT_SEARCH_RADIUS = 48.0;
     private static final float DROP_DAMAGE_THRESHOLD = 2.0F;
 
-    private final EntityReference<RiftEntity> homeRift;
     private final DragSolver dragSolver;
 
     private final TargetIdleTracker targetIdleTracker = new TargetIdleTracker(this, 3.0);
@@ -90,7 +76,6 @@ public class RifterEntity extends MonsterEntity implements IRiftTraveler, IEntit
 
     public RifterEntity(EntityType<? extends RifterEntity> entityType, World world) {
         super(entityType, world);
-        this.homeRift = new EntityReference<>(world);
         this.dragSolver = new DragSolver(this);
 
         float scaleModifier = MidnightUtil.isMidnightDimension(world) ? HOME_SCALE_MODIFIER : 1.0F;
@@ -111,13 +96,15 @@ public class RifterEntity extends MonsterEntity implements IRiftTraveler, IEntit
     protected void registerGoals() {
         super.registerGoals();
 
-        this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(0, new RifterReturnGoal(this, 1.3));
+        // TODO: Rifter AI needs rework for new rifts
 
-        this.goalSelector.addGoal(1, new RifterKeepNearRiftGoal(this, 1.0));
+        this.goalSelector.addGoal(0, new SwimGoal(this));
+//        this.goalSelector.addGoal(0, new RifterReturnGoal(this, 1.3));
+
+//        this.goalSelector.addGoal(1, new RifterKeepNearRiftGoal(this, 1.0));
         this.goalSelector.addGoal(1, new RifterTeleportGoal(this));
 
-        this.goalSelector.addGoal(2, new RifterTransportGoal(this, 1.0));
+//        this.goalSelector.addGoal(2, new RifterTransportGoal(this, 1.0));
         this.goalSelector.addGoal(3, new RifterCaptureGoalGoal(this, 1.0));
         this.goalSelector.addGoal(4, new RifterMeleeGoal(this, 1.0));
 
@@ -157,13 +144,6 @@ public class RifterEntity extends MonsterEntity implements IRiftTraveler, IEntit
             if (this.captureCooldown > 0) {
                 this.captureCooldown--;
             }
-
-            if (!MidnightUtil.isMidnightDimension(this.world)) {
-                this.updateHomeRift();
-                if (this.ticksExisted % 20 == 0 && !this.homeRift.isPresent()) {
-                    this.attackEntityFrom(DamageSource.OUT_OF_WORLD, 2.0F);
-                }
-            }
         }
 
         if (!this.world.isRemote || Midnight.PROXY.isClientPlayer(this.capturedEntity)) {
@@ -178,10 +158,7 @@ public class RifterEntity extends MonsterEntity implements IRiftTraveler, IEntit
     }
 
     public boolean shouldCapture() {
-        if (MidnightUtil.isMidnightDimension(this.world)) {
-            return false;
-        }
-        return this.homeRift.isPresent();
+        return !MidnightUtil.isMidnightDimension(this.world);
     }
 
     private void applyHomeModifier(IAttribute attribute, AttributeModifier modifier) {
@@ -192,17 +169,6 @@ public class RifterEntity extends MonsterEntity implements IRiftTraveler, IEntit
                 instance.applyModifier(modifier);
             } else {
                 instance.removeModifier(modifier);
-            }
-        }
-    }
-
-    private void updateHomeRift() {
-        if (this.ticksExisted % 20 == 0 && !this.homeRift.isPresent()) {
-            AxisAlignedBB searchBounds = this.getBoundingBox().grow(RIFT_SEARCH_RADIUS);
-            List<RiftEntity> rifts = this.world.getEntitiesWithinAABB(RiftEntity.class, searchBounds);
-            if (!rifts.isEmpty()) {
-                rifts.sort(Comparator.comparingDouble(this::getDistanceSq));
-                this.homeRift.set(rifts.get(0));
             }
         }
     }
@@ -305,10 +271,6 @@ public class RifterEntity extends MonsterEntity implements IRiftTraveler, IEntit
         return this.capturedEntity != null;
     }
 
-    public EntityReference<RiftEntity> getHomeRift() {
-        return this.homeRift;
-    }
-
     public DragSolver getDragSolver() {
         return this.dragSolver;
     }
@@ -337,39 +299,13 @@ public class RifterEntity extends MonsterEntity implements IRiftTraveler, IEntit
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
-        compound.put("home_rift", this.homeRift.serialize(new CompoundNBT()));
         compound.putBoolean("spawned_through_rift", this.spawnedThroughRift);
     }
 
     @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
-        this.homeRift.deserialize(compound.getCompound("home_rift"));
         this.spawnedThroughRift = compound.getBoolean("spawned_through_rift");
-    }
-
-    @Override
-    public void onEnterRift(RiftEntity rift) {
-        if (this.capturedEntity != null) {
-            this.setCapturedEntity(null);
-        }
-    }
-
-    @Override
-    public RiftTravelEntry createTravelEntry(RiftEntity rift) {
-        return this.createTravelEntry(this, rift);
-    }
-
-    @Override
-    public Collection<RiftTravelEntry> getAdditionalTravelers(RiftEntity rift) {
-        if (this.capturedEntity != null) {
-            return ImmutableList.of(this.createTravelEntry(this.capturedEntity, rift));
-        }
-        return Collections.emptyList();
-    }
-
-    private RiftTravelEntry createTravelEntry(Entity entity, RiftEntity rift) {
-        return new RiftTravelEntry(entity);
     }
 
     @Override

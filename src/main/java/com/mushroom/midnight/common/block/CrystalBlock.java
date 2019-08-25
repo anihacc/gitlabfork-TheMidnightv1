@@ -14,9 +14,6 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.ToolType;
-
-import javax.annotation.Nullable;
 
 @SuppressWarnings("deprecation")
 public class CrystalBlock extends Block {
@@ -24,17 +21,6 @@ public class CrystalBlock extends Block {
 
     public CrystalBlock(Block.Properties properties) {
         super(properties);
-    }
-
-    @Override
-    public int getHarvestLevel(BlockState state) {
-        return 1;
-    }
-
-    @Nullable
-    @Override
-    public ToolType getHarvestTool(BlockState state) {
-        return ToolType.PICKAXE;
     }
 
     @Override

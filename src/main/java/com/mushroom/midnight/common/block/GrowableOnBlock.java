@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Random;
 
 @SuppressWarnings("deprecation")
-public abstract class GrowableOnBlock extends Block implements IGrowable {
+public class GrowableOnBlock extends Block implements IGrowable {
     private final boolean applyBonemeal;
 
     public GrowableOnBlock(Properties properties, boolean applyBonemeal) {

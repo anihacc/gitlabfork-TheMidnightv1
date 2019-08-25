@@ -5,8 +5,6 @@ import joptsimple.internal.Strings;
 import net.minecraft.world.GameRules;
 
 public class MidnightGameRules {
-    public static final GameRules.RuleKey<GameRules.BooleanValue> DO_RIFT_SPAWNING = GameRules.register("doRiftSpawning", DefaultInitBooleanValue.create(true));
-
     private static class DefaultInitBooleanValue extends GameRules.BooleanValue {
         private DefaultInitBooleanValue(GameRules.RuleType<GameRules.BooleanValue> type, boolean value) {
             super(type, value);

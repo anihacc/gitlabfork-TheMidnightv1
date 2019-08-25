@@ -9,7 +9,6 @@ import com.mushroom.midnight.common.block.CacheBlock;
 import com.mushroom.midnight.common.block.CrystalBlock;
 import com.mushroom.midnight.common.block.CrystalotusBlock;
 import com.mushroom.midnight.common.block.DeceitfulAlgaeBlock;
-import com.mushroom.midnight.common.block.DeceitfulMudBlock;
 import com.mushroom.midnight.common.block.DoubleFungiBlock;
 import com.mushroom.midnight.common.block.DoubleMalignantFlowerBlock;
 import com.mushroom.midnight.common.block.DragonNestBlock;
@@ -19,6 +18,7 @@ import com.mushroom.midnight.common.block.FungiInsideBlock;
 import com.mushroom.midnight.common.block.GlobFungusBlock;
 import com.mushroom.midnight.common.block.GlobFungusHatBlock;
 import com.mushroom.midnight.common.block.GlowingBlock;
+import com.mushroom.midnight.common.block.GrowableOnBlock;
 import com.mushroom.midnight.common.block.HangablePlantBlock;
 import com.mushroom.midnight.common.block.HangingLeavesBlock;
 import com.mushroom.midnight.common.block.HangingVinesBlock;
@@ -35,14 +35,13 @@ import com.mushroom.midnight.common.block.MidnightGemBlock;
 import com.mushroom.midnight.common.block.MidnightGlassBlock;
 import com.mushroom.midnight.common.block.MidnightGlassPaneBlock;
 import com.mushroom.midnight.common.block.MidnightMyceliumBlock;
-import com.mushroom.midnight.common.block.MidnightOreBlock;
 import com.mushroom.midnight.common.block.MidnightPlantBlock;
 import com.mushroom.midnight.common.block.MidnightSaplingBlock;
 import com.mushroom.midnight.common.block.MidnightStairsBlock;
 import com.mushroom.midnight.common.block.MidnightWoodPlankBlock;
 import com.mushroom.midnight.common.block.MossBlock;
-import com.mushroom.midnight.common.block.NightstoneBlock;
-import com.mushroom.midnight.common.block.RiftPlantBlock;
+import com.mushroom.midnight.common.block.MudBlock;
+import com.mushroom.midnight.common.block.RiftPortalBlock;
 import com.mushroom.midnight.common.block.RockshroomBlock;
 import com.mushroom.midnight.common.block.SoilBlock;
 import com.mushroom.midnight.common.block.SporchBlock;
@@ -427,6 +426,8 @@ public class MidnightBlocks {
     public static final Block MALIGNANT_NIGHTSHADE = Blocks.AIR;
     public static final Block MALIGNANT_WISTERIA = Blocks.AIR;
 
+    public static final Block RIFT_PORTAL = Blocks.AIR;
+
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         RegUtil.blocks(event.getRegistry())
@@ -434,35 +435,51 @@ public class MidnightBlocks {
                         Block.Properties.create(Material.ORGANIC, MaterialColor.MAGENTA_TERRACOTTA)
                                 .hardnessAndResistance(0.6f)
                                 .sound(SoundType.PLANT)
+                                .harvestLevel(0)
+                                .harvestTool(ToolType.SHOVEL)
                         , () -> DIRT))
                 .add("dirt", new SoilBlock(
                         Block.Properties.create(Material.EARTH, MaterialColor.BLUE_TERRACOTTA)
                                 .hardnessAndResistance(0.5f)
                                 .sound(SoundType.GROUND)
+                                .harvestLevel(0)
+                                .harvestTool(ToolType.SHOVEL)
                         , true))
                 .add("coarse_dirt", new SoilBlock(
                         Block.Properties.create(Material.EARTH, MaterialColor.BLUE_TERRACOTTA)
                                 .hardnessAndResistance(0.5f)
                                 .sound(SoundType.GROUND)
+                                .harvestLevel(0)
+                                .harvestTool(ToolType.SHOVEL)
                         , false))
                 .add("mycelium", new MidnightMyceliumBlock(
                         Block.Properties.create(Material.ROCK, MaterialColor.PINK)
                                 .hardnessAndResistance(1.5f, 10f)
-                                .sound(SoundType.STONE))
+                                .sound(SoundType.STONE)
+                                .harvestLevel(0)
+                                .harvestTool(ToolType.PICKAXE))
                 )
-                .add("deceitful_mud", new DeceitfulMudBlock())
+                .add("deceitful_mud", new MudBlock(
+                        Block.Properties.create(Material.ORGANIC, MaterialColor.GRAY_TERRACOTTA)
+                                .hardnessAndResistance(0.5f, 0f)
+                                .harvestTool(ToolType.SHOVEL).harvestLevel(0))
+                )
                 .add("deceitful_peat", new SoilBlock(
                         Block.Properties.create(Material.EARTH, MaterialColor.BLUE_TERRACOTTA)
                                 .hardnessAndResistance(0.5F)
                                 .sound(SoundType.GROUND)
+                                .harvestLevel(0)
+                                .harvestTool(ToolType.SHOVEL)
                         , true));
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.ROCK, MaterialColor.BLUE_TERRACOTTA)
                         .hardnessAndResistance(1.5f, 10f)
-                        .sound(SoundType.STONE).harvestTool(ToolType.PICKAXE).harvestLevel(0)
+                        .sound(SoundType.STONE)
+                        .harvestTool(ToolType.PICKAXE)
+                        .harvestLevel(0)
                 )
-                .add("nightstone", NightstoneBlock::new)
+                .add("nightstone", properties -> new GrowableOnBlock(properties, true))
                 .add("nightstone_bricks", Block::new)
                 .add("chiseled_nightstone_bricks", Block::new)
                 .add("rockshroom_bricks", Block::new)
@@ -633,19 +650,22 @@ public class MidnightBlocks {
         RegUtil.blocks(event.getRegistry())
                 .add("rockshroom", new RockshroomBlock())
                 .add("stinger_egg", new StingerEggBlock())
-                .add("bloomcrystal", new BloomCrystalBlock(Block.Properties.create(Material.ROCK, MaterialColor.PINK).hardnessAndResistance(2.0F).sound(SoundType.GLASS).lightValue(15).tickRandomly()))
+                .add("bloomcrystal", new BloomCrystalBlock(Block.Properties.create(Material.ROCK, MaterialColor.PINK).hardnessAndResistance(2.0F).sound(SoundType.GLASS).lightValue(15).tickRandomly().harvestTool(ToolType.PICKAXE).harvestLevel(1)))
                 .add("bloomcrystal_rock", new Block(Block.Properties.create(Material.ROCK, MaterialColor.PINK).sound(SoundType.GLASS).lightValue(14).hardnessAndResistance(4f).harvestTool(ToolType.PICKAXE).harvestLevel(1)))
-                .add("rouxe", new CrystalBlock(Block.Properties.create(Material.ROCK, MaterialColor.RED).hardnessAndResistance(2.0F).sound(SoundType.GLASS).lightValue(3)))
+                .add("rouxe", new CrystalBlock(Block.Properties.create(Material.ROCK, MaterialColor.RED).hardnessAndResistance(2.0F).sound(SoundType.GLASS).lightValue(3).harvestTool(ToolType.PICKAXE).harvestLevel(1)))
                 .add("rouxe_rock", new GlowingBlock(Block.Properties.create(Material.ROCK, MaterialColor.RED).sound(SoundType.GLASS).lightValue(2).hardnessAndResistance(4f).harvestTool(ToolType.PICKAXE).harvestLevel(1)))
                 .add("miasma_surface", new MiasmaSurfaceBlock())
-                .add("dark_pearl_ore", new MidnightGemBlock(0))
-                .add("tenebrum_ore", new MidnightOreBlock(2))
-                .add("nagrilite_ore", new MidnightOreBlock(2))
-                .add("ebonite_ore", new MidnightGemBlock(1))
-                .add("archaic_ore", new MidnightGemBlock(0))
                 .add("archaic_glass", new MidnightGlassBlock())
                 .add("archaic_glass_pane", new MidnightGlassPaneBlock())
                 .add("suavis", new SuavisBlock());
+
+        RegUtil.blocks(event.getRegistry())
+                .withProperties(() -> Block.Properties.create(Material.ROCK).hardnessAndResistance(3f, 5f).sound(SoundType.STONE).harvestTool(ToolType.PICKAXE))
+                .add("dark_pearl_ore", props -> new MidnightGemBlock(props.harvestLevel(0)))
+                .add("tenebrum_ore", props -> new Block(props.harvestLevel(2)))
+                .add("nagrilite_ore", props -> new Block(props.harvestLevel(2)))
+                .add("ebonite_ore", props -> new MidnightGemBlock(props.harvestLevel(1)))
+                .add("archaic_ore", props -> new MidnightGemBlock(props.harvestLevel(0)));
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.from(Blocks.CHEST))
@@ -669,7 +689,7 @@ public class MidnightBlocks {
                 .add("viridshroom_wall_sporch", props -> new WallSporchBlock(SporchBlock.SporchType.VIRIDSHROOM, props));
 
         RegUtil.blocks(event.getRegistry())
-                .withProperties(() -> Block.Properties.create(Material.WOOD, MaterialColor.ADOBE).hardnessAndResistance(2f, 5f).sound(SoundType.WOOD))
+                .withProperties(() -> Block.Properties.create(Material.WOOD, MaterialColor.ADOBE).hardnessAndResistance(2f, 5f).sound(SoundType.WOOD).harvestTool(ToolType.AXE).harvestLevel(0))
                 .add("shadowroot_planks", MidnightWoodPlankBlock::new)
                 .add("dead_wood_planks", MidnightWoodPlankBlock::new)
                 .add("dark_willow_planks", MidnightWoodPlankBlock::new)
@@ -854,17 +874,17 @@ public class MidnightBlocks {
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.PLANTS).hardnessAndResistance(1.0F).sound(SoundType.PLANT))
-                .add("malignant_blue_plant_block", RiftPlantBlock::new)
-                .add("malignant_red_plant_block", RiftPlantBlock::new)
-                .add("malignant_purple_plant_block", RiftPlantBlock::new)
-                .add("malignant_green_plant_block", RiftPlantBlock::new);
+                .add("malignant_blue_plant_block", Block::new)
+                .add("malignant_red_plant_block", Block::new)
+                .add("malignant_purple_plant_block", Block::new)
+                .add("malignant_green_plant_block", Block::new);
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.PLANTS).hardnessAndResistance(1.0F).sound(SoundType.PLANT).lightValue(8))
-                .add("glowing_malignant_blue_plant_block", RiftPlantBlock::new)
-                .add("glowing_malignant_red_plant_block", RiftPlantBlock::new)
-                .add("glowing_malignant_purple_plant_block", RiftPlantBlock::new)
-                .add("glowing_malignant_green_plant_block", RiftPlantBlock::new);
+                .add("glowing_malignant_blue_plant_block", Block::new)
+                .add("glowing_malignant_red_plant_block", Block::new)
+                .add("glowing_malignant_purple_plant_block", Block::new)
+                .add("glowing_malignant_green_plant_block", Block::new);
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0F).sound(SoundType.PLANT))
@@ -913,6 +933,13 @@ public class MidnightBlocks {
                 .add("malignant_bloodroot", DoubleMalignantFlowerBlock::new)
                 .add("malignant_nightshade", DoubleMalignantFlowerBlock::new)
                 .add("malignant_wisteria", DoubleMalignantFlowerBlock::new);
+
+        RegUtil.blocks(event.getRegistry())
+                .add("rift_portal", new RiftPortalBlock(Block.Properties.create(Material.PORTAL)
+                        .hardnessAndResistance(-1.0F, 3600000.0F)
+                        .doesNotBlockMovement()
+                        .noDrops()
+                ));
     }
 
     @SubscribeEvent

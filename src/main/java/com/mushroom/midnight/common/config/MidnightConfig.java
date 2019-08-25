@@ -19,7 +19,6 @@ public class MidnightConfig {
         public final ForgeConfigSpec.ConfigValue<Integer> bladeshroomDamageChance;
         public final ForgeConfigSpec.ConfigValue<Boolean> canRespawnInMidnight;
         public final ForgeConfigSpec.ConfigValue<Boolean> allowLightningDamage;
-        public final ForgeConfigSpec.ConfigValue<Integer> riftSpawnRarity;
         public final ForgeConfigSpec.ConfigValue<Integer> rifterSpawnRarity;
         public final ForgeConfigSpec.ConfigValue<Integer> maxRifterByRift;
         public final ForgeConfigSpec.ConfigValue<Boolean> allowRifterTeleport;
@@ -43,10 +42,6 @@ public class MidnightConfig {
                     .comment("Allows the lightning in Midnight to burn blocks and do damage to entities. Default= false")
                     .translation(getTranslation("allow_lightning_damage"))
                     .define("allow_lightning_damage", false);
-            riftSpawnRarity = builder
-                    .comment("The rarity that a rift appears. Larger numbers increase rarity. If 0, rifts don't spawn. Default= 1000")
-                    .translation(getTranslation("rift_spawn_rarity"))
-                    .defineInRange("rift_spawn_rarity", 1000, 0, 10000);
             rifterSpawnRarity = builder
                     .comment("The rarity that rifts spawn rifters. Larger numbers increase rarity. If 0, rifters don't spawn. Default= 1000")
                     .translation(getTranslation("rifter_spawn_rarity"))
