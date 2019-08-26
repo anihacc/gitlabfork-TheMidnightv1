@@ -108,11 +108,11 @@ public class MidnightPlantBlock extends BushBlock implements IGrowable, Generata
     }
 
     @Override
-    public void grow(World worldIn, Random rand, BlockPos pos, BlockState state) {
+    public void grow(World world, Random rand, BlockPos pos, BlockState state) {
         if (this.growSupplier != null) {
-            MidnightDoublePlantBlock doublePlant = (MidnightDoublePlantBlock) this.growSupplier.get();
-            if (doublePlant.getDefaultState().isValidPosition(worldIn, pos) && worldIn.isAirBlock(pos.up())) {
-                doublePlant.placeAt(worldIn, pos, 2);
+            BlockState plantState = this.growSupplier.get().getDefaultState();
+            if (plantState.isValidPosition(world, pos) && world.isAirBlock(pos.up())) {
+                MidnightDoublePlantBlock.placeAt(world, pos, plantState, 2);
             }
         }
     }

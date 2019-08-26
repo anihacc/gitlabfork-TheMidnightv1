@@ -18,18 +18,27 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class RiftPortalBlock extends Block {
+    private static final VoxelShape SHAPE = Block.makeCuboidShape(0.0, 0.0, 0.0, 16.0, 15.0, 16.0);
+
     public RiftPortalBlock(Properties properties) {
         super(properties);
     }
 
+    @Override
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return SHAPE;
+    }
+
+    @Override
     @Deprecated
     public VoxelShape getCollisionShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
-        return isClosed(world, pos) ? state.getShape(world, pos) : VoxelShapes.empty();
+        return isClosed(world, pos) ? SHAPE : VoxelShapes.empty();
     }
 
     @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         super.onEntityCollision(state, world, pos, entity);
+        if (entity.posY >= pos.getY() + 15.0 / 16.0) return;
 
         if (isClosed(world, pos)) {
             entity.setMotion(entity.getMotion().add(0.0, 0.1, 0.0));

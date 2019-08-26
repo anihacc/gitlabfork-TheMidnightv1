@@ -1,10 +1,15 @@
 package com.mushroom.midnight.common.world.rift;
 
+import com.google.common.collect.Lists;
 import com.mushroom.midnight.Midnight;
+import com.mushroom.midnight.common.block.DoubleMalignantFlowerBlock;
+import com.mushroom.midnight.common.block.MalignantFlowerBlock;
+import com.mushroom.midnight.common.block.MossBlock;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightItems;
 import com.mushroom.midnight.common.world.noise.INoiseSampler;
 import com.mushroom.midnight.common.world.noise.PerlinNoiseSampler;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,19 +28,40 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.BitSet;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
+import java.util.function.Consumer;
 
 @Mod.EventBusSubscriber(modid = Midnight.MODID)
 public class EntranceRiftGenerator {
     private static final INoiseSampler WARP_NOISE = new PerlinNoiseSampler(new Random(8555034668646880878L));
+    private static final INoiseSampler SPIRE_WARP_NOISE = new PerlinNoiseSampler(new Random(8555034668646880878L));
 
     private static final int OUTER_RADIUS = 2;
 
     private static final double PORTAL_RADIUS = 3.0;
 
+    private static final Direction[] VERTICAL_DIRECTIONS = new Direction[] { Direction.UP, Direction.DOWN };
+
+    private static final Block[] VINES = new Block[] {
+            MidnightBlocks.MALIGNANT_RED_HANGING_VINES,
+            MidnightBlocks.MALIGNANT_RED_BRIDGING_VINES,
+    };
+
+    private static final Block[] SHORT_FLOWERS = new Block[] {
+            MidnightBlocks.MALIGNANT_FOXGLOVE,
+            MidnightBlocks.MALIGNANT_HEMLOCK,
+            MidnightBlocks.MALIGNANT_MANDRAKE,
+    };
+
     static {
         WARP_NOISE.setFrequency(0.1);
         WARP_NOISE.setAmplitude(3.0);
+
+        SPIRE_WARP_NOISE.setFrequency(0.5);
+        SPIRE_WARP_NOISE.setAmplitude(0.9);
     }
 
     // TODO: Test code
@@ -59,14 +85,23 @@ public class EntranceRiftGenerator {
     }
 
     public void generate(World world, BlockPos origin, Random random) {
-        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
-
         int craterRadius = random.nextInt(3) + 7;
         int radius = craterRadius + OUTER_RADIUS;
-        int totalDepth = craterRadius / 2;
 
         CoverMask coverMask = new CoverMask(radius + 6);
+
+        this.generateCrater(world, random, origin, craterRadius, radius, coverMask);
+        this.generateTendrils(world, random, origin, radius, coverMask);
+        this.generateSpires(world, random, origin, craterRadius + 1.5F);
+
+        this.decorateRift(world, random, origin, radius + 4);
+    }
+
+    private void generateCrater(World world, Random random, BlockPos origin, int craterRadius, int radius, CoverMask coverMask) {
         DistanceField distanceField = this.generateDistanceField(origin.getX(), origin.getZ(), radius + 2);
+        int totalDepth = craterRadius / 2;
+
+        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 
         for (int z = -radius; z <= radius; z++) {
             for (int x = -radius; x <= radius; x++) {
@@ -90,8 +125,44 @@ public class EntranceRiftGenerator {
                 coverMask.put(x, z);
             }
         }
+    }
 
-        this.generateTendrils(world, random, origin, radius, coverMask);
+    private BlockState computeSurfaceState(double distance, double radius, Random random) {
+        if (distance < PORTAL_RADIUS) {
+            return MidnightBlocks.RIFT_PORTAL.getDefaultState();
+        }
+
+        double distanceFromEdge = radius - distance;
+        double glowChance = (distanceFromEdge / radius) * 0.5;
+
+        if (random.nextFloat() < glowChance) {
+            return MidnightBlocks.GLOWING_MALIGNANT_RED_PLANT_BLOCK.getDefaultState();
+        } else {
+            return MidnightBlocks.MALIGNANT_RED_PLANT_BLOCK.getDefaultState();
+        }
+    }
+
+    private DistanceField generateDistanceField(int originX, int originZ, int radius) {
+        DistanceField field = new DistanceField(radius);
+
+        for (int z = -radius; z <= radius; z++) {
+            for (int x = -radius; x <= radius; x++) {
+                int distanceSq = x * x + z * z;
+
+                double warp = WARP_NOISE.get(originX + x, originZ + z);
+                double distance = Math.sqrt(distanceSq) + warp;
+
+                field.put(x, z, (float) distance);
+            }
+        }
+
+        return field;
+    }
+
+    private int computeDepth(double distance, int craterRadius, int totalDepth) {
+        int depth = MathHelper.ceil((1.0 - distance / craterRadius) * totalDepth);
+        depth = MathHelper.clamp(depth, 0, totalDepth - 1);
+        return depth;
     }
 
     private void generateTendrils(World world, Random random, BlockPos origin, int radius, CoverMask coverMask) {
@@ -106,7 +177,6 @@ public class EntranceRiftGenerator {
             angle += angleStep;
 
             double angleRad = Math.toRadians(angle);
-
             int x = MathHelper.floor(Math.sin(angleRad) * distance);
             int z = MathHelper.floor(Math.cos(angleRad) * distance);
 
@@ -138,42 +208,95 @@ public class EntranceRiftGenerator {
         return random.nextBoolean() ? Direction.Axis.X : Direction.Axis.Z;
     }
 
-    private BlockState computeSurfaceState(double distance, double radius, Random random) {
-        if (distance < PORTAL_RADIUS) {
-            return MidnightBlocks.RIFT_PORTAL.getDefaultState();
-        }
-
-        double distanceFromEdge = radius - distance;
-        double glowChance = (distanceFromEdge / radius) * 0.5;
-
-        if (random.nextFloat() < glowChance) {
-            return MidnightBlocks.GLOWING_MALIGNANT_RED_PLANT_BLOCK.getDefaultState();
-        } else {
-            return MidnightBlocks.MALIGNANT_RED_PLANT_BLOCK.getDefaultState();
+    private void generateSpires(World world, Random random, BlockPos origin, float spireDistance) {
+        float angle = random.nextFloat() * 90.0F;
+        for (int i = 0; i < 4; i++) {
+            this.generateSpire(world, random, origin, spireDistance, angle);
+            angle += 90.0F;
         }
     }
 
-    private int computeDepth(double distance, int craterRadius, int totalDepth) {
-        int depth = MathHelper.ceil((1.0 - distance / craterRadius) * totalDepth);
-        depth = MathHelper.clamp(depth, 0, totalDepth - 1);
-        return depth;
-    }
+    private void generateSpire(World world, Random random, BlockPos origin, float spireDistance, float angle) {
+        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 
-    private DistanceField generateDistanceField(int originX, int originZ, int radius) {
-        DistanceField field = new DistanceField(radius);
+        double angleRad = Math.toRadians(angle);
 
-        for (int z = -radius; z <= radius; z++) {
-            for (int x = -radius; x <= radius; x++) {
-                int distanceSq = x * x + z * z;
+        double stepX = Math.sin(angleRad);
+        double stepZ = Math.cos(angleRad);
 
-                double warp = WARP_NOISE.get(originX + x, originZ + z);
-                double distance = Math.sqrt(distanceSq) + warp;
+        double x = origin.getX() + stepX * spireDistance;
+        double z = origin.getZ() + stepZ * spireDistance;
+        int y = origin.getY();
 
-                field.put(x, z, (float) distance);
+        float radius = 3.0F + random.nextFloat() * 0.5F;
+
+        while (radius >= 1.0F) {
+            int maxRadius = MathHelper.ceil(radius);
+
+            for (int layerZ = -maxRadius; layerZ <= maxRadius; layerZ++) {
+                for (int layerX = -maxRadius; layerX <= maxRadius; layerX++) {
+                    mutablePos.setPos(x + layerX, y, z + layerZ);
+
+                    double distance = Math.sqrt(layerX * layerX + layerZ * layerZ);
+                    distance += SPIRE_WARP_NOISE.get(mutablePos.getX(), mutablePos.getY(), mutablePos.getZ());
+
+                    if (distance <= radius) {
+                        this.setBlockState(world, mutablePos, MidnightBlocks.MALIGNANT_RED_PLANT_BLOCK.getDefaultState());
+                    }
+                }
             }
-        }
 
-        return field;
+            x -= stepX * (1.5F / radius);
+            z -= stepZ * (1.5F / radius);
+            y++;
+
+            radius *= 0.835F;
+        }
+    }
+
+    private void decorateRift(World world, Random random, BlockPos origin, int radius) {
+        Decorator decorator = new Decorator(world, origin, random, radius);
+
+        decorator.scatter(32, 16, pos -> {
+            for (Direction direction : shuffledDirections(random)) {
+                BlockState state = MidnightBlocks.MALIGNANT_RED_PLANT_SURFACE.getDefaultState().with(MossBlock.FACING, direction);
+                if (state.isValidPosition(world, pos)) {
+                    this.setBlockState(world, pos, state);
+                    break;
+                }
+            }
+        });
+
+        decorator.scatter(24, 16, pos -> {
+            for (Direction direction : shuffledDirections(random)) {
+                Block block = SHORT_FLOWERS[random.nextInt(SHORT_FLOWERS.length)];
+                BlockState state = block.getDefaultState().with(MalignantFlowerBlock.FACING, direction);
+
+                if (state.isValidPosition(world, pos)) {
+                    this.setBlockState(world, pos, state);
+                    break;
+                }
+            }
+        });
+
+        decorator.scatter(8, 6, pos -> {
+            for (Direction direction : VERTICAL_DIRECTIONS) {
+                BlockState state = MidnightBlocks.MALIGNANT_BLOODROOT.getDefaultState().with(DoubleMalignantFlowerBlock.FACING, direction);
+                if (state.isValidPosition(world, pos)) {
+                    DoubleMalignantFlowerBlock.placeAt(world, pos, state, Constants.BlockFlags.NOTIFY_LISTENERS);
+                    break;
+                }
+            }
+        });
+
+        decorator.scatter(16, 16, pos -> {
+            Block block = VINES[random.nextInt(VINES.length)];
+            BlockState state = block.getDefaultState();
+
+            if (state.isValidPosition(world, pos)) {
+                this.setBlockState(world, pos, state);
+            }
+        });
     }
 
     private void carveBlock(IWorld world, BlockPos pos) {
@@ -184,6 +307,12 @@ public class EntranceRiftGenerator {
         if (world.getBlockState(pos).getBlock() == Blocks.BEDROCK) return;
 
         world.setBlockState(pos, state, Constants.BlockFlags.NOTIFY_LISTENERS | Constants.BlockFlags.NOTIFY_NEIGHBORS);
+    }
+
+    private static Collection<Direction> shuffledDirections(Random random) {
+        List<Direction> directions = Lists.newArrayList(Direction.values());
+        Collections.shuffle(directions, random);
+        return directions;
     }
 
     private static class DistanceField extends CircleField {
@@ -245,6 +374,42 @@ public class EntranceRiftGenerator {
 
         int index(int x, int z) {
             return (x + this.radius) + (z + this.radius) * this.diameter;
+        }
+    }
+
+    private static class Decorator {
+        private final World world;
+        private final BlockPos origin;
+        private final Random random;
+        private final int radius;
+
+        private final BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+
+        private Decorator(World world, BlockPos origin, Random random, int radius) {
+            this.world = world;
+            this.origin = origin;
+            this.random = random;
+            this.radius = radius;
+        }
+
+        void scatter(int count, int size, Consumer<BlockPos> consumer) {
+            for (int i = 0; i < count; i++) {
+                int centerX = this.origin.getX() + this.random.nextInt(this.radius) - this.random.nextInt(this.radius);
+                int centerY = this.origin.getY() + this.random.nextInt(5) - this.random.nextInt(3);
+                int centerZ = this.origin.getZ() + this.random.nextInt(this.radius) - this.random.nextInt(this.radius);
+
+                for (int j = 0; j < size; j++) {
+                    this.mutablePos.setPos(
+                            centerX + this.random.nextInt(4) - this.random.nextInt(4),
+                            centerY + this.random.nextInt(3) - this.random.nextInt(3),
+                            centerZ + this.random.nextInt(4) - this.random.nextInt(4)
+                    );
+
+                    if (this.world.isAirBlock(this.mutablePos)) {
+                        consumer.accept(this.mutablePos);
+                    }
+                }
+            }
         }
     }
 }

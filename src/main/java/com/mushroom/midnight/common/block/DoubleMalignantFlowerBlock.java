@@ -9,6 +9,7 @@ import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 
 public class DoubleMalignantFlowerBlock extends MidnightDoublePlantBlock {
     public static final DirectionProperty FACING = DirectionProperty.create("facing", Direction.Plane.VERTICAL);
@@ -45,5 +46,17 @@ public class DoubleMalignantFlowerBlock extends MidnightDoublePlantBlock {
         if (facing.getAxis() != Direction.Axis.Y) return null;
 
         return super.getBaseStateForPlacement(context).with(FACING, facing);
+    }
+
+    public static void placeAt(IWorld world, BlockState state, BlockPos lowerPos, int flags) {
+        DoubleMalignantFlowerBlock block = (DoubleMalignantFlowerBlock) state.getBlock();
+
+        BlockState lowerState = state.with(HALF, DoubleBlockHalf.LOWER);
+        BlockState upperState = state.with(HALF, DoubleBlockHalf.UPPER);
+
+        BlockPos upperPos = block.getAlternatePos(lowerPos, lowerState);
+
+        world.setBlockState(lowerPos, lowerState, flags);
+        world.setBlockState(upperPos, upperState, flags);
     }
 }

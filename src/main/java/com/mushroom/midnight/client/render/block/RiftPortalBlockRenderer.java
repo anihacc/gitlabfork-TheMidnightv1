@@ -2,7 +2,7 @@ package com.mushroom.midnight.client.render.block;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mushroom.midnight.Midnight;
-import com.mushroom.midnight.client.model.BlockEntityModel;
+import com.mushroom.midnight.client.model.RiftPortalBlockModel;
 import com.mushroom.midnight.common.tile.RiftPortalTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
@@ -18,11 +18,14 @@ public class RiftPortalBlockRenderer extends TileEntityRenderer<RiftPortalTileEn
             new ResourceLocation(Midnight.MODID, "textures/effects/rift_portal_mask_2.png")
     };
 
-    private static final BlockEntityModel BLOCK_MODEL = new BlockEntityModel();
+    private static final RiftPortalBlockModel BLOCK_MODEL = new RiftPortalBlockModel();
 
     @Override
     public void render(RiftPortalTileEntity entity, double x, double y, double z, float partialTicks, int destroyStage) {
         if (entity == null) return;
+
+        float closeAnimation = entity.getCloseAnimation(partialTicks);
+        if (closeAnimation >= 1.0F) return;
 
         BlockPos pos = entity.getPos();
         long seed = MathHelper.getCoordinateRandom(pos.getX(), pos.getY(), pos.getZ());
@@ -40,7 +43,7 @@ public class RiftPortalBlockRenderer extends TileEntityRenderer<RiftPortalTileEn
         GlStateManager.polygonOffset(-1.0F, -10.0F);
         GlStateManager.enablePolygonOffset();
 
-        GlStateManager.alphaFunc(GL11.GL_GREATER, entity.getCloseAnimation(partialTicks));
+        GlStateManager.alphaFunc(GL11.GL_GREATER, closeAnimation);
 
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 

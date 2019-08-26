@@ -105,16 +105,6 @@ public class MidnightDoublePlantBlock extends MidnightPlantBlock {
         return this.isValidGround(world.getBlockState(attachedPos), world, attachedPos);
     }
 
-    public void placeAt(IWorld world, BlockPos lowerPos, int flags) {
-        BlockState state = this.getDefaultState();
-        BlockState lowerState = state.with(HALF, DoubleBlockHalf.LOWER);
-        BlockState upperState = state.with(HALF, DoubleBlockHalf.UPPER);
-
-        BlockPos upperPos = this.getAlternatePos(lowerPos, lowerState);
-        world.setBlockState(lowerPos, lowerState, flags);
-        world.setBlockState(upperPos, upperState, flags);
-    }
-
     @Override
     public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         BlockPos alternatePos = this.getAlternatePos(pos, state);
@@ -166,20 +156,28 @@ public class MidnightDoublePlantBlock extends MidnightPlantBlock {
         builder.add(HALF);
     }
 
-    private BlockPos getAlternatePos(BlockPos pos, BlockState state) {
+    protected BlockPos getAlternatePos(BlockPos pos, BlockState state) {
         return pos.offset(this.getAlternateDirection(state));
     }
 
-    private DoubleBlockHalf getAlternateHalf(DoubleBlockHalf half) {
+    protected DoubleBlockHalf getAlternateHalf(DoubleBlockHalf half) {
         return half == DoubleBlockHalf.LOWER ? DoubleBlockHalf.UPPER : DoubleBlockHalf.LOWER;
     }
 
-    private Direction getAlternateDirection(BlockState state) {
+    protected Direction getAlternateDirection(BlockState state) {
         Direction down = this.getDownDirection(state);
         return state.get(HALF) == DoubleBlockHalf.LOWER ? down.getOpposite() : down;
     }
 
     protected Direction getDownDirection(BlockState state) {
         return Direction.DOWN;
+    }
+
+    public static void placeAt(IWorld world, BlockPos pos, BlockState state, int flags) {
+        BlockState lowerState = state.with(HALF, DoubleBlockHalf.LOWER);
+        BlockState upperState = state.with(HALF, DoubleBlockHalf.UPPER);
+
+        world.setBlockState(pos, lowerState, flags);
+        world.setBlockState(pos.up(), upperState, flags);
     }
 }

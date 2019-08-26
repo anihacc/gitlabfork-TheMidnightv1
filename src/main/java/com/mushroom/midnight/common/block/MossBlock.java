@@ -48,7 +48,8 @@ public class MossBlock extends DirectionalBlock {
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
         Direction facing = state.get(FACING);
         BlockPos attachedPos = pos.offset(facing.getOpposite());
-        return Block.hasSolidSide(world.getBlockState(attachedPos), world, attachedPos, facing);
+        BlockState attachedState = world.getBlockState(attachedPos);
+        return Block.hasSolidSide(attachedState, world, attachedPos, facing);
     }
 
     @Override
