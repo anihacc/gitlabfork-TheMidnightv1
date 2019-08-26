@@ -5,8 +5,8 @@ import com.mushroom.midnight.common.entity.util.ToggleAnimation;
 import com.mushroom.midnight.common.registry.MidnightDimensions;
 import com.mushroom.midnight.common.registry.MidnightEntities;
 import com.mushroom.midnight.common.util.BitFlags;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
@@ -132,7 +132,7 @@ public class RiftBridge {
         return world != null && world.isBlockLoaded(this.attachment.getPos());
     }
 
-    public void writeState(ByteBuf buffer) {
+    public void writeState(PacketBuffer buffer) {
         buffer.writeByte(new BitFlags()
                 .withBit(0, this.open.get())
                 .withBit(1, this.unstable.get())
@@ -146,7 +146,7 @@ public class RiftBridge {
         );
     }
 
-    public void handleState(ByteBuf buffer) {
+    public void handleState(PacketBuffer buffer) {
         BitFlags flags = new BitFlags(buffer.readByte());
 
         this.open.set(flags.getBit(0));
