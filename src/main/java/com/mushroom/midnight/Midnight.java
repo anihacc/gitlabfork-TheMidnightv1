@@ -48,7 +48,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -100,8 +99,6 @@ public class Midnight {
         bus.addListener(this::setup);
         bus.addListener(this::registerModels);
         bus.addListener(this::gatherData);
-
-        FluidRegistry.enableUniversalBucket();
     }
 
     private void setup(FMLCommonSetupEvent event) {

@@ -40,7 +40,7 @@ public class UnstableBushFeature extends Feature<NoFeatureConfig> {
             BlockState state = BUSHES[rand.nextInt(BUSHES.length)];
 
             if (world.isAirBlock(pos) && state.isValidPosition(world, pos)) {
-                world.setBlockState(pos, state, Constants.BlockFlags.NOTIFY_LISTENERS);
+                world.setBlockState(pos, state, Constants.BlockFlags.BLOCK_UPDATE);
                 result = true;
             }
         }

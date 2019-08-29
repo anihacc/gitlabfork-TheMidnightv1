@@ -1,5 +1,6 @@
 package com.mushroom.midnight.common.fluid;
 
+import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightFluids;
 import com.mushroom.midnight.common.registry.MidnightItems;
@@ -13,16 +14,26 @@ import net.minecraft.item.Item;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fluids.FluidAttributes;
 
 import java.util.Random;
 
 public abstract class DarkWaterFluid extends WaterFluid {
+    private static final ResourceLocation STILL_TEXTURE = new ResourceLocation(Midnight.MODID, "blocks/dark_water_still");
+    private static final ResourceLocation FLOW_TEXTURE = new ResourceLocation(Midnight.MODID, "blocks/dark_water_flow");
+
+    private static final FluidAttributes ATTRIBUTES = FluidAttributes.builder("midnight.dark_water", STILL_TEXTURE, FLOW_TEXTURE)
+            .block(() -> MidnightBlocks.DARK_WATER)
+            .bucket(() -> MidnightItems.DARK_WATER_BUCKET)
+            .build();
+
     @Override
     public Fluid getFlowingFluid() {
         return MidnightFluids.FLOWING_DARK_WATER;
@@ -67,8 +78,13 @@ public abstract class DarkWaterFluid extends WaterFluid {
     }
 
     private void mixInto(IWorld world, BlockPos pos, BlockState state) {
-        world.setBlockState(pos, state, Constants.BlockFlags.NOTIFY_NEIGHBORS | Constants.BlockFlags.NOTIFY_LISTENERS);
+        world.setBlockState(pos, state, Constants.BlockFlags.NOTIFY_NEIGHBORS | Constants.BlockFlags.BLOCK_UPDATE);
         world.playEvent(1501, pos, 0);
+    }
+
+    @Override
+    protected FluidAttributes createAttributes(Fluid p_createAttributes_1_) {
+        return ATTRIBUTES;
     }
 
     public static class Flowing extends DarkWaterFluid {

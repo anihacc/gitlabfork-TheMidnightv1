@@ -31,7 +31,7 @@ public class PollinatedEffect extends Effect {
         BlockState state = world.getBlockState(pos);
         if (state.getBlock().getMaterial(state).isReplaceable() && TENDRILWEED.isValidPosition(world, pos)) {
             world.playEvent(Constants.WorldEvents.BONEMEAL_PARTICLES, pos, 0);
-            world.setBlockState(pos, TENDRILWEED, Constants.BlockFlags.NOTIFY_NEIGHBORS | Constants.BlockFlags.NOTIFY_LISTENERS);
+            world.setBlockState(pos, TENDRILWEED, Constants.BlockFlags.NOTIFY_NEIGHBORS | Constants.BlockFlags.BLOCK_UPDATE);
         }
     }
 

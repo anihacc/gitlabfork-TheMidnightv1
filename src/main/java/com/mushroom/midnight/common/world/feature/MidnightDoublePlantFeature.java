@@ -30,7 +30,7 @@ public class MidnightDoublePlantFeature extends Feature<DoublePlantConfig> {
             );
 
             if (world.isAirBlock(pos) && pos.getY() < world.getWorld().getDimension().getHeight() - 2 && config.state.isValidPosition(world, pos)) {
-                ((MidnightDoublePlantBlock) config.state.getBlock()).placeAt(world, pos, Constants.BlockFlags.NOTIFY_LISTENERS);
+                ((MidnightDoublePlantBlock) config.state.getBlock()).placeAt(world, pos, Constants.BlockFlags.BLOCK_UPDATE);
                 result = true;
             }
         }

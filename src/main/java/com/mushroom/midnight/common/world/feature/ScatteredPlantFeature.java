@@ -34,7 +34,7 @@ public class ScatteredPlantFeature extends Feature<NoFeatureConfig> {
             );
 
             if (world.isAirBlock(pos) && world.getBlockState(pos.down()).isIn(MidnightTags.Blocks.PLANTABLE_GROUNDS)) {
-                world.setBlockState(pos, this.state, Constants.BlockFlags.NOTIFY_LISTENERS);
+                world.setBlockState(pos, this.state, Constants.BlockFlags.BLOCK_UPDATE);
                 result = true;
             }
         }

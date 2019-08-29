@@ -200,7 +200,7 @@ public class MidnightItems {
                 .add("bladeshroom_cap", BladeshroomCapItem::new);
 
         RegUtil.items(event.getRegistry())
-                .withProperties(() -> new Item.Properties().group(MidnightItemGroups.COMBAT).maxStackSize(1).setTEISR(() -> BombItemRenderer::new))
+                .withProperties(() -> new Item.Properties().group(MidnightItemGroups.COMBAT).maxStackSize(1))
                 .add("nightshroom_spore_bomb", props -> new SporeBombItem(SporeBombItem.Type.NIGHTSHROOM, props))
                 .add("dewshroom_spore_bomb", props -> new SporeBombItem(SporeBombItem.Type.DEWSHROOM, props))
                 .add("viridshroom_spore_bomb", props -> new SporeBombItem(SporeBombItem.Type.VIRIDSHROOM, props))

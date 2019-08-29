@@ -65,12 +65,8 @@ public class SporeBombItem extends Item {
         this.addPropertyOverride(new ResourceLocation("blinking"), (stack, world, entity) -> {
             float fuseTime = world != null ? this.getFuseTime(world, stack) / (float) this.maxFuseTime : 1.0F;
             float ratio = fuseTime * 10f % 1;
-            return ratio < 0.5F ? 1.0F : 0.0F;
+            return ratio > 0.5F ? 1.0F : 0.0F;
         });
-    }
-
-    public Type getBombType() {
-        return this.bombType;
     }
 
     @Override

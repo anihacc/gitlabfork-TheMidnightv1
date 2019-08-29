@@ -21,21 +21,21 @@ public class SkulkModel extends QuadrupedModel<SkulkEntity> {
         this.headModel = new RendererModel(this, 0, 12);
         this.headModel.setRotationPoint(0.0F, 20.0F, -4.0F);
         this.headModel.addBox(-3.5F, -2.0F, -3.0F, 7, 4, 4, 0.0F);
-        this.field_78148_b = new RendererModel(this, 0, 2); // body
-        this.field_78148_b.setRotationPoint(0.0F, 20.0F, 4.0F);
-        this.field_78148_b.addBox(-2.5F, -1.5F, -7.0F, 5, 3, 7, 0.0F);
-        this.field_78149_c = new RendererModel(this, 0, 26); // leg1
-        this.field_78149_c.setRotationPoint(-1.4F, 22.0F, -2.1F);
-        this.field_78149_c.addBox(-1.0F, -2.0F, -1.0F, 2, 4, 2, 0.0F);
-        this.field_78146_d = new RendererModel(this, 0, 26); // leg2
-        this.field_78146_d.setRotationPoint(-1.6F, 22.0F, 2.5F);
-        this.field_78146_d.addBox(-1.0F, -2.0F, -1.0F, 2, 4, 2, 0.0F);
-        this.field_78147_e = new RendererModel(this, 0, 26); // leg3
-        this.field_78147_e.setRotationPoint(1.4F, 22.0F, -2.1F);
-        this.field_78147_e.addBox(-1.0F, -2.0F, -1.0F, 2, 4, 2, 0.0F);
-        this.field_78144_f = new RendererModel(this, 0, 26); // leg4
-        this.field_78144_f.setRotationPoint(1.6F, 22.0F, 2.5F);
-        this.field_78144_f.addBox(-1.0F, -2.0F, -1.0F, 2, 4, 2, 0.0F);
+        this.body = new RendererModel(this, 0, 2); // body
+        this.body.setRotationPoint(0.0F, 20.0F, 4.0F);
+        this.body.addBox(-2.5F, -1.5F, -7.0F, 5, 3, 7, 0.0F);
+        this.legBackRight = new RendererModel(this, 0, 26); // leg1
+        this.legBackRight.setRotationPoint(-1.4F, 22.0F, -2.1F);
+        this.legBackRight.addBox(-1.0F, -2.0F, -1.0F, 2, 4, 2, 0.0F);
+        this.legBackLeft = new RendererModel(this, 0, 26); // leg2
+        this.legBackLeft.setRotationPoint(-1.6F, 22.0F, 2.5F);
+        this.legBackLeft.addBox(-1.0F, -2.0F, -1.0F, 2, 4, 2, 0.0F);
+        this.legFrontRight = new RendererModel(this, 0, 26); // leg3
+        this.legFrontRight.setRotationPoint(1.4F, 22.0F, -2.1F);
+        this.legFrontRight.addBox(-1.0F, -2.0F, -1.0F, 2, 4, 2, 0.0F);
+        this.legFrontLeft = new RendererModel(this, 0, 26); // leg4
+        this.legFrontLeft.setRotationPoint(1.6F, 22.0F, 2.5F);
+        this.legFrontLeft.addBox(-1.0F, -2.0F, -1.0F, 2, 4, 2, 0.0F);
         this.LeftEar = new RendererModel(this, 1, 0);
         this.LeftEar.setRotationPoint(2.5F, -1.0F, -0.5F);
         this.LeftEar.addBox(-1.0F, -3.0F, 0.0F, 2, 3, 1, 0.0F);
@@ -65,7 +65,7 @@ public class SkulkModel extends QuadrupedModel<SkulkEntity> {
     @Override
     public void setRotationAngles(SkulkEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
         super.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
-        this.field_78148_b.rotateAngleX = 0f;
+        this.body.rotateAngleX = 0f;
         this.Tail.rotateAngleY = MathHelper.sin((float) (ageInTicks * Math.PI * 0.25f)) * 0.1f;
         this.LeftEar.rotateAngleX = this.RightEar.rotateAngleX = MathHelper.sin((float) (ageInTicks * Math.PI * 0.2f)) * 0.1f;
     }

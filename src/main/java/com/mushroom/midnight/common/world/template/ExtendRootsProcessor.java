@@ -22,7 +22,7 @@ public class ExtendRootsProcessor implements TemplatePostProcessor {
             mutablePos.move(Direction.DOWN);
 
             while (world.hasBlockState(mutablePos, s -> s.canBeReplacedByLeaves(world, mutablePos))) {
-                world.setBlockState(mutablePos, this.root, Constants.BlockFlags.NOTIFY_LISTENERS);
+                world.setBlockState(mutablePos, this.root, Constants.BlockFlags.BLOCK_UPDATE);
                 mutablePos.move(Direction.DOWN);
             }
         }

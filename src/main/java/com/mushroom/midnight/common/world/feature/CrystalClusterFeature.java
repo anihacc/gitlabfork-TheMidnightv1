@@ -126,6 +126,6 @@ public class CrystalClusterFeature extends Feature<CrystalClusterConfig> {
     }
 
     private void trySetBlock(IWorld world, BlockPos pos, BlockState state) {
-        world.setBlockState(pos, state, Constants.BlockFlags.NOTIFY_LISTENERS | Constants.BlockFlags.NOTIFY_NEIGHBORS);
+        world.setBlockState(pos, state, Constants.BlockFlags.BLOCK_UPDATE | Constants.BlockFlags.NOTIFY_NEIGHBORS);
     }
 }
