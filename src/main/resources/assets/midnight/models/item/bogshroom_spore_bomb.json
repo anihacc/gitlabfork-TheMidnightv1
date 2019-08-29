@@ -1,3 +1,9 @@
 {
-  "parent": "midnight:item/spore_bomb"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "midnight:items/bogshroom_spore_bomb"
+  },
+  "overrides": [
+    {"predicate": {"blinking": 1}, "model": "midnight:items/blinking_spore_bomb"}
+  ]
 }

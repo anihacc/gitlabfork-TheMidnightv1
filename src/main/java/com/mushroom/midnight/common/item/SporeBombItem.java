@@ -23,6 +23,7 @@ import net.minecraft.potion.Potions;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -60,6 +61,12 @@ public class SporeBombItem extends Item {
         super(properties);
         this.bombType = bombType;
         DispenserBlock.registerDispenseBehavior(this, new DispenserBehavior());
+
+        this.addPropertyOverride(new ResourceLocation("blinking"), (stack, world, entity) -> {
+            float fuseTime = world != null ? this.getFuseTime(world, stack) / (float) this.maxFuseTime : 1.0F;
+            float ratio = fuseTime * 10f % 1;
+            return ratio < 0.5F ? 1.0F : 0.0F;
+        });
     }
 
     public Type getBombType() {

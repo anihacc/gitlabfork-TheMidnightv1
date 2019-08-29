@@ -1,7 +1,6 @@
 package com.mushroom.midnight.common.registry;
 
 import com.mushroom.midnight.Midnight;
-import com.mushroom.midnight.client.render.item.BombItemRenderer;
 import com.mushroom.midnight.client.render.item.HighnessItemRenderer;
 import com.mushroom.midnight.client.render.item.ShieldItemRenderer;
 import com.mushroom.midnight.common.item.BladeshroomCapItem;
