@@ -256,16 +256,16 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
                 return;
             }
             if (pos.getY() <= poolLevel) {
-                world.setBlockState(pos, MIASMA, Constants.BlockFlags.NOTIFY_LISTENERS);
+                world.setBlockState(pos, MIASMA, Constants.BlockFlags.BLOCK_UPDATE);
             } else {
-                world.setBlockState(pos, AIR, Constants.BlockFlags.NOTIFY_LISTENERS);
+                world.setBlockState(pos, AIR, Constants.BlockFlags.BLOCK_UPDATE);
             }
         }
 
         private void hardenEdgeBlock(IWorld world, BlockPos pos) {
             BlockState currentState = world.getBlockState(pos);
             if (currentState.isSolid()) {
-                world.setBlockState(pos, SURFACE, Constants.BlockFlags.NOTIFY_LISTENERS);
+                world.setBlockState(pos, SURFACE, Constants.BlockFlags.BLOCK_UPDATE);
             }
         }
 
@@ -288,7 +288,7 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
                         if (world.getBlockState(mutablePos) == SURFACE) {
                             BlockState state = this.selectSurfaceState(random);
                             if (state != null) {
-                                world.setBlockState(mutablePos, state, Constants.BlockFlags.NOTIFY_LISTENERS);
+                                world.setBlockState(mutablePos, state, Constants.BlockFlags.BLOCK_UPDATE);
                             }
                         }
                     }

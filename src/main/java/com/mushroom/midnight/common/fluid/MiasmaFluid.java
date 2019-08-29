@@ -1,7 +1,7 @@
 package com.mushroom.midnight.common.fluid;
 
+import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.particle.FurnaceFlameParticle;
-import com.mushroom.midnight.client.particle.MidnightParticles;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightFluids;
 import com.mushroom.midnight.common.registry.MidnightItems;
@@ -15,10 +15,10 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.fluid.LavaFluid;
 import net.minecraft.item.Item;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -28,6 +28,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fluids.FluidAttributes;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Random;
@@ -35,6 +36,18 @@ import java.util.Random;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public abstract class MiasmaFluid extends LavaFluid {
+    private static final ResourceLocation STILL_TEXTURE = new ResourceLocation(Midnight.MODID, "blocks/miasma_still");
+    private static final ResourceLocation FLOW_TEXTURE = new ResourceLocation(Midnight.MODID, "blocks/miasma_flow");
+
+    private static final FluidAttributes ATTRIBUTES = FluidAttributes.builder("midnight.miasma", STILL_TEXTURE, FLOW_TEXTURE)
+            .block(() -> MidnightBlocks.MIASMA)
+            .bucket(() -> MidnightItems.MIASMA_BUCKET)
+            .density(3000)
+            .viscosity(3000)
+            .luminosity(15)
+            .temperature(400)
+            .build();
+
     @Override
     public Fluid getFlowingFluid() {
         return MidnightFluids.FLOWING_MIASMA;
@@ -98,7 +111,7 @@ public abstract class MiasmaFluid extends LavaFluid {
             }
         }
         if (intoBlock.getBlock() instanceof ILiquidContainer) {
-            ((ILiquidContainer)intoBlock.getBlock()).receiveFluid(world, intoPos, intoBlock, fluidState);
+            ((ILiquidContainer) intoBlock.getBlock()).receiveFluid(world, intoPos, intoBlock, fluidState);
         } else {
             if (!intoBlock.isAir()) {
                 this.beforeReplacingBlock(world, intoPos, intoBlock);
@@ -108,8 +121,13 @@ public abstract class MiasmaFluid extends LavaFluid {
     }
 
     private void mixInto(IWorld world, BlockPos pos, BlockState state) {
-        world.setBlockState(pos, state, Constants.BlockFlags.NOTIFY_NEIGHBORS | Constants.BlockFlags.NOTIFY_LISTENERS);
+        world.setBlockState(pos, state, Constants.BlockFlags.NOTIFY_NEIGHBORS | Constants.BlockFlags.BLOCK_UPDATE);
         world.playEvent(1501, pos, 0);
+    }
+
+    @Override
+    protected FluidAttributes createAttributes(Fluid fluid) {
+        return ATTRIBUTES;
     }
 
     public static class Flowing extends MiasmaFluid {

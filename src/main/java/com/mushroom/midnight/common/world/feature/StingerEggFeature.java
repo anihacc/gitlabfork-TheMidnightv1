@@ -35,7 +35,7 @@ public class StingerEggFeature extends Feature<NoFeatureConfig> {
 
             if (world.isAirBlock(pos) && BLOCK.isValidPosition(world, pos)) {
                 int count = rand.nextInt(4) + 1;
-                world.setBlockState(origin, BLOCK.with(PileOfEggsBlock.EGGS, count), Constants.BlockFlags.NOTIFY_LISTENERS);
+                world.setBlockState(origin, BLOCK.with(PileOfEggsBlock.EGGS, count), Constants.BlockFlags.BLOCK_UPDATE);
                 result = true;
             }
         }

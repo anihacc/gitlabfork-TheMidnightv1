@@ -52,9 +52,9 @@ public class FungiPatchFeature extends FlowersFeature {
             );
             if (world.isAirBlock(pos) && this.fungi.isValidPosition(world, pos)) {
                 if (rand.nextFloat() < tallRatio) {
-                    MidnightDoublePlantBlock.placeAt(world, pos, this.tallFungi, Constants.BlockFlags.NOTIFY_LISTENERS);
+                    MidnightDoublePlantBlock.placeAt(world, pos, this.tallFungi, Constants.BlockFlags.BLOCK_UPDATE);
                 } else {
-                    world.setBlockState(pos, this.fungi, Constants.BlockFlags.NOTIFY_LISTENERS);
+                    world.setBlockState(pos, this.fungi, Constants.BlockFlags.BLOCK_UPDATE);
                 }
                 result = true;
             }

@@ -108,7 +108,6 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.BOGSHROOM_PLANKS);
         this.add(MidnightBlocks.MISTSHROOM);
         this.add(MidnightBlocks.GLOB_FUNGUS);
-        this.add(MidnightBlocks.ROCKSHROOM);
         this.add(MidnightBlocks.ROCKSHROOM_BRICKS);
         this.add(MidnightBlocks.LUMEN_BUD);
         this.add(MidnightBlocks.TENDRILWEED);
@@ -356,11 +355,8 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
                 ))
         ));
 
-        this.add(MidnightBlocks.GLOB_FUNGUS_STEM, block ->
-                silkOrSheared(block, ItemLootEntry.builder(MidnightItems.GLOB_FUNGUS_HAND)
-                        .acceptFunction(SetCount.func_215932_a(ConstantRange.of(4)))
-                )
-        );
+        this.addWithCountAndBonus(MidnightBlocks.GLOB_FUNGUS_STEM, MidnightItems.GLOB_FUNGUS_HAND, ConstantRange.of(4));
+        this.addWithCountAndBonus(MidnightBlocks.ROCKSHROOM, MidnightItems.ROCKSHROOM_CLUMP, RandomValueRange.func_215837_a(2, 3));
 
         this.lootTables.forEach(consumer::accept);
     }
@@ -408,7 +404,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
     private static LootTable.Builder copyName(Block block) {
         return LootTable.builder().addLootPool(checkExplosion(LootPool.builder()
                 .rolls(ONE)
-                .addEntry(ItemLootEntry.builder(block).acceptFunction(CopyName.func_215893_a(CopyName.Source.BLOCK_ENTITY)))
+                .addEntry(ItemLootEntry.builder(block).acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY)))
         ));
     }
 
@@ -519,6 +515,16 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
                         .acceptCondition(BlockStateProperty.builder(block).with(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER))
                         .acceptCondition(Conditions.HAS_SHEARS)
                 ));
+
+        this.add(block, table);
+    }
+
+    private void addWithCountAndBonus(Block block, IItemProvider item, IRandomRange count) {
+        LootTable.Builder table = silkTouched(block, explosionDecay(
+                ItemLootEntry.builder(item)
+                        .acceptFunction(SetCount.func_215932_a(count))
+                        .acceptFunction(ApplyBonus.func_215871_b(Enchantments.FORTUNE))
+        ));
 
         this.add(block, table);
     }

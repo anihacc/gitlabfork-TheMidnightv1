@@ -31,7 +31,7 @@ public class AlgaeFeature extends Feature<NoFeatureConfig> {
             );
 
             if (world.isAirBlock(pos) && BLOCK.isValidPosition(world, pos)) {
-                world.setBlockState(pos, BLOCK, Constants.BlockFlags.NOTIFY_LISTENERS);
+                world.setBlockState(pos, BLOCK, Constants.BlockFlags.BLOCK_UPDATE);
             }
         }
 
