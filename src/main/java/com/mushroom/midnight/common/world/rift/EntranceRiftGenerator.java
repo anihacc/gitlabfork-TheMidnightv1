@@ -283,7 +283,7 @@ public class EntranceRiftGenerator {
             for (Direction direction : VERTICAL_DIRECTIONS) {
                 BlockState state = MidnightBlocks.MALIGNANT_BLOODROOT.getDefaultState().with(DoubleMalignantFlowerBlock.FACING, direction);
                 if (state.isValidPosition(world, pos)) {
-                    DoubleMalignantFlowerBlock.placeAt(world, pos, state, Constants.BlockFlags.NOTIFY_LISTENERS);
+                    DoubleMalignantFlowerBlock.placeAt(world, pos, state, Constants.BlockFlags.BLOCK_UPDATE);
                     break;
                 }
             }
@@ -306,7 +306,7 @@ public class EntranceRiftGenerator {
     private void setBlockState(IWorld world, BlockPos pos, BlockState state) {
         if (world.getBlockState(pos).getBlock() == Blocks.BEDROCK) return;
 
-        world.setBlockState(pos, state, Constants.BlockFlags.NOTIFY_LISTENERS | Constants.BlockFlags.NOTIFY_NEIGHBORS);
+        world.setBlockState(pos, state, Constants.BlockFlags.BLOCK_UPDATE | Constants.BlockFlags.NOTIFY_NEIGHBORS);
     }
 
     private static Collection<Direction> shuffledDirections(Random random) {
