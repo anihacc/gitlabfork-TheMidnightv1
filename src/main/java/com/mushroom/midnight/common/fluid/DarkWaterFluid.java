@@ -30,8 +30,6 @@ public abstract class DarkWaterFluid extends WaterFluid {
     private static final ResourceLocation FLOW_TEXTURE = new ResourceLocation(Midnight.MODID, "blocks/dark_water_flow");
 
     private static final FluidAttributes ATTRIBUTES = FluidAttributes.builder("midnight.dark_water", STILL_TEXTURE, FLOW_TEXTURE)
-            .block(() -> MidnightBlocks.DARK_WATER)
-            .bucket(() -> MidnightItems.DARK_WATER_BUCKET)
             .build();
 
     @Override
