@@ -7,7 +7,6 @@ import com.mushroom.midnight.common.entity.RiftBridge;
 import com.mushroom.midnight.common.entity.RiftEntity;
 import com.mushroom.midnight.common.registry.MidnightDimensions;
 import com.mushroom.midnight.common.registry.MidnightEntities;
-import com.mushroom.midnight.common.registry.MidnightGameRules;
 import com.mushroom.midnight.common.util.MidnightUtil;
 import com.mushroom.midnight.common.util.WorldUtil;
 import net.minecraft.entity.player.PlayerEntity;
@@ -37,6 +36,11 @@ public class RiftSpawnHandler {
     private static boolean warnedOverworldUnloaded;
 
     public static void update() {
+        int spawnRarity = MidnightConfig.general.riftSpawnRarity.get();
+        if (spawnRarity <= 0) {
+            return;
+        }
+
         MinecraftServer server = LogicalSidedProvider.INSTANCE.get(LogicalSide.SERVER);
         if (server == null) {
             return;
@@ -51,10 +55,6 @@ public class RiftSpawnHandler {
             return;
         }
 
-        if (!world.getGameRules().getBoolean(MidnightGameRules.DO_RIFT_SPAWNING)) {
-            return;
-        }
-
         World endpointWorld = DimensionManager.getWorld(server, MidnightDimensions.midnight(), false, false);
         if (!world.isDaytime()) {
             Random random = world.rand;
@@ -65,7 +65,7 @@ public class RiftSpawnHandler {
             }
 
             for (ChunkPos spawnRegion : spawnRegions) {
-                if (random.nextInt(MidnightConfig.general.riftSpawnRarity.get()) == 0) {
+                if (random.nextInt(spawnRarity) == 0) {
                     BlockPos riftPosition = generateRiftPosition(random, spawnRegion);
                     if (endpointWorld != null && (world.getWorldBorder().contains(riftPosition) != endpointWorld.getWorldBorder().contains(riftPosition))) {
                         continue;

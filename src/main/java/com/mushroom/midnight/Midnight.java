@@ -33,7 +33,6 @@ import com.mushroom.midnight.common.network.ItemActivationMessage;
 import com.mushroom.midnight.common.network.RockshroomBrokenMessage;
 import com.mushroom.midnight.common.registry.MidnightCavernousBiomes;
 import com.mushroom.midnight.common.registry.MidnightCriterion;
-import com.mushroom.midnight.common.registry.MidnightGameRules;
 import com.mushroom.midnight.common.registry.MidnightItemGroups;
 import com.mushroom.midnight.common.registry.MidnightSurfaceBiomes;
 import com.mushroom.midnight.common.registry.RegUtil;
@@ -92,7 +91,7 @@ public class Midnight {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, MidnightConfig.CLIENT_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MidnightConfig.GENERAL_SPEC);
 
-        setupMessages();
+        this.setupMessages();
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -106,7 +105,7 @@ public class Midnight {
         CapabilityManager.INSTANCE.register(RifterCapturable.class, new NullStorage<>(), RifterCapturable::new);
         CapabilityManager.INSTANCE.register(AnimationCapability.class, new NullStorage<>(), AnimationCapability::new);
 
-        Reflection.initialize(MidnightCriterion.class, MidnightItemGroups.class, MidnightGameRules.class);
+        Reflection.initialize(MidnightCriterion.class, MidnightItemGroups.class);
 
         EntityUtil.register();
 
