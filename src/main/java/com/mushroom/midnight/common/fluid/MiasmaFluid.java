@@ -40,8 +40,6 @@ public abstract class MiasmaFluid extends LavaFluid {
     private static final ResourceLocation FLOW_TEXTURE = new ResourceLocation(Midnight.MODID, "blocks/miasma_flow");
 
     private static final FluidAttributes ATTRIBUTES = FluidAttributes.builder("midnight.miasma", STILL_TEXTURE, FLOW_TEXTURE)
-            .block(() -> MidnightBlocks.MIASMA)
-            .bucket(() -> MidnightItems.MIASMA_BUCKET)
             .density(3000)
             .viscosity(3000)
             .luminosity(15)
