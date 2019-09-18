@@ -38,7 +38,7 @@ public class CaptureEntityMessage {
         return new CaptureEntityMessage(rifterId, capturedId);
     }
 
-    public static void handle(CaptureEntityMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+    public static boolean handle(CaptureEntityMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
 
         if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
@@ -51,9 +51,9 @@ public class CaptureEntityMessage {
                     rifterEntity.setCapturedEntity(capturedEntity);
                 }
             });
-
-            context.setPacketHandled(true);
         }
+
+        return true;
     }
 
     @OnlyIn(Dist.CLIENT)

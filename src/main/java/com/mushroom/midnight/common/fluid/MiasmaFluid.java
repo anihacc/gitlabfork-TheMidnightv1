@@ -105,7 +105,9 @@ public abstract class MiasmaFluid extends LavaFluid implements NeighborReactiveF
     public boolean reactWithNeighbors(World world, BlockPos pos, BlockState state) {
         boolean nearWater = false;
         for (Direction direction : Direction.values()) {
-            if (direction != Direction.DOWN && world.getFluidState(pos.offset(direction)).isTagged(FluidTags.WATER)) {
+            if (direction == Direction.DOWN) continue;
+            IFluidState fluid = world.getFluidState(pos.offset(direction));
+            if (fluid.isTagged(FluidTags.WATER)) {
                 nearWater = true;
                 break;
             }

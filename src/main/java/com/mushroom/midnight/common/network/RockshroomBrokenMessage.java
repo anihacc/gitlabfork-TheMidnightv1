@@ -31,7 +31,7 @@ public class RockshroomBrokenMessage {
         return new RockshroomBrokenMessage(new BlockPos(x, y, z));
     }
 
-    public static void handle(RockshroomBrokenMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+    public static boolean handle(RockshroomBrokenMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
 
         if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
@@ -41,8 +41,8 @@ public class RockshroomBrokenMessage {
                     ((RockshroomBlock) MidnightBlocks.ROCKSHROOM).spawnSpores(player.world, message.pos);
                 }
             });
-
-            context.setPacketHandled(true);
         }
+
+        return true;
     }
 }

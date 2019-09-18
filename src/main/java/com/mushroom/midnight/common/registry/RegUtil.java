@@ -4,14 +4,11 @@ import com.google.common.base.Preconditions;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
-import java.util.Locale;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -35,10 +32,6 @@ public class RegUtil {
 
     public static Items items(IForgeRegistry<Item> registry) {
         return new Items(registry);
-    }
-
-    public static void registerStructure(String key, Structure<?> structure) {
-        Feature.STRUCTURES.put(key.toLowerCase(Locale.ROOT), structure);
     }
 
     public static class Items {

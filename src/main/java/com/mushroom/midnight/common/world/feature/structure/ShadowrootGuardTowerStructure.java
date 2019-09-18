@@ -21,7 +21,7 @@ public class ShadowrootGuardTowerStructure extends ScatteredStructure<NoFeatureC
 
     @Override
     public String getStructureName() {
-        return "ShadowrootGuardTower";
+        return "midnight:shadowroot_guardtower";
     }
 
     @Override
