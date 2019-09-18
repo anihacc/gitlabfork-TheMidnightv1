@@ -22,14 +22,15 @@ public class BridgeRemovalMessage {
         return new BridgeRemovalMessage(buffer.readInt());
     }
 
-    public static void handle(BridgeRemovalMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+    public static boolean handle(BridgeRemovalMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
 
         if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
             context.enqueueWork(() -> {
                 GlobalBridgeManager.getClient().removeBridge(message.bridgeId);
             });
-            context.setPacketHandled(true);
         }
+
+        return true;
     }
 }

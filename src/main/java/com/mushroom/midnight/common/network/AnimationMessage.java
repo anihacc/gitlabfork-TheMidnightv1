@@ -38,7 +38,7 @@ public class AnimationMessage {
         return new AnimationMessage(entityId, animationType, duration);
     }
 
-    public static void handle(AnimationMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+    public static boolean handle(AnimationMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
 
         if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
@@ -48,7 +48,8 @@ public class AnimationMessage {
                     entity.getCapability(Midnight.ANIMATION_CAP, null).ifPresent(animationCap -> animationCap.setAnimation(entity, message.animationType, message.duration));
                 }
             });
-            context.setPacketHandled(true);
         }
+
+        return true;
     }
 }

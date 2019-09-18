@@ -24,14 +24,15 @@ public class ItemActivationMessage {
         return new ItemActivationMessage(stack);
     }
 
-    public static void handle(ItemActivationMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+    public static boolean handle(ItemActivationMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
 
         if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
             context.enqueueWork(() -> {
                 Minecraft.getInstance().gameRenderer.displayItemActivation(message.stack);
             });
-            context.setPacketHandled(true);
         }
+
+        return true;
     }
 }

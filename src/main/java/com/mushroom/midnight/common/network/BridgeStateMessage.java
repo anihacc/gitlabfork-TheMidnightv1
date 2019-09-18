@@ -35,7 +35,7 @@ public class BridgeStateMessage {
         return new BridgeStateMessage(bridgeId, buffer);
     }
 
-    public static void handle(BridgeStateMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+    public static boolean handle(BridgeStateMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
 
         if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
@@ -46,7 +46,8 @@ public class BridgeStateMessage {
                     bridge.handleState(message.data);
                 }
             });
-            context.setPacketHandled(true);
         }
+
+        return true;
     }
 }

@@ -31,8 +31,6 @@ import java.util.Random;
 import java.util.function.Function;
 
 public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
-    public static final String NAME = "molten_crater";
-
     private static final int SEED = 0x9C55CF;
 
     private static final int GRID_SIZE = 20;
@@ -56,6 +54,7 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
     private static final BlockState SURFACE = MidnightBlocks.TRENCHSTONE.getDefaultState();
 
     private static final INoiseSampler NOISE_SAMPLER = new PerlinNoiseSampler(new Random(SEED));
+    public static final String NAME = "midnight:molten_crater";
 
     static {
         NOISE_SAMPLER.setFrequency(0.001);

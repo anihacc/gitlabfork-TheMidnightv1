@@ -36,7 +36,7 @@ public class BombExplosionMessage {
         return new BombExplosionMessage(posX, posY, posZ, color);
     }
 
-    public static void handle(BombExplosionMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+    public static boolean handle(BombExplosionMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
 
         if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
@@ -46,7 +46,8 @@ public class BombExplosionMessage {
                     MidnightParticles.BOMB_EXPLOSION.spawn(player.world, message.posX, message.posY, message.posZ, 1d, 0d, 0d, message.color);
                 }
             });
-            context.setPacketHandled(true);
         }
+
+        return true;
     }
 }

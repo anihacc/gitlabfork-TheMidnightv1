@@ -41,7 +41,7 @@ public class BridgeCreateMessage {
         return new BridgeCreateMessage(bridgeId, attachment, buffer);
     }
 
-    public static void handle(BridgeCreateMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
+    public static boolean handle(BridgeCreateMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
 
         if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
@@ -57,7 +57,8 @@ public class BridgeCreateMessage {
                 bridge.setAttachment(message.attachment);
                 bridge.handleState(message.data);
             });
-            context.setPacketHandled(true);
         }
+
+        return true;
     }
 }
