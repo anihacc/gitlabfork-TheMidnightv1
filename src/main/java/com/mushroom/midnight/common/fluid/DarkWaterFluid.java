@@ -29,9 +29,6 @@ public abstract class DarkWaterFluid extends WaterFluid {
     private static final ResourceLocation STILL_TEXTURE = new ResourceLocation(Midnight.MODID, "blocks/dark_water_still");
     private static final ResourceLocation FLOW_TEXTURE = new ResourceLocation(Midnight.MODID, "blocks/dark_water_flow");
 
-    private static final FluidAttributes ATTRIBUTES = FluidAttributes.builder("midnight.dark_water", STILL_TEXTURE, FLOW_TEXTURE)
-            .build();
-
     @Override
     public Fluid getFlowingFluid() {
         return MidnightFluids.FLOWING_DARK_WATER;
@@ -81,8 +78,9 @@ public abstract class DarkWaterFluid extends WaterFluid {
     }
 
     @Override
-    protected FluidAttributes createAttributes(Fluid p_createAttributes_1_) {
-        return ATTRIBUTES;
+    protected FluidAttributes createAttributes() {
+        return FluidAttributes.builder(STILL_TEXTURE, FLOW_TEXTURE)
+                .build(this);
     }
 
     public static class Flowing extends DarkWaterFluid {

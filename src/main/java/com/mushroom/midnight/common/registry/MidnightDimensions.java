@@ -22,6 +22,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.lang.reflect.Field;
 import java.util.function.BiFunction;
+import java.util.function.IntSupplier;
 
 @Mod.EventBusSubscriber(modid = Midnight.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MidnightDimensions {
@@ -35,7 +36,7 @@ public class MidnightDimensions {
     private static final ResourceLocation MIDNIGHT_ID = new ResourceLocation(Midnight.MODID, "midnight");
 
     static {
-        // TODO: Temporary hack until Forge fix
+        // TODO: Temporary hack until Forge fix for #6147
         try {
             Field channelField = FMLNetworkConstants.class.getDeclaredField("handshakeChannel");
             channelField.setAccessible(true);
@@ -81,7 +82,7 @@ public class MidnightDimensions {
         }
     }
 
-    public static class S2CDimensionSync {
+    public static class S2CDimensionSync implements IntSupplier {
         final int id;
         final ResourceLocation name;
         final ModDimension dimension;
@@ -93,7 +94,7 @@ public class MidnightDimensions {
             this.id = dimensionType.getId() + 1;
             this.name = DimensionType.getKey(dimensionType);
             this.dimension = dimensionType.getModType();
-            this.skyLight = dimensionType.func_218272_d();
+            this.skyLight = dimensionType.hasSkyLight();
         }
 
         S2CDimensionSync(int id, ResourceLocation name, ModDimension dimension, boolean skyLight) {
@@ -101,6 +102,11 @@ public class MidnightDimensions {
             this.name = name;
             this.dimension = dimension;
             this.skyLight = skyLight;
+        }
+
+        @Override
+        public int getAsInt() {
+            return this.loginIndex;
         }
 
         void setLoginIndex(final int loginIndex) {

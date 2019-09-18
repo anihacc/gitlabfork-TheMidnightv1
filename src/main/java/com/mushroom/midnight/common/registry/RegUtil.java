@@ -4,7 +4,6 @@ import com.google.common.base.Preconditions;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraftforge.registries.GameData;
@@ -39,7 +38,6 @@ public class RegUtil {
     }
 
     public static void registerStructure(String key, Structure<?> structure) {
-        Registry.register(Registry.STRUCTURE_FEATURE, key.toLowerCase(Locale.ROOT), structure);
         Feature.STRUCTURES.put(key.toLowerCase(Locale.ROOT), structure);
     }
 

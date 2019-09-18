@@ -39,13 +39,6 @@ public abstract class MiasmaFluid extends LavaFluid {
     private static final ResourceLocation STILL_TEXTURE = new ResourceLocation(Midnight.MODID, "blocks/miasma_still");
     private static final ResourceLocation FLOW_TEXTURE = new ResourceLocation(Midnight.MODID, "blocks/miasma_flow");
 
-    private static final FluidAttributes ATTRIBUTES = FluidAttributes.builder("midnight.miasma", STILL_TEXTURE, FLOW_TEXTURE)
-            .density(3000)
-            .viscosity(3000)
-            .luminosity(15)
-            .temperature(400)
-            .build();
-
     @Override
     public Fluid getFlowingFluid() {
         return MidnightFluids.FLOWING_MIASMA;
@@ -124,8 +117,13 @@ public abstract class MiasmaFluid extends LavaFluid {
     }
 
     @Override
-    protected FluidAttributes createAttributes(Fluid fluid) {
-        return ATTRIBUTES;
+    protected FluidAttributes createAttributes() {
+        return FluidAttributes.builder(STILL_TEXTURE, FLOW_TEXTURE)
+                .density(3000)
+                .viscosity(3000)
+                .luminosity(15)
+                .temperature(400)
+                .build(this);
     }
 
     public static class Flowing extends MiasmaFluid {
