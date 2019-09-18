@@ -10,7 +10,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 
-// TODO: Register from correct event when Forge is fixed
 @ObjectHolder(Midnight.MODID)
 public class MidnightStructures {
     public static final Structure<NoFeatureConfig> SHADOWROOT_GUARDTOWER = new ShadowrootGuardTowerStructure(NoFeatureConfig::deserialize);
@@ -21,8 +20,5 @@ public class MidnightStructures {
         RegUtil.generic(event)
                 .add("shadowroot_guardtower", SHADOWROOT_GUARDTOWER)
                 .add("molten_crater", MOLTEN_CRATER);
-
-        RegUtil.registerStructure("shadowroot_guardtowder", SHADOWROOT_GUARDTOWER);
-        RegUtil.registerStructure("molten_crater", MOLTEN_CRATER);
     }
 }
