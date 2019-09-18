@@ -1,16 +1,15 @@
 package com.mushroom.midnight.common.fluid;
 
 import com.mushroom.midnight.Midnight;
-import com.mushroom.midnight.client.particle.FurnaceFlameParticle;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightFluids;
 import com.mushroom.midnight.common.registry.MidnightItems;
+import com.mushroom.midnight.common.registry.MidnightSounds;
 import com.mushroom.midnight.common.registry.MidnightTags;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.block.ILiquidContainer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.fluid.LavaFluid;
@@ -35,7 +34,7 @@ import java.util.Random;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public abstract class MiasmaFluid extends LavaFluid {
+public abstract class MiasmaFluid extends LavaFluid implements NeighborReactiveFluid {
     private static final ResourceLocation STILL_TEXTURE = new ResourceLocation(Midnight.MODID, "blocks/miasma_still");
     private static final ResourceLocation FLOW_TEXTURE = new ResourceLocation(Midnight.MODID, "blocks/miasma_flow");
 
@@ -62,19 +61,10 @@ public abstract class MiasmaFluid extends LavaFluid {
     @OnlyIn(Dist.CLIENT)
     @SuppressWarnings("deprecation")
     public void animateTick(World world, BlockPos pos, IFluidState state, Random random) {
-        BlockPos blockpos = pos.up();
-        if (world.getBlockState(blockpos).isAir() && !world.getBlockState(blockpos).isOpaqueCube(world, blockpos)) {
-            if (random.nextInt(100) == 0) {
-                double d0 = (double) ((float) pos.getX() + random.nextFloat());
-                double d1 = (double) (pos.getY() + 1);
-                double d2 = (double) ((float) pos.getZ() + random.nextFloat());
-                FurnaceFlameParticle particle = new FurnaceFlameParticle(world, d0, d1, d2, 0d, 0d, 0d);
-                particle.multipleParticleScaleBy(0.6f);
-                Minecraft.getInstance().particles.addEffect(particle);
-                world.playSound(d0, d1, d2, SoundEvents.BLOCK_LAVA_POP, SoundCategory.BLOCKS, 0.2f + random.nextFloat() * 0.2f, 0.9f + random.nextFloat() * 0.15f, false);
-            }
+        BlockPos abovePos = pos.up();
+        if (world.getBlockState(abovePos).isAir() && !world.getBlockState(abovePos).isOpaqueCube(world, abovePos)) {
             if (random.nextInt(200) == 0) {
-                world.playSound((double) pos.getX(), (double) pos.getY(), (double) pos.getZ(), SoundEvents.BLOCK_LAVA_AMBIENT, SoundCategory.BLOCKS, 0.2f + random.nextFloat() * 0.2f, 0.9f + random.nextFloat() * 0.15f, false);
+                world.playSound(pos.getX(), pos.getY(), pos.getZ(), MidnightSounds.MIASMA_AMBIENT, SoundCategory.BLOCKS, 0.2f + random.nextFloat() * 0.2f, 0.9f + random.nextFloat() * 0.15f, false);
             }
         }
     }
@@ -111,6 +101,32 @@ public abstract class MiasmaFluid extends LavaFluid {
         }
     }
 
+    @Override
+    public boolean reactWithNeighbors(World world, BlockPos pos, BlockState state) {
+        boolean nearWater = false;
+        for (Direction direction : Direction.values()) {
+            if (direction != Direction.DOWN && world.getFluidState(pos.offset(direction)).isTagged(FluidTags.WATER)) {
+                nearWater = true;
+                break;
+            }
+        }
+
+        if (nearWater) {
+            IFluidState fluid = world.getFluidState(pos);
+            if (fluid.isSource()) {
+                this.mixInto(world, pos, MidnightBlocks.TRENCHSTONE.getDefaultState());
+                return false;
+            }
+
+            if (fluid.getActualHeight(world, pos) >= 0.45) {
+                this.mixInto(world, pos, MidnightBlocks.NIGHTSTONE.getDefaultState());
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private void mixInto(IWorld world, BlockPos pos, BlockState state) {
         world.setBlockState(pos, state, Constants.BlockFlags.NOTIFY_NEIGHBORS | Constants.BlockFlags.BLOCK_UPDATE);
         world.playEvent(1501, pos, 0);
@@ -123,6 +139,7 @@ public abstract class MiasmaFluid extends LavaFluid {
                 .viscosity(3000)
                 .luminosity(15)
                 .temperature(400)
+                .sound(SoundEvents.ITEM_BUCKET_FILL_LAVA, SoundEvents.ITEM_BUCKET_EMPTY_LAVA)
                 .build(this);
     }
 

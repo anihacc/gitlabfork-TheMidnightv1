@@ -864,12 +864,12 @@ public class MidnightBlocks {
                 });
 
         RegUtil.blocks(event.getRegistry())
-                .add("dark_water", new MidnightFluidBlock(MidnightFluids.DARK_WATER, false, Block.Properties.create(Material.WATER)
+                .add("dark_water", new MidnightFluidBlock(() -> MidnightFluids.DARK_WATER, false, Block.Properties.create(Material.WATER)
                         .doesNotBlockMovement()
                         .hardnessAndResistance(100.0F)
                         .noDrops()
                 ))
-                .add("miasma", new MidnightFluidBlock(MidnightFluids.MIASMA, true, Block.Properties.create(Material.LAVA)
+                .add("miasma", new MidnightFluidBlock(() -> MidnightFluids.MIASMA, true, Block.Properties.create(Material.LAVA)
                         .doesNotBlockMovement()
                         .hardnessAndResistance(100.0F)
                         .lightValue(15)

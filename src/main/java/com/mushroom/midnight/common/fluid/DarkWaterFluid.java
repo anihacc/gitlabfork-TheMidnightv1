@@ -15,6 +15,8 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -47,6 +49,11 @@ public abstract class DarkWaterFluid extends WaterFluid {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void animateTick(World world, BlockPos pos, IFluidState state, Random random) {
+        if (state.isSource() || state.get(FALLING)) return;
+
+        if (random.nextInt(64) == 0) {
+            world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.BLOCK_WATER_AMBIENT, SoundCategory.BLOCKS, random.nextFloat() * 0.25F + 0.75F, random.nextFloat() + 0.5F, false);
+        }
     }
 
     @Override

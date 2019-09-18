@@ -20,5 +20,8 @@ public class MidnightStructures {
         RegUtil.generic(event)
                 .add("shadowroot_guardtower", SHADOWROOT_GUARDTOWER)
                 .add("molten_crater", MOLTEN_CRATER);
+
+        RegUtil.registerStructure("shadowroot_guardtower", SHADOWROOT_GUARDTOWER);
+        RegUtil.registerStructure("molten_crater", MOLTEN_CRATER);
     }
 }

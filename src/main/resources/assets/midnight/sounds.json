@@ -161,6 +161,11 @@
     "subtitle": "subtitles.block.stinger_egg.crack",
     "sounds": ["midnight:blocks/egg_cracked"]
   },
+  "miasma_ambient": {
+    "category": "block",
+    "subtitle": "subtitles.block.miasma.ambient",
+    "sounds": ["midnight:blocks/miasma_ambient"]
+  },
   "crystal_bug_flying": {
     "category": "neutral",
     "subtitle": "subtitles.entity.crystal_bug.flying",

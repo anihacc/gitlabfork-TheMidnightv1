@@ -60,6 +60,7 @@ public class MidnightSounds {
     public static final SoundEvent HUNTER_FLYING = makeSoundEvent("hunter_flying");
 
     public static final SoundEvent EGG_CRACKED = makeSoundEvent("egg_cracked");
+    public static final SoundEvent MIASMA_AMBIENT = makeSoundEvent("miasma_ambient");
 
     @SubscribeEvent
     public static void onRegisterSounds(RegistryEvent.Register<SoundEvent> event) {
@@ -99,7 +100,8 @@ public class MidnightSounds {
                 HUNTER_DEATH,
                 HUNTER_HURT,
                 HUNTER_FLYING,
-                EGG_CRACKED
+                EGG_CRACKED,
+                MIASMA_AMBIENT
         );
     }
 
