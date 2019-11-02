@@ -2,12 +2,12 @@ package com.mushroom.midnight.client;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mushroom.midnight.Midnight;
+import com.mushroom.midnight.client.particle.MidnightParticles;
 import com.mushroom.midnight.client.sound.IdleRiftSound;
 import com.mushroom.midnight.common.capability.RifterCapturable;
 import com.mushroom.midnight.common.config.MidnightConfig;
 import com.mushroom.midnight.common.entity.RiftEntity;
 import com.mushroom.midnight.common.registry.MidnightEffects;
-import com.mushroom.midnight.common.registry.MidnightParticleTypes;
 import com.mushroom.midnight.common.registry.MidnightSounds;
 import com.mushroom.midnight.common.registry.MidnightSurfaceBiomes;
 import com.mushroom.midnight.common.util.EntityUtil;
@@ -205,7 +205,7 @@ public class ClientEventHandler {
             double velocityX = (random.nextDouble() - 0.5) * 0.04;
             double velocityY = (random.nextDouble() - 0.5) * 0.04;
             double velocityZ = (random.nextDouble() - 0.5) * 0.04;
-            player.world.addParticle(MidnightParticleTypes.AMBIENT_SPORE, particleX, particleY, particleZ, velocityX, velocityY, velocityZ);
+            MidnightParticles.AMBIENT_SPORE.spawn(player.world, particleX, particleY, particleZ, velocityX, velocityY, velocityZ);
         }
     }
 

@@ -1,21 +1,19 @@
 package com.mushroom.midnight.client.particle;
 
-import net.minecraft.client.particle.IAnimatedSprite;
-import net.minecraft.client.particle.IParticleFactory;
-import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.SpriteTexturedParticle;
-import net.minecraft.particles.BasicParticleType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class UnstableBushParticle extends SpriteTexturedParticle {
-    private final IAnimatedSprite spriteSet;
+public class UnstableBushParticle extends MidnightParticle {
+    private final int fruitId;
 
-    private UnstableBushParticle(IAnimatedSprite spriteSet, World world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ) {
+    protected UnstableBushParticle(World world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ, int fruitId) {
         super(world, posX, posY, posZ);
+        this.fruitId = fruitId;
+
         this.motionX = motionX;
         this.motionY = motionY;
         this.motionZ = motionZ;
@@ -23,19 +21,12 @@ public class UnstableBushParticle extends SpriteTexturedParticle {
         particleScale = 0.1f;
         this.maxAge = 60;
         this.canCollide = false;
-        selectSpriteWithAge(this.spriteSet = spriteSet);
     }
 
     @Override
     public void tick() {
-        selectSpriteWithAge(this.spriteSet);
-        this.particleAlpha = age / (float) maxAge;
+        this.particleAlpha = age / (float)maxAge;
         super.tick();
-    }
-
-    @Override
-    public IParticleRenderType getRenderType() {
-        return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
 
     @Override
@@ -45,16 +36,16 @@ public class UnstableBushParticle extends SpriteTexturedParticle {
         return skylight << 20 | blocklight << 4;
     }
 
-    public static class Factory implements IParticleFactory<BasicParticleType> {
-        private IAnimatedSprite spriteSet;
+    @Override
+    ResourceLocation getTexture() {
+        return fruitId == 0 ? MidnightParticleSprites.BLUE_UNSTABLE_BUSH : (fruitId == 1 ? MidnightParticleSprites.LIME_UNSTABLE_BUSH : MidnightParticleSprites.GREEN_UNSTABLE_BUSH);
+    }
 
-        public Factory(IAnimatedSprite spriteSet) {
-            this.spriteSet = spriteSet;
-        }
-
+    @OnlyIn(Dist.CLIENT)
+    public static class Factory implements IParticle {
         @Override
-        public Particle makeParticle(BasicParticleType particleType, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            return new UnstableBushParticle(this.spriteSet, world, x, y, z, xSpeed, ySpeed, zSpeed);
+        public Particle makeParticle(World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... params) {
+            return new UnstableBushParticle(world, x, y, z, xSpeed, ySpeed, zSpeed, params.length > 0 ? params[0] : world.rand.nextInt(3));
         }
     }
 }

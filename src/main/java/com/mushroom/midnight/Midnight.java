@@ -24,6 +24,7 @@ import com.mushroom.midnight.common.loot.InBiomeLootCondition;
 import com.mushroom.midnight.common.loot.InBlockLootCondition;
 import com.mushroom.midnight.common.loot.IsChildLootCondition;
 import com.mushroom.midnight.common.network.AnimationMessage;
+import com.mushroom.midnight.common.network.BombExplosionMessage;
 import com.mushroom.midnight.common.network.BridgeCreateMessage;
 import com.mushroom.midnight.common.network.BridgeRemovalMessage;
 import com.mushroom.midnight.common.network.BridgeStateMessage;
@@ -152,6 +153,11 @@ public class Midnight {
         CHANNEL.messageBuilder(ItemActivationMessage.class, 6)
                 .encoder(ItemActivationMessage::serialize).decoder(ItemActivationMessage::deserialize)
                 .consumer(ItemActivationMessage::handle)
+                .add();
+
+        CHANNEL.messageBuilder(BombExplosionMessage.class, 7)
+                .encoder(BombExplosionMessage::serialize).decoder(BombExplosionMessage::deserialize)
+                .consumer(BombExplosionMessage::handle)
                 .add();
     }
 

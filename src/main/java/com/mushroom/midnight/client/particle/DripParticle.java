@@ -1,37 +1,30 @@
 package com.mushroom.midnight.client.particle;
 
-import com.mushroom.midnight.common.particle.ColorParticleData;
-import com.mushroom.midnight.common.util.MidnightUtil;
-import net.minecraft.client.particle.IAnimatedSprite;
-import net.minecraft.client.particle.IParticleFactory;
-import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.SpriteTexturedParticle;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class DragonsNestDripParticle extends SpriteTexturedParticle {
-    private final IAnimatedSprite spriteSet;
+public class DripParticle extends MidnightParticle {
     private int bobTimer;
 
-    private DragonsNestDripParticle(IAnimatedSprite spriteSet, World world, double x, double y, double z, int color) {
+    public DripParticle(World world, double x, double y, double z, float r, float g, float b) {
         super(world, x, y, z, 0d, 0d, 0d);
-        float[] rgbF = MidnightUtil.getRGBColorF(color);
-        setColor(rgbF[0], rgbF[1], rgbF[2]);
+        this.particleRed = r;
+        this.particleGreen = g;
+        this.particleBlue = b;
         setSize(0.01f, 0.01f);
         this.particleGravity = 0.04f;
         this.maxAge = (int) (64d / (Math.random() * 0.8d + 0.2d));
         this.bobTimer = this.maxAge * 3 / 4;
         this.motionX = this.motionY = this.motionZ = 0d;
         this.particleScale *= 2f;
-        selectSpriteWithAge(this.spriteSet = spriteSet);
     }
 
     @Override
     public void tick() {
-        selectSpriteWithAge(this.spriteSet);
         prevPosX = posX;
         prevPosY = posY;
         prevPosZ = posZ;
@@ -56,25 +49,20 @@ public class DragonsNestDripParticle extends SpriteTexturedParticle {
     }
 
     @Override
-    public IParticleRenderType getRenderType() {
-        return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
-    }
-
-    @Override
     public int getBrightnessForRender(float partialTick) {
         return bobTimer <= 0 ? 0xe000e0 : 0xe000e0 - (0x010001 * bobTimer);
     }
 
-    public static class Factory implements IParticleFactory<ColorParticleData> {
-        private IAnimatedSprite spriteSet;
+    @Override
+    ResourceLocation getTexture() {
+        return MidnightParticleSprites.DRAGON_NEST;
+    }
 
-        public Factory(IAnimatedSprite spriteSet) {
-            this.spriteSet = spriteSet;
-        }
-
+    @OnlyIn(Dist.CLIENT)
+    public static class Factory implements IParticle {
         @Override
-        public Particle makeParticle(ColorParticleData particleType, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            return new DragonsNestDripParticle(this.spriteSet, world, x, y, z, particleType.color);
+        public Particle makeParticle(World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... params) {
+            return new DripParticle(world, x, y, z, params.length > 0 ? params[0] / 255f : 0f, params.length > 1 ? params[1] / 255f : 0f, params.length > 2 ? params[2] / 255f : 0f);
         }
     }
 }
