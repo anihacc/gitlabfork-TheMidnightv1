@@ -93,24 +93,24 @@ public final class MidnightStoneRecipes extends MidnightRecipeProvider {
                 .addCriterion("has_item", Triggers.hasItem(MidnightBlocks.ROCKSHROOM))
                 .build(consumer);
 
-        SingleItemRecipeBuilder.func_218648_a(Ingredient.fromItems(MidnightBlocks.NIGHTSTONE), MidnightBlocks.NIGHTSTONE_BRICKS)
-                .func_218643_a("has_item", Triggers.hasItem(MidnightBlocks.NIGHTSTONE))
-                .func_218647_a(consumer, new ResourceLocation(Midnight.MODID, "nightstone_to_bricks"));
+        SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MidnightBlocks.NIGHTSTONE), MidnightBlocks.NIGHTSTONE_BRICKS)
+                .addCriterion("has_item", Triggers.hasItem(MidnightBlocks.NIGHTSTONE))
+                .build(consumer, new ResourceLocation(Midnight.MODID, "nightstone_to_bricks"));
 
-        SingleItemRecipeBuilder.func_218648_a(Ingredient.fromItems(MidnightBlocks.NIGHTSTONE), MidnightBlocks.CHISELED_NIGHTSTONE_BRICKS)
-                .func_218643_a("has_item", Triggers.hasItem(MidnightBlocks.NIGHTSTONE))
-                .func_218647_a(consumer, new ResourceLocation(Midnight.MODID, "nightstone_to_chiseled_bricks"));
+        SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MidnightBlocks.NIGHTSTONE), MidnightBlocks.CHISELED_NIGHTSTONE_BRICKS)
+                .addCriterion("has_item", Triggers.hasItem(MidnightBlocks.NIGHTSTONE))
+                .build(consumer, new ResourceLocation(Midnight.MODID, "nightstone_to_chiseled_bricks"));
 
-        SingleItemRecipeBuilder.func_218648_a(Ingredient.fromItems(MidnightBlocks.NIGHTSTONE_BRICKS), MidnightBlocks.CHISELED_NIGHTSTONE_BRICKS)
-                .func_218643_a("has_item", Triggers.hasItem(MidnightBlocks.NIGHTSTONE_BRICKS))
-                .func_218647_a(consumer, new ResourceLocation(Midnight.MODID, "nightstone_bricks_to_chiseled_bricks"));
+        SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MidnightBlocks.NIGHTSTONE_BRICKS), MidnightBlocks.CHISELED_NIGHTSTONE_BRICKS)
+                .addCriterion("has_item", Triggers.hasItem(MidnightBlocks.NIGHTSTONE_BRICKS))
+                .build(consumer, new ResourceLocation(Midnight.MODID, "nightstone_bricks_to_chiseled_bricks"));
 
-        SingleItemRecipeBuilder.func_218648_a(Ingredient.fromItems(MidnightBlocks.TRENCHSTONE), MidnightBlocks.TRENCHSTONE_BRICKS)
-                .func_218643_a("has_item", Triggers.hasItem(MidnightBlocks.TRENCHSTONE))
-                .func_218647_a(consumer, new ResourceLocation(Midnight.MODID, "trenchstone_to_bricks"));
+        SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MidnightBlocks.TRENCHSTONE), MidnightBlocks.TRENCHSTONE_BRICKS)
+                .addCriterion("has_item", Triggers.hasItem(MidnightBlocks.TRENCHSTONE))
+                .build(consumer, new ResourceLocation(Midnight.MODID, "trenchstone_to_bricks"));
 
-        SingleItemRecipeBuilder.func_218648_a(Ingredient.fromItems(MidnightBlocks.ROCKSHROOM), MidnightBlocks.ROCKSHROOM_BRICKS)
-                .func_218643_a("has_item", Triggers.hasItem(MidnightBlocks.ROCKSHROOM))
-                .func_218647_a(consumer, new ResourceLocation(Midnight.MODID, "rockshroom_to_bricks"));
+        SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(MidnightBlocks.ROCKSHROOM), MidnightBlocks.ROCKSHROOM_BRICKS)
+                .addCriterion("has_item", Triggers.hasItem(MidnightBlocks.ROCKSHROOM))
+                .build(consumer, new ResourceLocation(Midnight.MODID, "rockshroom_to_bricks"));
     }
 }

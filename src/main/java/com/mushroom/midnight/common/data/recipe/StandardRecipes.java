@@ -190,9 +190,9 @@ public final class StandardRecipes {
             this.addSlab(slab);
 
             ResourceLocation id = ForgeRegistries.ITEMS.getKey(slab.asItem());
-            SingleItemRecipeBuilder.func_218644_a(Ingredient.fromItems(this.material), slab, 2)
-                    .func_218643_a("has_item", Triggers.hasItem(this.material))
-                    .func_218647_a(this.consumer, MidnightUtil.transformPath(id, path -> path + "_stonecutting"));
+            SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(this.material), slab, 2)
+                    .addCriterion("has_item", Triggers.hasItem(this.material))
+                    .build(this.consumer, MidnightUtil.transformPath(id, path -> path + "_stonecutting"));
 
             return this;
         }
@@ -213,9 +213,9 @@ public final class StandardRecipes {
             this.addStairs(stairs);
 
             ResourceLocation id = ForgeRegistries.ITEMS.getKey(stairs.asItem());
-            SingleItemRecipeBuilder.func_218648_a(Ingredient.fromItems(this.material), stairs)
-                    .func_218643_a("has_item", Triggers.hasItem(this.material))
-                    .func_218647_a(this.consumer, MidnightUtil.transformPath(id, path -> path + "_stonecutting"));
+            SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(this.material), stairs)
+                    .addCriterion("has_item", Triggers.hasItem(this.material))
+                    .build(this.consumer, MidnightUtil.transformPath(id, path -> path + "_stonecutting"));
 
             return this;
         }
@@ -240,9 +240,9 @@ public final class StandardRecipes {
 
             ResourceLocation id = ForgeRegistries.ITEMS.getKey(wall.asItem());
 
-            SingleItemRecipeBuilder.func_218648_a(Ingredient.fromItems(this.material), wall)
-                    .func_218643_a("has_item", Triggers.hasItem(this.material))
-                    .func_218647_a(this.consumer, MidnightUtil.transformPath(id, path -> path + "_stonecutting"));
+            SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(this.material), wall)
+                    .addCriterion("has_item", Triggers.hasItem(this.material))
+                    .build(this.consumer, MidnightUtil.transformPath(id, path -> path + "_stonecutting"));
 
             return this;
         }

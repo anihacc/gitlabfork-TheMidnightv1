@@ -107,7 +107,7 @@ public class FishJumpGoal extends JumpGoal {
         if (vec3d.y * vec3d.y < (double) 0.03F && this.fishEntity.rotationPitch != 0.0F) {
             this.fishEntity.rotationPitch = this.updateRotation(this.fishEntity.rotationPitch, 0.0F, 0.2F);
         } else {
-            double d0 = Math.sqrt(Entity.func_213296_b(vec3d));
+            double d0 = Math.sqrt(Entity.horizontalMag(vec3d));
             double d1 = Math.signum(-vec3d.y) * Math.acos(d0 / vec3d.length()) * (double) (180F / (float) Math.PI);
             this.fishEntity.rotationPitch = (float) d1;
         }
