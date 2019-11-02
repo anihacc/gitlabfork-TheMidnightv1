@@ -3,7 +3,9 @@ package com.mushroom.midnight.client;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.util.MidnightUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.world.World;
+import net.minecraftforge.resource.ISelectiveResourceReloadListener;
 import org.lwjgl.openal.AL;
 import org.lwjgl.openal.AL10;
 import org.lwjgl.openal.AL11;
@@ -16,6 +18,12 @@ public final class SoundReverbHandler {
     private static boolean setup;
 
     private static int auxEffectSlot;
+
+    static {
+        ((IReloadableResourceManager) MC.getResourceManager()).addReloadListener((ISelectiveResourceReloadListener) (manager, predicate) -> {
+            setup = false;
+        });
+    }
 
     public static void onPlaySound(int soundId) {
         if (!setup) {

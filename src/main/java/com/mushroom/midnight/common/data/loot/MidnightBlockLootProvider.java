@@ -331,39 +331,39 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
                         .addEntry(ItemLootEntry.builder(MidnightItems.BLADESHROOM_CAP)
                                 .acceptCondition(BlockStateProperty.builder(block).with(BladeshroomBlock.STAGE, BladeshroomBlock.Stage.CAPPED))
                         )
-                        .addEntry(AlternativesLootEntry.func_216149_a(
+                        .addEntry(AlternativesLootEntry.builder(
                                 ItemLootEntry.builder(MidnightItems.BLADESHROOM_SPORES)
                                         .acceptCondition(BlockStateProperty.builder(block).with(BladeshroomBlock.STAGE, BladeshroomBlock.Stage.CAPPED)),
                                 ItemLootEntry.builder(MidnightItems.BLADESHROOM_SPORES)
-                                        .acceptFunction(SetCount.func_215932_a(RandomValueRange.func_215837_a(0.0F, 1.0F)))
+                                        .acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 1.0F)))
                         ))
         ));
 
         this.add(MidnightBlocks.SUAVIS, block -> LootTable.builder().addLootPool(
-                LootPool.builder().rolls(ONE).addEntry(AlternativesLootEntry.func_216149_a(
+                LootPool.builder().rolls(ONE).addEntry(AlternativesLootEntry.builder(
                         ItemLootEntry.builder(block)
                                 .acceptCondition(Conditions.HAS_SILK_TOUCH)
                                 .acceptCondition(BlockStateProperty.builder(block).with(SuavisBlock.STAGE, 3)),
                         ItemLootEntry.builder(MidnightItems.RAW_SUAVIS)
                                 .acceptCondition(BlockStateProperty.builder(block).with(SuavisBlock.STAGE, 3))
-                                .acceptFunction(SetCount.func_215932_a(RandomValueRange.func_215837_a(2.0F, 3.0F))),
+                                .acceptFunction(SetCount.builder(RandomValueRange.of(2.0F, 3.0F))),
                         ItemLootEntry.builder(MidnightItems.RAW_SUAVIS)
                                 .acceptCondition(BlockStateProperty.builder(block).with(SuavisBlock.STAGE, 2))
-                                .acceptFunction(SetCount.func_215932_a(RandomValueRange.func_215837_a(1.0F, 2.0F))),
+                                .acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 2.0F))),
                         ItemLootEntry.builder(MidnightItems.RAW_SUAVIS)
                                 .acceptCondition(BlockStateProperty.builder(block).with(SuavisBlock.STAGE, 1))
-                                .acceptFunction(SetCount.func_215932_a(RandomValueRange.func_215837_a(1.0F, 1.0F)))
+                                .acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 1.0F)))
                 ))
         ));
 
         this.addWithCountAndBonus(MidnightBlocks.GLOB_FUNGUS_STEM, MidnightItems.GLOB_FUNGUS_HAND, ConstantRange.of(4));
-        this.addWithCountAndBonus(MidnightBlocks.ROCKSHROOM, MidnightItems.ROCKSHROOM_CLUMP, RandomValueRange.func_215837_a(2, 3));
+        this.addWithCountAndBonus(MidnightBlocks.ROCKSHROOM, MidnightItems.ROCKSHROOM_CLUMP, RandomValueRange.of(2, 3));
 
         this.lootTables.forEach(consumer::accept);
     }
 
     private static <T> T explosionDecay(ILootFunctionConsumer<T> consumer) {
-        return consumer.acceptFunction(ExplosionDecay.func_215863_b());
+        return consumer.acceptFunction(ExplosionDecay.builder());
     }
 
     private static <T> T checkExplosion(ILootConditionConsumer<T> consumer) {
@@ -390,7 +390,6 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
     private static LootTable.Builder selfOrAlternatives(Block block, ILootCondition.IBuilder condition, LootEntry.Builder<?>... alternatives) {
         return LootTable.builder().addLootPool(LootPool.builder()
                 .addEntry(new AlternativesLootEntry.Builder(ArrayUtils.insert(0, alternatives, ItemLootEntry.builder(block).acceptCondition(condition))))
-                .rolls(ONE)
         );
     }
 
@@ -443,7 +442,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
 
     private void addSlab(Block block) {
         ILootCondition.IBuilder isDouble = BlockStateProperty.builder(block).with(SlabBlock.TYPE, SlabType.DOUBLE);
-        LootFunction.Builder<?> doubleFunction = SetCount.func_215932_a(ConstantRange.of(2)).acceptCondition(isDouble);
+        LootFunction.Builder<?> doubleFunction = SetCount.builder(ConstantRange.of(2)).acceptCondition(isDouble);
 
         LootTable.Builder table = LootTable.builder().addLootPool(LootPool.builder()
                 .addEntry(explosionDecay(ItemLootEntry.builder(block).acceptFunction(doubleFunction)))
@@ -455,7 +454,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
 
     private void addGem(Block block, IItemProvider gem) {
         LootTable.Builder table = silkTouched(block, explosionDecay(
-                ItemLootEntry.builder(gem).acceptFunction(ApplyBonus.func_215869_a(Enchantments.FORTUNE))
+                ItemLootEntry.builder(gem).acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))
         ));
 
         this.add(block, table);
@@ -471,10 +470,10 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
 
     private void addUnstableBush(Block block, IItemProvider fruit) {
         ILootCondition.IBuilder condition = BlockStateProperty.builder(block).with(UnstableBushBloomedBlock.HAS_FRUIT, true);
-        RandomValueRange count = RandomValueRange.func_215837_a(3.0F, 6.0F);
+        RandomValueRange count = RandomValueRange.of(3.0F, 6.0F);
         this.add(block, LootTable.builder().addLootPool(LootPool.builder()
                 .acceptCondition(condition)
-                .addEntry(explosionDecay(ItemLootEntry.builder(fruit).acceptFunction(SetCount.func_215932_a(count))))
+                .addEntry(explosionDecay(ItemLootEntry.builder(fruit).acceptFunction(SetCount.builder(count))))
                 .rolls(ONE)
         ));
     }
@@ -485,7 +484,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
                 .addLootPool(LootPool.builder()
                         .acceptCondition(Conditions.NOT_SHEARS_OR_SILK_TOUCH)
                         .addEntry(explosionDecay(ItemLootEntry.builder(MidnightItems.DARK_STICK)
-                                .acceptFunction(SetCount.func_215932_a(RandomValueRange.func_215837_a(1.0F, 2.0F))))
+                                .acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 2.0F))))
                                 .acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.02F, 0.02F, 0.025F, 0.03F, 0.1F))
                         )
                         .rolls(ONE)
@@ -520,8 +519,8 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
     private void addWithCountAndBonus(Block block, IItemProvider item, IRandomRange count) {
         LootTable.Builder table = silkTouched(block, explosionDecay(
                 ItemLootEntry.builder(item)
-                        .acceptFunction(SetCount.func_215932_a(count))
-                        .acceptFunction(ApplyBonus.func_215871_b(Enchantments.FORTUNE))
+                        .acceptFunction(SetCount.builder(count))
+                        .acceptFunction(ApplyBonus.uniformBonusCount(Enchantments.FORTUNE))
         ));
 
         this.add(block, table);

@@ -37,18 +37,18 @@ public class NovaSpikeEntity extends ThrowableEntity {
 
     public NovaSpikeEntity(EntityType<NovaSpikeEntity> entityType, World world) {
         super(entityType, world);
-        this.setDamage(damage);
+        this.setDamage(this.damage);
     }
 
     public NovaSpikeEntity(World world, double x, double y, double z) {
         super(MidnightEntities.NOVA_SPIKE, x, y, z, world);
-        this.setDamage(damage);
+        this.setDamage(this.damage);
         this.setPosition(x, y, z);
     }
 
     public NovaSpikeEntity(World world, LivingEntity thrower) {
         super(MidnightEntities.NOVA_SPIKE, thrower, world);
-        this.setDamage(damage);
+        this.setDamage(this.damage);
     }
 
     public NovaSpikeEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
@@ -57,41 +57,36 @@ public class NovaSpikeEntity extends ThrowableEntity {
 
     @Override
     protected void onImpact(RayTraceResult result) {
-        LivingEntity livingentity = this.getThrower();
+        LivingEntity thrower = this.getThrower();
         if (result.getType() == RayTraceResult.Type.ENTITY) {
             Entity entity = ((EntityRayTraceResult) result).getEntity();
+            int fireTimer = entity.getFireTimer();
 
-            int j = entity.func_223314_ad();
-
-            DamageSource damagesource;
-
-            if (livingentity == null) {
-                damagesource = DamageSource.causeThrownDamage(this, this);
+            DamageSource damage;
+            if (thrower == null) {
+                damage = DamageSource.causeThrownDamage(this, this);
             } else {
-                damagesource = DamageSource.causeThrownDamage(this, livingentity);
+                damage = DamageSource.causeThrownDamage(this, thrower);
             }
 
-            if (entity.attackEntityFrom(damagesource, getDamage())) {
+            if (entity.attackEntityFrom(damage, this.getDamage())) {
                 this.remove();
             } else {
-                entity.func_223308_g(j);
+                entity.setFireTimer(fireTimer);
                 this.setMotion(this.getMotion().scale(-0.1D));
                 this.rotationYaw += 180.0F;
                 this.prevRotationYaw += 180.0F;
                 this.ticksInAir = 0;
                 if (!this.world.isRemote && this.getMotion().lengthSquared() < 1.0E-7D) {
-
                     this.remove();
                 }
             }
-
-
         } else if (result.getType() == RayTraceResult.Type.BLOCK) {
             BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult) result;
             BlockState blockstate = this.world.getBlockState(blockraytraceresult.getPos());
 
             BlockPos blockpos = new BlockPos(this.posX, this.posY, this.posZ);
-            if (!blockstate.getCollisionShape(world, blockpos).isEmpty()) {
+            if (!blockstate.getCollisionShape(this.world, blockpos).isEmpty()) {
                 this.inBlockState = blockstate;
                 Vec3d vec3d = blockraytraceresult.getHitVec().subtract(this.posX, this.posY, this.posZ);
                 this.setMotion(vec3d);
@@ -108,14 +103,13 @@ public class NovaSpikeEntity extends ThrowableEntity {
 
     @Override
     public void tick() {
-        Vec3d vec3d = this.getMotion();
-        BlockPos blockpos = new BlockPos(this.posX, this.posY, this.posZ);
-        BlockState blockstate = this.world.getBlockState(blockpos);
+        Vec3d motion = this.getMotion();
+        BlockState state = this.world.getBlockState(this.getPosition());
 
         if (this.inGround) {
-            if (this.inBlockState != blockstate && this.world.areCollisionShapesEmpty(this.getBoundingBox().grow(0.06D))) {
+            if (this.inBlockState != state && this.world.areCollisionShapesEmpty(this.getBoundingBox().grow(0.06D))) {
                 this.inGround = false;
-                this.setMotion(vec3d.mul((double) (this.rand.nextFloat() * 0.2F), (double) (this.rand.nextFloat() * 0.2F), (double) (this.rand.nextFloat() * 0.2F)));
+                this.setMotion(motion.mul(this.rand.nextFloat() * 0.2F, this.rand.nextFloat() * 0.2F, this.rand.nextFloat() * 0.2F));
                 this.ticksInGround = 0;
                 this.ticksInAir = 0;
             } else if (!this.world.isRemote) {
@@ -126,10 +120,11 @@ public class NovaSpikeEntity extends ThrowableEntity {
         } else {
             super.tick();
             this.doBlockCollisions();
-            MidnightParticles.SPORE.spawn(world, this.posX, this.posY, this.posZ, 0.0D, 0.05, 0.0D);
+            MidnightParticles.SPORE.spawn(this.world, this.posX, this.posY, this.posZ, 0.0D, 0.05, 0.0D);
         }
     }
 
+    @Override
     public void writeAdditional(CompoundNBT compound) {
         compound.putShort("life", (short) this.ticksInGround);
         if (this.inBlockState != null) {
@@ -138,12 +133,9 @@ public class NovaSpikeEntity extends ThrowableEntity {
 
         compound.putByte("inGround", (byte) (this.inGround ? 1 : 0));
         compound.putFloat("damage", this.damage);
-
     }
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
+    @Override
     public void readAdditional(CompoundNBT compound) {
         this.ticksInGround = compound.getShort("life");
         if (compound.contains("inBlockState", Constants.NBT.TAG_COMPOUND)) {
@@ -154,7 +146,6 @@ public class NovaSpikeEntity extends ThrowableEntity {
         if (compound.contains("damage", Constants.NBT.TAG_ANY_NUMERIC)) {
             this.damage = compound.getFloat("damage");
         }
-
     }
 
     protected void tryDespawn() {
@@ -162,11 +153,10 @@ public class NovaSpikeEntity extends ThrowableEntity {
         if (this.ticksInGround >= 300) {
             this.remove();
         }
-
     }
 
-    public void setDamage(float damageIn) {
-        this.damage = damageIn;
+    public void setDamage(float damage) {
+        this.damage = damage;
     }
 
     public float getDamage() {
@@ -175,7 +165,6 @@ public class NovaSpikeEntity extends ThrowableEntity {
 
     @Override
     protected void registerData() {
-
     }
 
     @OnlyIn(Dist.CLIENT)

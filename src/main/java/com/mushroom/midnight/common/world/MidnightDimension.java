@@ -145,7 +145,7 @@ public class MidnightDimension extends Dimension {
             // disable here for custom spawner if needed
             //chunkProvider.setAllowedSpawnTypes(false, false);
 
-            chunkProvider.chunkManager.func_223491_f().forEach(chunkHolder -> {
+            chunkProvider.chunkManager.getLoadedChunksIterable().forEach(chunkHolder -> {
                 chunkHolder.func_219297_b().getNow(ChunkHolder.UNLOADED_CHUNK).left().ifPresent(chunk -> {
                     Random rand = this.world.rand;
 
