@@ -1,7 +1,7 @@
 package com.mushroom.midnight.common.entity.util;
 
 import com.mushroom.midnight.common.util.MatrixStack;
-import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
@@ -110,7 +110,7 @@ public class ChainSolver<E extends LivingEntity> {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void apply(RendererModel[] parts, float partialTicks) {
+    public void apply(ModelRenderer[] parts, float partialTicks) {
         if (parts.length != this.solvedNodes.length) {
             throw new IllegalArgumentException("Expected " + this.solvedNodes.length + " parts but got " + parts.length);
         }
@@ -126,7 +126,7 @@ public class ChainSolver<E extends LivingEntity> {
 
             float distanceHorizontal = MathHelper.sqrt(deltaX * deltaX + deltaZ * deltaZ);
 
-            RendererModel part = parts[i];
+            ModelRenderer part = parts[i];
             part.rotateAngleY = (float) (Math.atan2(deltaZ, deltaX) - Math.PI / 2.0F);
             part.rotateAngleX = (float) Math.atan2(deltaY, distanceHorizontal);
         }

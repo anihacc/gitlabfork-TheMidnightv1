@@ -30,7 +30,7 @@ public class BulbAnglerRenderer extends MobRenderer<BulbAnglerEntity, BulbAngler
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(BulbAnglerEntity entity) {
+    public ResourceLocation getEntityTexture(BulbAnglerEntity entity) {
         return TEXTURE;
     }
 

@@ -30,7 +30,7 @@ public class NoiseChunkPrimer {
         double noiseScaleXZ = 1.0 / this.horizontalGranularity;
         double noiseScaleY = 1.0 / this.verticalGranularity;
 
-        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+        BlockPos.Mutable mutablePos = new BlockPos.Mutable();
 
         for (int noiseZ = 0; noiseZ < this.noiseWidth; noiseZ++) {
             int indexZ = noiseZ * sampleWidth;

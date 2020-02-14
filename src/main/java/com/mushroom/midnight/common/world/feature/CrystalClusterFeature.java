@@ -41,7 +41,7 @@ public class CrystalClusterFeature extends Feature<CrystalClusterConfig> {
             return false;
         }
 
-        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+        BlockPos.Mutable mutablePos = new BlockPos.Mutable();
         for (int localZ = -this.radius; localZ <= this.radius; localZ++) {
             for (int localX = -this.radius; localX <= this.radius; localX++) {
                 int height = heights[(localX + this.radius) + (localZ + this.radius) * size];
@@ -56,7 +56,7 @@ public class CrystalClusterFeature extends Feature<CrystalClusterConfig> {
     }
 
     private BlockPos populateHeights(IWorld world, Random rand, BlockPos origin, int[] heights, int size) {
-        BlockPos.MutableBlockPos basePos = new BlockPos.MutableBlockPos(origin);
+        BlockPos.Mutable basePos = new BlockPos.Mutable(origin);
 
         for (int localZ = -this.radius; localZ <= this.radius; localZ++) {
             for (int localX = -this.radius; localX <= this.radius; localX++) {
@@ -87,7 +87,7 @@ public class CrystalClusterFeature extends Feature<CrystalClusterConfig> {
     }
 
     private boolean canGenerate(IWorld world, BlockPos origin, int[] heights, int size) {
-        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos(origin);
+        BlockPos.Mutable mutablePos = new BlockPos.Mutable(origin);
         int centerHeight = heights[this.radius + this.radius * size] + 1;
         for (int localY = 0; localY < centerHeight; localY++) {
             mutablePos.setY(origin.getY() + localY);
@@ -98,7 +98,7 @@ public class CrystalClusterFeature extends Feature<CrystalClusterConfig> {
         return true;
     }
 
-    private void generatePillar(IWorld world, Random rand, BlockPos.MutableBlockPos mutablePos, int height, CrystalClusterConfig config) {
+    private void generatePillar(IWorld world, Random rand, BlockPos.Mutable mutablePos, int height, CrystalClusterConfig config) {
         int originY = mutablePos.getY();
         for (int offsetY = 0; offsetY < height; offsetY++) {
             mutablePos.setY(originY + offsetY);
@@ -112,7 +112,7 @@ public class CrystalClusterFeature extends Feature<CrystalClusterConfig> {
 
     private BlockPos findSurfaceBelow(IWorld world, BlockPos origin, int maxSteps) {
         BlockState currentState = world.getBlockState(origin);
-        BlockPos.MutableBlockPos currentPos = new BlockPos.MutableBlockPos(origin);
+        BlockPos.Mutable currentPos = new BlockPos.Mutable(origin);
         for (int i = 0; i < maxSteps; i++) {
             currentPos.move(Direction.DOWN);
             BlockState nextState = world.getBlockState(currentPos);

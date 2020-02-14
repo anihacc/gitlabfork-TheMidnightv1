@@ -20,7 +20,7 @@ public abstract class MidnightCarver<C extends ICarverConfig> extends WorldCarve
     }
 
     @Override
-    protected boolean carveBlock(IChunk chunk, BitSet carvingMask, Random random, BlockPos.MutableBlockPos posHere, BlockPos.MutableBlockPos posAbove, BlockPos.MutableBlockPos posBelow, int p_222703_7_, int p_222703_8_, int p_222703_9_, int globalX, int globalZ, int x, int y, int z, AtomicBoolean foundSurface) {
+    protected boolean carveBlock(IChunk chunk, BitSet carvingMask, Random random, BlockPos.Mutable posHere, BlockPos.Mutable posAbove, BlockPos.Mutable posBelow, int p_222703_7_, int p_222703_8_, int p_222703_9_, int globalX, int globalZ, int x, int y, int z, AtomicBoolean foundSurface) {
         int index = x | z << 4 | y << 8;
         if (carvingMask.get(index)) {
             return false;

@@ -1,13 +1,16 @@
 package com.mushroom.midnight.client.render.entity;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mushroom.midnight.common.entity.projectile.BladeshroomCapEntity;
 import com.mushroom.midnight.common.registry.MidnightItems;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
@@ -20,33 +23,30 @@ public class BladeshroomCapRenderer extends EntityRenderer<BladeshroomCapEntity>
     }
 
     @Override
-    public void doRender(BladeshroomCapEntity entity, double x, double y, double z, float yaw, float partialTicks) {
-        GlStateManager.pushMatrix();
-        GlStateManager.translated(x, y, z);
+    public void render(BladeshroomCapEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+        super.render(entity, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+        matrixStackIn.push();
+        //matrixStackIn.translated(x, y, z);
 
         float rotationYaw = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks;
         float rotationPitch = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
         float spin = entity.prevSpin + (entity.spin - entity.prevSpin) * partialTicks;
+        //matrixStackIn.enableRescaleNormal();
+        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(rotationYaw - 90.0F));
+        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(rotationPitch));
 
-        GlStateManager.rotatef(rotationYaw - 90.0F, 0.0F, 1.0F, 0.0F);
-        GlStateManager.rotatef(rotationPitch, 0.0F, 0.0F, 1.0F);
 
-        GlStateManager.rotatef(spin, 0.0F, 1.0F, 0.0F);
-        GlStateManager.rotatef(90.0F, 1.0F, 0.0F, 0.0F);
+        matrixStackIn.scale(1.5F, 1.5F, 1.5F);
 
-        GlStateManager.enableRescaleNormal();
+        this.getEntityTexture(entity);
+        MC.getItemRenderer().renderItem(STACK, ItemCameraTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.DEFAULT_LIGHT, matrixStackIn, bufferIn);
 
-        GlStateManager.scalef(1.5F, 1.5F, 1.5F);
-
-        this.bindEntityTexture(entity);
-        MC.getItemRenderer().renderItem(STACK, ItemCameraTransforms.TransformType.GROUND);
-
-        GlStateManager.disableRescaleNormal();
-        GlStateManager.popMatrix();
+        //matrixStackIn.disableRescaleNormal();
+        matrixStackIn.pop();
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(BladeshroomCapEntity entity) {
+    public ResourceLocation getEntityTexture(BladeshroomCapEntity entity) {
         return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
     }
 }

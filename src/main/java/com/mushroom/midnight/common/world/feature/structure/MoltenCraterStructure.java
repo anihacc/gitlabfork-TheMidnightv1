@@ -272,7 +272,7 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
             int edgeRadius = this.metadata.radius + EDGE_DEPTH;
             int edgeRadiusSquared = edgeRadius * edgeRadius;
 
-            BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+            BlockPos.Mutable mutablePos = new BlockPos.Mutable();
 
             for (int z = minPos.getZ(); z <= maxPos.getZ(); z++) {
                 for (int x = minPos.getX(); x <= maxPos.getX(); x++) {

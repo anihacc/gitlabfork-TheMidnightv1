@@ -18,7 +18,7 @@ public class TreeHopperRenderer extends MobRenderer<TreeHopperEntity, Treehopper
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(TreeHopperEntity entity) {
+    public ResourceLocation getEntityTexture(TreeHopperEntity entity) {
         return TEXTURE;
     }
 }

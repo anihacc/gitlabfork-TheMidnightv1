@@ -36,7 +36,7 @@ public class SkulkRenderer extends MobRenderer<SkulkEntity, SkulkModel> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(SkulkEntity entity) {
+    public ResourceLocation getEntityTexture(SkulkEntity entity) {
         return TEXTURE;
     }
 }

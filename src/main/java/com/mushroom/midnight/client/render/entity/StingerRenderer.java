@@ -28,7 +28,7 @@ public class StingerRenderer extends MobRenderer<StingerEntity, StingerModel> {
 
     @Override
     @Nullable
-    protected ResourceLocation getEntityTexture(StingerEntity entity) {
+    public ResourceLocation getEntityTexture(StingerEntity entity) {
         return TEXTURE;
     }
 

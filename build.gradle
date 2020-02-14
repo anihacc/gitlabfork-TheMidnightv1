@@ -12,7 +12,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 
 version = "0.5.0"
-group = "com.mushroom"
+group = "com.mushroom.midnight"
 archivesBaseName = "themidnight"
 
 sourceCompatibility = targetCompatibility = '1.8'
@@ -26,7 +26,7 @@ sourceSets {
 }
 
 minecraft {
-  mappings channel: 'snapshot', version: '20191102-1.14.3'
+  mappings channel: 'snapshot', version: '20200204-1.15.1'
   accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
   runs {
     client {
@@ -70,9 +70,9 @@ repositories {
 }
 
 dependencies {
-  minecraft 'net.minecraftforge:forge:1.14.4-28.1.73'
-  runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.18")
-  compileOnly fg.deobf("mezz.jei:jei-1.14.4:6.0.0.18:api")
+  minecraft 'net.minecraftforge:forge:1.15.2-31.1.1'
+  runtimeOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2")
+  compileOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2:api")
 }
 
 jar {

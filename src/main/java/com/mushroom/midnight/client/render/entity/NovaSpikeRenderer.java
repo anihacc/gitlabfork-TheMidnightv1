@@ -1,11 +1,16 @@
 package com.mushroom.midnight.client.render.entity;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.model.NovaSpikeModel;
 import com.mushroom.midnight.common.entity.projectile.NovaSpikeEntity;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
@@ -21,19 +26,29 @@ public class NovaSpikeRenderer extends EntityRenderer<NovaSpikeEntity> {
     }
 
     @Override
-    public void doRender(NovaSpikeEntity entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        GlStateManager.pushMatrix();
-        GlStateManager.translatef((float) x, (float) y + 0.15F, (float) z);
-        GlStateManager.rotatef(MathHelper.lerp(partialTicks, entity.prevRotationYaw, entity.rotationYaw) - 90.0F, 0.0F, 1.0F, 0.0F);
-        GlStateManager.rotatef(MathHelper.lerp(partialTicks, entity.prevRotationPitch, entity.rotationPitch) - 90.0F, 0.0F, 0.0F, 1.0F);
-        this.bindEntityTexture(entity);
-        this.model.render(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
-        GlStateManager.popMatrix();
-        super.doRender(entity, x, y, z, entityYaw, partialTicks);
+    public void render(NovaSpikeEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+        matrixStackIn.push();
+        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(MathHelper.lerp(partialTicks, entity.prevRotationYaw, entity.rotationYaw) - 90.0F));
+        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(MathHelper.lerp(partialTicks, entity.prevRotationPitch, entity.rotationPitch) - 90.0F));
+        this.getEntityTexture(entity);
+
+        RenderType rendertype = RenderType.cutout();
+        if (rendertype != null) {
+            IVertexBuilder ivertexbuilder = bufferIn.getBuffer(rendertype);
+            int i = getPackedOverlay(entity, 0.0F);
+            this.model.render(matrixStackIn, ivertexbuilder, packedLightIn, i, 1.0F, 1.0F, 1.0F, 1.0F);
+        }
+        matrixStackIn.pop();
+
+        super.render(entity, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+    }
+
+    public static int getPackedOverlay(NovaSpikeEntity livingEntityIn, float uIn) {
+        return OverlayTexture.packLight(OverlayTexture.lightToInt(uIn), OverlayTexture.getV(false));
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(NovaSpikeEntity entity) {
+    public ResourceLocation getEntityTexture(NovaSpikeEntity entity) {
         return NOVA_SPIKE_TEXTURE;
     }
 }

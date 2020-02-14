@@ -101,7 +101,7 @@ public class EntranceRiftGenerator {
         DistanceField distanceField = this.generateDistanceField(origin.getX(), origin.getZ(), radius + 2);
         int totalDepth = craterRadius / 2;
 
-        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+        BlockPos.Mutable mutablePos = new BlockPos.Mutable();
 
         for (int z = -radius; z <= radius; z++) {
             for (int x = -radius; x <= radius; x++) {
@@ -166,7 +166,7 @@ public class EntranceRiftGenerator {
     }
 
     private void generateTendrils(World world, Random random, BlockPos origin, int radius, CoverMask coverMask) {
-        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+        BlockPos.Mutable mutablePos = new BlockPos.Mutable();
 
         float angle = 0.0F;
         float angleStep = 15.0F;
@@ -217,7 +217,7 @@ public class EntranceRiftGenerator {
     }
 
     private void generateSpire(World world, Random random, BlockPos origin, float spireDistance, float angle) {
-        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+        BlockPos.Mutable mutablePos = new BlockPos.Mutable();
 
         double angleRad = Math.toRadians(angle);
 
@@ -383,7 +383,7 @@ public class EntranceRiftGenerator {
         private final Random random;
         private final int radius;
 
-        private final BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+        private final BlockPos.Mutable mutablePos = new BlockPos.Mutable();
 
         private Decorator(World world, BlockPos origin, Random random, int radius) {
             this.world = world;

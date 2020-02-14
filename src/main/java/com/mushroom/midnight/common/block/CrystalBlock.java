@@ -1,19 +1,16 @@
 package com.mushroom.midnight.common.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IEnviromentBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 @SuppressWarnings("deprecation")
 public class CrystalBlock extends Block {
@@ -49,18 +46,16 @@ public class CrystalBlock extends Block {
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-        return func_220055_a(world, pos.down(), Direction.UP);
+        return hasEnoughSolidSide(world, pos.down(), Direction.UP);
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.CUTOUT;
+    public BlockRenderType getRenderType(BlockState state) {
+        return super.getRenderType(state);
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public int getPackedLightmapCoords(BlockState state, IEnviromentBlockReader reader, BlockPos pos) {
+    public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
         int skyLight = 15;
         int blockLight = 15;
         return skyLight << 20 | blockLight << 4;

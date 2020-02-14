@@ -1,5 +1,6 @@
 package com.mushroom.midnight.client.render.entity;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.model.RifterModel;
@@ -17,16 +18,16 @@ public class RifterRenderer extends MobRenderer<RifterEntity, RifterModel> {
     }
 
     @Override
-    protected void preRenderCallback(RifterEntity entity, float partialTick) {
-        super.preRenderCallback(entity, partialTick);
-        if (MidnightUtil.isMidnightDimension(entity.world)) {
+    protected void preRenderCallback(RifterEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+        super.preRenderCallback(entitylivingbaseIn, matrixStackIn, partialTickTime);
+        if (MidnightUtil.isMidnightDimension(entitylivingbaseIn.world)) {
             float scaleFactor = RifterEntity.HOME_SCALE_MODIFIER;
             GlStateManager.scalef(scaleFactor, scaleFactor, scaleFactor);
         }
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(RifterEntity entity) {
+    public ResourceLocation getEntityTexture(RifterEntity entity) {
         return TEXTURE;
     }
 }

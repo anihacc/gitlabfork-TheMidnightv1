@@ -141,7 +141,7 @@ public final class MidnightEntitySpawner<T extends ConfigurableBiome> {
     }
 
     private void spawnEntitiesAround(ServerWorld world, BlockPos pos, EntityClassification classification) {
-        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+        BlockPos.Mutable mutablePos = new BlockPos.Mutable();
 
         int spawnedEntities = 0;
 

@@ -23,7 +23,7 @@ public class NovaRenderer extends MobRenderer<NovaEntity, NovaModel> {
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(NovaEntity entity) {
+    public ResourceLocation getEntityTexture(NovaEntity entity) {
         return TEXTURE;
     }
 

@@ -2,52 +2,52 @@ package com.mushroom.midnight.client.model;
 
 import com.mushroom.midnight.common.entity.creature.SkulkEntity;
 import net.minecraft.client.renderer.entity.model.QuadrupedModel;
-import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class SkulkModel extends QuadrupedModel<SkulkEntity> {
-    private RendererModel Tail;
-    private RendererModel RightEar;
-    private RendererModel LeftEar;
-    private RendererModel Snout;
+    private ModelRenderer Tail;
+    private ModelRenderer RightEar;
+    private ModelRenderer LeftEar;
+    private ModelRenderer Snout;
 
     public SkulkModel() {
         super(5, 0f);
         this.textureWidth = 64;
         this.textureHeight = 32;
-        this.headModel = new RendererModel(this, 0, 12);
+        this.headModel = new ModelRenderer(this, 0, 12);
         this.headModel.setRotationPoint(0.0F, 20.0F, -4.0F);
         this.headModel.addBox(-3.5F, -2.0F, -3.0F, 7, 4, 4, 0.0F);
-        this.body = new RendererModel(this, 0, 2); // body
+        this.body = new ModelRenderer(this, 0, 2); // body
         this.body.setRotationPoint(0.0F, 20.0F, 4.0F);
         this.body.addBox(-2.5F, -1.5F, -7.0F, 5, 3, 7, 0.0F);
-        this.legBackRight = new RendererModel(this, 0, 26); // leg1
+        this.legBackRight = new ModelRenderer(this, 0, 26); // leg1
         this.legBackRight.setRotationPoint(-1.4F, 22.0F, -2.1F);
         this.legBackRight.addBox(-1.0F, -2.0F, -1.0F, 2, 4, 2, 0.0F);
-        this.legBackLeft = new RendererModel(this, 0, 26); // leg2
+        this.legBackLeft = new ModelRenderer(this, 0, 26); // leg2
         this.legBackLeft.setRotationPoint(-1.6F, 22.0F, 2.5F);
         this.legBackLeft.addBox(-1.0F, -2.0F, -1.0F, 2, 4, 2, 0.0F);
-        this.legFrontRight = new RendererModel(this, 0, 26); // leg3
+        this.legFrontRight = new ModelRenderer(this, 0, 26); // leg3
         this.legFrontRight.setRotationPoint(1.4F, 22.0F, -2.1F);
         this.legFrontRight.addBox(-1.0F, -2.0F, -1.0F, 2, 4, 2, 0.0F);
-        this.legFrontLeft = new RendererModel(this, 0, 26); // leg4
+        this.legFrontLeft = new ModelRenderer(this, 0, 26); // leg4
         this.legFrontLeft.setRotationPoint(1.6F, 22.0F, 2.5F);
         this.legFrontLeft.addBox(-1.0F, -2.0F, -1.0F, 2, 4, 2, 0.0F);
-        this.LeftEar = new RendererModel(this, 1, 0);
+        this.LeftEar = new ModelRenderer(this, 1, 0);
         this.LeftEar.setRotationPoint(2.5F, -1.0F, -0.5F);
         this.LeftEar.addBox(-1.0F, -3.0F, 0.0F, 2, 3, 1, 0.0F);
         this.setRotateAngle(LeftEar, 0.17453292519943295F, -0.5235987755982988F, 0.5235987755982988F);
-        this.RightEar = new RendererModel(this, 1, 0);
+        this.RightEar = new ModelRenderer(this, 1, 0);
         this.RightEar.setRotationPoint(-2.5F, -1.0F, -0.5F);
         this.RightEar.addBox(-1.0F, -3.0F, 0.0F, 2, 3, 1, 0.0F);
         this.setRotateAngle(RightEar, 0.17453292519943295F, 0.5235987755982988F, -0.5235987755982988F);
-        this.Snout = new RendererModel(this, 0, 22);
+        this.Snout = new ModelRenderer(this, 0, 22);
         this.Snout.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.Snout.addBox(-1.5F, 0.0F, -4.0F, 3, 2, 1, 0.0F);
-        this.Tail = new RendererModel(this, 8, 22);
+        this.Tail = new ModelRenderer(this, 8, 22);
         this.Tail.setRotationPoint(0.0F, 19.5F, 3.5F);
         this.Tail.addBox(-1.0F, -1.0F, 0.0F, 2, 2, 8, 0.0F);
         this.setRotateAngle(Tail, -0.4363323129985824F, 0.0F, 0.0F);
@@ -70,9 +70,9 @@ public class SkulkModel extends QuadrupedModel<SkulkEntity> {
         this.LeftEar.rotateAngleX = this.RightEar.rotateAngleX = MathHelper.sin((float) (ageInTicks * Math.PI * 0.2f)) * 0.1f;
     }
 
-    private void setRotateAngle(RendererModel RendererModel, float x, float y, float z) {
-        RendererModel.rotateAngleX = x;
-        RendererModel.rotateAngleY = y;
-        RendererModel.rotateAngleZ = z;
+    private void setRotateAngle(ModelRenderer ModelRenderer, float x, float y, float z) {
+        ModelRenderer.rotateAngleX = x;
+        ModelRenderer.rotateAngleY = y;
+        ModelRenderer.rotateAngleZ = z;
     }
 }

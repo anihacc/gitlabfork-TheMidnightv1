@@ -18,7 +18,7 @@ public class PenumbrianRenderer extends MobRenderer<PenumbrianEntity, Penumbrian
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(PenumbrianEntity entity) {
+    public ResourceLocation getEntityTexture(PenumbrianEntity entity) {
         return TEXTURE;
     }
 }

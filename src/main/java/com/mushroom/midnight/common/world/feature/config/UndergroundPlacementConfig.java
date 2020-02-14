@@ -36,7 +36,7 @@ public class UndergroundPlacementConfig {/*implements IPlacementConfig {
             int maxY = Math.min(world.getSeaLevel(), world.getHeight(chunkOrigin.getX() + offsetX, chunkOrigin.getZ() + offsetZ));
             if (maxY > 0) {
                 int currentMaxHeight = Math.min(maxHeight, maxY);
-                BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos(chunkOrigin.add(offsetX, Math.min(minHeight, maxY), offsetZ));
+                BlockPos.Mutable mutablePos = new BlockPos.Mutable(chunkOrigin.add(offsetX, Math.min(minHeight, maxY), offsetZ));
                 while (mutablePos.getY() <= currentMaxHeight) {
                     if (world.isAirBlock(mutablePos)) {
                         generator.accept(mutablePos.toImmutable());

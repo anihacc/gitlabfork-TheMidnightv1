@@ -12,7 +12,7 @@ import java.util.Collection;
 public class WorldUtil {
     @Nullable
     public static BlockPos findSurface(IWorld world, BlockPos pos, int maxSteps) {
-        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos(pos);
+        BlockPos.Mutable mutablePos = new BlockPos.Mutable(pos);
         int steps = 0;
         while (!world.getBlockState(mutablePos).getMaterial().blocksMovement()) {
             mutablePos.move(Direction.DOWN);

@@ -33,7 +33,7 @@ public class ShadeSquirrelRenderer extends MobRenderer<ShadeSquirrelEntity, Shad
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(ShadeSquirrelEntity entity) {
+    public ResourceLocation getEntityTexture(ShadeSquirrelEntity entity) {
         return TEXTURE;
     }
 }

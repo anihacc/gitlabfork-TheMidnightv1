@@ -70,7 +70,7 @@ public class FallenDeadLogFeature extends Feature<NoFeatureConfig> {
         }
 
         for (BlockPos pos : BlockPos.getAllInBoxMutable(basePos, endPos)) {
-            BlockPos.MutableBlockPos mutablePos = (BlockPos.MutableBlockPos) pos;
+            BlockPos.Mutable mutablePos = (BlockPos.Mutable) pos;
             mutablePos.move(Direction.DOWN);
             BlockState groundState = world.getBlockState(mutablePos);
             if (!groundState.isSolid()) {

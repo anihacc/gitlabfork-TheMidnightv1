@@ -19,7 +19,7 @@ public class DeceitfulSnapperRenderer extends MobRenderer<DeceitfulSnapperEntity
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(DeceitfulSnapperEntity entity) {
+    public ResourceLocation getEntityTexture(DeceitfulSnapperEntity entity) {
         return TEXTURE;
     }
 

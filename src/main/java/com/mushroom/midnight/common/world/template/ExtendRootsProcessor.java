@@ -18,7 +18,7 @@ public class ExtendRootsProcessor implements TemplatePostProcessor {
     @Override
     public void process(CompiledTemplate template, IWorld world, Random random, BlockPos pos, BlockState state) {
         if (state == this.root && pos.getY() == template.origin.getY()) {
-            BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos(pos);
+            BlockPos.Mutable mutablePos = new BlockPos.Mutable(pos);
             mutablePos.move(Direction.DOWN);
 
             while (world.hasBlockState(mutablePos, s -> s.canBeReplacedByLeaves(world, mutablePos))) {

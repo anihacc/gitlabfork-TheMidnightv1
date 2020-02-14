@@ -23,7 +23,7 @@ public class CrystalBugRenderer extends MobRenderer<CrystalBugEntity, CrystalBug
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(CrystalBugEntity entity) {
+    public ResourceLocation getEntityTexture(CrystalBugEntity entity) {
         return TEXTURE;
     }
 

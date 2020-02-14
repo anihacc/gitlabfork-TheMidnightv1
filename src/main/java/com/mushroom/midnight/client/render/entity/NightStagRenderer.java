@@ -75,7 +75,7 @@ public class NightStagRenderer extends MobRenderer<NightStagEntity, NightStagMod
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(NightStagEntity entity) {
+    public ResourceLocation getEntityTexture(NightStagEntity entity) {
         return TEXTURE;
     }
 

@@ -118,7 +118,7 @@ public abstract class TemplateFungiFeature extends MidnightTreeFeature {
     }
 
     protected boolean canGrow(IWorld world, BlockPos minCorner, BlockPos maxCorner) {
-        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+        BlockPos.Mutable mutablePos = new BlockPos.Mutable();
 
         for (BlockPos pos : BlockPos.getAllInBoxMutable(minCorner, maxCorner)) {
             mutablePos.setPos(pos);

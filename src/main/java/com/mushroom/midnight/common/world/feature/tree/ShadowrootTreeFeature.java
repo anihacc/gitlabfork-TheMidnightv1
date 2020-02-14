@@ -43,7 +43,7 @@ public class ShadowrootTreeFeature extends MidnightTreeFeature {
         if (isSoil(world, origin.down(), this.getSapling())) {
             this.setDirtAt(world, origin.down(), origin);
 
-            BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos(origin);
+            BlockPos.Mutable mutablePos = new BlockPos.Mutable(origin);
             for (int localY = 0; localY < height; localY++) {
                 mutablePos.setY(origin.getY() + localY);
                 this.setBlockState(world, mutablePos, LOG);
@@ -89,7 +89,7 @@ public class ShadowrootTreeFeature extends MidnightTreeFeature {
     }
 
     private void generateRoots(IWorldGenerationReader world, Random random, BlockPos origin) {
-        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+        BlockPos.Mutable mutablePos = new BlockPos.Mutable();
 
         List<Direction> availableSides = Lists.newArrayList(HORIZONTALS);
 

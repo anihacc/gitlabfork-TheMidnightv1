@@ -2,12 +2,12 @@ package com.mushroom.midnight.common.entity.util;
 
 import com.mushroom.midnight.common.entity.creature.RifterEntity;
 import com.mushroom.midnight.common.util.EntityUtil;
+import net.minecraft.client.renderer.Vector3d;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 import javax.annotation.Nullable;
-import javax.vecmath.Vector3d;
 
 public class DragSolver {
     private final RifterEntity owner;
@@ -39,7 +39,7 @@ public class DragSolver {
 
     private void resetDragged(LivingEntity entity) {
         entity.noClip = false;
-        entity.setMotion(new Vec3d(entity.posX - entity.prevPosX, entity.posY - entity.prevPosY, entity.posZ - entity.prevPosZ));
+        entity.setMotion(new Vec3d(entity.getPosX() - entity.prevPosX, entity.getPosY() - entity.prevPosY, entity.getPosZ() - entity.prevPosZ));
     }
 
     public void solveDrag() {
@@ -99,8 +99,16 @@ public class DragSolver {
             this.prevAttachmentPoint = this.attachmentPoint;
         }
 
-        Vector3d lerp = new Vector3d();
-        lerp.interpolate(this.prevAttachmentPoint, this.attachmentPoint, (double) partialTicks);
+        Vector3d lerp = new Vector3d(0, 0, 0);
+        //TODO better interpolate?
+        this.interpolate(lerp, this.prevAttachmentPoint, this.attachmentPoint, (double) partialTicks);
         return lerp;
+    }
+
+    protected void interpolate(Vector3d vector3d, Vector3d a, Vector3d b, double x) {
+        double t = x;
+        vector3d.x = (1.0 - t) * a.x + t * b.x;
+        vector3d.y = (1.0 - t) * a.y + t * b.y;
+        vector3d.z = (1.0 - t) * a.z + t * b.z;
     }
 }

@@ -27,7 +27,7 @@ public class HunterRenderer extends MobRenderer<HunterEntity, HunterModel> {
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(HunterEntity entity) {
+    public ResourceLocation getEntityTexture(HunterEntity entity) {
         return TEXTURE;
     }
 }

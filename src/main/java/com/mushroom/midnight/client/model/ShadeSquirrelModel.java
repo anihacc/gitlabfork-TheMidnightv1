@@ -4,7 +4,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mushroom.midnight.common.entity.creature.ShadeSquirrelEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.model.IHasArm;
-import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
@@ -12,68 +12,68 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ShadeSquirrelModel extends EntityModel<ShadeSquirrelEntity> implements IHasArm {
-    public RendererModel body;
-    public RendererModel legL;
-    public RendererModel legR;
-    public RendererModel tail;
-    public RendererModel head;
-    public RendererModel handL;
-    public RendererModel handR;
-    public RendererModel tail2;
-    public RendererModel tail3;
-    public RendererModel earR;
-    public RendererModel earL;
-    public RendererModel earR2;
-    public RendererModel earL2;
+    public ModelRenderer body;
+    public ModelRenderer legL;
+    public ModelRenderer legR;
+    public ModelRenderer tail;
+    public ModelRenderer head;
+    public ModelRenderer handL;
+    public ModelRenderer handR;
+    public ModelRenderer tail2;
+    public ModelRenderer tail3;
+    public ModelRenderer earR;
+    public ModelRenderer earL;
+    public ModelRenderer earR2;
+    public ModelRenderer earL2;
 
     public ShadeSquirrelModel() {
         this.textureWidth = 64;
         this.textureHeight = 32;
-        this.earL = new RendererModel(this, 0, 22);
+        this.earL = new ModelRenderer(this, 0, 22);
         this.earL.setRotationPoint(-2.0F, -3.0F, -2.0F);
         this.earL.addBox(-0.5F, -2.0F, -1.0F, 1, 2, 2, 0.0F);
-        this.tail2 = new RendererModel(this, 36, 6);
+        this.tail2 = new ModelRenderer(this, 36, 6);
         this.tail2.setRotationPoint(0.0F, -1.0F, 0.1F);
         this.tail2.addBox(-2.0F, -7.0F, -2.0F, 4, 7, 4, 0.0F);
         this.setRotateAngle(tail2, 0.5009094953223726F, 0.0F, 0.0F);
-        this.legL = new RendererModel(this, 24, 0);
+        this.legL = new ModelRenderer(this, 24, 0);
         this.legL.setRotationPoint(1.4F, 1.0F, 1.0F);
         this.legL.addBox(-1.0F, 0.0F, 0.0F, 2, 3, 1, 0.0F);
         this.setRotateAngle(legL, -0.36425021489121656F, 0.0F, 0.0F);
-        this.tail = new RendererModel(this, 36, 0);
+        this.tail = new ModelRenderer(this, 36, 0);
         this.tail.setRotationPoint(0.0F, -3.0F, 0.1F);
         this.tail.addBox(-1.5F, -2.0F, -1.5F, 3, 3, 3, 0.0F);
-        this.earL2 = new RendererModel(this, 0, 22);
+        this.earL2 = new ModelRenderer(this, 0, 22);
         this.earL2.setRotationPoint(0.0F, -2.0F, 0.0F);
         this.earL2.addBox(-0.5F, -2.0F, -1.0F, 1, 2, 2, 0.0F);
         this.setRotateAngle(earL2, 0.0F, 0.0F, -0.5918411493512771F);
-        this.legR = new RendererModel(this, 30, 0);
+        this.legR = new ModelRenderer(this, 30, 0);
         this.legR.setRotationPoint(-1.4F, 1.0F, 1.0F);
         this.legR.addBox(-1.0F, 0.0F, 0.0F, 2, 3, 1, 0.0F);
         this.setRotateAngle(legR, -0.36425021489121656F, 0.0F, 0.0F);
-        this.body = new RendererModel(this, 0, 0);
+        this.body = new ModelRenderer(this, 0, 0);
         this.body.setRotationPoint(0.0F, 21.7F, 2.1F);
         this.body.addBox(-2.5F, -2.5F, -6.0F, 5, 5, 7, 0.0F);
         this.setRotateAngle(body, -1.1838568316277536F, 0.0F, 0.0F);
-        this.head = new RendererModel(this, 0, 12);
+        this.head = new ModelRenderer(this, 0, 12);
         this.head.setRotationPoint(0.0F, 14.5F, 1.1F);
         this.head.addBox(-2.5F, -3.0F, -5.0F, 5, 5, 5, 0.0F);
-        this.tail3 = new RendererModel(this, 36, 6);
+        this.tail3 = new ModelRenderer(this, 36, 6);
         this.tail3.setRotationPoint(0.0F, -5.7F, 0.1F);
         this.tail3.addBox(-2.0F, -7.0F, -2.0F, 4, 7, 4, 0.0F);
         this.setRotateAngle(tail3, 0.5009094953223726F, 0.0F, 0.0F);
-        this.earR2 = new RendererModel(this, 6, 22);
+        this.earR2 = new ModelRenderer(this, 6, 22);
         this.earR2.setRotationPoint(0.0F, -2.0F, 0.0F);
         this.earR2.addBox(-0.5F, -2.0F, -1.0F, 1, 2, 2, 0.0F);
         this.setRotateAngle(earR2, 0.0F, 0.0F, 0.5918411493512771F);
-        this.earR = new RendererModel(this, 6, 22);
+        this.earR = new ModelRenderer(this, 6, 22);
         this.earR.setRotationPoint(2.0F, -3.0F, -2.0F);
         this.earR.addBox(-0.5F, -2.0F, -1.0F, 1, 2, 2, 0.0F);
-        this.handL = new RendererModel(this, 24, 4);
+        this.handL = new ModelRenderer(this, 24, 4);
         this.handL.setRotationPoint(3.0F, 1.0F, -3.3F);
         this.handL.addBox(-0.5F, 0.0F, -0.5F, 1, 4, 1, 0.0F);
         this.setRotateAngle(handL, 0.0F, 0.0F, 0.40980330836826856F);
-        this.handR = new RendererModel(this, 30, 4);
+        this.handR = new ModelRenderer(this, 30, 4);
         this.handR.setRotationPoint(-3.0F, 1.0F, -3.3F);
         this.handR.addBox(-0.5F, 0.0F, -0.5F, 1, 4, 1, 0.0F);
         this.setRotateAngle(handR, 0.0F, 0.0F, -0.40980330836826856F);
@@ -147,13 +147,13 @@ public class ShadeSquirrelModel extends EntityModel<ShadeSquirrelEntity> impleme
     /**
      * This is a helper function from Tabula to set the rotation of model parts
      */
-    public void setRotateAngle(RendererModel modelRenderer, float x, float y, float z) {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
     }
 
-    private RendererModel getArm(HandSide p_191216_1_) {
+    private ModelRenderer getArm(HandSide p_191216_1_) {
         return p_191216_1_ == HandSide.LEFT ? this.handL : this.handR;
     }
 

@@ -56,7 +56,7 @@ public class MidnightOreFeature extends Feature<MidnightOreConfig> {
     private boolean tryPlaceVein(IWorld world, Random random, MidnightOreConfig config, double startX, double endX, double startZ, double endZ, double startY, double endY, int minX, int minY, int minZ, int sizeXZ, int sizeY) {
         int placedBlocks = 0;
         BitSet mask = new BitSet(sizeXZ * sizeY * sizeXZ);
-        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+        BlockPos.Mutable pos = new BlockPos.Mutable();
 
         double[] xTable = new double[config.size];
         double[] yTable = new double[config.size];
