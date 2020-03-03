@@ -20,6 +20,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants;
@@ -148,7 +149,7 @@ public class MidnightDoublePlantBlock extends MidnightPlantBlock {
     }
 
     @Override
-    public void grow(World world, Random rand, BlockPos pos, BlockState state) {
+    public void grow(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
     }
 
     @Override

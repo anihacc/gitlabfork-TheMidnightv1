@@ -1,9 +1,11 @@
 package com.mushroom.midnight.client.render.entity;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.model.StingerModel;
 import com.mushroom.midnight.common.entity.creature.StingerEntity;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
@@ -18,12 +20,13 @@ public class StingerRenderer extends MobRenderer<StingerEntity, StingerModel> {
     }
 
     @Override
-    public void doRender(StingerEntity entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        GlStateManager.pushMatrix();
+    public void render(StingerEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+
+        matrixStackIn.push();
         GlStateManager.enableCull();
-        super.doRender(entity, x, y, z, entityYaw, partialTicks);
+        super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         GlStateManager.disableCull();
-        GlStateManager.popMatrix();
+        matrixStackIn.pop();
     }
 
     @Override
@@ -33,8 +36,9 @@ public class StingerRenderer extends MobRenderer<StingerEntity, StingerModel> {
     }
 
     @Override
-    protected void preRenderCallback(StingerEntity entity, float partialTicks) {
-        float scale = 0.3f + (entity.getGrowingAge() * 0.1f);
+    protected void preRenderCallback(StingerEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+        super.preRenderCallback(entitylivingbaseIn, matrixStackIn, partialTickTime);
+        float scale = 0.3f + (entitylivingbaseIn.getGrowingAge() * 0.1f);
         GlStateManager.scalef(scale, scale, scale);
     }
 

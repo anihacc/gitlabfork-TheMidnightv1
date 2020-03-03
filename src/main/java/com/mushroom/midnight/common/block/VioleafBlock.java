@@ -19,6 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
 
 import java.util.Random;
@@ -77,12 +78,12 @@ public class VioleafBlock extends MidnightPlantBlock implements IGrowable {
     }
 
     @Override
-    public void grow(World world, Random rand, BlockPos pos, BlockState state) {
+    public void grow(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
         world.setBlockState(pos, state.with(IS_GROWN, true), 2);
     }
 
     @Override
-    public void randomTick(BlockState state, World world, BlockPos pos, Random rand) {
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
         if (canGrow(world, pos, state, world.isRemote) && ForgeHooks.onCropsGrowPre(world, pos, state, rand.nextInt(5) == 0)) {
             grow(world, rand, pos, state);
             ForgeHooks.onCropsGrowPost(world, pos, state);

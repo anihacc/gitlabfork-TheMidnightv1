@@ -19,11 +19,11 @@ import java.util.Collection;
 import java.util.List;
 
 public interface ConfigurableBiome {
-    void add(GenerationStage.Decoration stage, ConfiguredFeature<?> feature);
+    void add(GenerationStage.Decoration stage, ConfiguredFeature feature);
 
     <C extends ICarverConfig> void add(GenerationStage.Carving stage, ConfiguredCarver<C> carver);
 
-    <C extends IFeatureConfig> void add(Structure<C> structure, C config);
+    <C extends IFeatureConfig> void add(ConfiguredFeature<C, ? extends Structure<C>> structure);
 
     void add(EntityClassification classification, Biome.SpawnListEntry entry);
 

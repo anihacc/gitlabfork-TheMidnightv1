@@ -1,8 +1,10 @@
 package com.mushroom.midnight.client.model;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 import com.mushroom.midnight.common.entity.creature.SkulkEntity;
 import net.minecraft.client.renderer.entity.model.QuadrupedModel;
-import net.minecraft.client.renderer.entity.model.ModelRenderer;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -15,7 +17,7 @@ public class SkulkModel extends QuadrupedModel<SkulkEntity> {
     private ModelRenderer Snout;
 
     public SkulkModel() {
-        super(5, 0f);
+        super(5, 0f, false);
         this.textureWidth = 64;
         this.textureHeight = 32;
         this.headModel = new ModelRenderer(this, 0, 12);
@@ -57,14 +59,13 @@ public class SkulkModel extends QuadrupedModel<SkulkEntity> {
     }
 
     @Override
-    public void render(SkulkEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        super.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-        this.Tail.render(scale);
+    protected Iterable<ModelRenderer> getBodyParts() {
+        return Iterables.concat(super.getBodyParts(), ImmutableList.of(this.Tail));
     }
 
     @Override
-    public void setRotationAngles(SkulkEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
-        super.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
+    public void render(SkulkEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        super.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         this.body.rotateAngleX = 0f;
         this.Tail.rotateAngleY = MathHelper.sin((float) (ageInTicks * Math.PI * 0.25f)) * 0.1f;
         this.LeftEar.rotateAngleX = this.RightEar.rotateAngleX = MathHelper.sin((float) (ageInTicks * Math.PI * 0.2f)) * 0.1f;

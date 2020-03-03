@@ -14,6 +14,7 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeManager;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.GenerationSettings;
@@ -30,7 +31,10 @@ import java.util.BitSet;
 import java.util.Collection;
 import java.util.List;
 
-import static com.mushroom.midnight.common.world.MidnightNoiseGenerator.*;
+import static com.mushroom.midnight.common.world.MidnightNoiseGenerator.HORIZONTAL_GRANULARITY;
+import static com.mushroom.midnight.common.world.MidnightNoiseGenerator.NOISE_HEIGHT;
+import static com.mushroom.midnight.common.world.MidnightNoiseGenerator.NOISE_WIDTH;
+import static com.mushroom.midnight.common.world.MidnightNoiseGenerator.VERTICAL_GRANULARITY;
 
 public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGenerator.Config> {
     public static final int SURFACE_LEVEL = 78;
@@ -61,7 +65,7 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
         this.surfaceLayers = surfaceLayers;
         this.undergroundLayers = undergroundLayers;
 
-        this.surfaceDepthNoise = new PerlinNoiseGenerator(this.randomSeed, 4);
+        this.surfaceDepthNoise = new PerlinNoiseGenerator(this.randomSeed, 4, 0);
     }
 
     @Override
@@ -77,8 +81,9 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
         });
     }
 
+
     @Override
-    public void generateSurface(IChunk chunk) {
+    public void func_225551_a_(WorldGenRegion worldGenRegion, IChunk chunk) {
         long seed = this.world.getSeed();
 
         ChunkPos chunkPos = chunk.getPos();
@@ -91,19 +96,20 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
         int minChunkX = chunkPos.getXStart();
         int minChunkZ = chunkPos.getZStart();
 
-        Biome[] biomes = chunk.getBiomes();
+        BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
 
         for (int localZ = 0; localZ < 16; localZ++) {
             for (int localX = 0; localX < 16; localX++) {
                 int globalX = minChunkX + localX;
                 int globalZ = minChunkZ + localZ;
+                int i2 = chunk.getTopBlockY(Heightmap.Type.WORLD_SURFACE_WG, localX, localZ) + 1;
 
-                Biome surfaceBiome = biomes[localX + localZ * 16];
+                Biome surfaceBiome = worldGenRegion.getBiome(blockpos$mutable.setPos(minChunkX + localX, i2, minChunkZ + localZ));
                 CavernousBiome cavernousBiome = this.getCavernousBiome(globalX, globalZ);
 
                 int height = chunk.getTopBlockY(Heightmap.Type.WORLD_SURFACE_WG, localX, localZ) + 1;
 
-                double depth = this.surfaceDepthNoise.func_215460_a(globalX * 0.0625, globalZ * 0.0625, 0.0625, localX * 0.0625);
+                double depth = this.surfaceDepthNoise.noiseAt(globalX * 0.0625, globalZ * 0.0625, 0.0625, localX * 0.0625);
 
                 surfaceBiome.buildSurface(random, chunk, globalX, globalZ, height, depth, this.defaultBlock, this.defaultFluid, SEA_LEVEL, seed);
                 cavernousBiome.generateSurface(random, chunk, globalX, globalZ, height, depth, this.defaultBlock, this.defaultFluid, SEA_LEVEL, seed);
@@ -114,14 +120,16 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
     }
 
     @Override
-    public void carve(IChunk chunk, GenerationStage.Carving stage) {
-        Collection<ConfiguredCarver<?>> surfaceCarvers = this.getBiome(chunk).getCarvers(stage);
+    public void func_225550_a_(BiomeManager p_225550_1_, IChunk chunk, GenerationStage.Carving stage) {
+        ChunkPos chunkpos = chunk.getPos();
+        Biome biome = this.func_225552_a_(p_225550_1_, chunkpos.asBlockPos());
+        Collection<ConfiguredCarver<?>> surfaceCarvers = biome.getCarvers(stage);
         Collection<ConfiguredCarver<?>> undergroundCarvers = this.getCavernousBiome(chunk).getCarversFor(stage);
 
-        this.applyCarvers(chunk, stage, Iterables.concat(surfaceCarvers, undergroundCarvers));
+        this.applyCarvers(p_225550_1_, chunk, stage, Iterables.concat(surfaceCarvers, undergroundCarvers));
     }
 
-    private void applyCarvers(IChunk chunk, GenerationStage.Carving stage, Iterable<ConfiguredCarver<?>> carvers) {
+    private void applyCarvers(BiomeManager biomeManager, IChunk chunk, GenerationStage.Carving stage, Iterable<ConfiguredCarver<?>> carvers) {
         ChunkPos chunkPos = chunk.getPos();
         int chunkX = chunkPos.x;
         int chunkZ = chunkPos.z;
@@ -136,7 +144,9 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
                 for (ConfiguredCarver<?> carver : carvers) {
                     random.setLargeFeatureSeed(this.seed + i, nx, nz);
                     if (carver.shouldCarve(random, nx, nz)) {
-                        carver.carve(chunk, random, this.getSeaLevel(), nx, nz, chunkX, chunkZ, mask);
+                        carver.func_227207_a_(chunk, (p_227059_2_) -> {
+                            return this.func_225552_a_(biomeManager, p_227059_2_);
+                        }, random, this.getSeaLevel(), nx, nz, chunkX, chunkZ, mask);
                     }
 
                     i++;
@@ -199,17 +209,17 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
     }
 
     @Override
-    protected void func_222548_a(double[] noise, int x, int z) {
+    protected double[] getBiomeNoiseColumn(int noiseX, int noiseZ) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void fillNoiseColumn(double[] noise, int x, int z) {
         this.noiseGenerator.populateColumnNoise(noise, x, z, this.surfaceLayers, this.undergroundLayers);
     }
 
     @Override
     protected double func_222545_a(double x, double z, int i) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected double[] func_222549_a(int x, int z) {
         throw new UnsupportedOperationException();
     }
 

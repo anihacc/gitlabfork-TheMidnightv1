@@ -5,7 +5,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -17,6 +17,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
@@ -59,11 +60,11 @@ public class MidnightStairsBlock extends StairsBlock {
         return this.stateSupplier.get().getBlock().getExplosionResistance();
     }
 
-    @Override
+    /*@Override
     public BlockRenderLayer getRenderLayer() {
         return this.stateSupplier.get().getBlock().getRenderLayer();
     }
-
+*/
     @Override
     public int tickRate(IWorldReader worldIn) {
         return this.stateSupplier.get().getBlock().tickRate(worldIn);
@@ -91,12 +92,12 @@ public class MidnightStairsBlock extends StairsBlock {
     }
 
     @Override
-    public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
+    public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
         this.stateSupplier.get().getBlock().tick(state, worldIn, pos, random);
     }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         return this.stateSupplier.get().onBlockActivated(worldIn, player, handIn, hit);
     }
 

@@ -7,7 +7,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
@@ -81,11 +80,11 @@ public class MidnightFungiShelfBlock extends Block {
         builder.add(FACING);
     }
 
-    @Override
+    /*@Override
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
     }
-
+*/
     @Override
     public boolean canBeReplacedByLeaves(BlockState state, IWorldReader world, BlockPos pos) {
         return true;

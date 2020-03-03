@@ -13,7 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -24,6 +24,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeHooks;
@@ -48,7 +49,7 @@ public class UnstableBushBloomedBlock extends MidnightPlantBlock implements IGro
     }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
         if (state.get(HAS_FRUIT)) {
             if (!world.isRemote) {
                 int fruitCount = world.rand.nextInt(3) + 1;
@@ -58,9 +59,9 @@ public class UnstableBushBloomedBlock extends MidnightPlantBlock implements IGro
                 }
                 world.setBlockState(pos, MidnightBlocks.UNSTABLE_BUSH.getDefaultState().with(UnstableBushBlock.STAGE, UnstableBushBlock.MAX_STAGE), 2);
             }
-            return true;
+            return ActionResultType.SUCCESS;
         }
-        return false;
+        return ActionResultType.FAIL;
     }
 
     @Override
@@ -79,22 +80,22 @@ public class UnstableBushBloomedBlock extends MidnightPlantBlock implements IGro
     }
 
     @Override
-    public void grow(World world, Random rand, BlockPos pos, BlockState state) {
+    public void grow(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
         world.setBlockState(pos, state.with(HAS_FRUIT, true), 2);
     }
 
     @Override
-    public void tick(BlockState state, World world, BlockPos pos, Random rand) {
+    public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
         if (ForgeHooks.onCropsGrowPre(world, pos, state, rand.nextInt(10) == 0)) {
             this.grow(world, rand, pos, state);
             ForgeHooks.onCropsGrowPost(world, pos, state);
         }
     }
 
-    @Override
+  /*  @Override
     public boolean canRenderInLayer(BlockState state, BlockRenderLayer layer) {
         return layer == BlockRenderLayer.TRANSLUCENT || layer == BlockRenderLayer.CUTOUT;
-    }
+    }*/
 
     @Override
     public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player) {

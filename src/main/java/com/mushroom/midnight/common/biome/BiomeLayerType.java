@@ -22,7 +22,6 @@ import net.minecraft.world.gen.area.IAreaFactory;
 import net.minecraft.world.gen.area.LazyArea;
 import net.minecraft.world.gen.layer.LayerUtil;
 import net.minecraft.world.gen.layer.SmoothLayer;
-import net.minecraft.world.gen.layer.VoroniZoomLayer;
 import net.minecraft.world.gen.layer.ZoomLayer;
 
 import java.util.function.IntFunction;
@@ -103,7 +102,7 @@ public final class BiomeLayerType<T> {
         IAreaFactory<A> passageLayer = buildEdgeHighlightLayer(contextFactory, 300);
 
         IAreaFactory<A> layer = new CavernSeedLayer(MidnightBiomeGroup.UNDERGROUND).apply(contextFactory.apply(0));
-        layer = VoroniZoomLayer.INSTANCE.apply(contextFactory.apply(1000), layer);
+        layer = ZoomLayer.NORMAL.apply(contextFactory.apply(1000), layer);
 
         layer = new AddOutlineLayer(closedCavernId).apply(contextFactory.apply(2000), layer);
         layer = new CreateGroupPocketsLayer(MidnightBiomeGroup.UNDERGROUND_POCKET).apply(contextFactory.apply(3000), layer);
@@ -121,7 +120,7 @@ public final class BiomeLayerType<T> {
 
     private static <A extends IArea, C extends IExtendedNoiseRandom<A>> IAreaFactory<A> buildEdgeHighlightLayer(LongFunction<C> contextFactory, long seed) {
         IAreaFactory<A> valleyLayer = CellSeedLayer.INSTANCE.apply(contextFactory.apply(10 + seed));
-        valleyLayer = VoroniZoomLayer.INSTANCE.apply(contextFactory.apply(20 + seed), valleyLayer);
+        valleyLayer = ZoomLayer.NORMAL.apply(contextFactory.apply(20 + seed), valleyLayer);
         valleyLayer = LayerUtil.repeat(30 + seed, ZoomLayer.NORMAL, valleyLayer, 2, contextFactory);
         valleyLayer = ProduceOutlineLayer.INSTANCE.apply(contextFactory.apply(40 + seed), valleyLayer);
 

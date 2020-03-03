@@ -6,17 +6,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.BushBlock;
 import net.minecraft.block.IGrowable;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IEnviromentBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -70,14 +66,14 @@ public class MidnightPlantBlock extends BushBlock implements IGrowable, Generata
         return OffsetType.XZ;
     }
 
-    @Override
+   /* @Override
     public boolean canRenderInLayer(BlockState state, BlockRenderLayer layer) {
         return this.glowing ? layer == BlockRenderLayer.TRANSLUCENT || layer == BlockRenderLayer.CUTOUT : super.canRenderInLayer(state, layer);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public int getPackedLightmapCoords(BlockState state, IEnviromentBlockReader source, BlockPos pos) {
+    public int getPackedLightmapCoords(BlockState state, ILightReader source, BlockPos pos) {
         if (!this.glowing) return super.getPackedLightmapCoords(state, source, pos);
 
         if (MinecraftForgeClient.getRenderLayer() == BlockRenderLayer.CUTOUT) {
@@ -85,7 +81,7 @@ public class MidnightPlantBlock extends BushBlock implements IGrowable, Generata
         } else {
             return source.getCombinedLight(pos, 14);
         }
-    }
+    }*/
 
     @Override
     public int getFireSpreadSpeed(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
@@ -108,7 +104,7 @@ public class MidnightPlantBlock extends BushBlock implements IGrowable, Generata
     }
 
     @Override
-    public void grow(World world, Random rand, BlockPos pos, BlockState state) {
+    public void grow(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
         if (this.growSupplier != null) {
             BlockState plantState = this.growSupplier.get().getDefaultState();
             if (plantState.isValidPosition(world, pos) && world.isAirBlock(pos.up())) {

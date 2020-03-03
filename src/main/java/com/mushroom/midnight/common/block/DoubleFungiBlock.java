@@ -10,6 +10,7 @@ import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
@@ -45,7 +46,7 @@ public class DoubleFungiBlock extends MidnightDoublePlantBlock {
     }
 
     @Override
-    public void grow(World world, Random rand, BlockPos pos, BlockState state) {
+    public void grow(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
         if (this.tree == null) return;
         if (state.get(STAGE) == 0) {
             world.setBlockState(pos, state.cycle(STAGE), 4);

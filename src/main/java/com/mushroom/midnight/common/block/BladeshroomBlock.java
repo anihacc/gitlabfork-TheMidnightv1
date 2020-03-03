@@ -18,6 +18,7 @@ import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -33,6 +34,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nullable;
@@ -114,17 +116,17 @@ public class BladeshroomBlock extends MidnightPlantBlock implements IGrowable {
     }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
+    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
         if (state.get(STAGE) == Stage.CAPPED) {
             ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(MidnightItems.BLADESHROOM_CAP));
             world.setBlockState(pos, state.with(STAGE, Stage.STEM));
             if (MidnightConfig.general.bladeshroomDamageChance.get() != 0 && world.rand.nextInt(100) < MidnightConfig.general.bladeshroomDamageChance.get()) {
                 player.attackEntityFrom(BLADESHROOM_DAMAGE, 1.0F);
             }
-            return true;
+            return ActionResultType.SUCCESS;
         }
 
-        return false;
+        return ActionResultType.FAIL;
     }
 
     @Override
@@ -140,7 +142,7 @@ public class BladeshroomBlock extends MidnightPlantBlock implements IGrowable {
     }
 
     @Override
-    public void randomTick(BlockState state, World world, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (random.nextInt(REGROW_CHANCE) == 0) {
             this.incrementStage(world, pos, state);
         }
@@ -170,7 +172,7 @@ public class BladeshroomBlock extends MidnightPlantBlock implements IGrowable {
     }
 
     @Override
-    public void grow(World world, Random rand, BlockPos pos, BlockState state) {
+    public void grow(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
         this.incrementStage(world, pos, state);
     }
 

@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.DecoratedFeatureConfig;
 import net.minecraft.world.gen.feature.FlowersFeature;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.IPlantable;
 
 import java.util.List;
@@ -26,11 +27,11 @@ public class GrowableOnBlock extends Block implements IGrowable {
         this.applyBonemeal = applyBonemeal;
     }
 
-    @Override
+    /*@Override
     public boolean isSolid(BlockState state) {
         return true;
     }
-
+*/
     @Override
     public boolean canSustainPlant(BlockState state, IBlockReader world, BlockPos pos, Direction facing, IPlantable plantable) {
         return true;
@@ -47,7 +48,7 @@ public class GrowableOnBlock extends Block implements IGrowable {
     }
 
     @Override
-    public void grow(World world, Random rand, BlockPos pos, BlockState state) {
+    public void grow(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
         if (!this.canUseBonemeal(world, rand, pos, state)) {
             return;
         }
@@ -69,12 +70,13 @@ public class GrowableOnBlock extends Block implements IGrowable {
                     BlockState plantState;
                     // get a flower or the default grass
                     if (rand.nextInt(8) == 0) {
-                        List<ConfiguredFeature<?>> flowers = world.getBiome(placePos).getFlowers();
+                        List<ConfiguredFeature<?, ?>> flowers = world.getBiome(placePos).getFlowers();
                         if (flowers.isEmpty()) {
                             break;
                         }
                         // TODO integrate cavern biomes
-                        plantState = ((FlowersFeature) ((DecoratedFeatureConfig) (flowers.get(0)).config).feature.feature).getRandomFlower(rand, placePos);
+                        ConfiguredFeature<?, ?> configuredfeature = ((DecoratedFeatureConfig) (flowers.get(0)).config).feature;
+                        plantState = ((FlowersFeature) configuredfeature.feature).func_225562_b_(rand, placePos, configuredfeature.config);
                     } else {
                         plantState = grassState;
                     }

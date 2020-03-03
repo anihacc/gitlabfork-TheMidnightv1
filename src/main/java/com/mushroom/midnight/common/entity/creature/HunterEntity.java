@@ -7,7 +7,6 @@ import com.mushroom.midnight.common.entity.task.HunterIdleGoal;
 import com.mushroom.midnight.common.entity.task.HunterSwoopGoal;
 import com.mushroom.midnight.common.entity.task.HunterTargetGoal;
 import com.mushroom.midnight.common.entity.task.HunterTrackGoal;
-import com.mushroom.midnight.common.entity.util.ChainSolver;
 import com.mushroom.midnight.common.registry.MidnightEffects;
 import com.mushroom.midnight.common.registry.MidnightSounds;
 import com.mushroom.midnight.common.util.MeanValueRecorder;
@@ -41,7 +40,6 @@ import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.vecmath.Point3f;
 
 public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
     private final AnimationCapability animCap = new AnimationCapability();
@@ -54,6 +52,8 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
     public int swoopCooldown, flapTime;
 
     private final MeanValueRecorder deltaYaw = new MeanValueRecorder(20);
+
+    //TODO REMAKE CHAINSOLVER
     private final ChainSolver<HunterEntity> chainSolver = new ChainSolver<>(
             new Point3f(0.0F, 0.0F, 0.5875F),
             new Point3f[] {
@@ -131,8 +131,10 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
     }
 
     @Override
-    public void fall(float distance, float damageMultiplier) {
+    public boolean onLivingFall(float distance, float damageMultiplier) {
+        return false;
     }
+
 
     @Override
     protected void updateFallState(double y, boolean grounded, BlockState state, BlockPos pos) {
@@ -156,9 +158,9 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
     private void updateLimbs() {
         this.prevLimbSwingAmount = this.limbSwingAmount;
 
-        double deltaX = this.posX - this.prevPosX;
-        double deltaY = this.posY - this.prevPosY;
-        double deltaZ = this.posZ - this.prevPosZ;
+        double deltaX = this.getPosX() - this.prevPosX;
+        double deltaY = this.getPosY() - this.prevPosY;
+        double deltaZ = this.getPosZ() - this.prevPosZ;
 
         float distance = MathHelper.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
         float moveAmount = Math.min(distance * 4.0F, 1.0F);
@@ -168,7 +170,7 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
 
         ++this.flapTime;
         if (this.flapTime >= 15 && moveAmount >= 0.4F) {
-            this.world.playSound(null, this.posX, this.posY, this.posZ, MidnightSounds.HUNTER_FLYING, SoundCategory.HOSTILE, 0.15F, MathHelper.clamp(this.rand.nextFloat(), 0.7f, 1.0f) + MathHelper.clamp(this.rand.nextFloat(), 0f, 0.3f));
+            this.world.playSound(null, this.getPosX(), this.getPosY(), this.getPosZ(), MidnightSounds.HUNTER_FLYING, SoundCategory.HOSTILE, 0.15F, MathHelper.clamp(this.rand.nextFloat(), 0.7f, 1.0f) + MathHelper.clamp(this.rand.nextFloat(), 0f, 0.3f));
             this.flapTime = 0;
         }
     }
@@ -195,9 +197,9 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
         return false;
     }
 
-    public ChainSolver<HunterEntity> getChainSolver() {
+    /*public ChainSolver<HunterEntity> getChainSolver() {
         return this.chainSolver;
-    }
+    }*/
 
     @Override
     public int getMaxSpawnedInChunk() {
@@ -220,9 +222,9 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
             if (this.action == Action.MOVE_TO) {
                 this.action = Action.WAIT;
 
-                double deltaX = this.posX - this.mob.posX;
-                double deltaZ = this.posZ - this.mob.posZ;
-                double deltaY = this.posY - this.mob.posY;
+                double deltaX = this.posX - this.mob.getPosX();
+                double deltaZ = this.posZ - this.mob.getPosY();
+                double deltaY = this.posY - this.mob.getPosZ();
                 double distanceSquared = deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ;
 
                 if (distanceSquared < 2.5) {

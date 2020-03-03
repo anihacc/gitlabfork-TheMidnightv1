@@ -1,8 +1,8 @@
 package com.mushroom.midnight.common.block;
 
-import com.mushroom.midnight.common.util.MidnightUtil;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightItems;
+import com.mushroom.midnight.common.util.MidnightUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -58,7 +58,7 @@ public class UnstableBushBlock extends MidnightPlantBlock implements IGrowable {
     }
 
     @Override
-    public void grow(World world, Random rand, BlockPos pos, BlockState state) {
+    public void grow(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
         if (state.get(STAGE) < MAX_STAGE) {
             world.setBlockState(pos, state.with(STAGE, Math.min(state.get(STAGE) + 1, MAX_STAGE)), 2);
         } else {

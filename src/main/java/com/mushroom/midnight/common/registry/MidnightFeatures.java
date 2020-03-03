@@ -45,6 +45,7 @@ import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.DoublePlantConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
@@ -52,26 +53,26 @@ import net.minecraftforge.registries.ObjectHolder;
 // TODO: Register from correct event when Forge is fixed
 @ObjectHolder(Midnight.MODID)
 public class MidnightFeatures {
-    public static final AbstractTreeFeature<NoFeatureConfig> SHADOWROOT_TREE = new ShadowrootTreeFeature(NoFeatureConfig::deserialize);
-    public static final AbstractTreeFeature<NoFeatureConfig> DARK_WILLOW_TREE = new DarkWillowTreeFeature(NoFeatureConfig::deserialize);
+    public static final AbstractTreeFeature<TreeFeatureConfig> SHADOWROOT_TREE = new ShadowrootTreeFeature(TreeFeatureConfig::func_227338_a_);
+    public static final AbstractTreeFeature<TreeFeatureConfig> DARK_WILLOW_TREE = new DarkWillowTreeFeature(TreeFeatureConfig::func_227338_a_);
     public static final Feature<NoFeatureConfig> DEAD_TREE = new DeadTreeFeature(NoFeatureConfig::deserialize, ShelfAttachProcessor.FOREST_SHELF_BLOCKS);
     public static final Feature<NoFeatureConfig> BOG_DEAD_TREE = new DeadTreeFeature(NoFeatureConfig::deserialize, ShelfAttachProcessor.SHELF_BLOCKS);
     public static final Feature<NoFeatureConfig> FALLEN_DEAD_LOG = new FallenDeadLogFeature(NoFeatureConfig::deserialize);
-    public static final AbstractTreeFeature<NoFeatureConfig> LARGE_GLOB_FUNGUS = new LargeGlobFungusFeature(NoFeatureConfig::deserialize);
+    public static final AbstractTreeFeature<TreeFeatureConfig> LARGE_GLOB_FUNGUS = new LargeGlobFungusFeature(TreeFeatureConfig::func_227338_a_);
 
-    public static final AbstractTreeFeature<NoFeatureConfig> LARGE_BOGSHROOM = new LargeBogshroomFeature(NoFeatureConfig::deserialize);
-    public static final AbstractTreeFeature<NoFeatureConfig> LARGE_NIGHTSHROOM = new LargeNightshroomFeature(NoFeatureConfig::deserialize);
-    public static final AbstractTreeFeature<NoFeatureConfig> LARGE_DEWSHROOM = new LargeDewshroomFeature(NoFeatureConfig::deserialize);
-    public static final AbstractTreeFeature<NoFeatureConfig> LARGE_VIRIDSHROOM = new LargeViridshroomFeature(NoFeatureConfig::deserialize);
+    public static final AbstractTreeFeature<TreeFeatureConfig> LARGE_BOGSHROOM = new LargeBogshroomFeature(TreeFeatureConfig::func_227338_a_);
+    public static final AbstractTreeFeature<TreeFeatureConfig> LARGE_NIGHTSHROOM = new LargeNightshroomFeature(TreeFeatureConfig::func_227338_a_);
+    public static final AbstractTreeFeature<TreeFeatureConfig> LARGE_DEWSHROOM = new LargeDewshroomFeature(TreeFeatureConfig::func_227338_a_);
+    public static final AbstractTreeFeature<TreeFeatureConfig> LARGE_VIRIDSHROOM = new LargeViridshroomFeature(TreeFeatureConfig::func_227338_a_);
 
-    public static final AbstractTreeFeature<NoFeatureConfig> MEDIUM_NIGHTSHROOM = new MediumNightshroomFeature(NoFeatureConfig::deserialize);
-    public static final AbstractTreeFeature<NoFeatureConfig> MEDIUM_DEWSHROOM = new MediumDewshroomFeature(NoFeatureConfig::deserialize);
-    public static final AbstractTreeFeature<NoFeatureConfig> MEDIUM_VIRIDSHROOM = new MediumViridshroomFeature(NoFeatureConfig::deserialize);
+    public static final AbstractTreeFeature<TreeFeatureConfig> MEDIUM_NIGHTSHROOM = new MediumNightshroomFeature(TreeFeatureConfig::func_227338_a_);
+    public static final AbstractTreeFeature<TreeFeatureConfig> MEDIUM_DEWSHROOM = new MediumDewshroomFeature(TreeFeatureConfig::func_227338_a_);
+    public static final AbstractTreeFeature<TreeFeatureConfig> MEDIUM_VIRIDSHROOM = new MediumViridshroomFeature(TreeFeatureConfig::func_227338_a_);
 
-    public static final AbstractTreeFeature<NoFeatureConfig> SMALL_BOGSHROOM = new SmallBogshroomFeature(NoFeatureConfig::deserialize);
-    public static final AbstractTreeFeature<NoFeatureConfig> SMALL_NIGHTSHROOM = new SmallNightshroomFeature(NoFeatureConfig::deserialize);
-    public static final AbstractTreeFeature<NoFeatureConfig> SMALL_DEWSHROOM = new SmallDewshroomFeature(NoFeatureConfig::deserialize);
-    public static final AbstractTreeFeature<NoFeatureConfig> SMALL_VIRIDSHROOM = new SmallViridshroomFeature(NoFeatureConfig::deserialize);
+    public static final AbstractTreeFeature<TreeFeatureConfig> SMALL_BOGSHROOM = new SmallBogshroomFeature(TreeFeatureConfig::func_227338_a_);
+    public static final AbstractTreeFeature<TreeFeatureConfig> SMALL_NIGHTSHROOM = new SmallNightshroomFeature(TreeFeatureConfig::func_227338_a_);
+    public static final AbstractTreeFeature<TreeFeatureConfig> SMALL_DEWSHROOM = new SmallDewshroomFeature(TreeFeatureConfig::func_227338_a_);
+    public static final AbstractTreeFeature<TreeFeatureConfig> SMALL_VIRIDSHROOM = new SmallViridshroomFeature(TreeFeatureConfig::func_227338_a_);
 
     public static final Feature<NoFeatureConfig> SUAVIS = new ScatteredPlantFeature(NoFeatureConfig::deserialize, MidnightBlocks.SUAVIS.getDefaultState());
     public static final Feature<NoFeatureConfig> DECEITFUL_ALGAE = new AlgaeFeature(NoFeatureConfig::deserialize);

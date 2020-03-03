@@ -1,10 +1,9 @@
 package com.mushroom.midnight.client.render.entity;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.model.SkulkModel;
 import com.mushroom.midnight.common.entity.creature.SkulkEntity;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
@@ -18,20 +17,20 @@ public class SkulkRenderer extends MobRenderer<SkulkEntity, SkulkModel> {
         super(manager, new SkulkModel(), 0.4f);
     }
 
-    @Override
-    public void doRender(SkulkEntity entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        boolean isTransparent = false;
-        if (entity.isStealth()) {
-            if (entity.getDistanceSq(Minecraft.getInstance().player) >= 8d) {
-                return;
-            }
-            isTransparent = true;
-            GlStateManager.Profile.TRANSPARENT_MODEL.func_187373_a();
+
+    protected RenderType func_230042_a_(SkulkEntity p_230042_1_, boolean p_230042_2_, boolean p_230042_3_) {
+        ResourceLocation resourcelocation = this.getEntityTexture(p_230042_1_);
+        if (p_230042_3_ || p_230042_1_.isStealth()) {
+            return RenderType.entityTranslucent(resourcelocation);
+        } else if (p_230042_2_) {
+            return this.entityModel.getRenderType(resourcelocation);
+        } else {
+            return p_230042_1_.isGlowing() ? RenderType.outline(resourcelocation) : null;
         }
-        super.doRender(entity, x, y, z, entityYaw, partialTicks);
-        if (isTransparent) {
-            GlStateManager.Profile.TRANSPARENT_MODEL.func_187374_b();
-        }
+    }
+
+    protected boolean isVisible(SkulkEntity livingEntityIn) {
+        return livingEntityIn.isStealth() || !livingEntityIn.isInvisible();
     }
 
     @Nullable

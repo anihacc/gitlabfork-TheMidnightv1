@@ -21,8 +21,8 @@ public class NoiseChunkPrimer {
     }
 
     public void primeChunk(ChunkPrimer primer, double[] sampledNoise, Handler handler) {
-        Heightmap oceanFloor = primer.func_217303_b(Heightmap.Type.OCEAN_FLOOR_WG);
-        Heightmap worldSurface = primer.func_217303_b(Heightmap.Type.WORLD_SURFACE_WG);
+        Heightmap oceanFloor = primer.getHeightmap(Heightmap.Type.OCEAN_FLOOR_WG);
+        Heightmap worldSurface = primer.getHeightmap(Heightmap.Type.WORLD_SURFACE_WG);
 
         int sampleWidth = this.noiseWidth + 1;
         int sampleHeight = this.noiseHeight + 1;
@@ -42,7 +42,7 @@ public class NoiseChunkPrimer {
                 int indexXDown = (indexZDown + noiseX) * sampleHeight;
                 int indexXDownRight = (indexZDown + noiseX + 1) * sampleHeight;
 
-                ChunkSection section = primer.func_217332_a(15);
+                ChunkSection section = primer.getSection(15);
                 section.lock();
 
                 for (int noiseY = 0; noiseY < this.noiseHeight; noiseY++) {
@@ -67,7 +67,7 @@ public class NoiseChunkPrimer {
                         int sectionY = y >> 4;
                         if (section.getYLocation() >> 4 != sectionY) {
                             section.unlock();
-                            section = primer.func_217332_a(sectionY);
+                            section = primer.getSection(sectionY);
                             section.lock();
                         }
 

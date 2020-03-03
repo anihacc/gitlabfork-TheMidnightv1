@@ -1,8 +1,8 @@
 package com.mushroom.midnight.common.block;
 
-import com.mushroom.midnight.common.util.MidnightUtil;
 import com.mushroom.midnight.common.registry.MidnightEntities;
 import com.mushroom.midnight.common.registry.MidnightSounds;
+import com.mushroom.midnight.common.util.MidnightUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -21,7 +21,7 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.stats.Stats;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -50,9 +50,9 @@ public abstract class PileOfEggsBlock extends Block {
     protected abstract MobEntity createEntityForEgg(World world, BlockPos pos, BlockState state);
 
     @Override
-    public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
         if (player == null) {
-            return false;
+            return ActionResultType.FAIL;
         }
         ItemStack stack = player.getHeldItem(hand);
         if (stack.getItem() == Item.getItemFromBlock(this)) {
@@ -66,9 +66,9 @@ public abstract class PileOfEggsBlock extends Block {
                     world.playSound(null, pos, this.soundType.getPlaceSound(), SoundCategory.BLOCKS, (this.soundType.getVolume() + 1f) / 2f, this.soundType.getPitch() * 0.8f);
                 }
             }
-            return true;
+            return ActionResultType.SUCCESS;
         }
-        return false;
+        return ActionResultType.FAIL;
     }
 
     @Override
@@ -138,10 +138,6 @@ public abstract class PileOfEggsBlock extends Block {
         return false;
     }
 
-    @Override
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.CUTOUT;
-    }
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {

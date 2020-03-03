@@ -40,8 +40,8 @@ public abstract class CavernousBiome extends ForgeRegistryEntry<CavernousBiome> 
     protected final float pillarWeight;
 
     protected final Multimap<GenerationStage.Carving, ConfiguredCarver<?>> carvers = HashMultimap.create();
-    protected final Multimap<GenerationStage.Decoration, ConfiguredFeature<?>> features = HashMultimap.create();
-    protected final List<ConfiguredFeature<?>> flowers = new ArrayList<>();
+    protected final Multimap<GenerationStage.Decoration, ConfiguredFeature<?, ?>> features = HashMultimap.create();
+    protected final List<ConfiguredFeature<?, ?>> flowers = new ArrayList<>();
     protected final Map<Structure<?>, IFeatureConfig> structures = new HashMap<>();
     protected final Map<EntityClassification, List<Biome.SpawnListEntry>> spawns = new HashMap<>();
 
@@ -57,7 +57,7 @@ public abstract class CavernousBiome extends ForgeRegistryEntry<CavernousBiome> 
     }
 
     @Override
-    public void add(GenerationStage.Decoration stage, ConfiguredFeature<?> feature) {
+    public void add(GenerationStage.Decoration stage, ConfiguredFeature feature) {
         if (feature.feature == Feature.DECORATED_FLOWER) {
             this.flowers.add(feature);
         }
@@ -69,7 +69,6 @@ public abstract class CavernousBiome extends ForgeRegistryEntry<CavernousBiome> 
         this.carvers.put(stage, carver);
     }
 
-    @Override
     public <C extends IFeatureConfig> void add(Structure<C> structure, C config) {
         this.structures.put(structure, config);
     }
@@ -83,7 +82,7 @@ public abstract class CavernousBiome extends ForgeRegistryEntry<CavernousBiome> 
     public void placeFeatures(GenerationStage.Decoration stage, MidnightChunkGenerator generator, WorldGenRegion world, long seed, SharedSeedRandom random, BlockPos origin) {
         int index = 0;
 
-        for (ConfiguredFeature<?> feature : this.features.get(stage)) {
+        for (ConfiguredFeature<?, ?> feature : this.features.get(stage)) {
             random.setFeatureSeed(seed, index, stage.ordinal());
             feature.place(world, generator, random, origin);
 

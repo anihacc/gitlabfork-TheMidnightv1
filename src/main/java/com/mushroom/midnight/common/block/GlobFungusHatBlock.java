@@ -9,13 +9,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IEnviromentBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
@@ -28,7 +24,7 @@ public class GlobFungusHatBlock extends Block {
 
     // random.nextInt(5) == 0 -> drop 1 GLOB_FUNGUS (+SilkTouch)
 
-    @Override
+    /*@Override
     @OnlyIn(Dist.CLIENT)
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
@@ -36,7 +32,7 @@ public class GlobFungusHatBlock extends Block {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public int getPackedLightmapCoords(BlockState state, IEnviromentBlockReader worldIn, BlockPos pos) {
+    public int getPackedLightmapCoords(BlockState state, ILightReader worldIn, BlockPos pos) {
         return worldIn.getCombinedLight(pos, 13);
     }
 
@@ -45,7 +41,7 @@ public class GlobFungusHatBlock extends Block {
     public float func_220080_a(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return 0f;
     }
-
+*/
     @Override
     public boolean canCreatureSpawn(BlockState state, IBlockReader world, BlockPos pos, EntitySpawnPlacementRegistry.PlacementType type, @Nullable EntityType<?> entityType) {
         return false;
@@ -53,16 +49,16 @@ public class GlobFungusHatBlock extends Block {
 
     @Override
     public void onFallenUpon(World world, BlockPos pos, Entity entity, float fallDistance) {
-        if (entity.isSneaking()) {
+        if (entity.isShiftKeyDown()) {
             super.onFallenUpon(world, pos, entity, fallDistance);
         } else {
-            entity.fall(fallDistance, 0f);
+            entity.onLivingFall(fallDistance, 0f);
         }
     }
 
     @Override
     public void onLanded(IBlockReader world, Entity entity) {
-        if (entity.isSneaking()) {
+        if (entity.isShiftKeyDown()) {
             super.onLanded(world, entity);
         } else if (entity.getMotion().y < 0d) {
             entity.setMotion(entity.getMotion().x, -entity.getMotion().y, entity.getMotion().z);
@@ -74,7 +70,7 @@ public class GlobFungusHatBlock extends Block {
 
     @Override
     public void onEntityWalk(World world, BlockPos pos, Entity entity) {
-        if (Math.abs(entity.getMotion().y) < 0.1d && !entity.isSneaking()) {
+        if (Math.abs(entity.getMotion().y) < 0.1d && !entity.isShiftKeyDown()) {
             double d0 = 0.4d + Math.abs(entity.getMotion().y) * 0.2d;
             entity.setMotion(entity.getMotion().mul(d0, 1d, d0));
         }

@@ -3,15 +3,12 @@ package com.mushroom.midnight.common.block;
 import com.mushroom.midnight.common.util.MidnightUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
 import net.minecraft.world.lighting.LightEngine;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 import java.util.function.Supplier;
@@ -25,14 +22,14 @@ public class SpreadableSoilBlock extends SoilBlock {
         this.groundSupplier = groundSupplier;
     }
 
-    @Override
+    /*@Override
     @OnlyIn(Dist.CLIENT)
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
-
+*/
     @Override
-    public void tick(BlockState state, World world, BlockPos pos, Random rand) {
+    public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
         if (world.isRemote || !world.isAreaLoaded(pos, 3)) {
             return;
         }

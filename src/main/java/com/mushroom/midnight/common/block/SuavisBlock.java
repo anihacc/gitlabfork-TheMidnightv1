@@ -34,11 +34,9 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IEnviromentBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
 
 import javax.annotation.Nullable;
@@ -132,13 +130,13 @@ public class SuavisBlock extends Block implements IGrowable {
         world.addEntity(entity);
     }
 
-    @Override
+   /* @Override
     @OnlyIn(Dist.CLIENT)
-    public int getPackedLightmapCoords(BlockState state, IEnviromentBlockReader worldIn, BlockPos pos) {
+    public int getPackedLightmapCoords(BlockState state, ILightReader worldIn, BlockPos pos) {
         int skyLight = 15;
         int blockLight = 15;
         return skyLight << 20 | blockLight << 4;
-    }
+    }*/
 
     @Override
     public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
@@ -151,12 +149,12 @@ public class SuavisBlock extends Block implements IGrowable {
     }
 
     @Override
-    public void grow(World world, Random rand, BlockPos pos, BlockState state) {
+    public void grow(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
         world.setBlockState(pos, state.with(STAGE, state.get(STAGE) + 1), 2);
     }
 
     @Override
-    public void tick(BlockState state, World world, BlockPos pos, Random rand) {
+    public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
         if (state.get(STAGE) < 3 && ForgeHooks.onCropsGrowPre(world, pos, state, rand.nextInt(5) == 0)) {
             this.grow(world, rand, pos, state);
             ForgeHooks.onCropsGrowPost(world, pos, state);

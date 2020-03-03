@@ -15,6 +15,7 @@ import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Mirror;
@@ -65,15 +66,15 @@ public class CacheBlock extends ContainerBlock {
     }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (world.isRemote) {
-            return true;
+            return ActionResultType.FAIL;
         } else {
             INamedContainerProvider provider = this.getContainer(state, world, pos);
             if (provider != null) {
                 player.openContainer(provider);
             }
-            return true;
+            return ActionResultType.SUCCESS;
         }
     }
 

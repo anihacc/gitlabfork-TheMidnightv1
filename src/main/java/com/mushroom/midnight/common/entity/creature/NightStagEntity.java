@@ -9,7 +9,6 @@ import com.mushroom.midnight.common.entity.task.ChargeGoal;
 import com.mushroom.midnight.common.entity.task.EatGrassGoal;
 import com.mushroom.midnight.common.entity.task.NeutralGoal;
 import com.mushroom.midnight.common.entity.task.SearchForBlockGoal;
-import com.mushroom.midnight.common.util.MidnightUtil;
 import com.mushroom.midnight.common.item.UnstableFruitItem;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightCriterion;
@@ -17,6 +16,7 @@ import com.mushroom.midnight.common.registry.MidnightEffects;
 import com.mushroom.midnight.common.registry.MidnightEntities;
 import com.mushroom.midnight.common.registry.MidnightSounds;
 import com.mushroom.midnight.common.registry.MidnightSurfaceBiomes;
+import com.mushroom.midnight.common.util.MidnightUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.AgeableEntity;
@@ -302,8 +302,8 @@ public class NightStagEntity extends AnimalEntity {
     }
 
     @Override
-    public void fall(float distance, float damageMultiplier) {
-        super.fall(distance, damageMultiplier * 0.2f);
+    public boolean onLivingFall(float distance, float damageMultiplier) {
+        return super.onLivingFall(distance, damageMultiplier * 0.2f);
     }
 
     @Override

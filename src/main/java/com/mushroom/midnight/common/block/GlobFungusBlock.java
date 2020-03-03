@@ -6,6 +6,7 @@ import net.minecraft.block.trees.Tree;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import java.util.Random;
@@ -29,7 +30,7 @@ public class GlobFungusBlock extends MidnightPlantBlock implements IGrowable {
     }
 
     @Override
-    public void grow(World world, Random rand, BlockPos pos, BlockState state) {
+    public void grow(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
         if (ForgeEventFactory.saplingGrowTree(world, rand, pos)) {
             this.tree.spawn(world, pos, state, rand);
         }

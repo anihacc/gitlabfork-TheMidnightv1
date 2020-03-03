@@ -54,14 +54,13 @@ public abstract class SurfaceBiome extends Biome implements ConfigurableBiome {
         return false;
     }
 
-    @Override
-    public int getGrassColor(BlockPos pos) {
-        return this.grassColor;
+    public int getGrassColor() {
+        return grassColor;
     }
 
     @Override
-    public int getFoliageColor(BlockPos pos) {
-        return this.foliageColor;
+    public int getFoliageColor() {
+        return foliageColor;
     }
 
     public float getRidgeWeight() {
@@ -84,13 +83,12 @@ public abstract class SurfaceBiome extends Biome implements ConfigurableBiome {
         return this.fogEnd;
     }
 
-    @Override
     public int getSkyColorByTemp(float temperature) {
         return this.skyColor;
     }
 
     @Override
-    public void add(GenerationStage.Decoration stage, ConfiguredFeature<?> feature) {
+    public void add(GenerationStage.Decoration stage, ConfiguredFeature feature) {
         super.addFeature(stage, feature);
     }
 
@@ -100,8 +98,8 @@ public abstract class SurfaceBiome extends Biome implements ConfigurableBiome {
     }
 
     @Override
-    public <C extends IFeatureConfig> void add(Structure<C> structure, C config) {
-        super.addStructure(structure, config);
+    public <C extends IFeatureConfig> void add(ConfiguredFeature<C, ? extends Structure<C>> structure) {
+        super.addStructure(structure);
     }
 
     @Override

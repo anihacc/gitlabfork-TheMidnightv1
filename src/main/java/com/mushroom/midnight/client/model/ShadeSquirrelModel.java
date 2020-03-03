@@ -1,17 +1,18 @@
 package com.mushroom.midnight.client.model;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mushroom.midnight.common.entity.creature.ShadeSquirrelEntity;
-import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.model.IHasArm;
-import net.minecraft.client.renderer.entity.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.model.SegmentedModel;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class ShadeSquirrelModel extends EntityModel<ShadeSquirrelEntity> implements IHasArm {
+public class ShadeSquirrelModel extends SegmentedModel<ShadeSquirrelEntity> implements IHasArm {
     public ModelRenderer body;
     public ModelRenderer legL;
     public ModelRenderer legR;
@@ -91,27 +92,12 @@ public class ShadeSquirrelModel extends EntityModel<ShadeSquirrelEntity> impleme
     }
 
     @Override
-    public void render(ShadeSquirrelEntity entity, float f, float f1, float f2, float f3, float f4, float scale) {
-        if (entity.isChild()) {
-            GlStateManager.pushMatrix();
-            GlStateManager.scalef(0.75F, 0.75F, 0.75F);
-            GlStateManager.translatef(0.0F, 9.5F * scale, 0.0F);
-            this.head.render(scale);
-            GlStateManager.popMatrix();
-            GlStateManager.pushMatrix();
-            GlStateManager.scalef(0.5555555F, 0.5555555F, 0.5555555F);
-            GlStateManager.translatef(0.0F, 20.5F * scale, 0.0F);
-            this.body.render(scale);
-            GlStateManager.popMatrix();
-        } else {
-            this.body.render(scale);
-            this.head.render(scale);
-        }
+    public Iterable<ModelRenderer> getParts() {
+        return ImmutableList.of(this.head, this.body);
     }
 
     @Override
-    public void setRotationAngles(ShadeSquirrelEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
-        super.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
+    public void render(ShadeSquirrelEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.head.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
 
         if(!entity.isSitting()){
@@ -159,7 +145,12 @@ public class ShadeSquirrelModel extends EntityModel<ShadeSquirrelEntity> impleme
 
     public void postRenderArm(float scale, HandSide side) {
         if(this.isSitting) {
-            this.getArm(side).postRender(0.0625F);
+
         }
+    }
+
+    @Override
+    public void translateHand(HandSide sideIn, MatrixStack matrixStackIn) {
+        this.getArm(sideIn).setAnglesAndRotation(matrixStackIn);
     }
 }

@@ -3,7 +3,7 @@ package com.mushroom.midnight.common.biome;
 import net.minecraft.world.gen.IExtendedNoiseRandom;
 import net.minecraft.world.gen.area.IArea;
 import net.minecraft.world.gen.area.IAreaFactory;
-import net.minecraft.world.gen.layer.VoroniZoomLayer;
+import net.minecraft.world.gen.layer.ZoomLayer;
 
 import java.util.function.LongFunction;
 
@@ -17,7 +17,8 @@ public final class BiomeProcedure<A extends IArea> {
     }
 
     public static <A extends IArea, C extends IExtendedNoiseRandom<A>> BiomeProcedure<A> of(IAreaFactory<A> noise, LongFunction<C> contextFactory) {
-        IAreaFactory<A> block = VoroniZoomLayer.INSTANCE.apply(contextFactory.apply(1234), noise);
+        //TODO
+        IAreaFactory<A> block = ZoomLayer.NORMAL.apply(contextFactory.apply(1234), noise);
         return new BiomeProcedure<>(noise.make(), block.make());
     }
 }

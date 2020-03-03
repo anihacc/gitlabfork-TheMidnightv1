@@ -34,8 +34,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class NovaEntity extends MonsterEntity implements IFlyingAnimal {
     private static final DataParameter<Boolean> IS_ATTACKING = EntityDataManager.createKey(NovaEntity.class, DataSerializers.BOOLEAN);
@@ -48,7 +46,7 @@ public class NovaEntity extends MonsterEntity implements IFlyingAnimal {
         setPathPriority(PathNodeType.LAVA, 8f);
         setPathPriority(PathNodeType.DANGER_FIRE, 0f);
         setPathPriority(PathNodeType.DAMAGE_FIRE, 0f);
-        this.moveController = new FlyingMovementController(this);
+        this.moveController = new FlyingMovementController(this, 20, true);
     }
 
     @Override
@@ -116,7 +114,7 @@ public class NovaEntity extends MonsterEntity implements IFlyingAnimal {
             this.heightOffset = 0.5f + (float) this.rand.nextGaussian() * 3f;
         }
         LivingEntity target = getAttackTarget();
-        if (target != null && target.isAlive() && target.posY + (double) target.getEyeHeight() > this.posY + (double) getEyeHeight() + (double) this.heightOffset) {
+        if (target != null && target.isAlive() && target.getPosY() + (double) target.getEyeHeight() > this.getPosY() + (double) getEyeHeight() + (double) this.heightOffset) {
             getMotion().add(0d, (0.3 - getMotion().y) * 0.3, 0d);
             this.isAirBorne = true;
         }
@@ -141,7 +139,8 @@ public class NovaEntity extends MonsterEntity implements IFlyingAnimal {
     }
 
     @Override
-    public void fall(float distance, float damageMultiplier) {
+    public boolean onLivingFall(float distance, float damageMultiplier) {
+        return false;
     }
 
     @Override
@@ -185,12 +184,12 @@ public class NovaEntity extends MonsterEntity implements IFlyingAnimal {
         }
     }
 
-    @Override
+    /*@Override
     @OnlyIn(Dist.CLIENT)
     public int getBrightnessForRender() {
         return 14 << 20 | 14 << 4;
     }
-
+*/
     public boolean isAttacking() {
         return dataManager.get(IS_ATTACKING);
     }
