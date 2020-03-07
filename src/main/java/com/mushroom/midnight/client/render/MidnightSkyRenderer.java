@@ -1,6 +1,7 @@
 package com.mushroom.midnight.client.render;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.RenderHelper;
@@ -42,10 +43,10 @@ public final class MidnightSkyRenderer implements IRenderHandler {
         RenderHelper.disableStandardItemLighting();
 
         GlStateManager.enableBlend();
-        GlStateManager.disableAlphaTest();
-        GlStateManager.disableFog();
+        RenderSystem.disableAlphaTest();
+        RenderSystem.disableFog();
 
-        GlStateManager.shadeModel(GL11.GL_SMOOTH);
+        RenderSystem.shadeModel(GL11.GL_SMOOTH);
 
         this.gradientVbo.bindBuffer();
 
@@ -64,9 +65,9 @@ public final class MidnightSkyRenderer implements IRenderHandler {
         GlStateManager.disableClientState(GL11.GL_VERTEX_ARRAY);
         GlStateManager.disableClientState(GL11.GL_COLOR_ARRAY);
 
-        GlStateManager.shadeModel(GL11.GL_FLAT);
+        RenderSystem.shadeModel(GL11.GL_FLAT);
 
-        GlStateManager.enableAlphaTest();
+        RenderSystem.enableAlphaTest();
         GlStateManager.enableTexture();
 
         GlStateManager.depthMask(true);
@@ -84,7 +85,7 @@ public final class MidnightSkyRenderer implements IRenderHandler {
             builder.finishDrawing();
             builder.reset();
 
-            //this.gradientVbo.(builder.getVertexBuilder());
+            //this.gradientVbo.bufferData(builder.getByteBuffer());
         }
     }
 

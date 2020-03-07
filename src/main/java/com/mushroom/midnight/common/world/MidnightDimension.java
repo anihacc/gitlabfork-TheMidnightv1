@@ -5,11 +5,13 @@ import com.mushroom.midnight.common.biome.BiomeLayerType;
 import com.mushroom.midnight.common.biome.BiomeLayers;
 import com.mushroom.midnight.common.biome.cavern.CavernousBiome;
 import com.mushroom.midnight.common.config.MidnightConfig;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -93,13 +95,13 @@ public class MidnightDimension extends Dimension {
         float colors0 = blockLight * 0.93F + 0.07F;
         float colors1 = blockLight * 0.96F + 0.03F;
         float colors2 = blockLight * 0.94F + 0.16F;
-        /*if (this.world. > 0) {
+        if (Minecraft.getInstance().world != null && Minecraft.getInstance().world.getTimeLightningFlash() > 0) {
             float undergroundFactor = (float) MidnightAtmosphereController.INSTANCE.getUndergroundFactor();
-            colors[0] = MathHelper.lerp(undergroundFactor, 0.95F, colors[0]);
-            colors[1] = MathHelper.lerp(undergroundFactor, 0.3F, colors[1]);
-            colors[2] = MathHelper.lerp(undergroundFactor, 0.3F, colors[2]);
-        }*/
-        colors.set(colors0, colors1, colors2);
+            colors0 = MathHelper.lerp(undergroundFactor, 0.95F, colors0);
+            colors1 = MathHelper.lerp(undergroundFactor, 0.3F, colors1);
+            colors2 = MathHelper.lerp(undergroundFactor, 0.3F, colors2);
+        }
+        colors.set(colors0 + colors.getX(), colors1 + colors.getY(), colors2 + colors.getZ());
     }
 
     @Override
