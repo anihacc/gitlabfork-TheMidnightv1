@@ -46,9 +46,12 @@ public class DragonsNestDripParticle extends SpriteTexturedParticle {
         motionZ *= 0.9800000190734863d;
         if (maxAge-- <= 0) {
             setExpired();
-        } else {
+        }
+
+        if (!(this.age++ >= this.maxAge)) {
             selectSpriteWithAge(this.spriteSet);
         }
+
         if (onGround) {
             setExpired();
             motionX *= 0.699999988079071d;

@@ -28,7 +28,9 @@ public class UnstableBushParticle extends SpriteTexturedParticle {
 
     @Override
     public void tick() {
-        selectSpriteWithAge(this.spriteSet);
+        if (!(this.age++ >= this.maxAge)) {
+            selectSpriteWithAge(this.spriteSet);
+        }
         this.particleAlpha = age / (float) maxAge;
         super.tick();
     }

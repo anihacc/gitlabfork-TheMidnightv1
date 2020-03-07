@@ -1,7 +1,6 @@
 package com.mushroom.midnight.client.render.entity;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.model.RifterModel;
 import com.mushroom.midnight.common.entity.creature.RifterEntity;
@@ -22,7 +21,7 @@ public class RifterRenderer extends MobRenderer<RifterEntity, RifterModel> {
         super.preRenderCallback(entitylivingbaseIn, matrixStackIn, partialTickTime);
         if (MidnightUtil.isMidnightDimension(entitylivingbaseIn.world)) {
             float scaleFactor = RifterEntity.HOME_SCALE_MODIFIER;
-            GlStateManager.scalef(scaleFactor, scaleFactor, scaleFactor);
+            matrixStackIn.scale(scaleFactor, scaleFactor, scaleFactor);
         }
     }
 

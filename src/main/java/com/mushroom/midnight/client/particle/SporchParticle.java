@@ -44,7 +44,9 @@ public class SporchParticle extends SpriteTexturedParticle {
     public void tick() {
         super.tick();
         if (isAlive()) {
-            selectSpriteWithAge(this.spriteSet);
+            if (!(this.age++ >= this.maxAge)) {
+                selectSpriteWithAge(this.spriteSet);
+            }
         }
     }
 

@@ -33,7 +33,9 @@ public class SporeParticle extends SpriteTexturedParticle {
 
     @Override
     public void tick() {
-        selectSpriteWithAge(this.spriteSet);
+        if (!(this.age++ >= this.maxAge)) {
+            selectSpriteWithAge(this.spriteSet);
+        }
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
