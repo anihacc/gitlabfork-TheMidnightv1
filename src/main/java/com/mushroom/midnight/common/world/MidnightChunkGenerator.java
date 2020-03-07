@@ -81,7 +81,6 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
         });
     }
 
-
     @Override
     public void func_225551_a_(WorldGenRegion worldGenRegion, IChunk chunk) {
         long seed = this.world.getSeed();
@@ -98,13 +97,15 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
 
         BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
 
-        for (int localZ = 0; localZ < 16; localZ++) {
-            for (int localX = 0; localX < 16; localX++) {
+        for (int localX = 0; localX < 16; localX++) {
+            for (int localZ = 0; localZ < 16; localZ++) {
                 int globalX = minChunkX + localX;
                 int globalZ = minChunkZ + localZ;
+
                 int i2 = chunk.getTopBlockY(Heightmap.Type.WORLD_SURFACE_WG, localX, localZ) + 1;
 
-                Biome surfaceBiome = worldGenRegion.getBiome(blockpos$mutable.setPos(minChunkX + localX, i2, minChunkZ + localZ));
+                Biome surfaceBiome = this.getSurfaceBiome(globalX, globalZ);
+
                 CavernousBiome cavernousBiome = this.getCavernousBiome(globalX, globalZ);
 
                 int height = chunk.getTopBlockY(Heightmap.Type.WORLD_SURFACE_WG, localX, localZ) + 1;
@@ -240,6 +241,10 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
 
     protected CavernousBiome getCavernousBiome(int x, int z) {
         return this.undergroundLayers.block.sample(x, z);
+    }
+
+    protected Biome getSurfaceBiome(int x, int z) {
+        return this.surfaceLayers.block.sample(x, z);
     }
 
     public static class Config extends GenerationSettings {

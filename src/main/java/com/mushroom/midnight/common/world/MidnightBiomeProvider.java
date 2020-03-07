@@ -28,14 +28,6 @@ public class MidnightBiomeProvider extends BiomeProvider {
         return this.layers.block.sample(x, y);
     }
 
-/*
-    @Override
-    public Biome func_222365_c(int x, int y) {
-        return this.layers.noise.sample(x, y);
-    }
-*/
-
-
     @Override
     public boolean hasStructure(Structure<?> structure) {
         return this.hasStructureCache.computeIfAbsent(structure, s -> {

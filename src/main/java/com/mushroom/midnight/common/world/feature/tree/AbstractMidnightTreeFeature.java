@@ -3,6 +3,7 @@ package com.mushroom.midnight.common.world.feature.tree;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mojang.datafixers.Dynamic;
+import com.mushroom.midnight.common.registry.MidnightBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -23,6 +24,7 @@ import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.template.Template;
 
 import java.util.List;
 import java.util.Random;
@@ -81,7 +83,10 @@ public abstract class AbstractMidnightTreeFeature<T extends IFeatureConfig> exte
     @Deprecated //Forge: moved to isSoil
     public static boolean isDirtOrGrassBlock(IWorldGenerationBaseReader worldIn, BlockPos pos) {
         return worldIn.hasBlockState(pos, (p_227221_0_) -> {
-            return isDirt(p_227221_0_.getBlock());
+            return isDirt(p_227221_0_.getBlock()) || worldIn.hasBlockState(pos, (p_227220_0_) -> {
+                Block block = p_227220_0_.getBlock();
+                return block == MidnightBlocks.COARSE_DIRT || block == MidnightBlocks.DIRT || block == MidnightBlocks.GRASS_BLOCK;
+            });
         });
     }
 
@@ -161,8 +166,81 @@ public abstract class AbstractMidnightTreeFeature<T extends IFeatureConfig> exte
         p_208521_1_.setBlockState(p_208521_2_, p_208521_3_, 19);
     }
 
+    protected abstract boolean place(Set<BlockPos> changedBlocks, IWorldGenerationReader world, Random random, BlockPos origin, MutableBoundingBox bounds);
+
     public final boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, T config) {
-        return false;
+        Set<BlockPos> set = Sets.newHashSet();
+        MutableBoundingBox mutableboundingbox = MutableBoundingBox.getNewBoundingBox();
+        boolean flag = this.place(set, worldIn, rand, pos, mutableboundingbox);
+        if (mutableboundingbox.minX > mutableboundingbox.maxX) {
+            return false;
+        } else {
+            List<Set<BlockPos>> list = Lists.newArrayList();
+            int i = 6;
+
+            for (int j = 0; j < 6; ++j) {
+                list.add(Sets.newHashSet());
+            }
+
+            VoxelShapePart voxelshapepart = new BitSetVoxelShapePart(mutableboundingbox.getXSize(), mutableboundingbox.getYSize(), mutableboundingbox.getZSize());
+
+            try (BlockPos.PooledMutable blockpos$pooledmutableblockpos = BlockPos.PooledMutable.retain()) {
+                if (flag && !set.isEmpty()) {
+                    for (BlockPos blockpos : Lists.newArrayList(set)) {
+                        if (mutableboundingbox.isVecInside(blockpos)) {
+                            voxelshapepart.setFilled(blockpos.getX() - mutableboundingbox.minX, blockpos.getY() - mutableboundingbox.minY, blockpos.getZ() - mutableboundingbox.minZ, true, true);
+                        }
+
+                        for (Direction direction : Direction.values()) {
+                            blockpos$pooledmutableblockpos.setPos(blockpos).move(direction);
+                            if (!set.contains(blockpos$pooledmutableblockpos)) {
+                                BlockState blockstate = worldIn.getBlockState(blockpos$pooledmutableblockpos);
+                                if (blockstate.has(BlockStateProperties.DISTANCE_1_7)) {
+                                    list.get(0).add(blockpos$pooledmutableblockpos.toImmutable());
+                                    this.func_208521_b(worldIn, blockpos$pooledmutableblockpos, blockstate.with(BlockStateProperties.DISTANCE_1_7, Integer.valueOf(1)));
+                                    if (mutableboundingbox.isVecInside(blockpos$pooledmutableblockpos)) {
+                                        voxelshapepart.setFilled(blockpos$pooledmutableblockpos.getX() - mutableboundingbox.minX, blockpos$pooledmutableblockpos.getY() - mutableboundingbox.minY, blockpos$pooledmutableblockpos.getZ() - mutableboundingbox.minZ, true, true);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                for (int l = 1; l < 6; ++l) {
+                    Set<BlockPos> set1 = list.get(l - 1);
+                    Set<BlockPos> set2 = list.get(l);
+
+                    for (BlockPos blockpos1 : set1) {
+                        if (mutableboundingbox.isVecInside(blockpos1)) {
+                            voxelshapepart.setFilled(blockpos1.getX() - mutableboundingbox.minX, blockpos1.getY() - mutableboundingbox.minY, blockpos1.getZ() - mutableboundingbox.minZ, true, true);
+                        }
+
+                        for (Direction direction1 : Direction.values()) {
+                            blockpos$pooledmutableblockpos.setPos(blockpos1).move(direction1);
+                            if (!set1.contains(blockpos$pooledmutableblockpos) && !set2.contains(blockpos$pooledmutableblockpos)) {
+                                BlockState blockstate1 = worldIn.getBlockState(blockpos$pooledmutableblockpos);
+                                if (blockstate1.has(BlockStateProperties.DISTANCE_1_7)) {
+                                    int k = blockstate1.get(BlockStateProperties.DISTANCE_1_7);
+                                    if (k > l + 1) {
+                                        BlockState blockstate2 = blockstate1.with(BlockStateProperties.DISTANCE_1_7, Integer.valueOf(l + 1));
+                                        this.func_208521_b(worldIn, blockpos$pooledmutableblockpos, blockstate2);
+                                        if (mutableboundingbox.isVecInside(blockpos$pooledmutableblockpos)) {
+                                            voxelshapepart.setFilled(blockpos$pooledmutableblockpos.getX() - mutableboundingbox.minX, blockpos$pooledmutableblockpos.getY() - mutableboundingbox.minY, blockpos$pooledmutableblockpos.getZ() - mutableboundingbox.minZ, true, true);
+                                        }
+
+                                        set2.add(blockpos$pooledmutableblockpos.toImmutable());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            Template.func_222857_a(worldIn, 3, voxelshapepart, mutableboundingbox.minX, mutableboundingbox.minY, mutableboundingbox.minZ);
+            return flag;
+        }
     }
 
     private VoxelShapePart func_227214_a_(IWorld p_227214_1_, MutableBoundingBox p_227214_2_, Set<BlockPos> p_227214_3_, Set<BlockPos> p_227214_4_) {
