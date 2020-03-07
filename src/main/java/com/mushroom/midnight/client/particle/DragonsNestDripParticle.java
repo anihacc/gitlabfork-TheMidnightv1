@@ -31,7 +31,6 @@ public class DragonsNestDripParticle extends SpriteTexturedParticle {
 
     @Override
     public void tick() {
-        selectSpriteWithAge(this.spriteSet);
         prevPosX = posX;
         prevPosY = posY;
         prevPosZ = posZ;
@@ -47,6 +46,8 @@ public class DragonsNestDripParticle extends SpriteTexturedParticle {
         motionZ *= 0.9800000190734863d;
         if (maxAge-- <= 0) {
             setExpired();
+        } else {
+            selectSpriteWithAge(this.spriteSet);
         }
         if (onGround) {
             setExpired();

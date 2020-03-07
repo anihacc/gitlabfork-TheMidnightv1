@@ -10,6 +10,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class BlockRenderLayer {
 
     public static void renderBlock() {
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.DARK_WATER, RenderType.translucent());
+
         RenderTypeLookup.setRenderLayer(MidnightBlocks.ARCHAIC_GLASS, RenderType.translucent());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.ARCHAIC_GLASS_PANE, RenderType.translucent());
 
@@ -121,6 +123,12 @@ public class BlockRenderLayer {
         RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_NIGHTSHADE, RenderType.cutout());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_WISTERIA, RenderType.cutout());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.DECEITFUL_ALGAE, RenderType.cutout());
+
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.BLADESHROOM, RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.UNSTABLE_BUSH, RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.UNSTABLE_BUSH_BLUE_BLOOMED, RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.UNSTABLE_BUSH_GREEN_BLOOMED, RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.UNSTABLE_BUSH_LIME_BLOOMED, RenderType.cutout());
 
         RenderTypeLookup.setRenderLayer(MidnightBlocks.BOGSHROOM_SPORCH, RenderType.cutoutMipped());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.BOGSHROOM_WALL_SPORCH, RenderType.cutoutMipped());
