@@ -6,7 +6,6 @@ import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.model.NovaSpikeModel;
 import com.mushroom.midnight.common.entity.projectile.NovaSpikeEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -32,12 +31,11 @@ public class NovaSpikeRenderer extends EntityRenderer<NovaSpikeEntity> {
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(MathHelper.lerp(partialTicks, entity.prevRotationPitch, entity.rotationPitch) - 90.0F));
         this.getEntityTexture(entity);
 
-        RenderType rendertype = RenderType.cutout();
-        if (rendertype != null) {
-            IVertexBuilder ivertexbuilder = bufferIn.getBuffer(rendertype);
-            int i = getPackedOverlay(entity, 0.0F);
-            this.model.render(matrixStackIn, ivertexbuilder, packedLightIn, i, 1.0F, 1.0F, 1.0F, 1.0F);
-        }
+
+        IVertexBuilder ivertexbuilder = bufferIn.getBuffer(this.model.getRenderType(NOVA_SPIKE_TEXTURE));
+        int i = getPackedOverlay(entity, 0.0F);
+        this.model.render(matrixStackIn, ivertexbuilder, packedLightIn, i, 1.0F, 1.0F, 1.0F, 1.0F);
+
         matrixStackIn.pop();
 
         super.render(entity, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
