@@ -1,14 +1,20 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "midnight:block/nightshroom_ladder"
-  },
   "variants": {
-    "facing": {
-      "north": {},
-      "east": {"y": 90},
-      "south": {"y": 180},
-      "west": {"y": 270}
-	}
+    "facing=north": {
+      "model": "midnight:block/nightshroom_ladder"
+    },
+    "facing=east": {
+      "model": "midnight:block/nightshroom_ladder",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "midnight:block/nightshroom_ladder",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "midnight:block/nightshroom_ladder",
+      "y": 270
+    }
+
   }
 }
