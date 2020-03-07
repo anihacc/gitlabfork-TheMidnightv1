@@ -3,9 +3,7 @@ package com.mushroom.midnight.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ILightReader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.IBlockReader;
 
 public class GlowingBlock extends Block {
     public GlowingBlock(Properties properties) {
@@ -13,9 +11,7 @@ public class GlowingBlock extends Block {
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    @SuppressWarnings("deprecation")
-    public int getPackedLightmapCoords(BlockState state, ILightReader source, BlockPos pos) {
-        return source.getCombinedLight(pos, 15);
+    public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        return 1.0F;
     }
 }

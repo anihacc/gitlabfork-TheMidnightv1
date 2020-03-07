@@ -542,7 +542,7 @@ public class MidnightBlocks {
                 .withProperties(() -> Block.Properties.create(Material.TALL_PLANTS)
                         .sound(SoundType.PLANT)
                         .hardnessAndResistance(0f)
-                        .doesNotBlockMovement()
+                        .doesNotBlockMovement().notSolid()
                 )
                 .add("grass", props -> new MidnightPlantBlock(props, false, () -> TALL_GRASS).setReplacable())
                 .add("tall_grass", props -> new MidnightDoublePlantBlock(props, false))
@@ -607,7 +607,7 @@ public class MidnightBlocks {
                 .withProperties(() -> Block.Properties.create(Material.LEAVES)
                         .hardnessAndResistance(0.2F)
                         .tickRandomly()
-                        .sound(SoundType.PLANT)
+                        .sound(SoundType.PLANT).notSolid()
                 )
                 .add("shadowroot_leaves", LeavesBlock::new)
                 .add("dark_willow_leaves", LeavesBlock::new);
@@ -731,12 +731,12 @@ public class MidnightBlocks {
                 .add("bogshroom_crafting_table", MidnightCraftingTableBlock::new);
 
         RegUtil.blocks(event.getRegistry())
-                .withProperties(() -> Block.Properties.create(Material.IRON, MaterialColor.ADOBE).hardnessAndResistance(3f).sound(SoundType.METAL))
+                .withProperties(() -> Block.Properties.create(Material.IRON, MaterialColor.ADOBE).hardnessAndResistance(3f).sound(SoundType.METAL).notSolid())
                 .add("tenebrum_door", props -> new DoorBlock(props) {
                 });
 
         RegUtil.blocks(event.getRegistry())
-                .withProperties(() -> Block.Properties.create(Material.WOOD, MaterialColor.ADOBE).hardnessAndResistance(3f).sound(SoundType.WOOD))
+                .withProperties(() -> Block.Properties.create(Material.WOOD, MaterialColor.ADOBE).hardnessAndResistance(3f).sound(SoundType.WOOD).notSolid())
                 .add("shadowroot_door", props -> new DoorBlock(props) {
                 })
                 .add("dark_willow_door", props -> new DoorBlock(props) {
@@ -788,7 +788,7 @@ public class MidnightBlocks {
                 .add("bogshroom_fence_gate", FenceGateBlock::new);
 
         RegUtil.blocks(event.getRegistry())
-                .withProperties(() -> Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.4F).sound(SoundType.LADDER))
+                .withProperties(() -> Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.4F).sound(SoundType.LADDER).notSolid())
                 .add("shadowroot_ladder", props -> new LadderBlock(props) {
                 })
                 .add("dead_wood_ladder", props -> new LadderBlock(props) {
@@ -867,7 +867,7 @@ public class MidnightBlocks {
                 .add("dark_water", new MidnightFluidBlock(() -> MidnightFluids.DARK_WATER, false, Block.Properties.create(Material.WATER)
                         .doesNotBlockMovement()
                         .hardnessAndResistance(100.0F)
-                        .noDrops()
+                        .noDrops().notSolid()
                 ))
                 .add("miasma", new MidnightFluidBlock(() -> MidnightFluids.MIASMA, true, Block.Properties.create(Material.LAVA)
                         .doesNotBlockMovement()
@@ -999,13 +999,13 @@ public class MidnightBlocks {
 
         RegUtil.items(event.getRegistry())
                 .withProperties(() -> new Item.Properties().group(MidnightItemGroups.DECORATION))
-                .add(SHADOWROOT_CHEST, (block, props) -> new BlockItem(block, props.setTEISR(() -> getChestItemRenderer(block))))
-                .add(DARK_WILLOW_CHEST, (block, props) -> new BlockItem(block, props.setTEISR(() -> getChestItemRenderer(block))))
-                .add(DEAD_WOOD_CHEST, (block, props) -> new BlockItem(block, props.setTEISR(() -> getChestItemRenderer(block))))
-                .add(NIGHTSHROOM_CHEST, (block, props) -> new BlockItem(block, props.setTEISR(() -> getChestItemRenderer(block))))
-                .add(DEWSHROOM_CHEST, (block, props) -> new BlockItem(block, props.setTEISR(() -> getChestItemRenderer(block))))
-                .add(VIRIDSHROOM_CHEST, (block, props) -> new BlockItem(block, props.setTEISR(() -> getChestItemRenderer(block))))
-                .add(BOGSHROOM_CHEST, (block, props) -> new BlockItem(block, props.setTEISR(() -> getChestItemRenderer(block))))
+                .add(SHADOWROOT_CHEST, (block, props) -> new BlockItem(block, props.setISTER(() -> getChestItemRenderer(block))))
+                .add(DARK_WILLOW_CHEST, (block, props) -> new BlockItem(block, props.setISTER(() -> getChestItemRenderer(block))))
+                .add(DEAD_WOOD_CHEST, (block, props) -> new BlockItem(block, props.setISTER(() -> getChestItemRenderer(block))))
+                .add(NIGHTSHROOM_CHEST, (block, props) -> new BlockItem(block, props.setISTER(() -> getChestItemRenderer(block))))
+                .add(DEWSHROOM_CHEST, (block, props) -> new BlockItem(block, props.setISTER(() -> getChestItemRenderer(block))))
+                .add(VIRIDSHROOM_CHEST, (block, props) -> new BlockItem(block, props.setISTER(() -> getChestItemRenderer(block))))
+                .add(BOGSHROOM_CHEST, (block, props) -> new BlockItem(block, props.setISTER(() -> getChestItemRenderer(block))))
                 .add(VIRIDSHROOM_STEM_CACHE, BlockItem::new);
     }
 

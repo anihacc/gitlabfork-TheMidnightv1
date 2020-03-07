@@ -1,6 +1,6 @@
 package com.mushroom.midnight.client.render.entity;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.model.NovaModel;
 import com.mushroom.midnight.common.entity.creature.NovaEntity;
@@ -28,8 +28,8 @@ public class NovaRenderer extends MobRenderer<NovaEntity, NovaModel> {
     }
 
     @Override
-    protected void preRenderCallback(NovaEntity entity, float partialTicks) {
-        GlStateManager.translatef(0f, -0.25f + (MathHelper.sin((entity.ticksExisted + partialTicks) * 0.14f - 0.5f) / 8), 0f);
-        GlStateManager.scalef(0.8f, 0.8f, 0.8f);
+    protected void preRenderCallback(NovaEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+        matrixStackIn.translate(0f, -0.25f + (MathHelper.sin((entitylivingbaseIn.ticksExisted + partialTickTime) * 0.14f - 0.5f) / 8), 0f);
+        matrixStackIn.scale(0.8f, 0.8f, 0.8f);
     }
 }

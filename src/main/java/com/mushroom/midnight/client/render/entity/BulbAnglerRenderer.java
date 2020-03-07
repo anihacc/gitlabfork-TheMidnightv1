@@ -1,11 +1,14 @@
 package com.mushroom.midnight.client.render.entity;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.model.BulbAnglerModel;
 import com.mushroom.midnight.common.entity.creature.BulbAnglerEntity;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.AbstractEyesLayer;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
@@ -14,9 +17,17 @@ public class BulbAnglerRenderer extends MobRenderer<BulbAnglerEntity, BulbAngler
     private static final ResourceLocation TEXTURE = new ResourceLocation(Midnight.MODID, "textures/entities/bulb_angler.png");
     private static final ResourceLocation EMISSIVE_TEXTURE = new ResourceLocation(Midnight.MODID, "textures/entities/bulb_angler_emissive.png");
 
+    private static final RenderType eye_renderType = RenderType.eyes(EMISSIVE_TEXTURE);
+
+
     public BulbAnglerRenderer(EntityRendererManager manager) {
         super(manager, new BulbAnglerModel(), 0f);
-        this.addLayer(new EmissiveLayerRenderer<>(this, EMISSIVE_TEXTURE, BulbAnglerRenderer::computeBrightness, BulbAnglerRenderer::computeColor));
+        this.addLayer(new AbstractEyesLayer<BulbAnglerEntity, BulbAnglerModel>(this) {
+            @Override
+            public RenderType getRenderType() {
+                return eye_renderType;
+            }
+        });
     }
 
 
@@ -35,17 +46,21 @@ public class BulbAnglerRenderer extends MobRenderer<BulbAnglerEntity, BulbAngler
     }
 
 
-    protected void preRenderCallback(BulbAnglerEntity entity, float partialTicks) {
-        GlStateManager.translatef(0f, 1.2f, 0.0f);
+    @Override
+    protected void preRenderCallback(BulbAnglerEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+        matrixStackIn.translate(0f, 1.2f, 0.0f);
+        super.preRenderCallback(entitylivingbaseIn, matrixStackIn, partialTickTime);
     }
 
     @Override
-    protected void applyRotations(BulbAnglerEntity entity, float age, float yaw, float pitch) {
-        super.applyRotations(entity, age, yaw, pitch);
-        if (!entity.isInWater()) {
-            GlStateManager.rotatef(90.0F, 0.0F, 0.0F, 1.0F);
+    protected void applyRotations(BulbAnglerEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
+        super.applyRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
+        if (!entityLiving.isInWater()) {
+            matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90.0F));
+
         }
     }
+
 
     @Override
     protected float getDeathMaxRotation(BulbAnglerEntity entity) {

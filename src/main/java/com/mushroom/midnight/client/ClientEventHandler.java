@@ -1,7 +1,9 @@
 package com.mushroom.midnight.client;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mushroom.midnight.Midnight;
+import com.mushroom.midnight.client.render.block.MidnightChestBlockRenderer;
 import com.mushroom.midnight.common.capability.RifterCapturable;
 import com.mushroom.midnight.common.config.MidnightConfig;
 import com.mushroom.midnight.common.registry.MidnightEffects;
@@ -18,6 +20,7 @@ import net.minecraft.client.audio.MusicTicker;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.network.play.ClientPlayNetHandler;
+import net.minecraft.client.renderer.Atlases;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,6 +35,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -107,9 +111,9 @@ public class ClientEventHandler {
             float volume = rand.nextFloat() * 0.4F + 0.8F;
             float pitch = rand.nextFloat() * 0.6F + 0.7F;
 
-            float x = (float) (player.posX + rand.nextFloat() - 0.5F);
-            float y = (float) (player.posY + rand.nextFloat() - 0.5F);
-            float z = (float) (player.posZ + rand.nextFloat() - 0.5F);
+            float x = (float) (player.getPosX() + rand.nextFloat() - 0.5F);
+            float y = (float) (player.getPosY() + rand.nextFloat() - 0.5F);
+            float z = (float) (player.getPosZ() + rand.nextFloat() - 0.5F);
 
             ISound sound = new SimpleSound(ambientSound, SoundCategory.AMBIENT, volume, pitch, false, 0, ISound.AttenuationType.NONE, x, y, z, false);
             CLIENT.getSoundHandler().play(sound);
@@ -142,11 +146,11 @@ public class ClientEventHandler {
         LivingEntity entity = event.getInfo().getRenderViewEntity() instanceof LivingEntity ? (LivingEntity) event.getInfo().getRenderViewEntity() : null;
         if (entity != null && !entity.isPotionActive(Effects.BLINDNESS)) {
             if (entity.isPotionActive(MidnightEffects.DARKNESS)) {
-                GlStateManager.fogMode(GlStateManager.FogMode.EXP);
+                RenderSystem.fogMode(GlStateManager.FogMode.EXP);
                 event.setCanceled(true);
                 event.setDensity(0.15f);
             } else if (entity.isPotionActive(MidnightEffects.STUNNED)) {
-                GlStateManager.fogMode(GlStateManager.FogMode.EXP);
+                RenderSystem.fogMode(GlStateManager.FogMode.EXP);
                 event.setCanceled(true);
                 event.setDensity(0.15f);
             }
@@ -171,9 +175,9 @@ public class ClientEventHandler {
 
     private static void spawnAmbientParticles(PlayerEntity player) {
         Random random = player.world.rand;
-        double originX = player.posX;
-        double originY = player.posY;
-        double originZ = player.posZ;
+        double originX = player.getPosX();
+        double originY = player.getPosY();
+        double originZ = player.getPosZ();
         for (int i = 0; i < 6; i++) {
             double particleX = originX + (random.nextInt(24) - random.nextInt(24));
             double particleY = originY + (random.nextInt(24) - random.nextInt(24));
@@ -221,6 +225,27 @@ public class ClientEventHandler {
 
             event.setResultSound(playingMusic);
         }
+    }
+
+    @SubscribeEvent
+    public static void onTextureStitch(TextureStitchEvent.Pre event) {
+        if (event.getMap().getBasePath().equals(Atlases.CHEST_ATLAS)) {
+            event.addSprite(MidnightChestBlockRenderer.TEXTURE_SHADOWROOT_DOUBLE);
+            event.addSprite(MidnightChestBlockRenderer.TEXTURE_SHADOWROOT_NORMAL);
+            event.addSprite(MidnightChestBlockRenderer.TEXTURE_DARK_WILLOW_DOUBLE);
+            event.addSprite(MidnightChestBlockRenderer.TEXTURE_DARK_WILLOW_NORMAL);
+            event.addSprite(MidnightChestBlockRenderer.TEXTURE_DEAD_WOOD_DOUBLE);
+            event.addSprite(MidnightChestBlockRenderer.TEXTURE_DEAD_WOOD_NORMAL);
+            event.addSprite(MidnightChestBlockRenderer.TEXTURE_NIGHTSHROOM_DOUBLE);
+            event.addSprite(MidnightChestBlockRenderer.TEXTURE_NIGHTSHROOM_NORMAL);
+            event.addSprite(MidnightChestBlockRenderer.TEXTURE_DEWSHROOM_DOUBLE);
+            event.addSprite(MidnightChestBlockRenderer.TEXTURE_DEWSHROOM_NORMAL);
+            event.addSprite(MidnightChestBlockRenderer.TEXTURE_VIRIDSHROOM_DOUBLE);
+            event.addSprite(MidnightChestBlockRenderer.TEXTURE_VIRIDSHROOM_NORMAL);
+            event.addSprite(MidnightChestBlockRenderer.TEXTURE_BOGSHROOM_DOUBLE);
+            event.addSprite(MidnightChestBlockRenderer.TEXTURE_BOGSHROOM_NORMAL);
+        }
+
     }
 
     @Nullable

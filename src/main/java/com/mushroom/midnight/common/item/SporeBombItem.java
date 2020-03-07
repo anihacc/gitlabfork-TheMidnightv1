@@ -76,7 +76,7 @@ public class SporeBombItem extends Item {
                 SporeBombEntity bomb = this.createEntityBomb(world, heldItem, player);
                 bomb.shoot(player, player.rotationPitch, player.rotationYaw, 0f, 1.5f, 1f);
                 world.addEntity(bomb);
-                world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_EGG_THROW, SoundCategory.NEUTRAL, 0.5f, 0.4f / (random.nextFloat() * 0.4f + 0.8f));
+                world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_EGG_THROW, SoundCategory.NEUTRAL, 0.5f, 0.4f / (random.nextFloat() * 0.4f + 0.8f));
                 if (!player.abilities.isCreativeMode) {
                     heldItem.shrink(1);
                 }
@@ -88,12 +88,12 @@ public class SporeBombItem extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slotId, boolean isSelected) {
-        this.updateBomb(world, stack, entity.posX, entity.posY, entity.posZ);
+        this.updateBomb(world, stack, entity.getPosX(), entity.getPosY(), entity.getPosZ());
     }
 
     @Override
     public boolean onEntityItemUpdate(ItemStack stack, ItemEntity entity) {
-        boolean valid = this.updateBomb(entity.world, entity.getItem(), entity.posX, entity.posY, entity.posZ);
+        boolean valid = this.updateBomb(entity.world, entity.getItem(), entity.getPosX(), entity.getPosY(), entity.getPosZ());
         if (valid) {
             entity.remove();
         }

@@ -39,20 +39,20 @@ public class FlyingTargetGenerator implements IRandomTargetGenerator {
             int displacementZ = this.generateCoordinate(random);
 
             if (anchor != null) {
-                if (this.owner.posX > anchor.getX()) {
+                if (this.owner.getPosX() > anchor.getX()) {
                     displacementX -= random.nextInt(this.maxRange / 2);
                 } else {
                     displacementX += random.nextInt(this.maxRange / 2);
                 }
 
-                if (this.owner.posZ > anchor.getZ()) {
+                if (this.owner.getPosZ() > anchor.getZ()) {
                     displacementZ -= random.nextInt(this.maxRange / 2);
                 } else {
                     displacementZ += random.nextInt(this.maxRange / 2);
                 }
             }
 
-            BlockPos displacedPos = new BlockPos(displacementX + this.owner.posX, 0, displacementZ + this.owner.posZ);
+            BlockPos displacedPos = new BlockPos(displacementX + this.owner.getPosX(), 0, displacementZ + this.owner.getPosZ());
             BlockPos target = this.generateTarget(random, displacedPos);
 
             float weight = this.owner.getBlockPathWeight(target);

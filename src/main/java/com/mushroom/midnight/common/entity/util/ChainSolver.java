@@ -85,13 +85,14 @@ public class ChainSolver<E extends LivingEntity> {
     }
 
     private void computeTransforms(E entity) {
-        this.matrix.identity();
+        //TODO
+        this.matrix.getLast().getNormalMatrix().identity();
         this.transformationMethod.transform(entity, this.matrix);
 
         for (int i = 0; i < this.restingPoints.length; i++) {
             Quaternion restingPoint = this.restingPoints[i];
             Quaternion transformedPoint = this.transformedRestingPoints[i];
-            transformedPoint.set(restingPoint);
+            transformedPoint.set(restingPoint.getX(), restingPoint.getY(), restingPoint.getZ(), restingPoint.getW());
 
             this.matrix.transform(transformedPoint);
         }

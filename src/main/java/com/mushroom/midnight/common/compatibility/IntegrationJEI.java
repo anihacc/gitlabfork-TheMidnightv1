@@ -1,5 +1,6 @@
 package com.mushroom.midnight.common.compatibility;
 
+import com.mushroom.midnight.Midnight;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeRegistration;

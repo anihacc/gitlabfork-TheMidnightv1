@@ -49,20 +49,20 @@ public final class MidnightAtmosphereController {
     }
 
     private void update(PlayerEntity player) {
-        int playerX = MathHelper.floor(player.posX);
-        int playerZ = MathHelper.floor(player.posZ);
+        int playerX = MathHelper.floor(player.getPosX());
+        int playerZ = MathHelper.floor(player.getPosZ());
 
         Chunk chunk = player.world.getChunkProvider().func_225313_a(playerX >> 4, playerZ >> 4);
-        if (chunk == null) return;
+        if (chunk == null || chunk.getBiomes() == null) return;
 
-        Biome biome = chunk.getBiomes()[(playerX & 15) | (playerZ & 15) << 4];
+        Biome biome = chunk.getBiomes().getNoiseBiome((playerX & 15), 0, (playerZ & 15) << 4);
 
         this.updateSkyColor(biome);
         this.updateFog(biome);
     }
 
     private void updateSkyColor(Biome biome) {
-        int skyColor = biome.getSkyColorByTemp(0.0F);
+        int skyColor = biome.getSkyColor();
 
         this.surfaceSkyRed.update((skyColor >> 16 & 0xFF) / 255.0);
         this.surfaceSkyGreen.update((skyColor >> 8 & 0xFF) / 255.0);
@@ -97,7 +97,7 @@ public final class MidnightAtmosphereController {
 
         color = MidnightUtil.lerp(color, UNDERGROUND_SKY_COLOR, undergroundFactor);
 
-        if (CLIENT.world.getLastLightningBolt() > 0) {
+        if (CLIENT.world != null && CLIENT.world.getTimeLightningFlash() > 0) {
             color = MidnightUtil.lerp(color, LIGHTING_SKY_COLOR, 1.0 - undergroundFactor);
         }
 

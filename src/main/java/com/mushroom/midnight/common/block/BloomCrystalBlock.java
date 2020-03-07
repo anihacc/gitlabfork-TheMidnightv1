@@ -7,7 +7,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.List;
 import java.util.Random;
@@ -19,7 +19,7 @@ public class BloomCrystalBlock extends CrystalBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void tick(BlockState state, World world, BlockPos pos, Random random) {
+    public void tick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         super.tick(state, world, pos, random);
 
         if (random.nextFloat() > 0.005F) {

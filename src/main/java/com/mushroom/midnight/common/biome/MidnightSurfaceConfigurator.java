@@ -15,7 +15,6 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.blockplacer.DoublePlantBlockPlacer;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
@@ -35,7 +34,7 @@ public class MidnightSurfaceConfigurator {
     public static final BlockClusterFeatureConfig DRAGONNEST_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.DRAGON_NEST.getDefaultState()), new SimpleBlockPlacer())).func_227315_a_(32).func_227322_d_();
     public static final BlockClusterFeatureConfig CRYSTALFLOWER_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.CRYSTAL_FLOWER.getDefaultState()), new SimpleBlockPlacer())).func_227315_a_(64).func_227322_d_();
 
-    public static final BlockClusterFeatureConfig TALL_GRASS_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.TALL_GRASS.getDefaultState()), new DoublePlantBlockPlacer())).func_227315_a_(64).func_227317_b_().func_227322_d_();
+    public static final BlockClusterFeatureConfig TALL_GRASS_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.TALL_GRASS.getDefaultState()), new SimpleBlockPlacer())).func_227315_a_(64).func_227322_d_();
     public static final BlockClusterFeatureConfig GRASS_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.GRASS.getDefaultState()), new SimpleBlockPlacer())).func_227315_a_(64).func_227322_d_();
 
     public static final BlockClusterFeatureConfig BIOLEAF_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.VIOLEAF.getDefaultState().with(VioleafBlock.IS_GROWN, true)), new SimpleBlockPlacer())).func_227315_a_(64).func_227322_d_();

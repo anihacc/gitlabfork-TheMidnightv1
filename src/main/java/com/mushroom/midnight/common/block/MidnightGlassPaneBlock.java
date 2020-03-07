@@ -6,7 +6,7 @@ import net.minecraft.block.material.Material;
 
 public class MidnightGlassPaneBlock extends PaneBlock {
     public MidnightGlassPaneBlock() {
-        super(Properties.create(Material.GLASS).sound(SoundType.GLASS));
+        super(Properties.create(Material.GLASS).sound(SoundType.GLASS).notSolid());
     }
 
     /*@Override

@@ -1,9 +1,10 @@
 package com.mushroom.midnight.client.render.entity;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.model.DeceitfulSnapperModel;
 import com.mushroom.midnight.common.entity.creature.DeceitfulSnapperEntity;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
@@ -24,16 +25,18 @@ public class DeceitfulSnapperRenderer extends MobRenderer<DeceitfulSnapperEntity
     }
 
     @Override
-    protected void preRenderCallback(DeceitfulSnapperEntity entity, float partialTicks) {
-        GlStateManager.translatef(0f, 1.4f, -0.05f);
-        GlStateManager.scalef(1.1f, 1.1f, 1.1f);
+    protected void preRenderCallback(DeceitfulSnapperEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+        super.preRenderCallback(entitylivingbaseIn, matrixStackIn, partialTickTime);
+        matrixStackIn.translate(0f, 1.4f, -0.05f);
+        matrixStackIn.scale(1.1f, 1.1f, 1.1f);
     }
 
+
     @Override
-    protected void applyRotations(DeceitfulSnapperEntity entity, float age, float yaw, float pitch) {
-        super.applyRotations(entity, age, yaw, pitch);
-        if (!entity.isInWater()) {
-            GlStateManager.rotatef(90.0F, 0.0F, 0.0F, 1.0F);
+    protected void applyRotations(DeceitfulSnapperEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
+        super.applyRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
+        if (!entityLiving.isInWater()) {
+            matrixStackIn.rotate(Vector3f.ZP.rotation(90.0F));
         }
     }
 

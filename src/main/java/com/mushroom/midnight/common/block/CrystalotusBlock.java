@@ -9,7 +9,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.ILightReader;
 import net.minecraftforge.common.ToolType;
 
 public class CrystalotusBlock extends BushBlock {
@@ -25,11 +24,6 @@ public class CrystalotusBlock extends BushBlock {
     }
 
     @Override
-    public boolean isSolid(BlockState state) {
-        return true;
-    }
-
-    @Override
     @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
         return BOUNDS;
@@ -41,7 +35,7 @@ public class CrystalotusBlock extends BushBlock {
     }
 
     @Override
-    public int getPackedLightmapCoords(BlockState state, ILightReader world, BlockPos pos) {
-        return world.getCombinedLight(pos, 13);
+    public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        return 1.0F;
     }
 }

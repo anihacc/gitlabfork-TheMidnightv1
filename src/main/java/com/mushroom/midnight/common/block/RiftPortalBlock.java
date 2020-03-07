@@ -38,7 +38,7 @@ public class RiftPortalBlock extends Block {
     @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         super.onEntityCollision(state, world, pos, entity);
-        if (entity.posY >= pos.getY() + 15.0 / 16.0) return;
+        if (entity.getPosY() >= pos.getY() + 15.0 / 16.0) return;
 
         if (isClosed(world, pos)) {
             entity.setMotion(entity.getMotion().add(0.0, 0.1, 0.0));

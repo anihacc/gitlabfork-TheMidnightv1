@@ -74,7 +74,7 @@ public class FishJumpGoal extends JumpGoal {
 
         if (entity != null && this.fishEntity.getDistanceSq(entity) < 12D) {
             this.fishEntity.getLookController().setLookPositionWithEntity(entity, 60.0F, 30.0F);
-            Vec3d vec3d = (new Vec3d(entity.posX - fishEntity.posX, entity.posY - fishEntity.posY, entity.posZ - fishEntity.posZ)).normalize();
+            Vec3d vec3d = (new Vec3d(entity.getPosX() - fishEntity.getPosX(), entity.getPosY() - fishEntity.getPosY(), entity.getPosZ() - fishEntity.getPosZ())).normalize();
             this.fishEntity.setMotion(this.fishEntity.getMotion().add(vec3d.x * 0.45D, 0.56D, vec3d.z * 0.45D));
         } else {
             this.fishEntity.setMotion(this.fishEntity.getMotion().add((double) direction.getXOffset() * 0.6D, 0.7D, (double) direction.getZOffset() * 0.6D));
@@ -105,7 +105,7 @@ public class FishJumpGoal extends JumpGoal {
 
         Vec3d vec3d = this.fishEntity.getMotion();
         if (vec3d.y * vec3d.y < (double) 0.03F && this.fishEntity.rotationPitch != 0.0F) {
-            this.fishEntity.rotationPitch = this.updateRotation(this.fishEntity.rotationPitch, 0.0F, 0.2F);
+            //this.fishEntity.rotationPitch = this.updateRotation(this.fishEntity.rotationPitch, 0.0F, 0.2F);
         } else {
             double d0 = Math.sqrt(Entity.horizontalMag(vec3d));
             double d1 = Math.signum(-vec3d.y) * Math.acos(d0 / vec3d.length()) * (double) (180F / (float) Math.PI);

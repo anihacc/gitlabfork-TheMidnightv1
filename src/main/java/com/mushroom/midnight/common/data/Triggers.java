@@ -16,9 +16,9 @@ public final class Triggers {
         return new EnterBlockTrigger.Instance(block, null);
     }
 
-    public static InventoryChangeTrigger.Instance hasItem(MinMaxBounds.IntBound amount, IItemProvider item) {
-        return hasItem(ItemPredicate.Builder.create().item(item).count(amount).build());
-    }
+   /* public static InventoryChangeTrigger.Instance hasItem(MinMaxBounds.IntBound amount, IItemProvider item) {
+        return hasItem(ItemPredicate.Builder.create().item(item).(amount).build());
+    }*/
 
     public static InventoryChangeTrigger.Instance hasItem(IItemProvider item) {
         return hasItem(ItemPredicate.Builder.create().item(item).build());

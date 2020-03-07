@@ -82,7 +82,9 @@ public class NightStagRenderer extends MobRenderer<NightStagEntity, NightStagMod
     @Override
     protected void preRenderCallback(NightStagEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
         super.preRenderCallback(entitylivingbaseIn, matrixStackIn, partialTickTime);
-        matrixStackIn.scale(0.5F, 0.5F, 0.5F);
+        if (entitylivingbaseIn.isChild()) {
+            matrixStackIn.scale(0.5F, 0.5F, 0.5F);
+        }
     }
 
 }

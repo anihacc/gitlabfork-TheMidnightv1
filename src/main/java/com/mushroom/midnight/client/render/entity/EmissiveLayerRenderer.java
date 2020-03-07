@@ -1,9 +1,11 @@
 package com.mushroom.midnight.client.render.entity;
 
-import com.mojang.blaze3d.platform.GLX;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mushroom.midnight.common.util.MidnightUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
@@ -33,35 +35,30 @@ public class EmissiveLayerRenderer<T extends LivingEntity, M extends EntityModel
     }
 
     @Override
-    public void render(T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        if (entity.isInvisible()) {
+    public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+        if (entitylivingbaseIn.isInvisible()) {
             return;
         }
         CLIENT.getTextureManager().bindTexture(this.texture);
         GlStateManager.depthMask(true);
         GlStateManager.enableBlend();
 
-        int brightness = this.brightnessFunction.apply(entity, partialTicks);
-        GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, brightness, brightness);
-        float[] rgbF = MidnightUtil.getRGBColorF(colorFunction.getColor(entity, partialTicks));
+        int brightness = this.brightnessFunction.apply(entitylivingbaseIn, partialTicks);
+        RenderSystem.glMultiTexCoord2f(33986, brightness, brightness);
+        float[] rgbF = MidnightUtil.getRGBColorF(colorFunction.getColor(entitylivingbaseIn, partialTicks));
         GlStateManager.color4f(rgbF[0], rgbF[1], rgbF[2], 1f);
         GlStateManager.disableLighting();
 
-        this.getEntityModel().render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        this.getEntityModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
         GlStateManager.enableLighting();
-        int i = entity.getBrightnessForRender();
-        int j = i % 65536;
-        int k = i / 65536;
-        GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, (float)j, (float)k);
-        func_215334_a(entity);
+        float i = entitylivingbaseIn.getBrightness();
+        float j = i % 65536;
+        float k = i / 65536;
+        RenderSystem.glMultiTexCoord2f(33986, (float) j, (float) k);
+        //func_215334_a(entitylivingbaseIn);
 
         GlStateManager.disableBlend();
-    }
-
-    @Override
-    public boolean shouldCombineTextures() {
-        return false;
     }
 
     public interface BrightnessFunction<T extends LivingEntity> {

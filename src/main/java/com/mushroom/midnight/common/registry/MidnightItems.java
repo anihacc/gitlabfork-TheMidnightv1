@@ -193,7 +193,7 @@ public class MidnightItems {
                 .add("tenebrum_chestplate", props -> new ArmorItem(MidnightArmorMaterials.TENEBRUM, EquipmentSlotType.CHEST, props))
                 .add("tenebrum_leggings", props -> new ArmorItem(MidnightArmorMaterials.TENEBRUM, EquipmentSlotType.LEGS, props))
                 .add("tenebrum_boots", props -> new ArmorItem(MidnightArmorMaterials.TENEBRUM, EquipmentSlotType.FEET, props))
-                .add("rockshroom_shield", props -> new MidnightShieldItem(MidnightArmorMaterials.ROCKSHROOM, props.maxDamage(336).setTEISR(() -> ShieldItemRenderer::new)))
+                .add("rockshroom_shield", props -> new MidnightShieldItem(MidnightArmorMaterials.ROCKSHROOM, props.maxDamage(336).setISTER(() -> ShieldItemRenderer::new)))
 
                 .add("bladeshroom_cap", BladeshroomCapItem::new);
 
@@ -213,7 +213,7 @@ public class MidnightItems {
                 .withProperties(Item.Properties::new)
 
                 .add("advancement_snapper", Item::new)
-                .add("advancement_highness", props -> new Item(props.setTEISR(() -> HighnessItemRenderer::new)));
+                .add("advancement_highness", props -> new Item(props.setISTER(() -> HighnessItemRenderer::new)));
 
         RegUtil.items(event.getRegistry()).withProperties(() -> new Item.Properties().group(MidnightItemGroups.ITEMS))
                 .add("bladeshroom_spores", MidnightBlocks.BLADESHROOM, BlockNamedItem::new)

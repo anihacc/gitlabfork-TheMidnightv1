@@ -40,7 +40,7 @@ public class NovaSpikeShootGoal extends Goal {
     }
 
     public void tick() {
-        double d0 = this.nova.getDistanceSq(this.targetEntity.posX, this.targetEntity.getBoundingBox().minY, this.targetEntity.posZ);
+        double d0 = this.nova.getDistanceSq(this.targetEntity.getPosX(), this.targetEntity.getBoundingBox().minY, this.targetEntity.getPosZ());
         boolean flag = this.nova.getEntitySenses().canSee(this.targetEntity);
         if (flag) {
             ++this.seeTime;
@@ -65,7 +65,7 @@ public class NovaSpikeShootGoal extends Goal {
 
     private void shootSpike() {
         NovaSpikeEntity spike = new NovaSpikeEntity(this.nova.world, this.nova);
-        spike.setPosition(nova.posX, nova.posY + (double) nova.getEyeHeight(), nova.posZ);
+        spike.setPosition(nova.getPosX(), nova.getPosY() + (double) nova.getEyeHeight(), nova.getPosZ());
         spike.shoot(nova, nova.rotationPitch, nova.rotationYaw, -8.0F, 1.05F, 1.0F);
         this.nova.world.addEntity(spike);
     }

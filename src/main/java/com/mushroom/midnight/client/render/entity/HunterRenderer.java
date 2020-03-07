@@ -1,9 +1,10 @@
 package com.mushroom.midnight.client.render.entity;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.model.HunterModel;
 import com.mushroom.midnight.common.entity.creature.HunterEntity;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
@@ -16,14 +17,14 @@ public class HunterRenderer extends MobRenderer<HunterEntity, HunterModel> {
     }
 
     @Override
-    protected void applyRotations(HunterEntity entity, float age, float rotationYaw, float partialTicks) {
-        super.applyRotations(entity, age, rotationYaw, partialTicks);
+    protected void applyRotations(HunterEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
+        super.applyRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
+        float pitch = entityLiving.prevRotationPitch + (entityLiving.rotationPitch - entityLiving.prevRotationPitch) * partialTicks;
+        float roll = entityLiving.prevRoll + (entityLiving.roll - entityLiving.prevRoll) * partialTicks;
 
-        float pitch = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
-        float roll = entity.prevRoll + (entity.roll - entity.prevRoll) * partialTicks;
+        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(roll));
 
-        GlStateManager.rotatef(roll, 0.0F, 0.0F, 1.0F);
-        GlStateManager.rotatef(-pitch, 1.0F, 0.0F, 0.0F);
+        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-pitch));
     }
 
     @Override

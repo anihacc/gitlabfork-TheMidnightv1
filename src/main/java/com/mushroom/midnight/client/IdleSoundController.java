@@ -3,8 +3,8 @@ package com.mushroom.midnight.client;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.sound.MidnightCaveSound;
 import com.mushroom.midnight.client.sound.MidnightIdleSound;
-import com.mushroom.midnight.common.util.SlidingToggle;
 import com.mushroom.midnight.common.util.MidnightUtil;
+import com.mushroom.midnight.common.util.SlidingToggle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.SoundHandler;
@@ -32,7 +32,7 @@ public class IdleSoundController {
             }
 
             if (MidnightUtil.isMidnightDimension(player.world)) {
-                CAVE_ANIMATION.set(player.posY < 62 && !player.world.canBlockSeeSky(player.getPosition()));
+                CAVE_ANIMATION.set(player.getPosY() < 62 && !player.world.canBlockSeeSky(player.getPosition()));
                 CAVE_ANIMATION.update();
 
                 retainIdleSound(IDLE_SOUND);

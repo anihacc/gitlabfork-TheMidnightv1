@@ -1,7 +1,7 @@
 package com.mushroom.midnight.client.render.entity;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.model.StingerModel;
 import com.mushroom.midnight.common.entity.creature.StingerEntity;
@@ -23,9 +23,9 @@ public class StingerRenderer extends MobRenderer<StingerEntity, StingerModel> {
     public void render(StingerEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
 
         matrixStackIn.push();
-        GlStateManager.enableCull();
+        RenderSystem.enableCull();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-        GlStateManager.disableCull();
+        RenderSystem.disableCull();
         matrixStackIn.pop();
     }
 
@@ -39,7 +39,7 @@ public class StingerRenderer extends MobRenderer<StingerEntity, StingerModel> {
     protected void preRenderCallback(StingerEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
         super.preRenderCallback(entitylivingbaseIn, matrixStackIn, partialTickTime);
         float scale = 0.3f + (entitylivingbaseIn.getGrowingAge() * 0.1f);
-        GlStateManager.scalef(scale, scale, scale);
+        matrixStackIn.scale(scale, scale, scale);
     }
 
     @Override

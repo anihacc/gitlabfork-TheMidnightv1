@@ -57,7 +57,7 @@ public final class MidnightSkyRenderer implements IRenderHandler {
         GlStateManager.enableClientState(GL11.GL_COLOR_ARRAY);
         GlStateManager.colorPointer(4, GL11.GL_UNSIGNED_BYTE, stride, 12);
 
-        this.gradientVbo.drawArrays(GL11.GL_QUADS);
+        //this.gradientVbo.drawArrays(GL11.GL_QUADS);
 
         VertexBuffer.unbindBuffer();
 
@@ -84,7 +84,7 @@ public final class MidnightSkyRenderer implements IRenderHandler {
             builder.finishDrawing();
             builder.reset();
 
-            this.gradientVbo.bufferData(builder.getByteBuffer());
+            //this.gradientVbo.(builder.getVertexBuilder());
         }
     }
 

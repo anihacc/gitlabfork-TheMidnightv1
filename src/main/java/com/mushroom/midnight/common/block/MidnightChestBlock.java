@@ -12,7 +12,9 @@ import javax.annotation.Nullable;
 public class MidnightChestBlock extends ChestBlock {
 
     public MidnightChestBlock(Properties properties) {
-        super(properties);
+        super(properties, () -> {
+            return MidnightTileEntities.MIDNIGHT_CHEST;
+        });
     }
 
     @Override

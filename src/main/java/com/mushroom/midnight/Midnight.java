@@ -39,6 +39,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
@@ -91,6 +92,8 @@ public class Midnight {
         setupMessages();
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientProxy::setup));
 
         bus.addListener(this::setup);
         bus.addListener(this::registerModels);

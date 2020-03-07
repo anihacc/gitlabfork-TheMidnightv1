@@ -16,7 +16,7 @@ public class NightStagModel extends QuadrupedModel<NightStagEntity> {
     public ModelRenderer leftAntler;
 
     public NightStagModel() {
-        super(15, 0f, false, 4.0F, 4.0F, 2.0F, 2.0F, 0);
+        super(15, 0f, false, 0.0F, 0.0F, 0.0F, 1.0F, 0);
         this.textureWidth = 64;
         this.textureHeight = 64;
         this.body = new ModelRenderer(this, 0, 32); // body

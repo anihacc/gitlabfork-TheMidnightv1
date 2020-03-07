@@ -37,7 +37,7 @@ public class ChargeGoal extends Goal {
     @Override
     public boolean shouldExecute() {
         this.target = this.owner.getAttackTarget();
-        if (!this.owner.isChild() && this.owner.onGround && this.target != null && this.target.isAlive() && this.target.posY <= this.owner.posY && this.owner.getRNG().nextFloat() < chance) {
+        if (!this.owner.isChild() && this.owner.onGround && this.target != null && this.target.isAlive() && this.target.getPosY() <= this.owner.getPosY() && this.owner.getRNG().nextFloat() < chance) {
             double distance = this.owner.getDistanceSq(this.target);
             if (distance > 50d && distance < 75d && this.owner.getEntitySenses().canSee(this.target)) {
                 return true;
@@ -49,7 +49,7 @@ public class ChargeGoal extends Goal {
     @Override
     public void startExecuting() {
         this.tickCounter = 0;
-        this.owner.getMoveHelper().setMoveTo(this.target.posX, this.target.posY, this.target.posZ, this.speed);
+        this.owner.getMoveHelper().setMoveTo(this.target.getPosX(), this.target.getPosY(), this.target.getPosZ(), this.speed);
         owner.getCapability(Midnight.ANIMATION_CAP).ifPresent(capAnim -> capAnim.setAnimation(this.owner, AnimationCapability.Type.CHARGE, 200));
     }
 

@@ -1,11 +1,16 @@
 package com.mushroom.midnight.client.render.block;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.model.RiftPortalBlockModel;
 import com.mushroom.midnight.common.tile.RiftPortalTileEntity;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -20,40 +25,43 @@ public class RiftPortalBlockRenderer extends TileEntityRenderer<RiftPortalTileEn
 
     private static final RiftPortalBlockModel BLOCK_MODEL = new RiftPortalBlockModel();
 
-    @Override
-    public void render(RiftPortalTileEntity entity, double x, double y, double z, float partialTicks, int destroyStage) {
-        if (entity == null) return;
+    public RiftPortalBlockRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
+        super(rendererDispatcherIn);
+    }
 
-        float closeAnimation = entity.getCloseAnimation(partialTicks);
+    @Override
+    public void render(RiftPortalTileEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
+        if (tileEntityIn == null) return;
+
+        float closeAnimation = tileEntityIn.getCloseAnimation(partialTicks);
         if (closeAnimation >= 1.0F) return;
 
-        BlockPos pos = entity.getPos();
+        BlockPos pos = tileEntityIn.getPos();
         long seed = MathHelper.getCoordinateRandom(pos.getX(), pos.getY(), pos.getZ());
         long textureSeed = seed ^ 8211203336981069197L;
         long rotationSeed = seed ^ 526247544445692899L;
 
         CLIENT.getTextureManager().bindTexture(MASKS[(int) (textureSeed & 1)]);
 
-        GlStateManager.pushMatrix();
-        GlStateManager.translated(x + 0.5, y + 0.5, z + 0.5);
-        GlStateManager.rotatef((rotationSeed & 3) * 90.0F, 0.0F, 1.0F, 0.0F);
+        matrixStackIn.push();
+        matrixStackIn.rotate(Vector3f.YP.rotation((rotationSeed & 3) * 90.0F));
 
-        GlStateManager.disableBlend();
-        GlStateManager.enableAlphaTest();
-        GlStateManager.polygonOffset(-1.0F, -10.0F);
-        GlStateManager.enablePolygonOffset();
+        RenderSystem.disableBlend();
+        RenderSystem.enableAlphaTest();
+        RenderSystem.polygonOffset(-1.0F, -10.0F);
+        RenderSystem.enablePolygonOffset();
 
-        GlStateManager.alphaFunc(GL11.GL_GREATER, closeAnimation);
+        RenderSystem.alphaFunc(GL11.GL_GREATER, closeAnimation);
 
-        GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-        BLOCK_MODEL.render();
+        BLOCK_MODEL.render(matrixStackIn, bufferIn.getBuffer(RenderType.entityTranslucent(MASKS[(int) (textureSeed & 1)])), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
 
-        GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
+        RenderSystem.alphaFunc(GL11.GL_GREATER, 0.1F);
 
-        GlStateManager.polygonOffset(0.0F, 0.0F);
-        GlStateManager.disablePolygonOffset();
+        RenderSystem.polygonOffset(0.0F, 0.0F);
+        RenderSystem.disablePolygonOffset();
 
-        GlStateManager.popMatrix();
+        matrixStackIn.pop();
     }
 }

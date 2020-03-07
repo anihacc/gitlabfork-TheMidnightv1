@@ -1,6 +1,7 @@
 package com.mushroom.midnight.client;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.fluid.DarkWaterFluid;
 import com.mushroom.midnight.common.fluid.MiasmaFluid;
@@ -40,7 +41,7 @@ public class FluidImmersionRenderer {
     @SubscribeEvent
     public static void onSetupFogDensity(EntityViewRenderEvent.RenderFogEvent.FogDensity event) {
         if (immersedFluid.getFluid() instanceof MiasmaFluid) {
-            GlStateManager.fogMode(GlStateManager.FogMode.EXP);
+            RenderSystem.fogMode(GlStateManager.FogMode.EXP);
             event.setDensity(2.0F);
             event.setCanceled(true);
         }
@@ -65,7 +66,7 @@ public class FluidImmersionRenderer {
         float brightness = CLIENT.player.getBrightness();
         GlStateManager.color4f(brightness, brightness, brightness, 0.5F);
         GlStateManager.enableBlend();
-        GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 
         float scrollX = -CLIENT.player.rotationYaw / 64.0F;
         float scrollY = CLIENT.player.rotationPitch / 64.0F;

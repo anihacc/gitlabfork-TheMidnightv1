@@ -1,6 +1,5 @@
 package com.mushroom.midnight.client.shader;
 
-import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mushroom.midnight.Midnight;
 import net.minecraft.client.Minecraft;
@@ -107,10 +106,11 @@ public class WorldShader implements ISelectiveResourceReloadListener {
         }
     }
 
-    public boolean isAvailable() {
+    //TODO
+    /*public boolean isAvailable() {
         if (!GLX.usePostProcess) {
             return false;
         }
         return !this.initialized || this.instance != null;
-    }
+    }*/
 }

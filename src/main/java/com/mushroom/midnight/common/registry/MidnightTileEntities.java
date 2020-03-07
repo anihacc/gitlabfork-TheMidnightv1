@@ -4,6 +4,7 @@ import com.mushroom.midnight.common.tile.CacheTileEntity;
 import com.mushroom.midnight.common.tile.MidnightChestTileEntity;
 import com.mushroom.midnight.common.tile.MidnightFurnaceTileEntity;
 import com.mushroom.midnight.common.tile.RiftPortalTileEntity;
+import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -15,7 +16,7 @@ import static com.mushroom.midnight.Midnight.MODID;
 @ObjectHolder(MODID)
 @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MidnightTileEntities {
-    public static final TileEntityType<?> MIDNIGHT_CHEST = TileEntityType.CHEST;
+    public static final TileEntityType<ChestTileEntity> MIDNIGHT_CHEST = TileEntityType.CHEST;
     public static final TileEntityType<?> MIDNIGHT_FURNACE = TileEntityType.FURNACE;
     public static final TileEntityType<?> CACHE = TileEntityType.CHEST;
 

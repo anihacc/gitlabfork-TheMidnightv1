@@ -1,7 +1,6 @@
 package com.mushroom.midnight.client.render.entity;
 
-import com.mojang.blaze3d.platform.GLX;
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.model.CrystalBugModel;
 import com.mushroom.midnight.common.entity.creature.CrystalBugEntity;
@@ -28,23 +27,25 @@ public class CrystalBugRenderer extends MobRenderer<CrystalBugEntity, CrystalBug
     }
 
     @Override
-    protected void preRenderCallback(CrystalBugEntity entity, float partialTicks) {
-        if (entity.isStanding()) {
-            GlStateManager.translatef(0f, 0.3f, 0f);
+    protected void preRenderCallback(CrystalBugEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+        if (entitylivingbaseIn.isStanding()) {
+            matrixStackIn.translate(0f, 0.3f, 0f);
         } else {
-            GlStateManager.translatef(0f, 0.4f, 0f);
+            matrixStackIn.translate(0f, 0.4f, 0f);
         }
-        GlStateManager.scalef(0.3f, 0.3f, 0.3f);
+        matrixStackIn.scale(0.3f, 0.3f, 0.3f);
     }
+
 
     @Override
     protected float getDeathMaxRotation(CrystalBugEntity entity) {
         return 180f;
     }
 
-    @Override
-    //setLightmap
-    public void func_217758_e(CrystalBugEntity entity) {
-        GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, 240f, 240f);
+    /*@Override
+    protected int getBlockLight(CrystalBugEntity entityIn, float partialTicks) {
+        RenderSystem.glMultiTexCoord2f(33986, 240f, 240f);
+        return super.getBlockLight(entityIn, partialTicks);
     }
+    */
 }

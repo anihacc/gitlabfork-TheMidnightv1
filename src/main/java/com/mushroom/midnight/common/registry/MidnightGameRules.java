@@ -17,9 +17,9 @@ public class MidnightGameRules {
         }
 
         @Override
-        protected void func_223553_a(String value) {
+        protected void setStringValue(String value) {
             if (!Strings.isNullOrEmpty(value)) {
-                super.func_223553_a(value);
+                super.setStringValue(value);
             }
         }
     }
