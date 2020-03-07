@@ -1,23 +1,23 @@
 package com.mushroom.midnight.common.entity.util;
 
 import com.mushroom.midnight.common.util.MatrixStack;
-import net.minecraft.client.renderer.entity.model.ModelRenderer;
+import net.minecraft.client.renderer.Quaternion;
+import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import javax.vecmath.Point3f;
-import javax.vecmath.Vector3f;
 
 public class ChainSolver<E extends LivingEntity> {
-    private final Point3f rootNode;
+    private final Quaternion rootNode;
 
-    private final Point3f[] restingPoints;
-    private final Point3f[] transformedRestingPoints;
+    private final Quaternion[] restingPoints;
+    private final Quaternion[] transformedRestingPoints;
 
-    private final Point3f[] solvedNodes;
-    private final Point3f[] previousNodes;
+    private final Quaternion[] solvedNodes;
+    private final Quaternion[] previousNodes;
 
     private final Vector3f[] nodeVelocity;
 
@@ -28,34 +28,32 @@ public class ChainSolver<E extends LivingEntity> {
 
     private final MatrixStack matrix = new MatrixStack(4);
 
-    public ChainSolver(Point3f rootNode, Point3f[] restingPoints, float tightness, float dampening, TransformationMethod<E> transformationMethod) {
+    public ChainSolver(Quaternion rootNode, Quaternion[] restingPoints, float tightness, float dampening, TransformationMethod<E> transformationMethod) {
         this.rootNode = rootNode;
         this.restingPoints = this.relativize(restingPoints);
         this.tightness = tightness;
         this.dampening = dampening;
 
-        this.transformedRestingPoints = new Point3f[restingPoints.length];
-        this.solvedNodes = new Point3f[restingPoints.length];
-        this.previousNodes = new Point3f[restingPoints.length];
+        this.transformedRestingPoints = new Quaternion[restingPoints.length];
+        this.solvedNodes = new Quaternion[restingPoints.length];
+        this.previousNodes = new Quaternion[restingPoints.length];
         this.nodeVelocity = new Vector3f[restingPoints.length];
 
         for (int i = 0; i < this.restingPoints.length; i++) {
-            this.transformedRestingPoints[i] = new Point3f(this.restingPoints[i]);
-            this.solvedNodes[i] = new Point3f();
-            this.previousNodes[i] = new Point3f();
+            this.transformedRestingPoints[i] = new Quaternion(this.restingPoints[i]);
+            this.solvedNodes[i] = Quaternion.ONE;
+            this.previousNodes[i] = Quaternion.ONE;
             this.nodeVelocity[i] = new Vector3f();
         }
 
         this.transformationMethod = transformationMethod;
     }
 
-    private Point3f[] relativize(Point3f[] restingPoints) {
+    private Quaternion[] relativize(Quaternion[] restingPoints) {
         for (int i = restingPoints.length - 1; i >= 1; i--) {
-            Point3f point = restingPoints[i];
-            Point3f previousPoint = restingPoints[i - 1];
-            point.x -= previousPoint.x;
-            point.y -= previousPoint.y;
-            point.z -= previousPoint.z;
+            Quaternion point = restingPoints[i];
+            Quaternion previousPoint = restingPoints[i - 1];
+            point.set(point.getX() - previousPoint.getX(), point.getY() - previousPoint.getY(), point.getZ() - previousPoint.getZ(), point.getW());
         }
         return restingPoints;
     }
@@ -66,27 +64,23 @@ public class ChainSolver<E extends LivingEntity> {
         this.storePreviousState();
 
         for (int i = 0; i < this.restingPoints.length; i++) {
-            Point3f restingPoint = this.transformedRestingPoints[i];
-            Point3f previousPoint = i > 0 ? this.transformedRestingPoints[i - 1] : this.rootNode;
+            Quaternion restingPoint = this.transformedRestingPoints[i];
+            Quaternion previousPoint = i > 0 ? this.transformedRestingPoints[i - 1] : this.rootNode;
 
-            Point3f currentPoint = this.solvedNodes[i];
-            float localX = currentPoint.x - previousPoint.x;
-            float localY = currentPoint.y - previousPoint.y;
-            float localZ = currentPoint.z - previousPoint.z;
+            Quaternion currentPoint = this.solvedNodes[i];
+            float localX = currentPoint.getX() - previousPoint.getX();
+            float localY = currentPoint.getY() - previousPoint.getY();
+            float localZ = currentPoint.getZ() - previousPoint.getZ();
 
             Vector3f nodeVelocity = this.nodeVelocity[i];
 
-            nodeVelocity.x *= this.dampening;
-            nodeVelocity.y *= this.dampening;
-            nodeVelocity.z *= this.dampening;
+            nodeVelocity.set(nodeVelocity.getX() * this.dampening, nodeVelocity.getY() * this.dampening, nodeVelocity.getZ() * this.dampening);
 
-            nodeVelocity.x += this.tightness * (restingPoint.x - localX);
-            nodeVelocity.y += this.tightness * (restingPoint.y - localY);
-            nodeVelocity.z += this.tightness * (restingPoint.z - localZ);
 
-            currentPoint.x += nodeVelocity.x;
-            currentPoint.y += nodeVelocity.y;
-            currentPoint.z += nodeVelocity.z;
+            nodeVelocity.add(this.tightness * (restingPoint.getX() - localX), this.tightness * (restingPoint.getY() - localY), this.tightness * (restingPoint.getZ() - localZ));
+
+
+            currentPoint.set(currentPoint.getX() + nodeVelocity.getX(), currentPoint.getY() + nodeVelocity.getY(), currentPoint.getZ() + nodeVelocity.getZ(), currentPoint.getW());
         }
     }
 
@@ -95,8 +89,8 @@ public class ChainSolver<E extends LivingEntity> {
         this.transformationMethod.transform(entity, this.matrix);
 
         for (int i = 0; i < this.restingPoints.length; i++) {
-            Point3f restingPoint = this.restingPoints[i];
-            Point3f transformedPoint = this.transformedRestingPoints[i];
+            Quaternion restingPoint = this.restingPoints[i];
+            Quaternion transformedPoint = this.transformedRestingPoints[i];
             transformedPoint.set(restingPoint);
 
             this.matrix.transform(transformedPoint);
@@ -105,7 +99,7 @@ public class ChainSolver<E extends LivingEntity> {
 
     private void storePreviousState() {
         for (int i = 0; i < this.solvedNodes.length; i++) {
-            this.previousNodes[i].set(this.solvedNodes[i]);
+            this.previousNodes[i].set(this.solvedNodes[i].getX(), this.solvedNodes[i].getY(), this.solvedNodes[i].getZ(), this.solvedNodes[i].getW());
         }
     }
 
@@ -117,12 +111,12 @@ public class ChainSolver<E extends LivingEntity> {
 
         // TODO: compute angles on update tick (keep solvedNodes global)
         for (int i = 0; i < this.solvedNodes.length; i++) {
-            Point3f solvedNode = this.solvedNodes[i];
-            Point3f connectedNode = i > 1 ? this.solvedNodes[i] : this.rootNode;
+            Quaternion solvedNode = this.solvedNodes[i];
+            Quaternion connectedNode = i > 1 ? this.solvedNodes[i] : this.rootNode;
 
-            float deltaX = solvedNode.x - connectedNode.x;
-            float deltaY = solvedNode.y - connectedNode.y;
-            float deltaZ = solvedNode.z - connectedNode.z;
+            float deltaX = solvedNode.getX() - connectedNode.getX();
+            float deltaY = solvedNode.getY() - connectedNode.getY();
+            float deltaZ = solvedNode.getZ() - connectedNode.getZ();
 
             float distanceHorizontal = MathHelper.sqrt(deltaX * deltaX + deltaZ * deltaZ);
 

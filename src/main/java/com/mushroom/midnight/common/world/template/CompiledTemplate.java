@@ -47,7 +47,7 @@ public class CompiledTemplate {
         }
 
         if (!this.postProcessors.isEmpty()) {
-            List<Template.BlockInfo> blocks = Template.processBlockInfos(world, this.origin, this.settings, this.settings.func_204764_a(this.template.blocks, this.origin));
+            List<Template.BlockInfo> blocks = Template.processBlockInfos(world, this.origin, this.settings, this.settings.func_227459_a_(this.template.blocks, this.origin));
             for (TemplatePostProcessor processor : this.postProcessors) {
                 for (Template.BlockInfo info : blocks) {
                     processor.process(this, world, random, info.pos, info.state);

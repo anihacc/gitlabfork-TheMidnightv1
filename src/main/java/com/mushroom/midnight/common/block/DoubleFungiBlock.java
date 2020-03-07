@@ -51,7 +51,7 @@ public class DoubleFungiBlock extends MidnightDoublePlantBlock {
         if (state.get(STAGE) == 0) {
             world.setBlockState(pos, state.cycle(STAGE), 4);
         } else if (ForgeEventFactory.saplingGrowTree(world, rand, pos)) {
-            this.tree.spawn(world, pos, state, rand);
+            this.tree.func_225545_a_(world, world.getChunkProvider().getChunkGenerator(), pos, state, rand);
         }
     }
 

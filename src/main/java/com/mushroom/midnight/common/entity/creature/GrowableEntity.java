@@ -106,7 +106,7 @@ public abstract class GrowableEntity extends CreatureEntity {
                 GrowableEntity entity = createChild(this);
                 if (entity != null) {
                     entity.setGrowingAge(-1);
-                    entity.setLocationAndAngles(this.posX, this.posY, this.posZ, 0f, 0f);
+                    entity.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(), 0f, 0f);
                     this.world.addEntity(entity);
                     if (stack.hasDisplayName()) {
                         entity.setCustomName(stack.getDisplayName());

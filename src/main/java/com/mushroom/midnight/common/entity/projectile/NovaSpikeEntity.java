@@ -89,15 +89,13 @@ public class NovaSpikeEntity extends ThrowableEntity {
             BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult) result;
             BlockState blockstate = this.world.getBlockState(blockraytraceresult.getPos());
 
-            BlockPos blockpos = new BlockPos(this.posX, this.posY, this.posZ);
+            BlockPos blockpos = new BlockPos(this.getPosX(), this.getPosY(), this.getPosZ());
             if (!blockstate.getCollisionShape(this.world, blockpos).isEmpty()) {
                 this.inBlockState = blockstate;
-                Vec3d vec3d = blockraytraceresult.getHitVec().subtract(this.posX, this.posY, this.posZ);
+                Vec3d vec3d = blockraytraceresult.getHitVec().subtract(this.getPosX(), this.getPosY(), this.getPosZ());
                 this.setMotion(vec3d);
                 Vec3d vec3d1 = vec3d.normalize().scale((double) 0.05F);
-                this.posX -= vec3d1.x;
-                this.posY -= vec3d1.y;
-                this.posZ -= vec3d1.z;
+                this.setPosition(this.getPosition().getX() - vec3d1.x, this.getPosition().getY() - vec3d1.y, this.getPosition().getZ() - vec3d1.z);
                 this.playSound(SoundEvents.ENTITY_ARROW_HIT, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
                 this.inGround = true;
                 blockstate.onProjectileCollision(this.world, blockstate, blockraytraceresult, this);
@@ -111,7 +109,7 @@ public class NovaSpikeEntity extends ThrowableEntity {
         BlockState state = this.world.getBlockState(this.getPosition());
 
         if (this.inGround) {
-            if (this.inBlockState != state && this.world.areCollisionShapesEmpty(this.getBoundingBox().grow(0.06D))) {
+            if (this.inBlockState != state && !this.world.checkBlockCollision(this.getBoundingBox().grow(0.06D))) {
                 this.inGround = false;
                 this.setMotion(motion.mul(this.rand.nextFloat() * 0.2F, this.rand.nextFloat() * 0.2F, this.rand.nextFloat() * 0.2F));
                 this.ticksInGround = 0;
@@ -124,7 +122,7 @@ public class NovaSpikeEntity extends ThrowableEntity {
         } else {
             super.tick();
             this.doBlockCollisions();
-            this.world.addParticle(MidnightParticleTypes.SPORE, this.posX, this.posY, this.posZ, 0.0D, 0.05, 0.0D);
+            this.world.addParticle(MidnightParticleTypes.SPORE, this.getPosX(), this.getPosY(), this.getPosZ(), 0.0D, 0.05, 0.0D);
         }
     }
 

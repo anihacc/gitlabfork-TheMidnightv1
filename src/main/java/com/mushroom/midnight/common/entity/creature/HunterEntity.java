@@ -54,12 +54,12 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
     private final MeanValueRecorder deltaYaw = new MeanValueRecorder(20);
 
     //TODO REMAKE CHAINSOLVER
-    private final ChainSolver<HunterEntity> chainSolver = new ChainSolver<>(
-            new Point3f(0.0F, 0.0F, 0.5875F),
-            new Point3f[] {
-                    new Point3f(0.0F, 0.0F, 0.775F),
-                    new Point3f(0.0F, 0.0F, 1.65F),
-                    new Point3f(0.0F, 0.0F, 2.525F)
+   /* private final ChainSolver<HunterEntity> chainSolver = new ChainSolver<>(
+            new Quaternion(0.0F, 0.0F, 0.5875F),
+            new Quaternion[] {
+                    new Quaternion(0.0F, 0.0F, 0.775F),
+                    new Quaternion(0.0F, 0.0F, 1.65F),
+                    new Quaternion(0.0F, 0.0F, 2.525F)
             },
             0.5F,
             0.5F,
@@ -68,7 +68,7 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
                 matrix.rotate(entity.roll, 0.0F, 0.0F, 1.0F);
                 matrix.rotate(-entity.rotationPitch, 1.0F, 0.0F, 0.0F);
             }
-    );
+    );*/
 
     public HunterEntity(EntityType<? extends HunterEntity> entityType, World world) {
         super(entityType, world);

@@ -97,7 +97,7 @@ public class SporeBombEntity extends ThrowableEntity implements IRendersAsItem {
             } else {
                 SporeBombItem bomb = (SporeBombItem) getBombStack().getItem();
                 if (bomb.checkExplode(this.world, getBombStack())) {
-                    bomb.explode((ServerWorld) this.world, this.posX, this.posY, this.posZ);
+                    bomb.explode((ServerWorld) this.world, this.getPosX(), this.getPosY(), this.getPosZ());
                     remove();
                 }
             }
@@ -111,7 +111,7 @@ public class SporeBombEntity extends ThrowableEntity implements IRendersAsItem {
         }
         if (!world.isRemote) {
             if (canBreakOn(result)) {
-                ((SporeBombItem) getBombStack().getItem()).explode((ServerWorld) this.world, this.posX, this.posY, this.posZ);
+                ((SporeBombItem) getBombStack().getItem()).explode((ServerWorld) this.world, this.getPosX(), this.getPosY(), this.getPosZ());
             } else {
                 entityDropItem(getBombStack().copy(), 0.01f);
             }

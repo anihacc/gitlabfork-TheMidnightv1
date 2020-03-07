@@ -16,6 +16,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeManager;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap;
@@ -83,7 +84,7 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
     }
 
     @Override
-    public boolean hasStartAt(ChunkGenerator<?> generator, Random random, int chunkX, int chunkZ) {
+    public boolean func_225558_a_(BiomeManager p_225558_1_, ChunkGenerator<?> generator, Random random, int chunkX, int chunkZ, Biome p_225558_6_) {
         ChunkPos startPos = this.getStartPositionForPosition(generator, random, chunkX, chunkZ, 0, 0);
         if (chunkX == startPos.x && chunkZ == startPos.z) {
             SharedSeedRandom seedRandom = (SharedSeedRandom) random;
@@ -92,7 +93,7 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
             Metadata metadata = Metadata.generate(seedRandom, generator, chunkX, chunkZ);
             if (metadata.isValid()) {
                 BiomeProvider biomeProvider = generator.getBiomeProvider();
-                return biomeProvider.getBiomesInSquare((chunkX << 4) + 9, (chunkZ << 4) + 9, metadata.radius)
+                return biomeProvider.func_225530_a_((chunkX << 4) + 9, 0, (chunkZ << 4) + 9, metadata.radius)
                         .stream()
                         .allMatch(biome -> generator.hasStructure(biome, this));
             }
@@ -161,8 +162,8 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
     }
 
     public static class Start extends StructureStart {
-        Start(Structure<?> structure, int chunkX, int chunkZ, Biome biome, MutableBoundingBox bounds, int reference, long seed) {
-            super(structure, chunkX, chunkZ, biome, bounds, reference, seed);
+        Start(Structure<?> structure, int chunkX, int chunkZ, MutableBoundingBox bounds, int reference, long seed) {
+            super(structure, chunkX, chunkZ, bounds, reference, seed);
         }
 
         @Override
@@ -207,7 +208,7 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
         }
 
         @Override
-        public boolean addComponentParts(IWorld world, Random random, MutableBoundingBox bounds, ChunkPos chunkPos) {
+        public boolean func_225577_a_(IWorld world, ChunkGenerator<?> p_225577_2_, Random random, MutableBoundingBox bounds, ChunkPos chunkPos) {
             int minX = Math.max(this.boundingBox.minX, bounds.minX);
             int maxX = Math.min(this.boundingBox.maxX, bounds.maxX);
 

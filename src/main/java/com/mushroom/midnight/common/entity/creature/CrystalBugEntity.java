@@ -23,8 +23,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class CrystalBugEntity extends AmbientEntity {
     private static final DataParameter<Boolean> IS_STANDING = EntityDataManager.createKey(CrystalBugEntity.class, DataSerializers.BOOLEAN);
@@ -116,12 +114,12 @@ public class CrystalBugEntity extends AmbientEntity {
             if (spawnPosition != null && (!world.isAirBlock(spawnPosition) || spawnPosition.getY() < 1)) {
                 spawnPosition = null;
             }
-            if (spawnPosition == null || rand.nextInt(30) == 0 || spawnPosition.distanceSq((double) ((int) posX), (double) ((int) posY), (double) ((int) posZ), true) < 4d) {
-                spawnPosition = new BlockPos((int) posX + rand.nextInt(7) - rand.nextInt(7), (int) posY + rand.nextInt(6) - 2, (int) posZ + rand.nextInt(7) - rand.nextInt(7));
+            if (spawnPosition == null || rand.nextInt(30) == 0 || spawnPosition.distanceSq((double) ((int) getPosX()), (double) ((int) getPosY()), (double) ((int) getPosZ()), true) < 4d) {
+                spawnPosition = new BlockPos((int) getPosX() + rand.nextInt(7) - rand.nextInt(7), (int) getPosY() + rand.nextInt(6) - 2, (int) getPosZ() + rand.nextInt(7) - rand.nextInt(7));
             }
-            double d0 = (double) spawnPosition.getX() + 0.5d - posX;
-            double d1 = (double) spawnPosition.getY() + 0.1d - posY;
-            double d2 = (double) spawnPosition.getZ() + 0.5d - posZ;
+            double d0 = (double) spawnPosition.getX() + 0.5d - getPosX();
+            double d1 = (double) spawnPosition.getY() + 0.1d - getPosY();
+            double d2 = (double) spawnPosition.getZ() + 0.5d - getPosZ();
             double addX = (Math.signum(d0) * 0.2d - getMotion().x) * 0.1d;
             double addY = (Math.signum(d1) * 0.4d - getMotion().y) * 0.1d;
             double addZ = (Math.signum(d2) * 0.2d - getMotion().z) * 0.1d;
@@ -170,7 +168,8 @@ public class CrystalBugEntity extends AmbientEntity {
     }
 
     @Override
-    public void fall(float distance, float damageMultiplier) {
+    public boolean onLivingFall(float distance, float damageMultiplier) {
+        return false;
     }
 
     @Override
@@ -198,8 +197,7 @@ public class CrystalBugEntity extends AmbientEntity {
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public int getBrightnessForRender() {
+    public float getBrightness() {
         return 14 << 20 | 14 << 4;
     }
 

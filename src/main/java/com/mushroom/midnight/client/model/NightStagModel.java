@@ -1,6 +1,5 @@
 package com.mushroom.midnight.client.model;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.entity.creature.NightStagEntity;
 import net.minecraft.client.Minecraft;
@@ -17,7 +16,7 @@ public class NightStagModel extends QuadrupedModel<NightStagEntity> {
     public ModelRenderer leftAntler;
 
     public NightStagModel() {
-        super(15, 0f);
+        super(15, 0f, false, 4.0F, 4.0F, 2.0F, 2.0F, 0);
         this.textureWidth = 64;
         this.textureHeight = 64;
         this.body = new ModelRenderer(this, 0, 32); // body
@@ -58,20 +57,8 @@ public class NightStagModel extends QuadrupedModel<NightStagEntity> {
     }
 
     @Override
-    public void render(NightStagEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        this.setRotationAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-
-        GlStateManager.pushMatrix();
-        GlStateManager.translatef(0.0F, 0.0F, -0.4F);
-
-        this.headModel.render(scale);
-        this.body.render(scale);
-        this.legBackRight.render(scale);
-        this.legBackLeft.render(scale);
-        this.legFrontRight.render(scale);
-        this.legFrontLeft.render(scale);
-
-        GlStateManager.popMatrix();
+    protected Iterable<ModelRenderer> getBodyParts() {
+        return super.getBodyParts();
     }
 
     private void setRotateAngle(ModelRenderer ModelRenderer, float x, float y, float z) {
@@ -81,7 +68,7 @@ public class NightStagModel extends QuadrupedModel<NightStagEntity> {
     }
 
     @Override
-    public void setRotationAngles(NightStagEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
+    public void render(NightStagEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.headModel.rotateAngleX = (headPitch * 0.017453292f) + 0.17453292519943295f;
         this.headModel.rotateAngleY = netHeadYaw * 0.017453292f;
         this.body.rotateAngleX = 0f;

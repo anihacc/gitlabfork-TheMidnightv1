@@ -1,8 +1,8 @@
 package com.mushroom.midnight.common.biome.cavern;
 
 import com.mushroom.midnight.Midnight;
-import com.mushroom.midnight.common.biome.MidnightSurfaceBuilders;
 import com.mushroom.midnight.common.biome.MidnightCavernConfigurator;
+import com.mushroom.midnight.common.biome.MidnightSurfaceBuilders;
 import com.mushroom.midnight.common.registry.MidnightEntities;
 import net.minecraft.world.biome.Biome;
 

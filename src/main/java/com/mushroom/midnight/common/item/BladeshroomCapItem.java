@@ -39,7 +39,7 @@ public class BladeshroomCapItem extends Item {
             heldItem.shrink(1);
         }
 
-        world.playSound(null, player.posX, player.posY, player.posZ, MidnightSounds.BLADESHROOM_CAP_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+        world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), MidnightSounds.BLADESHROOM_CAP_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 
         if (!world.isRemote) {
             BladeshroomCapEntity entity = new BladeshroomCapEntity(world, player);

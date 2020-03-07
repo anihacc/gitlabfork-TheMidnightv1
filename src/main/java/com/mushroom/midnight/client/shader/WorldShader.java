@@ -4,7 +4,7 @@ import com.mojang.blaze3d.platform.GLX;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mushroom.midnight.Midnight;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.ITextureObject;
+import net.minecraft.client.renderer.texture.Texture;
 import net.minecraft.client.shader.ShaderInstance;
 import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.resources.IResourceManager;
@@ -97,7 +97,7 @@ public class WorldShader implements ISelectiveResourceReloadListener {
             this.instance = new ShaderInstance(mc.getResourceManager(), this.location.toString());
 
             for (Map.Entry<String, ResourceLocation> entry : this.textures.entrySet()) {
-                ITextureObject texture = mc.getTextureManager().getTexture(entry.getValue());
+                Texture texture = mc.getTextureManager().getTexture(entry.getValue());
                 this.instance.func_216537_a(entry.getKey(), texture);
             }
         } catch (IOException e) {

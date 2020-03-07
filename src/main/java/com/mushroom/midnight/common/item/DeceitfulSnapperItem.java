@@ -33,7 +33,7 @@ public class DeceitfulSnapperItem extends Item {
                 player.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 200, 5, false, true));
                 player.attackEntityFrom(DECEITFUL_SNAPPER_DAMAGE, player.world.rand.nextInt(3) + 1);
                 player.sendStatusMessage(new TranslationTextComponent("status.midnight.snapped"), true);
-                world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_EVOKER_FANGS_ATTACK, SoundCategory.PLAYERS, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
+                world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_EVOKER_FANGS_ATTACK, SoundCategory.PLAYERS, 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
                 MidnightCriterion.SNAPPED_BY_SNAPPER.trigger(player);
                 Midnight.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new ItemActivationMessage(new ItemStack(MidnightItems.ADVANCEMENT_SNAPPER)));
             } else {

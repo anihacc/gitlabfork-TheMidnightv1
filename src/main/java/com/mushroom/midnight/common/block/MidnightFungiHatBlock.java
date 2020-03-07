@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Mirror;
@@ -47,7 +48,7 @@ public class MidnightFungiHatBlock extends Block {
     }
 
     @Override
-    public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hitResult) {
+    public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hitResult) {
         ItemStack stack = player.getHeldItem(hand);
 
         if (stack.getItem() == Items.SHEARS) {
@@ -59,7 +60,7 @@ public class MidnightFungiHatBlock extends Block {
                 stack.damageItem(1, player, p -> p.sendBreakAnimation(hand));
             }
 
-            return true;
+            return ActionResultType.SUCCESS;
         }
 
         return super.onBlockActivated(state, world, pos, player, hand, hitResult);
@@ -83,8 +84,7 @@ public class MidnightFungiHatBlock extends Block {
     }
 
     @Override
-    //getAmbientOcclusionLightValue
-    public float func_220080_a(BlockState state, IBlockReader worldIn, BlockPos pos) {
+    public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return 0.8f;
     }
 

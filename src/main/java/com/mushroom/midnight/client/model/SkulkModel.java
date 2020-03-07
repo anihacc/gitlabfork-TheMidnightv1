@@ -17,7 +17,7 @@ public class SkulkModel extends QuadrupedModel<SkulkEntity> {
     private ModelRenderer Snout;
 
     public SkulkModel() {
-        super(5, 0f, false);
+        super(5, 0f, false, 4.0F, 4.0F, 2.0F, 2.0F, 0);
         this.textureWidth = 64;
         this.textureHeight = 32;
         this.headModel = new ModelRenderer(this, 0, 12);

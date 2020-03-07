@@ -5,14 +5,17 @@ import com.mushroom.midnight.common.block.SuavisBlock;
 import com.mushroom.midnight.common.block.UnstableBushBloomedBlock;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightItems;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.block.Block;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.DirectoryCache;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.state.properties.SlabType;
 import net.minecraft.util.IItemProvider;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.AlternativesLootEntry;
 import net.minecraft.world.storage.loot.ConstantRange;
 import net.minecraft.world.storage.loot.ILootConditionConsumer;
@@ -46,11 +49,22 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
     private final Map<Block, LootTable.Builder> lootTables = new HashMap<>();
 
     public MidnightBlockLootProvider(DataGenerator generator) {
-        super(generator, LootParameterSets.BLOCK);
+        super(generator);
     }
 
     @Override
-    protected void addTables(LootConsumer consumer) {
+    public void act(DirectoryCache cache) {
+        super.act(cache);
+        Map<ResourceLocation, LootTable> tables = new HashMap<>();
+        for (Map.Entry<Block, LootTable.Builder> entry : lootTables.entrySet()) {
+            tables.put(entry.getKey().getLootTable(), entry.getValue().setParameterSet(LootParameterSets.BLOCK).build());
+        }
+        writeTables(cache, tables);
+    }
+
+
+    @Override
+    protected void addTables() {
         this.add(MidnightBlocks.SHADOWROOT_LOG);
         this.add(MidnightBlocks.SHADOWROOT_STRIPPED_LOG);
         this.add(MidnightBlocks.SHADOWROOT_PLANKS);
@@ -329,11 +343,11 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         this.add(MidnightBlocks.BLADESHROOM, block -> LootTable.builder().addLootPool(
                 LootPool.builder().rolls(ONE)
                         .addEntry(ItemLootEntry.builder(MidnightItems.BLADESHROOM_CAP)
-                                .acceptCondition(BlockStateProperty.builder(block).with(BladeshroomBlock.STAGE, BladeshroomBlock.Stage.CAPPED))
+                                .acceptCondition(BlockStateProperty.builder(block).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withProp(BladeshroomBlock.STAGE, BladeshroomBlock.Stage.CAPPED)))
                         )
                         .addEntry(AlternativesLootEntry.builder(
                                 ItemLootEntry.builder(MidnightItems.BLADESHROOM_SPORES)
-                                        .acceptCondition(BlockStateProperty.builder(block).with(BladeshroomBlock.STAGE, BladeshroomBlock.Stage.CAPPED)),
+                                        .acceptCondition(BlockStateProperty.builder(block).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withProp(BladeshroomBlock.STAGE, BladeshroomBlock.Stage.CAPPED))),
                                 ItemLootEntry.builder(MidnightItems.BLADESHROOM_SPORES)
                                         .acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 1.0F)))
                         ))
@@ -343,23 +357,21 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
                 LootPool.builder().rolls(ONE).addEntry(AlternativesLootEntry.builder(
                         ItemLootEntry.builder(block)
                                 .acceptCondition(Conditions.HAS_SILK_TOUCH)
-                                .acceptCondition(BlockStateProperty.builder(block).with(SuavisBlock.STAGE, 3)),
+                                .acceptCondition(BlockStateProperty.builder(block).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withIntProp(SuavisBlock.STAGE, 3))),
                         ItemLootEntry.builder(MidnightItems.RAW_SUAVIS)
-                                .acceptCondition(BlockStateProperty.builder(block).with(SuavisBlock.STAGE, 3))
+                                .acceptCondition(BlockStateProperty.builder(block).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withIntProp(SuavisBlock.STAGE, 3)))
                                 .acceptFunction(SetCount.builder(RandomValueRange.of(2.0F, 3.0F))),
                         ItemLootEntry.builder(MidnightItems.RAW_SUAVIS)
-                                .acceptCondition(BlockStateProperty.builder(block).with(SuavisBlock.STAGE, 2))
+                                .acceptCondition(BlockStateProperty.builder(block).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withIntProp(SuavisBlock.STAGE, 2)))
                                 .acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 2.0F))),
                         ItemLootEntry.builder(MidnightItems.RAW_SUAVIS)
-                                .acceptCondition(BlockStateProperty.builder(block).with(SuavisBlock.STAGE, 1))
+                                .acceptCondition(BlockStateProperty.builder(block).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withIntProp(SuavisBlock.STAGE, 1)))
                                 .acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 1.0F)))
                 ))
         ));
 
         this.addWithCountAndBonus(MidnightBlocks.GLOB_FUNGUS_STEM, MidnightItems.GLOB_FUNGUS_HAND, ConstantRange.of(4));
         this.addWithCountAndBonus(MidnightBlocks.ROCKSHROOM, MidnightItems.ROCKSHROOM_CLUMP, RandomValueRange.of(2, 3));
-
-        this.lootTables.forEach(consumer::accept);
     }
 
     private static <T> T explosionDecay(ILootFunctionConsumer<T> consumer) {
@@ -441,7 +453,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
     }
 
     private void addSlab(Block block) {
-        ILootCondition.IBuilder isDouble = BlockStateProperty.builder(block).with(SlabBlock.TYPE, SlabType.DOUBLE);
+        ILootCondition.IBuilder isDouble = BlockStateProperty.builder(block).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withProp(SlabBlock.TYPE, SlabType.DOUBLE));
         LootFunction.Builder<?> doubleFunction = SetCount.builder(ConstantRange.of(2)).acceptCondition(isDouble);
 
         LootTable.Builder table = LootTable.builder().addLootPool(LootPool.builder()
@@ -469,7 +481,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
     }
 
     private void addUnstableBush(Block block, IItemProvider fruit) {
-        ILootCondition.IBuilder condition = BlockStateProperty.builder(block).with(UnstableBushBloomedBlock.HAS_FRUIT, true);
+        ILootCondition.IBuilder condition = BlockStateProperty.builder(block).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withBoolProp(UnstableBushBloomedBlock.HAS_FRUIT, true));
         RandomValueRange count = RandomValueRange.of(3.0F, 6.0F);
         this.add(block, LootTable.builder().addLootPool(LootPool.builder()
                 .acceptCondition(condition)
@@ -498,7 +510,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
                 .addLootPool(checkExplosion(LootPool.builder()
                         .rolls(ONE)
                         .addEntry(ItemLootEntry.builder(block))
-                        .acceptCondition(BlockStateProperty.builder(block).with(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER))
+                        .acceptCondition(BlockStateProperty.builder(block).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withProp(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER)))
                 ));
 
         this.add(block, table);
@@ -509,7 +521,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
                 .addLootPool(checkExplosion(LootPool.builder()
                         .rolls(ONE)
                         .addEntry(ItemLootEntry.builder(block))
-                        .acceptCondition(BlockStateProperty.builder(block).with(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER))
+                        .acceptCondition(BlockStateProperty.builder(block).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withProp(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER)))
                         .acceptCondition(Conditions.HAS_SHEARS)
                 ));
 
@@ -524,5 +536,10 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         ));
 
         this.add(block, table);
+    }
+
+    @Override
+    public String getName() {
+        return "Midnight BlockLootTables";
     }
 }

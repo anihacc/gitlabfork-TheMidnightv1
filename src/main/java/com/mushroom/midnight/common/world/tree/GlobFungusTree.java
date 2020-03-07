@@ -1,17 +1,18 @@
 package com.mushroom.midnight.common.world.tree;
 
 import com.mushroom.midnight.common.registry.MidnightFeatures;
-import net.minecraft.block.trees.Tree;
-import net.minecraft.world.gen.feature.AbstractTreeFeature;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class GlobFungusTree extends Tree {
+public class GlobFungusTree extends MidnightTree {
+
     @Nullable
     @Override
-    protected AbstractTreeFeature<NoFeatureConfig> getTreeFeature(Random random) {
-        return MidnightFeatures.LARGE_GLOB_FUNGUS;
+    protected ConfiguredFeature<NoFeatureConfig, ?> getNewTreeFeature(Random randomIn, boolean p_225546_2_) {
+        return MidnightFeatures.LARGE_GLOB_FUNGUS.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
     }
 }

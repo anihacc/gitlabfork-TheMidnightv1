@@ -25,9 +25,9 @@ public class FlyingNavigator extends FlyingPathNavigator {
         this.maxDistanceToWaypoint = this.entity.getWidth() > 0.75F ? this.entity.getWidth() / 2.0F : 0.75F - this.entity.getWidth() / 2.0F;
         Vec3d pathPosition = this.currentPath.getCurrentPos();
 
-        boolean reachedWaypoint = Math.abs(this.entity.posX - (pathPosition.x + 0.5)) < this.maxDistanceToWaypoint
-                && Math.abs(this.entity.posZ - (pathPosition.z + 0.5)) < this.maxDistanceToWaypoint
-                && Math.abs(this.entity.posY - pathPosition.y) < 1.0;
+        boolean reachedWaypoint = Math.abs(this.entity.getPosX() - (pathPosition.x + 0.5)) < this.maxDistanceToWaypoint
+                && Math.abs(this.entity.getPosZ() - (pathPosition.z + 0.5)) < this.maxDistanceToWaypoint
+                && Math.abs(this.entity.getPosZ() - pathPosition.y) < 1.0;
         if (reachedWaypoint) {
             this.currentPath.setCurrentPathIndex(this.currentPath.getCurrentPathIndex() + 1);
         }

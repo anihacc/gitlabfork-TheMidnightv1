@@ -95,9 +95,9 @@ public class CloudEntity extends Entity {
 
     @Override
     public void recalculateSize() {
-        double x = this.posX;
-        double y = this.posY;
-        double z = this.posZ;
+        double x = this.getPosX();
+        double y = this.getPosY();
+        double z = this.getPosZ();
         super.recalculateSize();
         setPosition(x, y, z);
     }
@@ -187,7 +187,7 @@ public class CloudEntity extends Entity {
                         float f2 = MathHelper.sqrt(this.rand.nextFloat()) * 0.2f;
                         float f3 = MathHelper.cos(f1) * f2;
                         float f4 = MathHelper.sin(f1) * f2;
-                        this.world.addParticle(particle, this.posX + (double) f3, this.posY, this.posZ + (double) f4, 0d, 0d, 0d); //, getParticleParam()
+                        this.world.addParticle(particle, this.getPosX() + (double) f3, this.getPosY(), this.getPosZ() + (double) f4, 0d, 0d, 0d); //, getParticleParam()
                     }
                 }
             } else {
@@ -197,7 +197,7 @@ public class CloudEntity extends Entity {
                     float f7 = MathHelper.sqrt(this.rand.nextFloat()) * f;
                     float f8 = MathHelper.cos(f6) * f7;
                     float f9 = MathHelper.sin(f6) * f7;
-                    this.world.addParticle(particle, this.posX + (double) f8, this.posY, this.posZ + (double) f9, (0.5d - this.rand.nextDouble()) * 0.15d, 0.009999999776482582d, (0.5d - this.rand.nextDouble()) * 0.15d); //, getParticleParam()
+                    this.world.addParticle(particle, this.getPosX() + (double) f8, this.getPosY(), this.getPosZ() + (double) f9, (0.5d - this.rand.nextDouble()) * 0.15d, 0.009999999776482582d, (0.5d - this.rand.nextDouble()) * 0.15d); //, getParticleParam()
                 }
             }
         } else {
@@ -234,8 +234,8 @@ public class CloudEntity extends Entity {
                     if (!list.isEmpty()) {
                         for (LivingEntity entity : list) {
                             if (!this.reapplicationDelayMap.containsKey(entity) && entity.canBeHitWithPotion()) {
-                                double d0 = entity.posX - this.posX;
-                                double d1 = entity.posZ - this.posZ;
+                                double d0 = entity.getPosX() - this.getPosX();
+                                double d1 = entity.getPosZ() - this.getPosZ();
                                 double d2 = d0 * d0 + d1 * d1;
                                 if (d2 <= (double) (f * f)) {
                                     this.reapplicationDelayMap.put(entity, this.ticksExisted + this.reapplicationDelay);
@@ -273,7 +273,7 @@ public class CloudEntity extends Entity {
             List<Entity> list = this.world.getEntitiesInAABBexcluding(getOwner(), getBoundingBox().grow(5d), p -> p instanceof LivingEntity && p.isAlive());
             if (!list.isEmpty()) {
                 Entity entity = list.get(this.world.rand.nextInt(list.size()));
-                setPositionAndUpdate(entity.posX, entity.posY, entity.posZ);
+                setPositionAndUpdate(entity.getPosX(), entity.getPosY(), entity.getPosZ());
             }
         }
     }

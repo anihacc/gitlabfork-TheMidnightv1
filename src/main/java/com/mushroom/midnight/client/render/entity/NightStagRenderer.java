@@ -1,6 +1,6 @@
 package com.mushroom.midnight.client.render.entity;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.ClientEventHandler;
 import com.mushroom.midnight.client.model.NightStagModel;
@@ -80,10 +80,9 @@ public class NightStagRenderer extends MobRenderer<NightStagEntity, NightStagMod
     }
 
     @Override
-    protected void preRenderCallback(NightStagEntity entity, float partialTicks) {
-        super.preRenderCallback(entity, partialTicks);
-        if (entity.isChild()) {
-            GlStateManager.scalef(0.5F, 0.5F, 0.5F);
-        }
+    protected void preRenderCallback(NightStagEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+        super.preRenderCallback(entitylivingbaseIn, matrixStackIn, partialTickTime);
+        matrixStackIn.scale(0.5F, 0.5F, 0.5F);
     }
+
 }

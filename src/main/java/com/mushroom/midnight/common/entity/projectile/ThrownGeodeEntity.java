@@ -1,12 +1,12 @@
 package com.mushroom.midnight.common.entity.projectile;
 
-import com.mushroom.midnight.common.registry.MidnightParticleTypes;
-import com.mushroom.midnight.common.util.MidnightUtil;
 import com.mushroom.midnight.common.registry.MidnightCriterion;
 import com.mushroom.midnight.common.registry.MidnightEntities;
 import com.mushroom.midnight.common.registry.MidnightItems;
 import com.mushroom.midnight.common.registry.MidnightLootTables;
+import com.mushroom.midnight.common.registry.MidnightParticleTypes;
 import com.mushroom.midnight.common.registry.MidnightSounds;
+import com.mushroom.midnight.common.util.MidnightUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityType;
@@ -22,8 +22,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootParameterSets;
 import net.minecraft.world.storage.loot.LootParameters;
@@ -76,19 +76,19 @@ public class ThrownGeodeEntity extends ThrowableEntity implements IRendersAsItem
     }
 
     private void spawnPopParticles() {
-        this.world.playSound(this.posX, this.posY, this.posZ, MidnightSounds.EGG_CRACKED, this.getSoundCategory(), 1f, this.rand.nextFloat() * 0.2f + 0.85f, false);
+        this.world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), MidnightSounds.EGG_CRACKED, this.getSoundCategory(), 1f, this.rand.nextFloat() * 0.2f + 0.85f, false);
 
         for (int i = 0; i < 8; i++) {
             double velX = (this.rand.nextDouble() - 0.5) * 0.1;
             double velY = (this.rand.nextDouble() - 0.5) * 0.1;
-            this.world.addParticle(new ItemParticleData(ParticleTypes.ITEM, new ItemStack(MidnightItems.GEODE)), this.posX, this.posY + 0.1, this.posZ, velX, 0.1, velY);
+            this.world.addParticle(new ItemParticleData(ParticleTypes.ITEM, new ItemStack(MidnightItems.GEODE)), this.getPosX(), this.getPosY() + 0.1, this.getPosZ(), velX, 0.1, velY);
         }
 
         for (int i = 0; i < 2; i++) {
             double offsetX = (this.rand.nextDouble() - 0.5) * 0.4;
             double offsetY = (this.rand.nextDouble() - 0.5) * 0.4;
             double offsetZ = (this.rand.nextDouble() - 0.5) * 0.4;
-            this.world.addParticle(MidnightParticleTypes.FURNACE_FLAME, this.posX + offsetX, this.posY + offsetY, this.posZ + offsetZ, 0.0, 0.0, 0.0);
+            this.world.addParticle(MidnightParticleTypes.FURNACE_FLAME, this.getPosX() + offsetX, this.getPosY() + offsetY, this.getPosZ() + offsetZ, 0.0, 0.0, 0.0);
         }
     }
 

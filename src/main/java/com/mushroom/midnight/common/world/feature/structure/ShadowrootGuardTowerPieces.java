@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.structure.StructurePiece;
 import net.minecraft.world.gen.feature.structure.TemplateStructurePiece;
@@ -76,7 +77,7 @@ public class ShadowrootGuardTowerPieces {
         }
 
         @Override
-        public boolean addComponentParts(IWorld world, Random random, MutableBoundingBox bounds, ChunkPos chunkPos) {
+        public boolean func_225577_a_(IWorld world, ChunkGenerator<?> p_225577_2_, Random random, MutableBoundingBox bounds, ChunkPos chunkPos) {
             PlacementSettings settings = new PlacementSettings()
                     .setRotation(this.rotation)
                     .setMirror(Mirror.NONE)
@@ -88,7 +89,7 @@ public class ShadowrootGuardTowerPieces {
             BlockPos templateOrigin = this.templatePosition;
 
             this.templatePosition = this.templatePosition.add(0, height - 90 - 1, 0);
-            boolean result = super.addComponentParts(world, random, bounds, chunkPos);
+            boolean result = super.func_225577_a_(world, p_225577_2_, random, bounds, chunkPos);
             this.templatePosition = templateOrigin;
 
             return result;

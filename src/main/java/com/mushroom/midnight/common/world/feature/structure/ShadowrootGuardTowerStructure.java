@@ -50,8 +50,8 @@ public class ShadowrootGuardTowerStructure extends ScatteredStructure<NoFeatureC
     }
 
     public static class Start extends StructureStart {
-        public Start(Structure<?> p_i50678_1_, int p_i50678_2_, int p_i50678_3_, Biome p_i50678_4_, MutableBoundingBox p_i50678_5_, int p_i50678_6_, long p_i50678_7_) {
-            super(p_i50678_1_, p_i50678_2_, p_i50678_3_, p_i50678_4_, p_i50678_5_, p_i50678_6_, p_i50678_7_);
+        public Start(Structure<?> p_i50678_1_, int p_i50678_2_, int p_i50678_3_, MutableBoundingBox p_i50678_5_, int p_i50678_6_, long p_i50678_7_) {
+            super(p_i50678_1_, p_i50678_2_, p_i50678_3_, p_i50678_5_, p_i50678_6_, p_i50678_7_);
         }
 
         @Override

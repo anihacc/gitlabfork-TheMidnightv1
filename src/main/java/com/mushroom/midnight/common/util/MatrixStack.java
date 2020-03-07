@@ -1,96 +1,106 @@
 package com.mushroom.midnight.common.util;
 
-import javax.vecmath.AxisAngle4d;
-import javax.vecmath.Matrix4d;
-import javax.vecmath.Point3d;
-import javax.vecmath.Point3f;
-import javax.vecmath.Vector3d;
-import java.util.EmptyStackException;
-import java.util.Stack;
-import java.util.function.Consumer;
+import com.google.common.collect.Queues;
+import net.minecraft.client.renderer.Matrix3f;
+import net.minecraft.client.renderer.Matrix4f;
+import net.minecraft.client.renderer.Quaternion;
+import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.util.Util;
+import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.Deque;
 
 public class MatrixStack {
-    private final Stack<Matrix4d> matrixStack;
-    private final Stack<Matrix4d> matrixPool;
+    private final Deque<MatrixStack.Entry> stack = Util.make(Queues.newArrayDeque(), (p_227864_0_) -> {
+        Matrix4f matrix4f = new Matrix4f();
+        matrix4f.identity();
+        Matrix3f matrix3f = new Matrix3f();
+        matrix3f.identity();
+        p_227864_0_.add(new MatrixStack.Entry(matrix4f, matrix3f));
+    });
 
     public MatrixStack(int initPoolSize) {
-        this.matrixPool = new Stack<>();
         for (int i = 0; i < initPoolSize; i++) {
-            Matrix4d matrix = new Matrix4d();
-            this.matrixPool.push(matrix);
+            Matrix4f matrix = new Matrix4f();
+            Matrix3f matrix2 = new Matrix3f();
+            this.stack.push(new MatrixStack.Entry(matrix, matrix2));
         }
-
-        this.matrixStack = new Stack<>();
-        Matrix4d matrix = new Matrix4d();
-        matrix.setIdentity();
-        this.matrixStack.push(matrix);
     }
 
-    public void identity() {
-        while (this.matrixStack.size() > 1) {
-            this.matrixPool.push(this.matrixStack.pop());
+    public void translate(double p_227861_1_, double p_227861_3_, double p_227861_5_) {
+        MatrixStack.Entry matrixstack$entry = this.stack.getLast();
+        matrixstack$entry.positionMatrix.multiply(Matrix4f.makeTranslate((float) p_227861_1_, (float) p_227861_3_, (float) p_227861_5_));
+    }
+
+    public void scale(float p_227862_1_, float p_227862_2_, float p_227862_3_) {
+        MatrixStack.Entry matrixstack$entry = this.stack.getLast();
+        matrixstack$entry.positionMatrix.multiply(Matrix4f.makeScale(p_227862_1_, p_227862_2_, p_227862_3_));
+        if (p_227862_1_ == p_227862_2_ && p_227862_2_ == p_227862_3_) {
+            if (p_227862_1_ > 0.0F) {
+                return;
+            }
+
+            matrixstack$entry.normalMatrix.mul(-1.0F);
         }
-        this.matrixStack.peek().setIdentity();
+
+        float f = 1.0F / p_227862_1_;
+        float f1 = 1.0F / p_227862_2_;
+        float f2 = 1.0F / p_227862_3_;
+        float f3 = MathHelper.fastInvCubeRoot(f * f1 * f2);
+        matrixstack$entry.normalMatrix.mul(Matrix3f.makeScaleMatrix(f3 * f, f3 * f1, f3 * f2));
+    }
+
+    public void rotate(Quaternion p_227863_1_) {
+        MatrixStack.Entry matrixstack$entry = this.stack.getLast();
+        matrixstack$entry.positionMatrix.multiply(p_227863_1_);
+        matrixstack$entry.normalMatrix.mul(p_227863_1_);
     }
 
     public void push() {
-        Matrix4d matrix = this.takePool();
-        matrix.mul(this.matrixStack.peek());
-        this.matrixStack.push(matrix);
+        MatrixStack.Entry matrixstack$entry = this.stack.getLast();
+        this.stack.addLast(new MatrixStack.Entry(matrixstack$entry.positionMatrix.copy(), matrixstack$entry.normalMatrix.copy()));
     }
 
     public void pop() {
-        if (this.matrixStack.size() <= 1) {
-            throw new EmptyStackException();
+        this.stack.removeLast();
+    }
+
+    public MatrixStack.Entry getLast() {
+        return this.stack.getLast();
+    }
+
+    public boolean clear() {
+        return this.stack.size() == 1;
+    }
+
+    public void transform(Quaternion point) {
+        Matrix4f matrix = this.stack.getLast().positionMatrix;
+        matrix.multiply(point);
+    }
+
+    public void transform(Vector3f vector) {
+        Matrix4f matrix = this.stack.getLast().positionMatrix;
+        matrix.multiply(new Quaternion(vector.getX(), vector.getY(), vector.getZ(), 1.0F));
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static final class Entry {
+        private final Matrix4f positionMatrix;
+        private final Matrix3f normalMatrix;
+
+        private Entry(Matrix4f p_i225909_1_, Matrix3f p_i225909_2_) {
+            this.positionMatrix = p_i225909_1_;
+            this.normalMatrix = p_i225909_2_;
         }
-        this.matrixPool.push(this.matrixStack.pop());
-    }
 
-    public void translate(double x, double y, double z) {
-        Matrix4d matrix = this.matrixStack.peek();
-        this.useMatrix(translation -> {
-            translation.setTranslation(new Vector3d(x, y, z));
-            matrix.mul(translation);
-        });
-    }
-
-    public void rotate(double angle, double x, double y, double z) {
-        Matrix4d matrix = this.matrixStack.peek();
-        this.useMatrix(rotation -> {
-            rotation.setRotation(new AxisAngle4d(x, y, z, Math.toRadians(angle)));
-            matrix.mul(rotation);
-        });
-    }
-
-    public void transform(Point3d point) {
-        Matrix4d matrix = this.matrixStack.peek();
-        matrix.transform(point);
-    }
-
-    public void transform(Point3f point) {
-        Matrix4d matrix = this.matrixStack.peek();
-        matrix.transform(point);
-    }
-
-    public void transform(Vector3d vector) {
-        Matrix4d matrix = this.matrixStack.peek();
-        matrix.transform(vector);
-    }
-
-    private void useMatrix(Consumer<Matrix4d> handler) {
-        Matrix4d matrix = this.takePool();
-        handler.accept(matrix);
-        this.matrixPool.push(matrix);
-    }
-
-    private Matrix4d takePool() {
-        if (this.matrixPool.isEmpty()) {
-            Matrix4d matrix = new Matrix4d();
-            matrix.setIdentity();
-            return matrix;
+        public Matrix4f getPositionMatrix() {
+            return this.positionMatrix;
         }
-        Matrix4d matrix = this.matrixPool.pop();
-        matrix.setIdentity();
-        return matrix;
+
+        public Matrix3f getNormalMatrix() {
+            return this.normalMatrix;
+        }
     }
 }

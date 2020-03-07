@@ -73,6 +73,15 @@ public abstract class CavernousBiome extends ForgeRegistryEntry<CavernousBiome> 
         this.structures.put(structure, config);
     }
 
+    public <C extends IFeatureConfig> void addStructure(ConfiguredFeature<C, ? extends Structure<C>> structureIn) {
+        this.structures.put(structureIn.feature, structureIn.config);
+    }
+
+    @Override
+    public <C extends IFeatureConfig> void add(ConfiguredFeature<C, ? extends Structure<C>> structure) {
+        this.addStructure(structure);
+    }
+
     @Override
     public void add(EntityClassification classification, Biome.SpawnListEntry entry) {
         this.getSpawnsFor(classification).add(entry);

@@ -4,30 +4,33 @@ import com.mojang.datafixers.Dynamic;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.world.AbstractWrappedWorld;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeManager;
 import net.minecraft.world.gen.IWorldGenerationReader;
-import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.lighting.WorldLightManager;
 import net.minecraftforge.common.IPlantable;
 
+import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Function;
 
-public abstract class MidnightTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
+public abstract class MidnightTreeFeature extends AbstractMidnightTreeFeature<NoFeatureConfig> {
     protected MidnightTreeFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> deserialize) {
-        super(deserialize, true);
+        super(deserialize);
         this.setSapling((IPlantable) MidnightBlocks.SHADOWROOT_SAPLING);
     }
 
     protected abstract boolean place(IWorld world, Random random, BlockPos origin);
 
-    @Override
     protected final boolean place(Set<BlockPos> changedBlocks, IWorldGenerationReader world, Random random, BlockPos origin, MutableBoundingBox bounds) {
         WorldWrapper wrapper = new WorldWrapper((IWorld) world, changedBlocks, bounds);
         boolean result = this.place(wrapper, random, origin);
@@ -68,7 +71,7 @@ public abstract class MidnightTreeFeature extends AbstractTreeFeature<NoFeatureC
         return world.hasBlockState(pos, state -> {
             return state.isAir(world, pos)
                     || state.isIn(BlockTags.LEAVES)
-                    || state.isIn(BlockTags.DIRT_LIKE)
+                    || AbstractMidnightTreeFeature.isDirt(world, pos)
                     || !state.isOpaqueCube(world, pos);
         });
     }
@@ -109,6 +112,26 @@ public abstract class MidnightTreeFeature extends AbstractTreeFeature<NoFeatureC
                 return true;
             }
             return false;
+        }
+
+        @Override
+        public boolean func_225521_a_(BlockPos p_225521_1_, boolean p_225521_2_, @Nullable Entity p_225521_3_) {
+            return false;
+        }
+
+        @Override
+        public BiomeManager getBiomeManager() {
+            return null;
+        }
+
+        @Override
+        public Biome getNoiseBiomeRaw(int x, int y, int z) {
+            return null;
+        }
+
+        @Override
+        public WorldLightManager getLightManager() {
+            return null;
         }
     }
 }

@@ -17,6 +17,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
 
 import java.util.Random;
@@ -68,7 +69,7 @@ public class UnstableBushBlock extends MidnightPlantBlock implements IGrowable {
     }
 
     @Override
-    public void tick(BlockState state, World world, BlockPos pos, Random rand) {
+    public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
         if (!isValidPosition(state, world, pos)) {
             MidnightUtil.spawnItemStack(world, pos, state.getBlock());
             world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);

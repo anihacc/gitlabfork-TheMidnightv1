@@ -3,7 +3,10 @@ package com.mushroom.midnight.common.entity.creature;
 import com.mushroom.midnight.common.entity.task.FindEatableFood;
 import com.mushroom.midnight.common.registry.MidnightItems;
 import com.mushroom.midnight.common.registry.MidnightSounds;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
@@ -138,7 +141,7 @@ public class BulbAnglerEntity extends AbstractFishEntity {
             if (!itemstack.isEmpty()) {
                 for (int i = 0; i < 8; ++i) {
                     Vec3d vec3d = (new Vec3d(((double) this.rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D)).rotatePitch(-this.rotationPitch * ((float) Math.PI / 180F)).rotateYaw(-this.rotationYaw * ((float) Math.PI / 180F));
-                    this.world.addParticle(new ItemParticleData(ParticleTypes.ITEM, itemstack), this.posX + this.getLookVec().x / 2.0D, this.posY, this.posZ + this.getLookVec().z / 2.0D, vec3d.x, vec3d.y + 0.05D, vec3d.z);
+                    this.world.addParticle(new ItemParticleData(ParticleTypes.ITEM, itemstack), this.getPosX() + this.getLookVec().x / 2.0D, this.getPosY(), this.getPosZ() + this.getLookVec().z / 2.0D, vec3d.x, vec3d.y + 0.05D, vec3d.z);
                 }
             }
         } else {
@@ -153,7 +156,7 @@ public class BulbAnglerEntity extends AbstractFishEntity {
 
     private void spitOutItem(ItemStack stackIn) {
         if (!stackIn.isEmpty() && !this.world.isRemote) {
-            ItemEntity itementity = new ItemEntity(this.world, this.posX + this.getLookVec().x, this.posY + 1.0D, this.posZ + this.getLookVec().z, stackIn);
+            ItemEntity itementity = new ItemEntity(this.world, this.getPosX() + this.getLookVec().x, this.getPosY() + 1.0D, this.getPosZ() + this.getLookVec().z, stackIn);
             itementity.setPickupDelay(40);
             itementity.setThrowerId(this.getUniqueID());
             this.world.addEntity(itementity);
@@ -161,7 +164,7 @@ public class BulbAnglerEntity extends AbstractFishEntity {
     }
 
     private void spawnItem(ItemStack stackIn) {
-        ItemEntity itementity = new ItemEntity(this.world, this.posX, this.posY, this.posZ, stackIn);
+        ItemEntity itementity = new ItemEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), stackIn);
         this.world.addEntity(itementity);
     }
 

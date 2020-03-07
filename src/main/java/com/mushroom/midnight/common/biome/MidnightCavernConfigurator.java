@@ -11,7 +11,9 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.BushConfig;
+import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
+import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.ProbabilityConfig;
@@ -19,6 +21,11 @@ import net.minecraft.world.gen.placement.ChanceConfig;
 import net.minecraft.world.gen.placement.FrequencyConfig;
 
 public class MidnightCavernConfigurator {
+    public static final BlockClusterFeatureConfig CRYSTALOTUS_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.CRYSTALOTUS.getDefaultState()), new SimpleBlockPlacer())).func_227315_a_(64).func_227322_d_();
+    public static final BlockClusterFeatureConfig TENDRILWEED_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.TENDRILWEED.getDefaultState()), new SimpleBlockPlacer())).func_227315_a_(32).func_227322_d_();
+    public static final BlockClusterFeatureConfig GLOB_FUNGI_FLOWERS_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.GLOB_FUNGUS.getDefaultState()), new SimpleBlockPlacer())).func_227315_a_(64).func_227322_d_();
+
+
     public static void addCaves(ConfigurableBiome biome) {
         biome.add(GenerationStage.Carving.AIR, Biome.createCarver(
                 MidnightCarvers.WIDE_CAVE, new ProbabilityConfig(1.0F / 7.0F)
@@ -26,41 +33,31 @@ public class MidnightCavernConfigurator {
     }
 
     public static void addStandardFeatures(ConfigurableBiome biome) {
-        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                Feature.BUSH, new BushConfig(MidnightBlocks.CRYSTALOTUS.getDefaultState()),
-                MidnightPlacements.CHANCE_UNDERGROUND_DOUBLE, new ChanceConfig(20)
-        ));
+        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.RANDOM_PATCH.withConfiguration(CRYSTALOTUS_CONFIG).func_227228_a_(MidnightPlacements.CHANCE_UNDERGROUND_DOUBLE.func_227446_a_(new ChanceConfig(20))));
 
-        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                MidnightFeatures.STINGER_EGG, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.COUNT_UNDERGROUND, new FrequencyConfig(1)
-        ));
+        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION,
+                MidnightFeatures.STINGER_EGG.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).func_227228_a_(MidnightPlacements.COUNT_UNDERGROUND.func_227446_a_(new FrequencyConfig(1)))
+        );
     }
 
     public static void addTendrilweed(ConfigurableBiome biome) {
-        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                Feature.BUSH, new BushConfig(MidnightBlocks.TENDRILWEED.getDefaultState()),
-                MidnightPlacements.COUNT_UNDERGROUND_32, new FrequencyConfig(1)
-        ));
+        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.RANDOM_PATCH.withConfiguration(TENDRILWEED_CONFIG).func_227228_a_(MidnightPlacements.COUNT_UNDERGROUND_32.func_227446_a_(new FrequencyConfig(1))));
     }
 
     public static void addRouxeClusters(ConfigurableBiome biome) {
-        biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(
-                MidnightFeatures.CRYSTAL_CLUSTER, new CrystalClusterConfig(MidnightBlocks.ROUXE_ROCK.getDefaultState(), MidnightBlocks.ROUXE.getDefaultState()),
-                MidnightPlacements.COUNT_UNDERGROUND, new FrequencyConfig(5)
-        ));
+        biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES,
+                MidnightFeatures.CRYSTAL_CLUSTER.withConfiguration(new CrystalClusterConfig(MidnightBlocks.ROUXE_ROCK.getDefaultState(), MidnightBlocks.ROUXE.getDefaultState())
+                ).func_227228_a_(MidnightPlacements.COUNT_UNDERGROUND.func_227446_a_(new FrequencyConfig(5))));
     }
 
     public static void addBulbFungi(ConfigurableBiome biome) {
-        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                MidnightFeatures.GLOB_FUNGI_FLOWERS, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.COUNT_UNDERGROUND_32, new FrequencyConfig(7)
-        ));
 
-        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(
-                MidnightFeatures.LARGE_GLOB_FUNGUS, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.COUNT_UNDERGROUND, new FrequencyConfig(3)
-        ));
+        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.RANDOM_PATCH.withConfiguration(GLOB_FUNGI_FLOWERS_CONFIG).func_227228_a_(MidnightPlacements.COUNT_UNDERGROUND_32.func_227446_a_(new FrequencyConfig(7))));
+
+
+        biome.add(GenerationStage.Decoration.VEGETAL_DECORATION,
+                MidnightFeatures.LARGE_GLOB_FUNGUS.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).func_227228_a_(MidnightPlacements.COUNT_UNDERGROUND.func_227446_a_(new FrequencyConfig(3)))
+        );
     }
 
     public static void addStandardSpawns(ConfigurableBiome biome) {

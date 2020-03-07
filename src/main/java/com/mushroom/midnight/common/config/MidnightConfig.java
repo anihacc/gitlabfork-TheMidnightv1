@@ -2,8 +2,6 @@ package com.mushroom.midnight.common.config;
 
 import com.google.common.collect.Lists;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -114,11 +112,11 @@ public class MidnightConfig {
 
     public static final ForgeConfigSpec GENERAL_SPEC = BUILDER.build();
 
-    @SubscribeEvent
+    /*@SubscribeEvent
     public static void configChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.getModID().equals(MODID)) {
             // not yet gui in game for config
             //ConfigManager.sync(Midnight.MODID, Config.Type.INSTANCE);
         }
-    }
+    }*/
 }
