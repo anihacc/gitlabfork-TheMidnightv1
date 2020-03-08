@@ -1,5 +1,6 @@
 package com.mushroom.midnight.client.model;
 
+import com.mushroom.midnight.client.render.block.MidnightChestBlockRenderer;
 import com.mushroom.midnight.client.render.entity.BladeshroomCapRenderer;
 import com.mushroom.midnight.client.render.entity.BulbAnglerRenderer;
 import com.mushroom.midnight.client.render.entity.CloudRenderer;
@@ -17,6 +18,7 @@ import com.mushroom.midnight.client.render.entity.StingerRenderer;
 import com.mushroom.midnight.client.render.entity.TreeHopperRenderer;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightEntities;
+import com.mushroom.midnight.common.registry.MidnightTileEntities;
 import com.mushroom.midnight.common.util.MidnightUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -30,6 +32,7 @@ import net.minecraft.world.biome.BiomeColors;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 @OnlyIn(Dist.CLIENT)
@@ -58,7 +61,7 @@ public class MidnightModelRegistry {
         RenderingRegistry.registerEntityRenderingHandler(MidnightEntities.CLOUD, CloudRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(MidnightEntities.NOVA_SPIKE, NovaSpikeRenderer::new);
 
-        //ClientRegistry.bindTileEntityRenderer(MidnightChestTileEntity.class, new MidnightChestBlockRenderer());
+        ClientRegistry.bindTileEntityRenderer(MidnightTileEntities.MIDNIGHT_CHEST, MidnightChestBlockRenderer::new);
         //ClientRegistry.bindTileEntityRenderer(CacheTileEntity.class, new CacheBlockRenderer());
         //ClientRegistry.bindTileEntityRenderer(RiftPortalTileEntity.class, new RiftPortalBlockRenderer());
 

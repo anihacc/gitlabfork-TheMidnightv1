@@ -5,6 +5,7 @@ import com.mushroom.midnight.common.biome.BiomeLayers;
 import com.mushroom.midnight.common.biome.cavern.CavernousBiome;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.world.feature.placement.UndergroundPlacementLevel;
+import com.mushroom.midnight.common.world.spawner.MidnightAnimalSpawner;
 import com.mushroom.midnight.common.world.util.NoiseChunkPrimer;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.util.SharedSeedRandom;
@@ -54,6 +55,8 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
     private final BiomeLayers<CavernousBiome> undergroundLayers;
 
     private final INoiseGenerator surfaceDepthNoise;
+
+    private final MidnightAnimalSpawner animalSpawner = new MidnightAnimalSpawner();
 
     public MidnightChunkGenerator(World world, BiomeLayers<Biome> surfaceLayers, BiomeLayers<CavernousBiome> undergroundLayers, Config config) {
         super(world, new MidnightBiomeProvider(surfaceLayers), HORIZONTAL_GRANULARITY, VERTICAL_GRANULARITY, 256, config, true);
@@ -196,7 +199,7 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
     @Override
     public void spawnMobs(ServerWorld world, boolean spawnHostileMobs, boolean spawnPeacefulMobs) {
         if (this.world.getGameRules().getBoolean(GameRules.DO_MOB_SPAWNING)) {
-            //this.world.getCapability(Midnight.WORLD_SPAWNERS_CAP).ifPresent(MidnightWorldSpawners::spawnAroundPlayers);
+            this.animalSpawner.tick(world, spawnHostileMobs, spawnPeacefulMobs);
         }
     }
 
