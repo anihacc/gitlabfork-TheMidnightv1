@@ -21,10 +21,13 @@ import net.minecraft.particles.ItemParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.pathfinding.SwimmerPathNavigator;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -188,5 +191,10 @@ public class BulbAnglerEntity extends AbstractFishEntity {
             this.eatTicks = 0;
         }
 
+    }
+
+    @Override
+    public float getBlockPathWeight(BlockPos pos, IWorldReader worldIn) {
+        return worldIn.getFluidState(pos).isTagged(FluidTags.WATER) ? 10.0F + 0.5F - worldIn.getBrightness(pos) : super.getBlockPathWeight(pos, worldIn);
     }
 }

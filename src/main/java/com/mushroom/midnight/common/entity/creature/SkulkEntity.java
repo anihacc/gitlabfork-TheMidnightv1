@@ -1,6 +1,7 @@
 package com.mushroom.midnight.common.entity.creature;
 
 import com.mushroom.midnight.common.entity.task.NeutralGoal;
+import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightSounds;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.Entity;
@@ -28,8 +29,10 @@ import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
@@ -198,5 +201,10 @@ public class SkulkEntity extends AnimalEntity {
     @Override
     protected SoundEvent getDeathSound() {
         return MidnightSounds.SKULK_DEATH;
+    }
+
+    @Override
+    public float getBlockPathWeight(BlockPos pos, IWorldReader worldIn) {
+        return worldIn.getBlockState(pos.down()).getBlock() == MidnightBlocks.GRASS_BLOCK ? 10.0F : 1.0F;
     }
 }
