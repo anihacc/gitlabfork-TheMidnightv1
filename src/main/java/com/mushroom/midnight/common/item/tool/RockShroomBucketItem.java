@@ -105,11 +105,11 @@ public class RockShroomBucketItem extends BucketItem {
         if (fluid == Fluids.WATER) {
             return new ItemStack(MidnightItems.WATER_ROCKSHROOM_BUCKET);
         } else if (fluid == MidnightFluids.DARK_WATER) {
-            return new ItemStack(MidnightItems.DARK_WATER_BUCKET);
+            return new ItemStack(MidnightItems.DARKWATER_ROCKSHROOM_BUCKET);
         }
 
 
-        return new ItemStack(MidnightItems.DARK_WATER_BUCKET);
+        return new ItemStack(MidnightItems.DARKWATER_ROCKSHROOM_BUCKET);
     }
 
     private ItemStack fillBucket(ItemStack emptyBuckets, PlayerEntity player, Item fullBucket) {
