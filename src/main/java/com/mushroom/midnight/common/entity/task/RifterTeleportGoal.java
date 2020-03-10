@@ -61,9 +61,9 @@ public class RifterTeleportGoal extends Goal {
         List<BlockPos> validPositions = new ArrayList<>();
 
         for (int i = 0; i < 6; ++i) {
-            double d0 = origin.getX() + (this.owner.getRNG().nextDouble() - 0.5D) * 18.0D;
-            double d1 = origin.getY() + (double) (this.owner.getRNG().nextInt(18) - 9);
-            double d2 = origin.getZ() + (this.owner.getRNG().nextDouble() - 0.5D) * 18.0D;
+            double d0 = origin.getX() + (this.owner.getRNG().nextDouble() - 0.5D) * 12.0D;
+            double d1 = origin.getY() + (double) (this.owner.getRNG().nextInt(12) - 6);
+            double d2 = origin.getZ() + (this.owner.getRNG().nextDouble() - 0.5D) * 12.0D;
             Vec3d vector = new Vec3d(d0, d1, d2);
             BlockPos pos = new BlockPos(d0, d1, d2);
             if (!this.canBeSeenBy(vector, target) && this.isTargetValid(pos) && this.isCanTeleport(pos, target)) {
@@ -82,8 +82,8 @@ public class RifterTeleportGoal extends Goal {
         BlockState blockstate = this.owner.world.getBlockState(pos);
         boolean flag = blockstate.getMaterial().blocksMovement();
         boolean flag1 = blockstate.getFluidState().isTagged(FluidTags.WATER);
-        if (flag && !flag1) {
-            return target.getDistanceSq(pos.getX(), pos.getY(), pos.getZ()) > 18F;
+        if (flag && !flag1 && this.owner.world.getLightValue(pos) < 7) {
+            return target.getDistanceSq(pos.getX(), pos.getY(), pos.getZ()) > 8F;
         } else {
             return false;
         }
