@@ -2,12 +2,16 @@ package com.mushroom.midnight.common.block;
 
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.capability.RiftTraveller;
+import com.mushroom.midnight.common.registry.MidnightParticleTypes;
+import com.mushroom.midnight.common.registry.MidnightSounds;
 import com.mushroom.midnight.common.registry.MidnightTileEntities;
 import com.mushroom.midnight.common.tile.RiftPortalTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -16,12 +20,35 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
 public class RiftPortalBlock extends Block {
     private static final VoxelShape SHAPE = Block.makeCuboidShape(0.0, 0.0, 0.0, 16.0, 15.0, 16.0);
 
     public RiftPortalBlock(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+        super.animateTick(stateIn, worldIn, pos, rand);
+
+
+        TileEntity tileEntity = worldIn.getTileEntity(pos);
+        if (tileEntity instanceof RiftPortalTileEntity) {
+            if (!((RiftPortalTileEntity) tileEntity).isClosed()) {
+                if (rand.nextInt(30) == 0) {
+
+                    worldIn.playSound((PlayerEntity) null, pos, MidnightSounds.RIFT_IDLE, SoundCategory.BLOCKS, 2.0F, 0.95F + (float) rand.nextFloat() * 0.1F);
+                }
+
+
+                if (rand.nextInt(15) == 0) {
+                    worldIn.playSound((PlayerEntity) null, pos, MidnightSounds.RIFT_IDLE, SoundCategory.BLOCKS, 2.0F, 0.95F + (float) rand.nextFloat() * 0.1F);
+                    worldIn.addParticle(MidnightParticleTypes.SPORE, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.2D, (double) pos.getZ() + 0.5D, (double) ((float) rand.nextFloat()) - 0.5D, (double) ((float) rand.nextFloat() * 1.2F), (double) (rand.nextFloat()) - 0.5D);
+                }
+            }
+        }
     }
 
     @Override
@@ -56,6 +83,7 @@ public class RiftPortalBlock extends Block {
         }
         return true;
     }
+
 
     @Nullable
     @Override

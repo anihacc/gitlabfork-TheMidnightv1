@@ -103,6 +103,7 @@ public class BlockRenderLayer {
         RenderTypeLookup.setRenderLayer(MidnightBlocks.GLOWING_MALIGNANT_PURPLE_PLANT_BLOCK, RenderType.cutout());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.GLOWING_MALIGNANT_RED_PLANT_BLOCK, RenderType.cutout());
 
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_FOXGLOVE, RenderType.cutout());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_HEMLOCK, RenderType.cutout());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_HYACINTH, RenderType.cutout());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_IVY, RenderType.cutout());
