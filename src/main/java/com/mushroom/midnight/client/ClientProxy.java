@@ -32,19 +32,26 @@ public class ClientProxy implements IProxy {
     @SubscribeEvent
     public static void onTextureStitch(TextureStitchEvent.Pre event) {
         if (event.getMap().getBasePath().equals(Atlases.CHEST_ATLAS)) {
-            event.addSprite(new ResourceLocation(MODID, "entities/chest/shadowroot_chest_double"));
+            event.addSprite(new ResourceLocation(MODID, "entities/chest/shadowroot_chest_right"));
+            event.addSprite(new ResourceLocation(MODID, "entities/chest/shadowroot_chest_left"));
             event.addSprite(new ResourceLocation(MODID, "entities/chest/shadowroot_chest"));
-            event.addSprite(new ResourceLocation(MODID, "entities/chest/dark_willow_chest_double"));
+            event.addSprite(new ResourceLocation(MODID, "entities/chest/dark_willow_chest_right"));
+            event.addSprite(new ResourceLocation(MODID, "entities/chest/dark_willow_chest_left"));
             event.addSprite(new ResourceLocation(MODID, "entities/chest/dark_willow_chest"));
-            event.addSprite(new ResourceLocation(MODID, "entities/chest/dead_wood_chest_double"));
+            event.addSprite(new ResourceLocation(MODID, "entities/chest/dead_wood_chest_right"));
+            event.addSprite(new ResourceLocation(MODID, "entities/chest/dead_wood_chest_left"));
             event.addSprite(new ResourceLocation(MODID, "entities/chest/dead_wood_chest"));
-            event.addSprite(new ResourceLocation(MODID, "entities/chest/nightshroom_chest_double"));
+            event.addSprite(new ResourceLocation(MODID, "entities/chest/nightshroom_chest_right"));
+            event.addSprite(new ResourceLocation(MODID, "entities/chest/nightshroom_chest_left"));
             event.addSprite(new ResourceLocation(MODID, "entities/chest/nightshroom_chest"));
-            event.addSprite(new ResourceLocation(MODID, "entities/chest/dewshroom_chest_double"));
+            event.addSprite(new ResourceLocation(MODID, "entities/chest/dewshroom_chest_right"));
+            event.addSprite(new ResourceLocation(MODID, "entities/chest/dewshroom_chest_left"));
             event.addSprite(new ResourceLocation(MODID, "entities/chest/dewshroom_chest"));
-            event.addSprite(new ResourceLocation(MODID, "entities/chest/viridshroom_chest_double"));
+            event.addSprite(new ResourceLocation(MODID, "entities/chest/viridshroom_chest_right"));
+            event.addSprite(new ResourceLocation(MODID, "entities/chest/viridshroom_chest_left"));
             event.addSprite(new ResourceLocation(MODID, "entities/chest/viridshroom_chest"));
-            event.addSprite(new ResourceLocation(MODID, "entities/chest/bogshroom_chest_double"));
+            event.addSprite(new ResourceLocation(MODID, "entities/chest/bogshroom_chest_right"));
+            event.addSprite(new ResourceLocation(MODID, "entities/chest/bogshroom_chest_left"));
             event.addSprite(new ResourceLocation(MODID, "entities/chest/bogshroom_chest"));
         }
     }
