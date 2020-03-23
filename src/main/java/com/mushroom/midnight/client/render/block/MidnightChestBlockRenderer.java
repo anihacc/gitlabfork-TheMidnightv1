@@ -47,21 +47,21 @@ public class MidnightChestBlockRenderer extends ChestTileEntityRenderer<Midnight
     public Material getMaterial(MidnightChestTileEntity chest, @Nonnull ChestType chestType) {
         Block chestModel = chest.getChestModel();
         if (chestModel == MidnightBlocks.SHADOWROOT_CHEST) {
-            return getChestMaterial(chestType, TEXTURE_SHADOWROOT_NORMAL, TEXTURE_SHADOWROOT_RIGHT, TEXTURE_SHADOWROOT_LEFT);
+            return getChestMaterial(chestType, TEXTURE_SHADOWROOT_NORMAL, TEXTURE_SHADOWROOT_LEFT, TEXTURE_SHADOWROOT_RIGHT);
         } else if (chestModel == MidnightBlocks.DARK_WILLOW_CHEST) {
-            return getChestMaterial(chestType, TEXTURE_DARK_WILLOW_NORMAL, TEXTURE_DARK_WILLOW_RIGHT, TEXTURE_DARK_WILLOW_LEFT);
+            return getChestMaterial(chestType, TEXTURE_DARK_WILLOW_NORMAL, TEXTURE_DARK_WILLOW_LEFT, TEXTURE_DARK_WILLOW_RIGHT);
         } else if (chestModel == MidnightBlocks.DEAD_WOOD_CHEST) {
-            return getChestMaterial(chestType, TEXTURE_DEAD_WOOD_NORMAL, TEXTURE_DEAD_WOOD_RIGHT, TEXTURE_DEAD_WOOD_LEFT);
+            return getChestMaterial(chestType, TEXTURE_DEAD_WOOD_NORMAL, TEXTURE_DEAD_WOOD_LEFT, TEXTURE_DEAD_WOOD_RIGHT);
         } else if (chestModel == MidnightBlocks.NIGHTSHROOM_CHEST) {
-            return getChestMaterial(chestType, TEXTURE_NIGHTSHROOM_NORMAL, TEXTURE_NIGHTSHROOM_RIGHT, TEXTURE_NIGHTSHROOM_LEFT);
+            return getChestMaterial(chestType, TEXTURE_NIGHTSHROOM_NORMAL, TEXTURE_NIGHTSHROOM_LEFT, TEXTURE_NIGHTSHROOM_RIGHT);
         } else if (chestModel == MidnightBlocks.DEWSHROOM_CHEST) {
-            return getChestMaterial(chestType, TEXTURE_DEWSHROOM_NORMAL, TEXTURE_DEWSHROOM_RIGHT, TEXTURE_DEWSHROOM_LEFT);
+            return getChestMaterial(chestType, TEXTURE_DEWSHROOM_NORMAL, TEXTURE_DEWSHROOM_LEFT, TEXTURE_DEWSHROOM_RIGHT);
         } else if (chestModel == MidnightBlocks.VIRIDSHROOM_CHEST) {
-            return getChestMaterial(chestType, TEXTURE_VIRIDSHROOM_NORMAL, TEXTURE_VIRIDSHROOM_RIGHT, TEXTURE_VIRIDSHROOM_LEFT);
+            return getChestMaterial(chestType, TEXTURE_VIRIDSHROOM_NORMAL, TEXTURE_VIRIDSHROOM_LEFT, TEXTURE_VIRIDSHROOM_RIGHT);
         } else if (chestModel == MidnightBlocks.BOGSHROOM_CHEST) {
-            return getChestMaterial(chestType, TEXTURE_BOGSHROOM_NORMAL, TEXTURE_BOGSHROOM_RIGHT, TEXTURE_BOGSHROOM_LEFT);
+            return getChestMaterial(chestType, TEXTURE_BOGSHROOM_NORMAL, TEXTURE_BOGSHROOM_LEFT, TEXTURE_BOGSHROOM_RIGHT);
         } else {
-            return getChestMaterial(chestType, TEXTURE_SHADOWROOT_NORMAL, TEXTURE_SHADOWROOT_RIGHT, TEXTURE_SHADOWROOT_LEFT);
+            return getChestMaterial(chestType, TEXTURE_SHADOWROOT_NORMAL, TEXTURE_SHADOWROOT_LEFT, TEXTURE_SHADOWROOT_RIGHT);
         }
     }
 
