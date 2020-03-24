@@ -146,14 +146,13 @@
 			"origin": [0, 8, 8],
 			"children": [0, 1, 2, 3, 4, 5, 6, 7]
 		}
-	]
-    },
+	],
     "overrides": [
         {
             "predicate": {
                 "blocking": 1
             },
-            "model": "item/rockshroom_shield_active"
+			"model": "midnight:item/rockshroom_shield_active"
         }
     ]
 }

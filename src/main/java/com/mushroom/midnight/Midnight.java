@@ -116,7 +116,13 @@ public class Midnight {
         MidnightSurfaceBiomes.onInit();
         MidnightCavernousBiomes.onInit();
 
-//        BiomeLayerRenderer.renderDebug();
+        //unuse, but maybe later
+        /*ForgeRegistries.BIOMES.getValues().stream().forEach((biome -> {
+            biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, MidnightStructures.ENTRANCE_RIFT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).func_227228_a_(Placement.NOPE.func_227446_a_(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+            if(!BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN) && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)) {
+                biome.addStructure(MidnightStructures.ENTRANCE_RIFT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
+            }
+        }));*/
     }
 
     private void setupMessages() {

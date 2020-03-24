@@ -17,10 +17,10 @@ public class SkulkRenderer extends MobRenderer<SkulkEntity, SkulkModel> {
         super(manager, new SkulkModel(), 0.4f);
     }
 
-
+    @Override
     protected RenderType func_230042_a_(SkulkEntity p_230042_1_, boolean p_230042_2_, boolean p_230042_3_) {
         ResourceLocation resourcelocation = this.getEntityTexture(p_230042_1_);
-        if (p_230042_3_ || p_230042_1_.isStealth()) {
+        if (p_230042_1_.isStealth()) {
             return RenderType.entityTranslucent(resourcelocation);
         } else if (p_230042_2_) {
             return this.entityModel.getRenderType(resourcelocation);
@@ -29,8 +29,9 @@ public class SkulkRenderer extends MobRenderer<SkulkEntity, SkulkModel> {
         }
     }
 
+    @Override
     protected boolean isVisible(SkulkEntity livingEntityIn) {
-        return livingEntityIn.isStealth() || !livingEntityIn.isInvisible();
+        return !livingEntityIn.isStealth() && !livingEntityIn.isInvisible();
     }
 
     @Nullable
