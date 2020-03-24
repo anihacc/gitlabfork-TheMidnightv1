@@ -16,6 +16,7 @@ public class BlockRenderLayer {
         RenderTypeLookup.setRenderLayer(MidnightBlocks.ARCHAIC_GLASS_PANE, RenderType.translucent());
 
         RenderTypeLookup.setRenderLayer(MidnightBlocks.GRASS, RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.GRASS_BLOCK, RenderType.cutoutMipped());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.TALL_GRASS, RenderType.cutout());
 
         RenderTypeLookup.setRenderLayer(MidnightBlocks.ROUXE, RenderType.cutout());
