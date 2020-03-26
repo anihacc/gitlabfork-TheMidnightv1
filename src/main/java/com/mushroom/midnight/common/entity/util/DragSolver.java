@@ -2,7 +2,6 @@ package com.mushroom.midnight.common.entity.util;
 
 import com.mushroom.midnight.common.entity.creature.RifterEntity;
 import com.mushroom.midnight.common.util.EntityUtil;
-import net.minecraft.client.renderer.Vector3d;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -15,8 +14,8 @@ public class DragSolver {
 
     private LivingEntity dragged;
 
-    private Vector3d attachmentPoint;
-    private Vector3d prevAttachmentPoint;
+    private DragVector3d attachmentPoint;
+    private DragVector3d prevAttachmentPoint;
 
     public DragSolver(RifterEntity owner) {
         this.owner = owner;
@@ -87,28 +86,28 @@ public class DragSolver {
     }
 
     @Nullable
-    public Vector3d getAttachmentPoint() {
+    public DragVector3d getAttachmentPoint() {
         return this.attachmentPoint;
     }
 
     @Nullable
-    public Vector3d lerpAttachmentPoint(float partialTicks) {
+    public DragVector3d lerpAttachmentPoint(float partialTicks) {
         if (this.attachmentPoint == null) {
             return null;
         } else if (this.prevAttachmentPoint == null) {
             this.prevAttachmentPoint = this.attachmentPoint;
         }
 
-        Vector3d lerp = new Vector3d(0, 0, 0);
+        DragVector3d lerp = new DragVector3d(0, 0, 0);
         //TODO better interpolate?
         this.interpolate(lerp, this.prevAttachmentPoint, this.attachmentPoint, (double) partialTicks);
         return lerp;
     }
 
-    protected void interpolate(Vector3d vector3d, Vector3d a, Vector3d b, double x) {
+    protected void interpolate(DragVector3d DragVector3d, DragVector3d a, DragVector3d b, double x) {
         double t = x;
-        vector3d.x = (1.0 - t) * a.x + t * b.x;
-        vector3d.y = (1.0 - t) * a.y + t * b.y;
-        vector3d.z = (1.0 - t) * a.z + t * b.z;
+        DragVector3d.x = (1.0 - t) * a.x + t * b.x;
+        DragVector3d.y = (1.0 - t) * a.y + t * b.y;
+        DragVector3d.z = (1.0 - t) * a.z + t * b.z;
     }
 }
