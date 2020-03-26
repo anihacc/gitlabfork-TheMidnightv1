@@ -103,7 +103,7 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
 
                 int height = chunk.getTopBlockY(Heightmap.Type.WORLD_SURFACE_WG, localX, localZ) + 1;
 
-                double depth = this.surfaceDepthNoise.func_215460_a(globalX * 0.0625, globalZ * 0.0625, 0.0625, localX * 0.0625);
+                double depth = this.surfaceDepthNoise.noiseAt(globalX * 0.0625, globalZ * 0.0625, 0.0625, localX * 0.0625);
 
                 surfaceBiome.buildSurface(random, chunk, globalX, globalZ, height, depth, this.defaultBlock, this.defaultFluid, SEA_LEVEL, seed);
                 cavernousBiome.generateSurface(random, chunk, globalX, globalZ, height, depth, this.defaultBlock, this.defaultFluid, SEA_LEVEL, seed);
@@ -199,7 +199,7 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
     }
 
     @Override
-    protected void func_222548_a(double[] noise, int x, int z) {
+    protected void fillNoiseColumn(double[] noise, int x, int z) {
         this.noiseGenerator.populateColumnNoise(noise, x, z, this.surfaceLayers, this.undergroundLayers);
     }
 
@@ -209,7 +209,7 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
     }
 
     @Override
-    protected double[] func_222549_a(int x, int z) {
+    protected double[] getBiomeNoiseColumn(int x, int z) {
         throw new UnsupportedOperationException();
     }
 

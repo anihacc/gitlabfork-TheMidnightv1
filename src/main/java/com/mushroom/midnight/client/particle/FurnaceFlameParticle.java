@@ -26,7 +26,7 @@ public class FurnaceFlameParticle extends MidnightParticle {
         resetPositionToBB();
     }
 
-    public float func_217561_b(float partialTicks) {
+    public float getScale(float partialTicks) {
         float ratio = ((float)this.age + partialTicks) / (float)this.maxAge;
         return this.particleScale * (1f - ratio * ratio * 0.5f);
     }

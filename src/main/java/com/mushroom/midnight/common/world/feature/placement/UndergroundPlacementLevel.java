@@ -19,7 +19,7 @@ public class UndergroundPlacementLevel implements PlacementLevel {
     @Override
     public BlockPos getSurfacePos(IWorld world, Heightmap.Type heightmap, BlockPos pos) {
         IChunk chunk = world.getChunk(pos);
-        Predicate<BlockState> predicate = heightmap.func_222684_d();
+        Predicate<BlockState> predicate = heightmap.getHeightLimitPredicate();
 
         BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos(pos);
 

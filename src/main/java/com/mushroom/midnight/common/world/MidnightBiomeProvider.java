@@ -27,7 +27,7 @@ public class MidnightBiomeProvider extends BiomeProvider {
     }
 
     @Override
-    public Biome func_222366_b(int x, int y) {
+    public Biome getBiomeAtFactorFour(int x, int y) {
         return this.layers.noise.sample(x, y);
     }
 
