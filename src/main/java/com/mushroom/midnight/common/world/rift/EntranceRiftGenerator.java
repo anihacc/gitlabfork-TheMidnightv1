@@ -15,12 +15,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
@@ -28,11 +23,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.BitSet;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Consumer;
 
 @Mod.EventBusSubscriber(modid = Midnight.MODID)
@@ -72,6 +63,8 @@ public class EntranceRiftGenerator {
     public static void onRightClick(PlayerInteractEvent.RightClickItem event) {
         World world = event.getWorld();
         if (world.isRemote) return;
+
+        event.getPlayer().swingArm(event.getHand());
 
         if (event.getItemStack().getItem() == MidnightItems.DARK_PEARL) {
             PlayerEntity player = event.getPlayer();
@@ -265,7 +258,7 @@ public class EntranceRiftGenerator {
         decorator.scatter(32, 16, pos -> {
             for (Direction direction : shuffledDirections(random)) {
                 BlockState state = MidnightBlocks.MALIGNANT_RED_PLANT_SURFACE.getDefaultState().with(MossBlock.FACING, direction);
-                if (state.isValidPosition(world, pos)) {
+                if (state.isValidPosition(world, pos) && (!world.getBlockState(pos.down()).getBlock().equals(Blocks.VOID_AIR) || !world.getBlockState(pos).getBlock().equals(Blocks.BEDROCK))) {
                     this.setBlockState(pos, state);
                     break;
                 }
@@ -287,7 +280,11 @@ public class EntranceRiftGenerator {
         decorator.scatter(8, 6, pos -> {
             for (Direction direction : VERTICAL_DIRECTIONS) {
                 BlockState state = MidnightBlocks.MALIGNANT_BLOODROOT.getDefaultState().with(DoubleMalignantFlowerBlock.FACING, direction);
-                if (state.isValidPosition(world, pos)) {
+                if (state.isValidPosition(world, pos) &&
+                        /*(!world.getBlockState(pos.down()).getBlock().equals(Blocks.VOID_AIR) || !world.getBlockState(pos).getBlock().equals(Blocks.BEDROCK))*/ world.getBlockState(pos).getBlock().equals(Blocks.AIR)) {
+                    System.out.println("Bloodroot dir: " + direction + ", block: " + world.getBlockState(pos).getBlock()
+                            + ", block below: " + world.getBlockState(pos.down()).getBlock());
+
                     DoubleMalignantFlowerBlock.placeAt(world, pos, state, Constants.BlockFlags.BLOCK_UPDATE);
                     break;
                 }
