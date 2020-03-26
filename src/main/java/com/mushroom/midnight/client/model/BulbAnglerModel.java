@@ -67,9 +67,8 @@ public class BulbAnglerModel extends SegmentedModel<BulbAnglerEntity> {
         return ImmutableList.of(this.body);
     }
 
-    // TODO: NEEDS ATTENTION!
     @Override
-    public void render(BulbAnglerEntity entity, float limbSwing, float limbSwingAmount, float age, float yaw, float pitch) {
+    public void setRotationAngles(BulbAnglerEntity entity, float limbSwing, float limbSwingAmount, float age, float yaw, float pitch) {
         this.animator.bob(this.body, 0.125F, 0.25F, false, 0.0F, 0.0F, age, 1.0F);
         this.animator.swing(this.FinR, 0.125F, 0.125F, true, 0.0F, 0.5F, age, 1.0F);
         this.animator.swing(this.FinL, 0.125F, 0.125F, false, 0.0F, 0.5F, age, 1.0F);

@@ -96,9 +96,8 @@ public class ShadeSquirrelModel extends SegmentedModel<ShadeSquirrelEntity> impl
         return ImmutableList.of(this.head, this.body);
     }
 
-    // TODO: NEEDS ATTENTION!
     @Override
-    public void render(ShadeSquirrelEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setRotationAngles(ShadeSquirrelEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.head.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
 
         if(!entity.isSitting()){

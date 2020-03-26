@@ -96,7 +96,7 @@ public class RifterModel extends SegmentedModel<RifterEntity> {
 
     // TODO: NEEDS ATTENTION!
     @Override
-    public void render(RifterEntity entity, float limbSwing, float limbSwingAmount, float age, float yaw, float pitch) {
+    public void setRotationAngles(RifterEntity entity, float limbSwing, float limbSwingAmount, float age, float yaw, float pitch) {
         this.Head.rotateAngleY = (float) Math.toRadians(yaw);
         this.Head.rotateAngleX = (float) Math.toRadians(pitch);
 

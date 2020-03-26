@@ -70,9 +70,8 @@ public class CrystalBugModel extends SegmentedModel<CrystalBugEntity> {
         return ImmutableList.of(this.body);
     }
 
-    // TODO: NEEDS ATTENTION!
     @Override
-    public void render(CrystalBugEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitchr) {
+    public void setRotationAngles(CrystalBugEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitchr) {
         if (entity.isStanding()) {
             body.rotateAngleX = 0f;
             wingR.rotateAngleY = wingL.rotateAngleY = 0f;

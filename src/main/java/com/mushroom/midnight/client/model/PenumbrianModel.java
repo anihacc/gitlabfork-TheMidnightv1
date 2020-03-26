@@ -72,7 +72,7 @@ public class PenumbrianModel extends SegmentedModel<PenumbrianEntity> {
 
     // TODO: NEEDS ATTENTION!
     @Override
-    public void render(PenumbrianEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setRotationAngles(PenumbrianEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
     }
 
