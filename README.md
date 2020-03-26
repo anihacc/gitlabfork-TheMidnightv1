@@ -3,7 +3,7 @@ The *Midnight* is a mod being developed by Cryptic Mushroom that adds a new, mys
 This is the official source code repository for The Midnight mod, originally made for SpookyJam 2018.
 
 ## Note for the 1.15.2-newrift branch
-**This branch is home to the rift portal rewrite that will be released for 1.15.2. Nothing here may work as intended. If you want to test the mod with no rifts (for now), go to the 1.15.2 branch.
+**This branch is home to the rift portal rewrite that will be released for 1.15.2. Nothing here may work as intended. If you want to test the mod with no rifts (for now), go to the 1.15.2 branch.**
 
 ### How to get to The Midnight
 
