@@ -2,9 +2,6 @@
 The *Midnight* is a mod being developed by Cryptic Mushroom that adds a new, mysterious and scary dimension to explore. It is a dimension of darkness; the only light comes from crystals and the various life of the dimension. You may travel willingly to this dimension, though you may unwillingly encounter a rifter and be dragged into this strange and hostile world...  
 This is the official source code repository for The Midnight mod, originally made for SpookyJam 2018.
 
-## Note for the 1.15.2-newrift branch
-**This branch is home to the rift portal rewrite that will be released for 1.15.2. Nothing here may work as intended. If you want to test the mod with no rifts (for now), go to the 1.15.2 branch.**
-
 ### How to get to The Midnight
 
 #### For Users
