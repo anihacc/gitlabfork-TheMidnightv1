@@ -151,6 +151,6 @@ public class ShadeSquirrelModel extends SegmentedModel<ShadeSquirrelEntity> impl
 
     @Override
     public void translateHand(HandSide sideIn, MatrixStack matrixStackIn) {
-        this.getArm(sideIn).setAnglesAndRotation(matrixStackIn);
+        this.getArm(sideIn).translateRotate(matrixStackIn);
     }
 }

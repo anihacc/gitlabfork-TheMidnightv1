@@ -97,7 +97,7 @@ public class WorldShader implements ISelectiveResourceReloadListener {
 
             for (Map.Entry<String, ResourceLocation> entry : this.textures.entrySet()) {
                 Texture texture = mc.getTextureManager().getTexture(entry.getValue());
-                this.instance.func_216537_a(entry.getKey(), texture);
+                this.instance.func_216537_a(entry.getKey(), texture); // func_216537_a unmapped as of mappings 20200326
             }
         } catch (IOException e) {
             Midnight.LOGGER.error("Failed to load shader {}", this.location, e);

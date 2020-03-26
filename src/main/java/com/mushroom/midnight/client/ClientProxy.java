@@ -31,7 +31,7 @@ public class ClientProxy implements IProxy {
 
     @SubscribeEvent
     public static void onTextureStitch(TextureStitchEvent.Pre event) {
-        if (event.getMap().getBasePath().equals(Atlases.CHEST_ATLAS)) {
+        if (event.getMap().getTextureLocation().equals(Atlases.CHEST_ATLAS)) {
             event.addSprite(new ResourceLocation(MODID, "entities/chest/shadowroot_chest_right"));
             event.addSprite(new ResourceLocation(MODID, "entities/chest/shadowroot_chest_left"));
             event.addSprite(new ResourceLocation(MODID, "entities/chest/shadowroot_chest"));

@@ -39,7 +39,7 @@ public class BladeshroomCapRenderer extends EntityRenderer<BladeshroomCapEntity>
         matrixStackIn.scale(1.5F, 1.5F, 1.5F);
 
         this.getEntityTexture(entity);
-        MC.getItemRenderer().renderItem(STACK, ItemCameraTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.DEFAULT_LIGHT, matrixStackIn, bufferIn);
+        MC.getItemRenderer().renderItem(STACK, ItemCameraTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
 
         //matrixStackIn.disableRescaleNormal();
         matrixStackIn.pop();

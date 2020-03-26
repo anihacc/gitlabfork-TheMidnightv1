@@ -17,7 +17,7 @@ public class BulbAnglerRenderer extends MobRenderer<BulbAnglerEntity, BulbAngler
     private static final ResourceLocation TEXTURE = new ResourceLocation(Midnight.MODID, "textures/entities/bulb_angler.png");
     private static final ResourceLocation EMISSIVE_TEXTURE = new ResourceLocation(Midnight.MODID, "textures/entities/bulb_angler_emissive.png");
 
-    private static final RenderType eye_renderType = RenderType.eyes(EMISSIVE_TEXTURE);
+    private static final RenderType eye_renderType = RenderType.getEyes(EMISSIVE_TEXTURE);
 
 
     public BulbAnglerRenderer(EntityRendererManager manager) {

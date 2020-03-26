@@ -38,6 +38,7 @@ public class CompiledTemplate {
         this.markers = TemplateCompiler.compileMarkers(origin, settings, template);
     }
 
+    @SuppressWarnings("deprecation")
     public void addTo(IWorld world, Random random, int flags) {
         this.template.addBlocksToWorld(world, this.origin, this.settings, flags);
         this.markers.forEachReplacement((pos, state) -> world.setBlockState(pos, state, flags));
@@ -47,7 +48,7 @@ public class CompiledTemplate {
         }
 
         if (!this.postProcessors.isEmpty()) {
-            List<Template.BlockInfo> blocks = Template.processBlockInfos(world, this.origin, this.settings, this.settings.func_227459_a_(this.template.blocks, this.origin));
+            List<Template.BlockInfo> blocks = Template.processBlockInfos(world, this.origin, this.settings, this.settings.func_227459_a_(this.template.blocks, this.origin)); // this is the deprecated method, in case you were wondering.
             for (TemplatePostProcessor processor : this.postProcessors) {
                 for (Template.BlockInfo info : blocks) {
                     processor.process(this, world, random, info.pos, info.state);

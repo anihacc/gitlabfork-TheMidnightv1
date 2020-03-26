@@ -71,13 +71,13 @@ public class FungiPatchFeature extends FlowersFeature<NoFeatureConfig> {
         return 7;
     }
 
-    public BlockPos func_225561_a_(Random p_225561_1_, BlockPos p_225561_2_, NoFeatureConfig p_225561_3_) {
+    public BlockPos getNearbyPos(Random p_225561_1_, BlockPos p_225561_2_, NoFeatureConfig p_225561_3_) {
         return p_225561_2_.add(p_225561_1_.nextInt(3) - p_225561_1_.nextInt(3), p_225561_1_.nextInt(7) - p_225561_1_.nextInt(7), p_225561_1_.nextInt(3) - p_225561_1_.nextInt(3));
     }
 
 
     @Override
-    public BlockState func_225562_b_(Random p_225562_1_, BlockPos p_225562_2_, NoFeatureConfig p_225562_3_) {
+    public BlockState getFlowerToPlace(Random p_225562_1_, BlockPos p_225562_2_, NoFeatureConfig p_225562_3_) {
         return this.fungi;
     }
 }

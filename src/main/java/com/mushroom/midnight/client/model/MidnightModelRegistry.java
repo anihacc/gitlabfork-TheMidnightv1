@@ -82,7 +82,7 @@ public class MidnightModelRegistry {
         if (world == null || pos == null || !isMidnight()) {
             return DEFAULT_FOLIAGE_COLOR;
         }
-        return BiomeColors.func_228358_a_(world, pos);
+        return BiomeColors.getGrassColor(world, pos);
     }
 
     private static int defaultGrassColor(ItemStack stack, int tintIndex) {
@@ -93,7 +93,7 @@ public class MidnightModelRegistry {
         if (world == null || pos == null || !isMidnight()) {
             return DEFAULT_FOLIAGE_COLOR;
         }
-        return BiomeColors.func_228361_b_(world, pos);
+        return BiomeColors.getFoliageColor(world, pos);
     }
 
     private static int defaultFoliageColor(ItemStack stack, int tintIndex) {

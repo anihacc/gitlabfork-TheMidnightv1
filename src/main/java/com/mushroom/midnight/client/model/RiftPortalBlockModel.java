@@ -14,7 +14,7 @@ public class RiftPortalBlockModel extends Model {
     private final ModelRenderer shape;
 
     public RiftPortalBlockModel() {
-        super(RenderType::entityCutoutNoCull);
+        super(RenderType::getEntityCutoutNoCull);
         this.textureWidth = 16;
         this.textureHeight = 16;
         this.shape = new ModelRenderer(this, 0, 0);

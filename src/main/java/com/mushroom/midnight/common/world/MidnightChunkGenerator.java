@@ -123,7 +123,7 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
     @Override
     public void func_225550_a_(BiomeManager p_225550_1_, IChunk chunk, GenerationStage.Carving stage) {
         ChunkPos chunkpos = chunk.getPos();
-        Biome biome = this.func_225552_a_(p_225550_1_, chunkpos.asBlockPos());
+        Biome biome = this.getBiome(p_225550_1_, chunkpos.asBlockPos());
         Collection<ConfiguredCarver<?>> surfaceCarvers = biome.getCarvers(stage);
         Collection<ConfiguredCarver<?>> undergroundCarvers = this.getCavernousBiome(chunk).getCarversFor(stage);
 
@@ -146,7 +146,7 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
                     random.setLargeFeatureSeed(this.seed + i, nx, nz);
                     if (carver.shouldCarve(random, nx, nz)) {
                         carver.func_227207_a_(chunk, (p_227059_2_) -> {
-                            return this.func_225552_a_(biomeManager, p_227059_2_);
+                            return this.getBiome(biomeManager, p_227059_2_);
                         }, random, this.getSeaLevel(), nx, nz, chunkX, chunkZ, mask);
                     }
 

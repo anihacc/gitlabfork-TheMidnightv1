@@ -115,7 +115,7 @@ public abstract class MidnightTreeFeature extends AbstractMidnightTreeFeature<No
         }
 
         @Override
-        public boolean func_225521_a_(BlockPos p_225521_1_, boolean p_225521_2_, @Nullable Entity p_225521_3_) {
+        public boolean destroyBlock(BlockPos p_225521_1_, boolean p_225521_2_, @Nullable Entity p_225521_3_) {
             return false;
         }
 
