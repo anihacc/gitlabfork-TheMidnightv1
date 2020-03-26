@@ -104,6 +104,7 @@ public class HunterModel extends SegmentedModel<HunterEntity> {
         return ImmutableList.of(this.Body);
     }
 
+    // TODO: NEEDS ATTENTION!
     @Override
     public void render(HunterEntity entity, float limbSwing, float limbSwingAmount, float age, float yaw, float pitch) {
         float globalSpeed = 1.0F;

@@ -63,6 +63,7 @@ public class SkulkModel extends QuadrupedModel<SkulkEntity> {
         return Iterables.concat(super.getBodyParts(), ImmutableList.of(this.Tail));
     }
 
+    // TODO: NEEDS ATTENTION!
     @Override
     public void render(SkulkEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         super.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);

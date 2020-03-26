@@ -150,12 +150,13 @@ public class MidnightDimension extends Dimension {
             // disable here for custom spawner if needed
             //chunkProvider.setAllowedSpawnTypes(false, false);
 
+            // TODO: NEEDS ATTENTION!
             chunkProvider.chunkManager.getLoadedChunksIterable().forEach(chunkHolder -> {
                 chunkHolder.func_219297_b().getNow(ChunkHolder.UNLOADED_CHUNK).left().ifPresent(chunk -> {
                     Random rand = this.world.rand;
 
                     ChunkPos chunkPos = chunkHolder.getPosition();
-                    if (!chunkProvider.chunkManager.isOutsideSpawningRadius(chunkPos)) {
+                    if (!chunkProvider.chunkManager.isOutsideSpawningRadius(chunkPos)) { // TODO: NEEDS ATTENTION!
                         int globalX = chunkPos.getXStart();
                         int globalZ = chunkPos.getZStart();
                         if (rand.nextInt(200000) == 0) {

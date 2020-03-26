@@ -67,6 +67,7 @@ public class NightStagModel extends QuadrupedModel<NightStagEntity> {
         ModelRenderer.rotateAngleZ = z;
     }
 
+    // TODO: NEEDS ATTENTION!
     @Override
     public void render(NightStagEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.headModel.rotateAngleX = (headPitch * 0.017453292f) + 0.17453292519943295f;

@@ -70,6 +70,7 @@ public class DeceitfulSnapperModel extends SegmentedModel<DeceitfulSnapperEntity
         return ImmutableList.of(this.Body, this.Mouth);
     }
 
+    // TODO: NEEDS ATTENTION!
     @Override
     public void render(DeceitfulSnapperEntity entity, float limbSwing, float limbSwingAmount, float age, float yaw, float pitch) {
         this.animator.bob(this.Body, 0.125F, 0.25F, false, 0.0F, 0.0F, age, 1.0F);

@@ -22,6 +22,7 @@ public class NovaSpikeModel<T extends Entity> extends SegmentedModel<T> {
         this.spike.addChild(this.spike2);
     }
 
+    // TODO: NEEDS ATTENTION!
     @Override
     public void render(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 

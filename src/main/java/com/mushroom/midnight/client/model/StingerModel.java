@@ -181,6 +181,7 @@ public class StingerModel extends EntityModel<StingerEntity> {
         });
     }
 
+    // TODO: NEEDS ATTENTION!
     @Override
     public void render(StingerEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.stingerHead.rotateAngleY = netHeadYaw * 0.017453292F;

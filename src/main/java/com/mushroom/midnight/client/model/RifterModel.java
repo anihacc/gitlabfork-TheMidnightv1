@@ -94,6 +94,7 @@ public class RifterModel extends SegmentedModel<RifterEntity> {
         return ImmutableList.of(this.Abdomen);
     }
 
+    // TODO: NEEDS ATTENTION!
     @Override
     public void render(RifterEntity entity, float limbSwing, float limbSwingAmount, float age, float yaw, float pitch) {
         this.Head.rotateAngleY = (float) Math.toRadians(yaw);
