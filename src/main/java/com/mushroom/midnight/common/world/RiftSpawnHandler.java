@@ -16,6 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.DimensionManager;
@@ -98,7 +99,8 @@ public class RiftSpawnHandler {
     }
 
     private static void trySpawnRift(World world, BlockPos riftPosition) {
-        if (world.isAirBlock(riftPosition)) {
+        if (world.isAirBlock(riftPosition) &&
+                (!world.getBiome(riftPosition).equals(Biomes.MUSHROOM_FIELDS) || !world.getBiome(riftPosition).equals(Biomes.MUSHROOM_FIELD_SHORE))) {
             BlockPos correctedPosition = WorldUtil.findSurface(world, riftPosition, 6);
             if (correctedPosition == null || !canRiftSpawn(world, correctedPosition)) {
                 return;
