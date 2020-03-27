@@ -62,7 +62,23 @@ import com.mushroom.midnight.common.world.tree.GlobFungusTree;
 import com.mushroom.midnight.common.world.tree.NightshroomTree;
 import com.mushroom.midnight.common.world.tree.ShadowrootTree;
 import com.mushroom.midnight.common.world.tree.ViridshroomTree;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.DoorBlock;
+import net.minecraft.block.FenceBlock;
+import net.minecraft.block.FenceGateBlock;
+import net.minecraft.block.LadderBlock;
+import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.LeverBlock;
+import net.minecraft.block.LogBlock;
+import net.minecraft.block.PressurePlateBlock;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.StoneButtonBlock;
+import net.minecraft.block.TrapDoorBlock;
+import net.minecraft.block.WallBlock;
+import net.minecraft.block.WeightedPressurePlateBlock;
+import net.minecraft.block.WoodButtonBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
@@ -413,8 +429,6 @@ public class MidnightBlocks {
     public static final Block MALIGNANT_NIGHTSHADE = Blocks.AIR;
     public static final Block MALIGNANT_WISTERIA = Blocks.AIR;
 
-    public static final Block MIDNIGHT_BEDROCK = Blocks.AIR;
-
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         RegUtil.blocks(event.getRegistry())
@@ -444,10 +458,6 @@ public class MidnightBlocks {
                                 .hardnessAndResistance(0.5F)
                                 .sound(SoundType.GROUND)
                         , true));
-
-        RegUtil.blocks(event.getRegistry())
-                .withProperties(() -> Block.Properties.from(Blocks.BEDROCK))
-                .add("midnight_bedrock", BedrockBlock::new);
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.ROCK, MaterialColor.BLUE_TERRACOTTA)
