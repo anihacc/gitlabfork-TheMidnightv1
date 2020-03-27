@@ -8,8 +8,9 @@ This is the official source code repository for The Midnight mod, originally mad
 To get to the dimension, you will need to find a rift. These will spawn randomly during the night both above ground and in caves. Though before you go, make sure to be prepared! The Midnight is a hostile place.
 
 #### For Developers
-Sometimes when we update the mod, the rift to get to The Midnight is broken. In some cases, it can be annoying to have to spawn or summon a rift to access the dimension every time. Here is a command to access the dimension with ease.  
-/forge setdimension @p midnight:midnight
+We understand can be annoying to have to find a rift to access The Midnight every time. Here are a couple of commands to access the dimension with ease.  
+Summon a Rift entity: `/summon midnight:rift ~ ~ ~`  
+Teleport directly into The Midnight: `/forge setdimension @p midnight:midnight`
 
 ## Releases  
 Official releases can be found on Midnight's [CurseForge page](https://minecraft.curseforge.com/projects/the-midnight). Alternatively, you may download releases from our repository's [GitHub releases](https://github.com/Cryptic-Mushroom/The-Midnight/releases).
@@ -29,8 +30,8 @@ If you would like to support our work, consider donating to our [Patreon](https:
 
 ### Credits  
 - **Project Leader**: [Cipher_Zero_X](https://github.com/cipherzerox)
-- **Programmers**: [gegy1000](https://github.com/gegy1000), [Martacus](https://github.com/Martacus), [arthurbambous](https://github.com/arthurbambou), [Corail31](https://github.com/Corail31), [bagu_chan](https://github.com/pentantan) (active), [Jonathing](https://gitlab.com/Jonathing) (active)
+- **Programmers**: [gegy1000](https://github.com/gegy1000), [Martacus](https://github.com/Martacus), [arthurbambous](https://github.com/arthurbambou), [Corail31](https://github.com/Corail31), [bagu_chan](https://github.com/pentantan), [Jonathing](https://gitlab.com/Jonathing)
 - **Texturers**: [Endergized](https://github.com/Endergy), [Five (Paradiscal)](https://github.com/fivelol), [MCVinnyq](https://github.com/MCVinnyq)
 - **Modelers**: [Cipher_Zero_X](https://github.com/cipherzerox), [MCvinnnyq](https://github.com/MCVinnyq)
 - **Sound Designers**: [Lachney](https://xjon.me)
-- **Contributers and Testers**: [ZombieEnderman5](https://github.com/ZombieEnderman5), [Terenx](https://github.com/Terenx)
+- **Contributers and Testers**: [ZombieEnderman5](https://github.com/ZombieEnderman5), [Terenx](https://github.com/Terenx), [KingPhygieBoo](https://gitlab.com/KingPhygieBoo)
