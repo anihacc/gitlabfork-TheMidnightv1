@@ -243,6 +243,8 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
 
                 float f = (float) (MathHelper.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
                 this.mob.rotationYaw = this.limitAngle(this.mob.rotationYaw, f, turnSpeed);
+                this.mob.renderYawOffset = this.mob.rotationYaw;
+                this.mob.rotationYawHead = this.mob.rotationYaw;
                 double flySpeed = this.mob.getAttribute(SharedMonsterAttributes.FLYING_SPEED).getValue();
                 float resultSpeed = (float) (this.speed * flySpeed);
                 this.mob.setAIMoveSpeed(resultSpeed);
