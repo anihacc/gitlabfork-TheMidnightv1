@@ -31,6 +31,7 @@ import com.mushroom.midnight.common.registry.MidnightCavernousBiomes;
 import com.mushroom.midnight.common.registry.MidnightCriterion;
 import com.mushroom.midnight.common.registry.MidnightGameRules;
 import com.mushroom.midnight.common.registry.MidnightItemGroups;
+import com.mushroom.midnight.common.registry.MidnightStructures;
 import com.mushroom.midnight.common.registry.MidnightSurfaceBiomes;
 import com.mushroom.midnight.common.registry.RegUtil;
 import com.mushroom.midnight.common.util.EntityUtil;
@@ -38,9 +39,14 @@ import com.mushroom.midnight.common.util.IProxy;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.placement.IPlacementConfig;
+import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -54,6 +60,7 @@ import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -116,13 +123,13 @@ public class Midnight {
         MidnightSurfaceBiomes.onInit();
         MidnightCavernousBiomes.onInit();
 
-        //unuse, but maybe later
-        /*ForgeRegistries.BIOMES.getValues().stream().forEach((biome -> {
+        //changed later
+        ForgeRegistries.BIOMES.getValues().stream().forEach((biome -> {
             biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, MidnightStructures.ENTRANCE_RIFT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).func_227228_a_(Placement.NOPE.func_227446_a_(IPlacementConfig.NO_PLACEMENT_CONFIG)));
             if(!BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN) && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)) {
                 biome.addStructure(MidnightStructures.ENTRANCE_RIFT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
             }
-        }));*/
+        }));
     }
 
     private void setupMessages() {
