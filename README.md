@@ -1,3 +1,4 @@
+![The Midnight](https://i.imgur.com/JzGc0pP.jpg)
 # The Midnight  
 The *Midnight* is a mod being developed by Cryptic Mushroom that adds a new, mysterious and scary dimension to explore. It is a dimension of darkness; the only light comes from crystals and the various life of the dimension. You may travel willingly to this dimension, though you may unwillingly encounter a rifter and be dragged into this strange and hostile world...  
 This is the official source code repository for The Midnight mod, originally made for SpookyJam 2018.
@@ -34,4 +35,4 @@ If you would like to support our work, consider donating to our [Patreon](https:
 - **Texturers**: [Endergized](https://github.com/Endergy), [Five (Paradiscal)](https://github.com/fivelol), [MCVinnyq](https://github.com/MCVinnyq)
 - **Modelers**: [Cipher_Zero_X](https://github.com/cipherzerox), [MCvinnnyq](https://github.com/MCVinnyq)
 - **Sound Designers**: [Lachney](https://xjon.me)
-- **Contributers and Testers**: [ZombieEnderman5](https://github.com/ZombieEnderman5), [Terenx](https://github.com/Terenx), [KingPhygieBoo](https://gitlab.com/KingPhygieBoo)
+- **Contributers and Testers**: [ZombieEnderman5](https://github.com/ZombieEnderman5), [veesus mikhel heir](https://minecraft.curseforge.com/members/veesusmikelheir), 123wdog, [Terenx](https://github.com/Terenx), [KingPhygieBoo](https://gitlab.com/KingPhygieBoo)
