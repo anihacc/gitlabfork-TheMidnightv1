@@ -55,7 +55,7 @@ public class MidnightTeleporter {
         teleportedEntity.copyDataFromOld(entity);
         teleportedEntity.setLocationAndAngles(endpoint.x, endpoint.y, endpoint.z, entity.rotationYaw, entity.rotationPitch);
         teleportedEntity.setRotationYawHead(entity.rotationYaw);
-        endpointWorld.func_217460_e(teleportedEntity);
+        endpointWorld.addFromAnotherDimension(teleportedEntity);
 
         return teleportedEntity;
     }

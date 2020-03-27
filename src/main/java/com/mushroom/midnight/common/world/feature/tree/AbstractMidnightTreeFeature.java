@@ -129,7 +129,7 @@ public abstract class AbstractMidnightTreeFeature<T extends IFeatureConfig> exte
         if (!isAirOrLeaves(p_227216_1_, p_227216_3_) && !isTallPlants(p_227216_1_, p_227216_3_) && !isWater(p_227216_1_, p_227216_3_)) {
             return false;
         } else {
-            this.func_227217_a_(p_227216_1_, p_227216_3_, p_227216_6_.trunkProvider.func_225574_a_(p_227216_2_, p_227216_3_), p_227216_5_);
+            this.func_227217_a_(p_227216_1_, p_227216_3_, p_227216_6_.trunkProvider.getBlockState(p_227216_2_, p_227216_3_), p_227216_5_);
             p_227216_4_.add(p_227216_3_.toImmutable());
             return true;
         }
@@ -139,7 +139,7 @@ public abstract class AbstractMidnightTreeFeature<T extends IFeatureConfig> exte
         if (!isAirOrLeaves(p_227219_1_, p_227219_3_) && !isTallPlants(p_227219_1_, p_227219_3_) && !isWater(p_227219_1_, p_227219_3_)) {
             return false;
         } else {
-            this.func_227217_a_(p_227219_1_, p_227219_3_, p_227219_6_.leavesProvider.func_225574_a_(p_227219_2_, p_227219_3_), p_227219_5_);
+            this.func_227217_a_(p_227219_1_, p_227219_3_, p_227219_6_.leavesProvider.getBlockState(p_227219_2_, p_227219_3_), p_227219_5_);
             p_227219_4_.add(p_227219_3_.toImmutable());
             return true;
         }

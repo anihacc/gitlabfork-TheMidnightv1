@@ -48,9 +48,9 @@ public class RockShroomBucketItem extends BucketItem {
         ActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onBucketUse(playerIn, worldIn, itemstack, raytraceresult);
         if (ret != null) return ret;
         if (raytraceresult.getType() == RayTraceResult.Type.MISS) {
-            return ActionResult.func_226250_c_(itemstack);
+            return ActionResult.resultPass(itemstack);
         } else if (raytraceresult.getType() != RayTraceResult.Type.BLOCK) {
-            return ActionResult.func_226250_c_(itemstack);
+            return ActionResult.resultPass(itemstack);
         } else {
             BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult) raytraceresult;
             BlockPos blockpos = blockraytraceresult.getPos();
@@ -73,11 +73,11 @@ public class RockShroomBucketItem extends BucketItem {
                                 CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity) playerIn, new ItemStack(getFilledBucket(fluid).getItem()));
                             }
 
-                            return ActionResult.func_226248_a_(itemstack1);
+                            return ActionResult.resultSuccess(itemstack1);
                         }
                     }
 
-                    return ActionResult.func_226251_d_(itemstack);
+                    return ActionResult.resultFail(itemstack);
                 } else {
                     BlockState blockstate = worldIn.getBlockState(blockpos);
                     BlockPos blockpos2 = blockstate.getBlock() instanceof ILiquidContainer && this.containedBlock == Fluids.WATER ? blockpos : blockpos1;
@@ -88,13 +88,13 @@ public class RockShroomBucketItem extends BucketItem {
                         }
 
                         playerIn.addStat(Stats.ITEM_USED.get(this));
-                        return ActionResult.func_226248_a_(this.emptyBucket(itemstack, playerIn));
+                        return ActionResult.resultSuccess(this.emptyBucket(itemstack, playerIn));
                     } else {
-                        return ActionResult.func_226251_d_(itemstack);
+                        return ActionResult.resultFail(itemstack);
                     }
                 }
             } else {
-                return ActionResult.func_226251_d_(itemstack);
+                return ActionResult.resultFail(itemstack);
             }
         }
     }

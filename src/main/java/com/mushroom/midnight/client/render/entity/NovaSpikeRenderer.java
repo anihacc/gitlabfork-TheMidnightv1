@@ -42,7 +42,7 @@ public class NovaSpikeRenderer extends EntityRenderer<NovaSpikeEntity> {
     }
 
     public static int getPackedOverlay(NovaSpikeEntity livingEntityIn, float uIn) {
-        return OverlayTexture.packLight(OverlayTexture.lightToInt(uIn), OverlayTexture.getV(false));
+        return OverlayTexture.getPackedUV(OverlayTexture.getU(uIn), OverlayTexture.getV(false));
     }
 
     @Override

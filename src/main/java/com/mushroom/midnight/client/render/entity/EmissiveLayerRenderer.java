@@ -44,9 +44,9 @@ public class EmissiveLayerRenderer<T extends LivingEntity, M extends EntityModel
         int brightness = this.brightnessFunction.apply(entitylivingbaseIn, partialTicks);
         float[] rgbF = MidnightUtil.getRGBColorF(colorFunction.getColor(entitylivingbaseIn, partialTicks));
 
-        IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.entityCutoutNoCull(texture));
+        IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.getEntityCutoutNoCull(texture));
 
-        this.getEntityModel().render(matrixStackIn, ivertexbuilder, brightness, OverlayTexture.DEFAULT_LIGHT, rgbF[0], rgbF[1], rgbF[2], 1f);
+        this.getEntityModel().render(matrixStackIn, ivertexbuilder, brightness, OverlayTexture.NO_OVERLAY, rgbF[0], rgbF[1], rgbF[2], 1f);
     }
 
     public interface BrightnessFunction<T extends LivingEntity> {

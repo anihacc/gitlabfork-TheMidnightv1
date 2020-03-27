@@ -55,7 +55,7 @@ public class RiftPortalBlockRenderer extends TileEntityRenderer<RiftPortalTileEn
 
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-        BLOCK_MODEL.render(matrixStackIn, bufferIn.getBuffer(RenderType.entityTranslucent(MASKS[(int) (textureSeed & 1)])), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
+        BLOCK_MODEL.render(matrixStackIn, bufferIn.getBuffer(RenderType.getEntityTranslucent(MASKS[(int) (textureSeed & 1)])), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
 
         RenderSystem.alphaFunc(GL11.GL_GREATER, 0.1F);
 

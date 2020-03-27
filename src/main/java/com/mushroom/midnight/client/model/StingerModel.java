@@ -182,7 +182,7 @@ public class StingerModel extends EntityModel<StingerEntity> {
     }
 
     @Override
-    public void render(StingerEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setRotationAngles(StingerEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.stingerHead.rotateAngleY = netHeadYaw * 0.017453292F;
         this.stingerHead.rotateAngleX = headPitch * 0.017453292F;
         float piOn4 = (float) (Math.PI / 4f);
