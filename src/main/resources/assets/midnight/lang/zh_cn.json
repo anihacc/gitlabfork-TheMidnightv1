@@ -387,6 +387,7 @@
   "item.midnight.stinger_spawn_egg": "螫刺毒蝎刷怪蛋",
   "item.midnight.nightstag_spawn_egg": "暗夜牡鹿刷怪蛋",
   "item.midnight.deceitful_snapper_spawn_egg": "诡诈啮鱼刷怪蛋",
+  "item.midnight.bulb_angler_spawn_egg": "灯泡鮟鱇鱼刷怪蛋",
   "item.midnight.skulk_spawn_egg": "潜狐刷怪蛋",
   "item.midnight.shade_squirrel_spawn_egg": "暗影松鼠蛋",
 
@@ -432,6 +433,8 @@
   "item.midnight.tenebrum_chestplate": "致命暗夜金属胸甲",
   "item.midnight.tenebrum_leggings": "致命暗夜金属护腿",
   "item.midnight.tenebrum_boots": "致命暗夜金属靴子",
+  "item.midnight.rockshroom_shear": "岩化菇剪刀",
+  "item.midnight.rockshroom_bucket": "岩化菇桶",
 
   "_comment": "Fluids",
 
@@ -439,6 +442,8 @@
   "fluid.midnight.dark_water": "暗黑之水",
   "item.midnight.miasma_bucket": "瘴气液桶",
   "item.midnight.dark_water_bucket": "暗黑之水桶",
+  "item.midnight.water_rockshroom_bucket": "装着水的岩化菇桶",
+  "item.midnight.darkwater_rockshroom_bucket": "装着暗黑之水的岩化菇桶",
 
   "_comment": "Entities",
 
@@ -453,6 +458,7 @@
   "entity.midnight.tree_hopper": "角蝉",
   "entity.midnight.nightstag": "暗夜牡鹿",
   "entity.midnight.deceitful_snapper": "诡诈啮鱼",
+  "entity.midnight.bulb_angler": "灯泡鮟鱇鱼",
   "entity.midnight.skulk": "潜狐",
   "entity.midnight.thrown_geode": "投掷晶洞",
   "entity.midnight.shade_squirrel": "暗影松鼠",
