@@ -6,7 +6,6 @@ import com.mushroom.midnight.common.biome.cavern.CavernousBiome;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.world.feature.placement.UndergroundPlacementLevel;
 import com.mushroom.midnight.common.world.util.NoiseChunkPrimer;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
@@ -120,7 +119,7 @@ public class MidnightChunkGenerator  extends NoiseChunkGenerator<MidnightChunkGe
         for(BlockPos blockpos : BlockPos.getAllInBoxMutable(i, 0, j, i + 15, 0, j + 15)) {
             for(int i1 = l; i1 >= l - 4; --i1) {
                 if (i1 >= l - rand.nextInt(5)) {
-                    chunkIn.setBlockState(blockpos$mutableblockpos.setPos(blockpos.getX(), i1, blockpos.getZ()), Blocks.BEDROCK.getDefaultState(), false);
+                    chunkIn.setBlockState(blockpos$mutableblockpos.setPos(blockpos.getX(), i1, blockpos.getZ()), MidnightBlocks.MIDNIGHT_BEDROCK.getDefaultState(), false);
                 }
             }
         }
