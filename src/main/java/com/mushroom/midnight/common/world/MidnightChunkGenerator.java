@@ -6,6 +6,7 @@ import com.mushroom.midnight.common.biome.cavern.CavernousBiome;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.world.feature.placement.UndergroundPlacementLevel;
 import com.mushroom.midnight.common.world.util.NoiseChunkPrimer;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
@@ -17,24 +18,16 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeManager;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.GenerationSettings;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.INoiseGenerator;
-import net.minecraft.world.gen.NoiseChunkGenerator;
-import net.minecraft.world.gen.PerlinNoiseGenerator;
-import net.minecraft.world.gen.WorldGenRegion;
+import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.BitSet;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
-import static com.mushroom.midnight.common.world.MidnightNoiseGenerator.HORIZONTAL_GRANULARITY;
-import static com.mushroom.midnight.common.world.MidnightNoiseGenerator.NOISE_HEIGHT;
-import static com.mushroom.midnight.common.world.MidnightNoiseGenerator.NOISE_WIDTH;
-import static com.mushroom.midnight.common.world.MidnightNoiseGenerator.VERTICAL_GRANULARITY;
+import static com.mushroom.midnight.common.world.MidnightNoiseGenerator.*;
 
 public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGenerator.Config> {
     public static final int SURFACE_LEVEL = 78;
@@ -117,7 +110,25 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
             }
         }
 
-        this.makeBedrock(chunk, random);
+        makeBedrock(chunk, random);
+    }
+
+    @Override
+    protected void makeBedrock(IChunk chunkIn, Random rand) {
+        BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
+        int i = chunkIn.getPos().getXStart();
+        int j = chunkIn.getPos().getZStart();
+//        GenerationSettings t = this.getSettings();
+        int l = 1;
+
+        for(BlockPos blockpos : BlockPos.getAllInBoxMutable(i, 0, j, i + 15, 0, j + 15)) {
+            for (int i1 = l; i1 >= l - 4; --i1) {
+                if (i1 >= l - rand.nextInt(5)) {
+                    chunkIn.setBlockState(blockpos$mutable.setPos(blockpos.getX(), i1, blockpos.getZ()), Blocks.BEDROCK.getDefaultState(), false);
+                }
+            }
+        }
+
     }
 
     @Override
