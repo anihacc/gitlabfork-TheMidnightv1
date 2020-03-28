@@ -18,7 +18,7 @@ public class RiftPortalBlockModel extends Model {
         this.textureWidth = 16;
         this.textureHeight = 16;
         this.shape = new ModelRenderer(this, 0, 0);
-        this.shape.setRotationPoint(0.0F, 0.0F, 0.0F);
+        this.shape.setRotationPoint(8.0F, 8.01F, 8.0F);
         this.shape.addBox(-8.0F, -8.0F, -8.0F, 16, 15, 16, 0.0F);
     }
 
