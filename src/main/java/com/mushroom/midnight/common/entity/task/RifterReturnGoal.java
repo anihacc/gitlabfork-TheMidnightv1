@@ -43,7 +43,7 @@ public class RifterReturnGoal extends Goal {
         if (MidnightUtil.isMidnightDimension(this.owner.world)) {
             return false;
         }
-        return this.owner.spawnedThroughRift && this.owner.getRiftPosition() != null && this.owner.world.isDaytime();
+        return this.owner.spawnedThroughRift && this.owner.getRiftPosition() != null && this.owner.getCapturedEntity() != null && !this.owner.world.isDaytime();
     }
 
     @Override
