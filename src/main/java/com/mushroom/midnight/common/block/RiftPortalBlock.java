@@ -2,6 +2,8 @@ package com.mushroom.midnight.common.block;
 
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.capability.RiftTraveller;
+import com.mushroom.midnight.common.entity.creature.RifterEntity;
+import com.mushroom.midnight.common.registry.MidnightEntities;
 import com.mushroom.midnight.common.registry.MidnightParticleTypes;
 import com.mushroom.midnight.common.registry.MidnightSounds;
 import com.mushroom.midnight.common.registry.MidnightTileEntities;
@@ -9,15 +11,20 @@ import com.mushroom.midnight.common.tile.RiftPortalTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -60,6 +67,27 @@ public class RiftPortalBlock extends Block {
     @Deprecated
     public VoxelShape getCollisionShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
         return isClosed(world, pos) ? SHAPE : VoxelShapes.empty();
+    }
+
+    public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
+
+        if (!worldIn.isDaytime() && worldIn.dimension.isSurfaceWorld() && worldIn.getGameRules().getBoolean(GameRules.DO_MOB_SPAWNING) && rand.nextInt(1600) < worldIn.getDifficulty().getId()) {
+            for (int i = -2; i <= 2; ++i) {
+                for (int j = -2; j <= 2; ++j) {
+                    BlockPos spawnPos = pos.add(i, 0, j);
+
+                    if (worldIn.getBlockState(spawnPos).getBlock() != this && worldIn.getBlockState(spawnPos.up()).isAir() && worldIn.getBlockState(spawnPos.up(2)).isAir()) {
+                        Entity entity = MidnightEntities.RIFTER.spawn(worldIn, (CompoundNBT) null, (ITextComponent) null, (PlayerEntity) null, spawnPos.up(), SpawnReason.STRUCTURE, false, false);
+                        if (entity != null) {
+                            ((RifterEntity) entity).spawnedThroughRift = true;
+                            ((RifterEntity) entity).setRiftPosition(pos);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
     }
 
     @Override

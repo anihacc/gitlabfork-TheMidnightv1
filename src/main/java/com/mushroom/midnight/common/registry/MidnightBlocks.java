@@ -937,6 +937,7 @@ public class MidnightBlocks {
                 .add("rift_portal", new RiftPortalBlock(Block.Properties.create(Material.PORTAL)
                         .hardnessAndResistance(-1.0F, 3600000.0F)
                         .doesNotBlockMovement()
+                        .tickRandomly()
                         .noDrops()
                 ));
     }

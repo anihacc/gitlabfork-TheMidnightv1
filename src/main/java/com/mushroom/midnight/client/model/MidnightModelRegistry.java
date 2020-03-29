@@ -1,6 +1,7 @@
 package com.mushroom.midnight.client.model;
 
 import com.mushroom.midnight.client.render.block.MidnightChestBlockRenderer;
+import com.mushroom.midnight.client.render.block.RiftPortalBlockRenderer;
 import com.mushroom.midnight.client.render.entity.BladeshroomCapRenderer;
 import com.mushroom.midnight.client.render.entity.BulbAnglerRenderer;
 import com.mushroom.midnight.client.render.entity.CloudRenderer;
@@ -62,6 +63,7 @@ public class MidnightModelRegistry {
         RenderingRegistry.registerEntityRenderingHandler(MidnightEntities.NOVA_SPIKE, NovaSpikeRenderer::new);
 
         ClientRegistry.bindTileEntityRenderer(MidnightTileEntities.MIDNIGHT_CHEST, MidnightChestBlockRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(MidnightTileEntities.RIFT_PORTAL, RiftPortalBlockRenderer::new);
         //ClientRegistry.bindTileEntityRenderer(CacheTileEntity.class, new CacheBlockRenderer());
         //ClientRegistry.bindTileEntityRenderer(RiftPortalTileEntity.class, new RiftPortalBlockRenderer());
 

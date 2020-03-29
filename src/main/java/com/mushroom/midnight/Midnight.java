@@ -7,10 +7,17 @@ import com.mushroom.midnight.common.ServerProxy;
 import com.mushroom.midnight.common.capability.AnimationCapability;
 import com.mushroom.midnight.common.capability.NullStorage;
 import com.mushroom.midnight.common.capability.RiftTraveller;
+import com.mushroom.midnight.common.capability.RiftTravellerStorage;
 import com.mushroom.midnight.common.capability.RifterCapturable;
 import com.mushroom.midnight.common.config.MidnightConfig;
 import com.mushroom.midnight.common.data.loot.MidnightBlockLootProvider;
-import com.mushroom.midnight.common.data.recipe.*;
+import com.mushroom.midnight.common.data.recipe.MidnightDecorativeRecipes;
+import com.mushroom.midnight.common.data.recipe.MidnightFabricatedRecipes;
+import com.mushroom.midnight.common.data.recipe.MidnightFoodRecipes;
+import com.mushroom.midnight.common.data.recipe.MidnightMaterialRecipes;
+import com.mushroom.midnight.common.data.recipe.MidnightPlantRecipes;
+import com.mushroom.midnight.common.data.recipe.MidnightStoneRecipes;
+import com.mushroom.midnight.common.data.recipe.MidnightWoodenRecipes;
 import com.mushroom.midnight.common.data.tag.MidnightBlockTagsProvider;
 import com.mushroom.midnight.common.data.tag.MidnightFluidTagsProvider;
 import com.mushroom.midnight.common.data.tag.MidnightItemTagsProvider;
@@ -21,7 +28,13 @@ import com.mushroom.midnight.common.network.AnimationMessage;
 import com.mushroom.midnight.common.network.CaptureEntityMessage;
 import com.mushroom.midnight.common.network.ItemActivationMessage;
 import com.mushroom.midnight.common.network.RockshroomBrokenMessage;
-import com.mushroom.midnight.common.registry.*;
+import com.mushroom.midnight.common.registry.MidnightCavernousBiomes;
+import com.mushroom.midnight.common.registry.MidnightCriterion;
+import com.mushroom.midnight.common.registry.MidnightGameRules;
+import com.mushroom.midnight.common.registry.MidnightItemGroups;
+import com.mushroom.midnight.common.registry.MidnightStructures;
+import com.mushroom.midnight.common.registry.MidnightSurfaceBiomes;
+import com.mushroom.midnight.common.registry.RegUtil;
 import com.mushroom.midnight.common.util.EntityUtil;
 import com.mushroom.midnight.common.util.IProxy;
 import net.minecraft.data.DataGenerator;
@@ -90,7 +103,7 @@ public class Midnight {
     }
 
     private void setup(FMLCommonSetupEvent event) {
-        CapabilityManager.INSTANCE.register(RiftTraveller.class, new NullStorage<>(), RiftTraveller::new);
+        CapabilityManager.INSTANCE.register(RiftTraveller.class, new RiftTravellerStorage<>(), RiftTraveller::new);
         CapabilityManager.INSTANCE.register(RifterCapturable.class, new NullStorage<>(), RifterCapturable::new);
         CapabilityManager.INSTANCE.register(AnimationCapability.class, new NullStorage<>(), AnimationCapability::new);
 
