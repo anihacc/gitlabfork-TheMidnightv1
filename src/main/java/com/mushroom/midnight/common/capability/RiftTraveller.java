@@ -8,12 +8,13 @@ import net.minecraft.util.Direction;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class RiftTraveller implements ICapabilityProvider {
+public class RiftTraveller implements ICapabilityProvider, ICapabilitySerializable<CompoundNBT> {
     private int cooldown;
     private boolean inRift;
 
@@ -24,8 +25,8 @@ public class RiftTraveller implements ICapabilityProvider {
 
         if (entity.world instanceof ServerWorld) {
             if (this.inRift && this.isReady()) {
-                MidnightTeleporter.INSTANCE.teleport(entity);
                 this.cooldown = 80;
+                MidnightTeleporter.INSTANCE.teleport(entity);
             }
         }
 
@@ -50,12 +51,14 @@ public class RiftTraveller implements ICapabilityProvider {
     public CompoundNBT serializeNBT() {
         CompoundNBT nbt = new CompoundNBT();
 
+        nbt.putBoolean("rift_in", inRift);
         nbt.putInt("rift_cooldown", cooldown);
 
         return nbt;
     }
 
     public void deserializeNBT(CompoundNBT nbt) {
+        inRift = nbt.getBoolean("rift_in");
         cooldown = nbt.getInt("rift_cooldown");
     }
 }
