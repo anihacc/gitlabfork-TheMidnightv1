@@ -24,7 +24,7 @@ public class RiftTraveller implements ICapabilityProvider {
         if (entity.world instanceof ServerWorld) {
             if (this.inRift && this.isReady()) {
                 MidnightTeleporter.INSTANCE.teleport(entity);
-                this.cooldown = 100;
+                this.cooldown = 80;
             }
         }
 
