@@ -69,6 +69,7 @@ public class MidnightTeleporter {
         teleportedEntity.setLocationAndAngles(endpoint.x, endpoint.y, endpoint.z, entity.rotationYaw, entity.rotationPitch);
         teleportedEntity.setRotationYawHead(entity.rotationYaw);
         endpointWorld.addFromAnotherDimension(teleportedEntity);
+        entity.remove();
 
         return teleportedEntity;
     }
