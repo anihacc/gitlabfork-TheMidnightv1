@@ -12,6 +12,7 @@ public class BlockRenderLayer {
 
     public static void renderBlock() {
         RenderTypeLookup.setRenderLayer(MidnightFluids.DARK_WATER, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(MidnightFluids.FLOWING_DARK_WATER, RenderType.getTranslucent());
 
         RenderTypeLookup.setRenderLayer(MidnightBlocks.ARCHAIC_GLASS, RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.ARCHAIC_GLASS_PANE, RenderType.getTranslucent());
