@@ -32,7 +32,7 @@ public class EntranceRiftStructure extends ScatteredStructure<NoFeatureConfig> {
 
     @Override
     public int getSize() {
-        return 4;
+        return 3;
     }
 
     @Override
@@ -81,7 +81,7 @@ public class EntranceRiftStructure extends ScatteredStructure<NoFeatureConfig> {
 
     @Override
     protected int getBiomeFeatureSeparation(ChunkGenerator<?> generator) {
-        return 4;
+        return 3;
     }
 
     public static class Start extends StructureStart {

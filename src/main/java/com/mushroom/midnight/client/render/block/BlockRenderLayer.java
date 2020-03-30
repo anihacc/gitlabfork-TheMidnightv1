@@ -1,6 +1,7 @@
 package com.mushroom.midnight.client.render.block;
 
 import com.mushroom.midnight.common.registry.MidnightBlocks;
+import com.mushroom.midnight.common.registry.MidnightFluids;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraftforge.api.distmarker.Dist;
@@ -10,7 +11,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class BlockRenderLayer {
 
     public static void renderBlock() {
-        RenderTypeLookup.setRenderLayer(MidnightBlocks.DARK_WATER, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(MidnightFluids.DARK_WATER, RenderType.getTranslucent());
 
         RenderTypeLookup.setRenderLayer(MidnightBlocks.ARCHAIC_GLASS, RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.ARCHAIC_GLASS_PANE, RenderType.getTranslucent());
