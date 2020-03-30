@@ -105,7 +105,7 @@ public class HunterModel extends SegmentedModel<HunterEntity> {
     }
 
     @Override
-    public void render(HunterEntity entity, float limbSwing, float limbSwingAmount, float age, float yaw, float pitch) {
+    public void setRotationAngles(HunterEntity entity, float limbSwing, float limbSwingAmount, float age, float yaw, float pitch) {
         float globalSpeed = 1.0F;
         float globalDegree = 1.0F;
 

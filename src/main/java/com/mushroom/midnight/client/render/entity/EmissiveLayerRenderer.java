@@ -1,14 +1,15 @@
 package com.mushroom.midnight.client.render.entity;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mushroom.midnight.common.util.MidnightUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 
@@ -40,25 +41,12 @@ public class EmissiveLayerRenderer<T extends LivingEntity, M extends EntityModel
             return;
         }
         CLIENT.getTextureManager().bindTexture(this.texture);
-        GlStateManager.depthMask(true);
-        GlStateManager.enableBlend();
-
         int brightness = this.brightnessFunction.apply(entitylivingbaseIn, partialTicks);
-        RenderSystem.glMultiTexCoord2f(33986, brightness, brightness);
         float[] rgbF = MidnightUtil.getRGBColorF(colorFunction.getColor(entitylivingbaseIn, partialTicks));
-        GlStateManager.color4f(rgbF[0], rgbF[1], rgbF[2], 1f);
-        GlStateManager.disableLighting();
 
-        this.getEntityModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.getEntityCutoutNoCull(texture));
 
-        GlStateManager.enableLighting();
-        float i = entitylivingbaseIn.getBrightness();
-        float j = i % 65536;
-        float k = i / 65536;
-        RenderSystem.glMultiTexCoord2f(33986, (float) j, (float) k);
-        //func_215334_a(entitylivingbaseIn);
-
-        GlStateManager.disableBlend();
+        this.getEntityModel().render(matrixStackIn, ivertexbuilder, brightness, OverlayTexture.NO_OVERLAY, rgbF[0], rgbF[1], rgbF[2], 1f);
     }
 
     public interface BrightnessFunction<T extends LivingEntity> {

@@ -16,7 +16,12 @@ public class MidnightChestTileEntity extends ChestTileEntity {
     }
 
     public MidnightChestTileEntity() {
-        this(MidnightTileEntities.MIDNIGHT_CHEST);
+        super(MidnightTileEntities.MIDNIGHT_CHEST);
+    }
+
+    public MidnightChestTileEntity(Block chest) {
+        this();
+        this.setChestModel(chest);
     }
 
     @Override

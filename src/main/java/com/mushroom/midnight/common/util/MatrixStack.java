@@ -15,9 +15,9 @@ import java.util.Deque;
 public class MatrixStack {
     private final Deque<MatrixStack.Entry> stack = Util.make(Queues.newArrayDeque(), (p_227864_0_) -> {
         Matrix4f matrix4f = new Matrix4f();
-        matrix4f.identity();
+        matrix4f.setIdentity();
         Matrix3f matrix3f = new Matrix3f();
-        matrix3f.identity();
+        matrix3f.setIdentity();
         p_227864_0_.add(new MatrixStack.Entry(matrix4f, matrix3f));
     });
 
@@ -31,12 +31,12 @@ public class MatrixStack {
 
     public void translate(double p_227861_1_, double p_227861_3_, double p_227861_5_) {
         MatrixStack.Entry matrixstack$entry = this.stack.getLast();
-        matrixstack$entry.positionMatrix.multiply(Matrix4f.makeTranslate((float) p_227861_1_, (float) p_227861_3_, (float) p_227861_5_));
+        matrixstack$entry.positionMatrix.mul(Matrix4f.makeTranslate((float) p_227861_1_, (float) p_227861_3_, (float) p_227861_5_));
     }
 
     public void scale(float p_227862_1_, float p_227862_2_, float p_227862_3_) {
         MatrixStack.Entry matrixstack$entry = this.stack.getLast();
-        matrixstack$entry.positionMatrix.multiply(Matrix4f.makeScale(p_227862_1_, p_227862_2_, p_227862_3_));
+        matrixstack$entry.positionMatrix.mul(Matrix4f.makeScale(p_227862_1_, p_227862_2_, p_227862_3_));
         if (p_227862_1_ == p_227862_2_ && p_227862_2_ == p_227862_3_) {
             if (p_227862_1_ > 0.0F) {
                 return;
@@ -54,7 +54,7 @@ public class MatrixStack {
 
     public void rotate(Quaternion p_227863_1_) {
         MatrixStack.Entry matrixstack$entry = this.stack.getLast();
-        matrixstack$entry.positionMatrix.multiply(p_227863_1_);
+        matrixstack$entry.positionMatrix.mul(p_227863_1_);
         matrixstack$entry.normalMatrix.mul(p_227863_1_);
     }
 
@@ -77,12 +77,12 @@ public class MatrixStack {
 
     public void transform(Quaternion point) {
         Matrix4f matrix = this.stack.getLast().positionMatrix;
-        matrix.multiply(point);
+        matrix.mul(point);
     }
 
     public void transform(Vector3f vector) {
         Matrix4f matrix = this.stack.getLast().positionMatrix;
-        matrix.multiply(new Quaternion(vector.getX(), vector.getY(), vector.getZ(), 1.0F));
+        matrix.mul(new Quaternion(vector.getX(), vector.getY(), vector.getZ(), 1.0F));
     }
 
     @OnlyIn(Dist.CLIENT)

@@ -357,6 +357,28 @@ public final class StandardRecipes {
             return this;
         }
 
+        public Material addShears(IItemProvider shears) {
+            ShapedRecipeBuilder.shapedRecipe(shears)
+                    .patternLine(" #")
+                    .patternLine("# ")
+                    .key('#', this.material)
+                    .addCriterion("has_item", Triggers.hasItem(this.material))
+                    .build(this.consumer);
+
+            return this;
+        }
+
+        public Material addBuckets(IItemProvider buckets) {
+            ShapedRecipeBuilder.shapedRecipe(buckets)
+                    .patternLine("# #")
+                    .patternLine(" # ")
+                    .key('#', this.material)
+                    .addCriterion("has_item", Triggers.hasItem(this.material))
+                    .build(this.consumer);
+
+            return this;
+        }
+
         public Material addStorageBlock(IItemProvider block) {
             ShapedRecipeBuilder.shapedRecipe(block)
                     .patternLine("###")

@@ -198,7 +198,7 @@ public class CrystalBugEntity extends AmbientEntity {
 
     @Override
     public float getBrightness() {
-        return 14 << 20 | 14 << 4;
+        return 1.0F;
     }
 
     @Override

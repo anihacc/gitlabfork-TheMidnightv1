@@ -17,20 +17,21 @@ public class SkulkRenderer extends MobRenderer<SkulkEntity, SkulkModel> {
         super(manager, new SkulkModel(), 0.4f);
     }
 
-
-    protected RenderType func_230042_a_(SkulkEntity p_230042_1_, boolean p_230042_2_, boolean p_230042_3_) {
-        ResourceLocation resourcelocation = this.getEntityTexture(p_230042_1_);
-        if (p_230042_3_ || p_230042_1_.isStealth()) {
-            return RenderType.entityTranslucent(resourcelocation);
+    @Override
+    protected RenderType func_230042_a_(SkulkEntity entity, boolean p_230042_2_, boolean p_230042_3_) { // p_230042_2_ and p_230042_3_ unmapped as of mappings 20200326
+        ResourceLocation resourcelocation = this.getEntityTexture(entity);
+        if (entity.isStealth()) {
+            return RenderType.getEntityTranslucent(resourcelocation);
         } else if (p_230042_2_) {
             return this.entityModel.getRenderType(resourcelocation);
         } else {
-            return p_230042_1_.isGlowing() ? RenderType.outline(resourcelocation) : null;
+            return entity.isGlowing() ? RenderType.getOutline(resourcelocation) : null;
         }
     }
 
+    @Override
     protected boolean isVisible(SkulkEntity livingEntityIn) {
-        return livingEntityIn.isStealth() || !livingEntityIn.isInvisible();
+        return !livingEntityIn.isStealth() && !livingEntityIn.isInvisible();
     }
 
     @Nullable

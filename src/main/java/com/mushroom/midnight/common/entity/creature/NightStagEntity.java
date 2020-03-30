@@ -59,6 +59,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.capabilities.Capability;
@@ -334,6 +335,11 @@ public class NightStagEntity extends AnimalEntity {
     @Override
     protected int getExperiencePoints(PlayerEntity player) {
         return isChild() ? 4 : 7;
+    }
+
+    @Override
+    public float getBlockPathWeight(BlockPos pos, IWorldReader worldIn) {
+        return worldIn.getBlockState(pos.down()).getBlock() == MidnightBlocks.GRASS_BLOCK ? 10.0F : 1.0F;
     }
 
     @Override

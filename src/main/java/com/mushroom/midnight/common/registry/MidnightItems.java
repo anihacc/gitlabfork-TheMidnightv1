@@ -15,6 +15,8 @@ import com.mushroom.midnight.common.item.tool.MidnightHoeItem;
 import com.mushroom.midnight.common.item.tool.MidnightPickaxeItem;
 import com.mushroom.midnight.common.item.tool.MidnightShieldItem;
 import com.mushroom.midnight.common.item.tool.MidnightShovelItem;
+import com.mushroom.midnight.common.item.tool.RockShroomBucketItem;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.BlockNamedItem;
@@ -23,6 +25,7 @@ import net.minecraft.item.FishBucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Items;
+import net.minecraft.item.ShearsItem;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.item.SwordItem;
 import net.minecraftforge.event.RegistryEvent;
@@ -113,6 +116,11 @@ public class MidnightItems {
     public static final Item DARK_WATER_BUCKET = Items.AIR;
     public static final Item MIASMA_BUCKET = Items.AIR;
 
+    public static final Item ROCKSHROOM_SHEAR = Items.AIR;
+    public static final Item ROCKSHROOM_BUCKET = Items.AIR;
+    public static final Item WATER_ROCKSHROOM_BUCKET = Items.AIR;
+    public static final Item DARKWATER_ROCKSHROOM_BUCKET = Items.AIR;
+
     public static final Item ADVANCEMENT_SNAPPER = Items.AIR;
     public static final Item ADVANCEMENT_HIGHNESS = Items.AIR;
 
@@ -195,6 +203,7 @@ public class MidnightItems {
                 .add("tenebrum_boots", props -> new ArmorItem(MidnightArmorMaterials.TENEBRUM, EquipmentSlotType.FEET, props))
                 .add("rockshroom_shield", props -> new MidnightShieldItem(MidnightArmorMaterials.ROCKSHROOM, props.maxDamage(336).setISTER(() -> ShieldItemRenderer::new)))
 
+
                 .add("bladeshroom_cap", BladeshroomCapItem::new);
 
         RegUtil.items(event.getRegistry())
@@ -208,6 +217,20 @@ public class MidnightItems {
                 .withProperties(() -> new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(MidnightItemGroups.ITEMS))
                 .add("dark_water_bucket", props -> new BucketItem(MidnightFluids.DARK_WATER, props))
                 .add("miasma_bucket", props -> new BucketItem(MidnightFluids.MIASMA, props));
+
+        RegUtil.items(event.getRegistry())
+                .withProperties(() -> new Item.Properties().maxStackSize(1).group(MidnightItemGroups.ITEMS))
+                .add("rockshroom_shears", props -> new ShearsItem(props.maxDamage(284)));
+
+        RegUtil.items(event.getRegistry())
+                .withProperties(() -> new Item.Properties().maxStackSize(1).group(MidnightItemGroups.ITEMS))
+                .add("rockshroom_bucket", props -> new RockShroomBucketItem(() -> Fluids.EMPTY, props));
+
+
+        RegUtil.items(event.getRegistry())
+                .withProperties(() -> new Item.Properties().containerItem(MidnightItems.ROCKSHROOM_BUCKET).maxStackSize(1).group(MidnightItemGroups.ITEMS))
+                .add("darkwater_rockshroom_bucket", props -> new RockShroomBucketItem(() -> MidnightFluids.DARK_WATER, props))
+                .add("water_rockshroom_bucket", props -> new RockShroomBucketItem(() -> Fluids.WATER, props));
 
         RegUtil.items(event.getRegistry())
                 .withProperties(Item.Properties::new)

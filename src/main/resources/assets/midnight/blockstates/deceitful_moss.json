@@ -1,16 +1,30 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "midnight:block/deceitful_moss"
-  },
   "variants": {
-    "facing": {
-      "north": {"x": 90},
-      "east": {"x": 90, "y": 90},
-      "south": {"x": 90, "y": 180},
-      "west": {"x": 90, "y": 270},
-      "up": {},
-      "down": {"x": 180}
+    "facing=north": {
+      "model": "midnight:block/deceitful_moss",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "midnight:block/deceitful_moss",
+      "x": 90,
+      "y": 90
+    },
+    "facing=south": {
+      "model": "midnight:block/deceitful_moss",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "midnight:block/deceitful_moss",
+      "x": 90,
+      "y": 270
+    },
+    "facing=up": {
+      "model": "midnight:block/deceitful_moss"
+    },
+    "facing=down": {
+      "model": "midnight:block/deceitful_moss",
+      "x": 180
     }
   }
 }

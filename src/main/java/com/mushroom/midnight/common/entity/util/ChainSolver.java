@@ -86,7 +86,7 @@ public class ChainSolver<E extends LivingEntity> {
 
     private void computeTransforms(E entity) {
         //TODO
-        this.matrix.getLast().getNormalMatrix().identity();
+        this.matrix.getLast().getNormalMatrix().setIdentity();
         this.transformationMethod.transform(entity, this.matrix);
 
         for (int i = 0; i < this.restingPoints.length; i++) {

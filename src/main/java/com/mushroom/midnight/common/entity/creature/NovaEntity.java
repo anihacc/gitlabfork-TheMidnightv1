@@ -184,12 +184,10 @@ public class NovaEntity extends MonsterEntity implements IFlyingAnimal {
         }
     }
 
-    /*@Override
-    @OnlyIn(Dist.CLIENT)
-    public int getBrightnessForRender() {
-        return 14 << 20 | 14 << 4;
+    public float getBrightness() {
+        return 1.0F;
     }
-*/
+
     public boolean isAttacking() {
         return dataManager.get(IS_ATTACKING);
     }

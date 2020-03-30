@@ -1,6 +1,7 @@
 package com.mushroom.midnight.common.block;
 
 import com.mushroom.midnight.common.registry.MidnightTileEntities;
+import com.mushroom.midnight.common.tile.MidnightChestTileEntity;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
@@ -20,7 +21,7 @@ public class MidnightChestBlock extends ChestBlock {
     @Override
     @Nullable
     public TileEntity createNewTileEntity(IBlockReader world) {
-        return MidnightTileEntities.MIDNIGHT_CHEST.create();
+        return new MidnightChestTileEntity(this);
     }
 
     @Override

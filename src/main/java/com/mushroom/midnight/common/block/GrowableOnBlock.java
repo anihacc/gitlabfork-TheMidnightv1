@@ -76,7 +76,7 @@ public class GrowableOnBlock extends Block implements IGrowable {
                         }
                         // TODO integrate cavern biomes
                         ConfiguredFeature<?, ?> configuredfeature = ((DecoratedFeatureConfig) (flowers.get(0)).config).feature;
-                        plantState = ((FlowersFeature) configuredfeature.feature).func_225562_b_(rand, placePos, configuredfeature.config);
+                        plantState = ((FlowersFeature) configuredfeature.feature).getFlowerToPlace(rand, placePos, configuredfeature.config);
                     } else {
                         plantState = grassState;
                     }

@@ -52,6 +52,7 @@ function patch_sound_source(class_node) {
 function patch_living_renderer(class_node) {
     var api = Java.type('net.minecraftforge.coremod.api.ASMAPI');
 
+    // TODO: What is this? func_77043_a doesn't show up anywhere in the MCP Mapping Viewer, not even as an unmapped function.
     var apply_rotations_method = get_method(class_node, api.mapMethod("func_77043_a"));
 
     var instructions = apply_rotations_method.instructions;

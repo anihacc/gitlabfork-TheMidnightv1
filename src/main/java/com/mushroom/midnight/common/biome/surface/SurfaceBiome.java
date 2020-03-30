@@ -54,7 +54,8 @@ public abstract class SurfaceBiome extends Biome implements ConfigurableBiome {
         return false;
     }
 
-    public int getGrassColor() {
+    @Override
+    public int getGrassColor(double p_225528_1_, double p_225528_3_) {
         return grassColor;
     }
 

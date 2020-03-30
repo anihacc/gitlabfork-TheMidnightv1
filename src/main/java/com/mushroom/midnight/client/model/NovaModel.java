@@ -168,8 +168,9 @@ public class NovaModel extends SegmentedModel<NovaEntity> {
                 this.Spike4, this.Spike61, this.Spike11_1);
     }
 
+    // TODO: NEEDS ATTENTION!
     @Override
-    public void render(NovaEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setRotationAngles(NovaEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         float angle = (ageInTicks * (entity.isAttacking() ? 0.7f : 0.4f)) / (2f * (float) Math.PI);
 
         ChunkTop1.rotateAngleX = ChunkTop1.rotateAngleZ = ChunkDown1.rotateAngleZ = angle;

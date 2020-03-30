@@ -1,13 +1,12 @@
 package com.mushroom.midnight.common.entity.util;
 
-import net.minecraft.client.renderer.Vector3d;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.util.math.Vec3d;
 
 public class AttachmentSolver {
     private final AttachmentPoint attachmentPoint = new AttachmentPoint();
-    private final Vector3d snappedAttachmentPoint = new Vector3d(0, 0, 0);
+    private final DragVector3d snappedAttachmentPoint = new DragVector3d(0, 0, 0);
 
     private final LivingEntity origin;
 
@@ -40,13 +39,13 @@ public class AttachmentSolver {
     }
 
     public static class Result {
-        private final Vector3d snappedPoint;
+        private final DragVector3d snappedPoint;
 
-        public Result(Vector3d snappedPoint) {
+        public Result(DragVector3d snappedPoint) {
             this.snappedPoint = snappedPoint;
         }
 
-        public Vector3d getSnappedPoint() {
+        public DragVector3d getSnappedPoint() {
             return this.snappedPoint;
         }
     }

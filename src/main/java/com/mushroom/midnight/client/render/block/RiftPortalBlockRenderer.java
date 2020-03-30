@@ -1,20 +1,17 @@
 package com.mushroom.midnight.client.render.block;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.model.RiftPortalBlockModel;
 import com.mushroom.midnight.common.tile.RiftPortalTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import org.lwjgl.opengl.GL11;
 
 public class RiftPortalBlockRenderer extends TileEntityRenderer<RiftPortalTileEntity> {
     private static final Minecraft CLIENT = Minecraft.getInstance();
@@ -36,31 +33,27 @@ public class RiftPortalBlockRenderer extends TileEntityRenderer<RiftPortalTileEn
         float closeAnimation = tileEntityIn.getCloseAnimation(partialTicks);
         if (closeAnimation >= 1.0F) return;
 
+        float alpha = 1.0F - closeAnimation;
+
         BlockPos pos = tileEntityIn.getPos();
         long seed = MathHelper.getCoordinateRandom(pos.getX(), pos.getY(), pos.getZ());
         long textureSeed = seed ^ 8211203336981069197L;
         long rotationSeed = seed ^ 526247544445692899L;
 
+        matrixStackIn.push();
+
         CLIENT.getTextureManager().bindTexture(MASKS[(int) (textureSeed & 1)]);
 
-        matrixStackIn.push();
-        matrixStackIn.rotate(Vector3f.YP.rotation((rotationSeed & 3) * 90.0F));
+        /*matrixStackIn.rotate(Vector3f.YP.rotation((rotationSeed & 3) * 90.0F));
 
-        RenderSystem.disableBlend();
-        RenderSystem.enableAlphaTest();
         RenderSystem.polygonOffset(-1.0F, -10.0F);
-        RenderSystem.enablePolygonOffset();
+        RenderSystem.enablePolygonOffset();*/
 
-        RenderSystem.alphaFunc(GL11.GL_GREATER, closeAnimation);
 
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        BLOCK_MODEL.render(matrixStackIn, bufferIn.getBuffer(RenderType.getEntityTranslucent(MASKS[(int) (textureSeed & 1)])), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, alpha);
 
-        BLOCK_MODEL.render(matrixStackIn, bufferIn.getBuffer(RenderType.entityTranslucent(MASKS[(int) (textureSeed & 1)])), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
-
-        RenderSystem.alphaFunc(GL11.GL_GREATER, 0.1F);
-
-        RenderSystem.polygonOffset(0.0F, 0.0F);
-        RenderSystem.disablePolygonOffset();
+        /*RenderSystem.polygonOffset(0.0F, 0.0F);
+        RenderSystem.disablePolygonOffset();*/
 
         matrixStackIn.pop();
     }
