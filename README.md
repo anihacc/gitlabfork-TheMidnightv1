@@ -5,8 +5,12 @@ This is the official source code repository for The Midnight mod, originally mad
 
 ### How to get to The Midnight
 
+#### For Users
+To get to the dimension, you will need to find a rift. These will spawn in red clumps of matter. Though before you go, make sure to be prepared! The Midnight is a hostile place.
+
 #### For Developers
-In the current version of The Midnight, rifts are currently not implemented as a rewrite of them is in progress. Here is a command to access The Midnight without need of a rift.  
+We understand can be annoying to have to find a rift to access The Midnight every time. Here are a couple of commands to find/access the dimension with ease.  
+Summon a Rift entity: `/locate midnight:entrance_rift`  
 Teleport directly into The Midnight: `/forge setdimension @p midnight:midnight`
 
 ## Releases  
