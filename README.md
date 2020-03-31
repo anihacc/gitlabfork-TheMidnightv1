@@ -18,6 +18,7 @@ Official releases can be found on Midnight's [CurseForge page](https://minecraft
 
 ## Issues  
 If you have found any issues with our mod, you can [click here](https://github.com/Cryptic-Mushroom/The-Midnight/issues/new) to create an issue.  
+You may submit issues on The Midnight for the LTS and latest versions of Forge. **Do not submit any issues for the 1.12.2 version of The Midnight.** You can find more information about the Forge LTS system on [the forum post regarding it](https://www.minecraftforge.net/forum/topic/79304-112114-and-lts-system/).  
 Please note that if your issue is a duplicate of anyone else's, a developer may remove your issue in order to remove excess clutter. Jonathing will periodically sift through all issues to make sure they're valid.
 
 ## Contributions  
