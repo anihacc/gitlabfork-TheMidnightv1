@@ -100,6 +100,9 @@ public abstract class PileOfEggsBlock extends Block {
         if (world.isRemote) {
             return;
         }
+        if (!(state.getBlock() instanceof PileOfEggsBlock)) {
+            return;
+        }
         world.playSound(null, pos, PILE_OF_EGGS.getBreakSound(), SoundCategory.BLOCKS, 0.7f, 0.9f + world.rand.nextFloat() * 0.2f);
         int eggs = state.get(EGGS);
         if (eggs <= 1) {
