@@ -10,6 +10,7 @@ public class GlowingBlock extends Block {
         super(properties);
     }
 
+
     @Override
     public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return 1.0F;

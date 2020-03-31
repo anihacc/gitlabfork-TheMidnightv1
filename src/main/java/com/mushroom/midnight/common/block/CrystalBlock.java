@@ -56,8 +56,6 @@ public class CrystalBlock extends Block {
 
     @Override
     public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        int skyLight = 15;
-        int blockLight = 15;
-        return skyLight << 20 | blockLight << 4;
+        return 1.0F;
     }
 }
