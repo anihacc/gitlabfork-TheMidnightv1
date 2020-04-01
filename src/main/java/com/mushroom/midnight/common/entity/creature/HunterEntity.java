@@ -198,6 +198,17 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
         return false;
     }
 
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+        if (source.isProjectile() || source.getImmediateSource() instanceof LivingEntity) {
+            if (swoopCooldown <= 20) {
+                swoopCooldown += 120;
+            }
+        }
+
+        return super.attackEntityFrom(source, amount);
+    }
+
     /*public ChainSolver<HunterEntity> getChainSolver() {
         return this.chainSolver;
     }*/
