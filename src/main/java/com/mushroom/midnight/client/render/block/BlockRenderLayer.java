@@ -110,6 +110,19 @@ public class BlockRenderLayer {
         RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_GREEN_PLANT_SURFACE, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_PURPLE_PLANT_SURFACE, RenderType.getCutout());
 
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_BLUE_HANGING_VINES, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_RED_HANGING_VINES, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_PURPLE_HANGING_VINES, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_GREEN_HANGING_VINES, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.GLOWING_MALIGNANT_BLUE_HANGING_VINES, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.GLOWING_MALIGNANT_RED_HANGING_VINES, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.GLOWING_MALIGNANT_PURPLE_HANGING_VINES, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.GLOWING_MALIGNANT_GREEN_HANGING_VINES, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_BLUE_BRIDGING_VINES, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_RED_BRIDGING_VINES, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_PURPLE_BRIDGING_VINES, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_GREEN_BRIDGING_VINES, RenderType.getCutout());
+
         RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_FOXGLOVE, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_HEMLOCK, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_HYACINTH, RenderType.getCutout());
