@@ -289,6 +289,9 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
                             BlockState state = this.selectSurfaceState(random);
                             if (state != null) {
                                 world.setBlockState(mutablePos, state, Constants.BlockFlags.BLOCK_UPDATE);
+                                if( state == MIASMA ) {
+                                    world.getPendingFluidTicks().scheduleTick( mutablePos, MidnightFluids.MIASMA, 0 );
+                                }
                             }
                         }
                     }
