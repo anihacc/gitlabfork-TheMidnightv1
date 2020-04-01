@@ -182,12 +182,27 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
                 }
 
                 this.animCap.setAnimation(this, AnimationCapability.Type.ATTACK, 10);
+
+                swoopCooldown += 120;
             }
 
             return true;
+        } else {
+            swoopCooldown += 160;
         }
 
         return false;
+    }
+
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+        if (source.isProjectile() || source.getImmediateSource() instanceof LivingEntity) {
+            if (swoopCooldown <= 20) {
+                swoopCooldown += 120;
+            }
+        }
+
+        return super.attackEntityFrom(source, amount);
     }
 
     public ChainSolver<HunterEntity> getChainSolver() {
@@ -247,8 +262,6 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
                 this.mob.rotationYawHead = this.mob.rotationYaw;
 
                 double flySpeed = this.mob.getAttribute(SharedMonsterAttributes.FLYING_SPEED).getValue();
-//                double resultSpeed = this.speed * flySpeed;
-//                this.mob.setAIMoveSpeed((float) resultSpeed);
                 float resultSpeed = (float) (this.speed * flySpeed);
                 this.mob.setAIMoveSpeed(resultSpeed);
                 double d4 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
@@ -256,6 +269,7 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
                 this.mob.rotationPitch = this.limitAngle(this.mob.rotationPitch, f2, turnSpeed);
                 this.mob.setMoveVertical(d1 > 0.0D ? resultSpeed : -resultSpeed);
             } else {
+                this.mob.setMoveVertical(0.0F);
                 this.mob.setMoveForward(0.0F);
             }
         }
