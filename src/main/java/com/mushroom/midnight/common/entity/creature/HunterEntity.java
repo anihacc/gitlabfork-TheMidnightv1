@@ -190,6 +190,8 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
                 }
 
                 this.animCap.setAnimation(this, AnimationCapability.Type.ATTACK, 10);
+
+                swoopCooldown += 120;
             }
 
             return true;
