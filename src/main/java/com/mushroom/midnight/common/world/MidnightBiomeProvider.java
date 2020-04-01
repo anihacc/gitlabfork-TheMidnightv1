@@ -22,8 +22,8 @@ public class MidnightBiomeProvider extends BiomeProvider {
     }
 
     @Override
-    public Biome getBiome(int x, int y) {
-        return this.layers.block.sample(x, y);
+    public Biome getBiome(int x, int z) {
+        return this.layers.block.sample(x, z);
     }
 
     @Override
