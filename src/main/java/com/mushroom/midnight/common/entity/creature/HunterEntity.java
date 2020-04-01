@@ -195,6 +195,8 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
             }
 
             return true;
+        } else {
+            swoopCooldown += 160;
         }
 
         return false;
