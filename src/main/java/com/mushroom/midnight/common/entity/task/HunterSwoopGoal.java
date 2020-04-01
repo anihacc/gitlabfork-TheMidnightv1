@@ -69,7 +69,7 @@ public class HunterSwoopGoal extends Goal {
             this.recalculatePath(target);
         }
 
-        if (this.canAttack(target)) {
+        if (this.canAttack(target) && this.owner.swoopCooldown <= 0) {
             this.owner.attackEntityAsMob(target);
 
             this.rising = true;
