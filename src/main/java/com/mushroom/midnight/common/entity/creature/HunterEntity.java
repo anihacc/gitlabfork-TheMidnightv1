@@ -223,7 +223,7 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
     }
 
     public float getBlockPathWeight(BlockPos pos, IWorldReader worldIn) {
-        return worldIn.getBlockState(pos).isAir() ? 10.0F : 0.0F;
+        return worldIn.getBlockState(pos).isAir(worldIn, pos) ? 10.0F : 0.0F;
     }
 
     private static class MoveHelper extends MovementController {
