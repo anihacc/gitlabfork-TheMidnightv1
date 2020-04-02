@@ -168,7 +168,7 @@ public class SuavisBlock extends Block implements IGrowable {
 
     @Override
     public boolean allowsMovement(BlockState state, IBlockReader world, BlockPos pos, PathType type) {
-        return world.getBlockState(pos).get(STAGE) < 2;
+        return state.get(STAGE) < 2;
     }
 
     @Override
