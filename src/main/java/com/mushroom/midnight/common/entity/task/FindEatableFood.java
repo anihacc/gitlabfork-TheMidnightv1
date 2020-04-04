@@ -3,7 +3,6 @@ package com.mushroom.midnight.common.entity.task;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 
 import java.util.EnumSet;
@@ -12,13 +11,13 @@ import java.util.function.Predicate;
 
 public class FindEatableFood extends Goal {
     private final MobEntity mobEntity;
-    private final ItemStack itemStack;
+    private final Predicate<ItemStack> itemStack;
     private final Predicate<ItemEntity> canPickUp = (item) -> {
         return !item.cannotPickup() && getCanEatItem(item.getItem()) && item.isAlive();
     };
     private final double speed;
 
-    public FindEatableFood(MobEntity entity, ItemStack stack, double speed) {
+    public FindEatableFood(MobEntity entity, Predicate<ItemStack> stack, double speed) {
         this.mobEntity = entity;
         this.itemStack = stack;
         this.speed = speed;
@@ -64,6 +63,6 @@ public class FindEatableFood extends Goal {
     }
 
     private boolean getCanEatItem(ItemStack item) {
-        return itemStack.isItemEqual(item);
+        return itemStack.test(item);
     }
 }
