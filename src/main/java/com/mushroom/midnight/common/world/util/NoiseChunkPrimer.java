@@ -21,8 +21,8 @@ public class NoiseChunkPrimer {
     }
 
     public void primeChunk(ChunkPrimer primer, double[] sampledNoise, Handler handler) {
-        Heightmap oceanFloor = primer.func_217303_b(Heightmap.Type.OCEAN_FLOOR_WG);
-        Heightmap worldSurface = primer.func_217303_b(Heightmap.Type.WORLD_SURFACE_WG);
+        Heightmap oceanFloor = primer.getHeightmap(Heightmap.Type.OCEAN_FLOOR_WG);
+        Heightmap worldSurface = primer.getHeightmap(Heightmap.Type.WORLD_SURFACE_WG);
 
         int sampleWidth = this.noiseWidth + 1;
         int sampleHeight = this.noiseHeight + 1;

@@ -389,7 +389,8 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
 
     private static LootTable.Builder selfOrAlternatives(Block block, ILootCondition.IBuilder condition, LootEntry.Builder<?>... alternatives) {
         return LootTable.builder().addLootPool(LootPool.builder()
-                .addEntry(new AlternativesLootEntry.Builder(ArrayUtils.insert(0, alternatives, ItemLootEntry.builder(block).acceptCondition(condition))))
+                .addEntry(ItemLootEntry.builder(block).acceptCondition(condition).alternatively(alternative))
+                .rolls(ONE)
         );
     }
 
@@ -461,8 +462,8 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
     }
 
     private void addFungiHat(Block block, IItemProvider fungi, IItemProvider powder) {
-        this.add(block, explosionDecay(silkTouched(
-                        block,
+        LootPool.Builder pool = LootPool.builder()
+                .addEntry(AlternativesLootEntry.builder(
                         ItemLootEntry.builder(fungi).acceptCondition(RandomChance.builder(0.5F)),
                         ItemLootEntry.builder(powder)
         )));

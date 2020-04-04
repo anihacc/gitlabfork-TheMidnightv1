@@ -52,7 +52,8 @@ public class FungiPatchFeature extends FlowersFeature {
             );
             if (world.isAirBlock(pos) && this.fungi.isValidPosition(world, pos)) {
                 if (rand.nextFloat() < tallRatio) {
-                    MidnightDoublePlantBlock.placeAt(world, pos, this.tallFungi, Constants.BlockFlags.BLOCK_UPDATE);
+                    MidnightDoublePlantBlock tallBlock = (MidnightDoublePlantBlock) this.tallFungi.getBlock();
+                    tallBlock.placeAt(world, pos, Constants.BlockFlags.BLOCK_UPDATE);
                 } else {
                     world.setBlockState(pos, this.fungi, Constants.BlockFlags.BLOCK_UPDATE);
                 }

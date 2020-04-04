@@ -433,6 +433,8 @@
   "item.midnight.tenebrum_chestplate": "Tenebrum Chestplate",
   "item.midnight.tenebrum_leggings": "Tenebrum Leggings",
   "item.midnight.tenebrum_boots": "Tenebrum Boots",
+  "item.midnight.rockshroom_shear": "Rockshroom Shear",
+  "item.midnight.rockshroom_bucket": "Rockshroom Bucket",
 
   "_comment": "Fluids",
 
@@ -440,6 +442,8 @@
   "fluid.midnight.dark_water": "Dark Water",
   "item.midnight.miasma_bucket": "Miasma Bucket",
   "item.midnight.dark_water_bucket": "Dark Water Bucket",
+  "item.midnight.water_rockshroom_bucket": "Water Rockshroom Bucket",
+  "item.midnight.darkwater_rockshroom_bucket": "Dark Water Rockshroom Bucket",
 
   "_comment": "Entities",
 

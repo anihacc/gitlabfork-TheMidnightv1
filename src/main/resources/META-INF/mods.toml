@@ -6,7 +6,7 @@ issueTrackerURL="https://github.com/Cryptic-Mushroom/The-Midnight/issues"
 modId="midnight"
 version="${file.jarVersion}"
 displayName="The Midnight"
-displayURL="https://minecraft.curseforge.com/projects/the-midnight"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/the-midnight"
 updateJSONURL="https://gist.githubusercontent.com/gegy1000/a3f1f593c43f88d7f01a3560ac32e216/raw/midnight_updates.json"
 logoFile="logo.png"
 credits=""
@@ -20,7 +20,7 @@ You may travel willingly to this dimension, though you may unwillingly be dragge
 [[dependencies.midnight]]
     modId="forge"
     mandatory=true
-    versionRange="[28.1.73,)"
+    versionRange="[28.2.0,)"
     ordering="NONE"
     side="BOTH"
 

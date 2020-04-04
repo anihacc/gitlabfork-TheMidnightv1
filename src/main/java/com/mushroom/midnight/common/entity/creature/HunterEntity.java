@@ -12,13 +12,7 @@ import com.mushroom.midnight.common.registry.MidnightEffects;
 import com.mushroom.midnight.common.registry.MidnightSounds;
 import com.mushroom.midnight.common.util.MeanValueRecorder;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.MoverType;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.controller.LookController;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.monster.MonsterEntity;
@@ -35,6 +29,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -187,12 +182,27 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
                 }
 
                 this.animCap.setAnimation(this, AnimationCapability.Type.ATTACK, 10);
+
+                swoopCooldown += 120;
             }
 
             return true;
+        } else {
+            swoopCooldown += 160;
         }
 
         return false;
+    }
+
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+        if (source.isProjectile() || source.getImmediateSource() instanceof LivingEntity) {
+            if (swoopCooldown <= 20) {
+                swoopCooldown += 120;
+            }
+        }
+
+        return super.attackEntityFrom(source, amount);
     }
 
     public ChainSolver<HunterEntity> getChainSolver() {
@@ -204,6 +214,10 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
         return 1;
     }
 
+    public float getBlockPathWeight(BlockPos pos, IWorldReader worldIn) {
+        return (worldIn.getBlockState(pos).isAir(world, pos)) ? 10.0F : 0.0F;
+    }
+
     private static class MoveHelper extends MovementController {
         private static final float CLOSE_TURN_SPEED = 150.0F;
         private static final float FAR_TURN_SPEED = 6.5F;
@@ -211,40 +225,51 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
         private static final float CLOSE_TURN_DISTANCE = 2.0F;
         private static final float FAR_TURN_DISTANCE = 7.0F;
 
-        MoveHelper(HunterEntity parent) {
+        private MoveHelper(HunterEntity parent) {
             super(parent);
         }
 
         @Override
         public void tick() {
-            if (this.action == Action.MOVE_TO) {
-                this.action = Action.WAIT;
+            if (this.action == MovementController.Action.MOVE_TO) {
+                this.action = MovementController.Action.WAIT;
+                this.mob.setNoGravity(true);
+                double d0 = this.posX - this.mob.posX;
+                double d1 = this.posY - this.mob.posY;
+                double d2 = this.posZ - this.mob.posZ;
+                double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
-                double deltaX = this.posX - this.mob.posX;
-                double deltaZ = this.posZ - this.mob.posZ;
-                double deltaY = this.posY - this.mob.posY;
-                double distanceSquared = deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ;
-
-                if (distanceSquared < 2.5) {
+                if (d3 < (double) 2.5000003E-7F) {
+                    this.mob.setMoveVertical(0.0F);
                     this.mob.setMoveForward(0.0F);
                     return;
                 }
 
-                float distance = MathHelper.sqrt(distanceSquared);
+                float distance = MathHelper.sqrt(d3);
                 float turnSpeed = this.computeTurnSpeed(distance);
 
-                float targetYaw = (float) (Math.toDegrees(MathHelper.atan2(deltaZ, deltaX))) - 90.0F;
-                this.mob.rotationYaw = this.limitAngle(this.mob.rotationYaw, targetYaw, turnSpeed);
+//                float targetYaw = (float) (Math.toDegrees(MathHelper.atan2(deltaZ, deltaX))) - 90.0F;
+//                this.mob.rotationYaw = this.limitAngle(this.mob.rotationYaw, targetYaw, turnSpeed);
+//
+//                double deltaHorizontal = Math.sqrt(deltaX * deltaX + deltaZ * deltaZ);
+//
+//                float targetPitch = (float) -Math.toDegrees(Math.atan2(deltaY, deltaHorizontal));
+//                this.mob.rotationPitch = this.limitAngle(this.mob.rotationPitch, targetPitch, turnSpeed);
 
-                double deltaHorizontal = Math.sqrt(deltaX * deltaX + deltaZ * deltaZ);
-
-                float targetPitch = (float) -Math.toDegrees(Math.atan2(deltaY, deltaHorizontal));
-                this.mob.rotationPitch = this.limitAngle(this.mob.rotationPitch, targetPitch, turnSpeed);
+                float f = (float) (MathHelper.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
+                this.mob.rotationYaw = this.limitAngle(this.mob.rotationYaw, f, turnSpeed);
+                this.mob.renderYawOffset = this.mob.rotationYaw;
+                this.mob.rotationYawHead = this.mob.rotationYaw;
 
                 double flySpeed = this.mob.getAttribute(SharedMonsterAttributes.FLYING_SPEED).getValue();
-                double resultSpeed = this.speed * flySpeed;
-                this.mob.setAIMoveSpeed((float) resultSpeed);
+                float resultSpeed = (float) (this.speed * flySpeed);
+                this.mob.setAIMoveSpeed(resultSpeed);
+                double d4 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
+                float f2 = (float) (-(MathHelper.atan2(d1, d4) * (double) (180F / (float) Math.PI)));
+                this.mob.rotationPitch = this.limitAngle(this.mob.rotationPitch, f2, turnSpeed);
+                this.mob.setMoveVertical(d1 > 0.0D ? resultSpeed : -resultSpeed);
             } else {
+                this.mob.setMoveVertical(0.0F);
                 this.mob.setMoveForward(0.0F);
             }
         }
@@ -267,6 +292,18 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
 
         @Override
         public void tick() {
+            if (this.isLooking) {
+                this.isLooking = false;
+                this.mob.rotationYawHead = this.clampedRotate(this.mob.rotationYawHead, this.getTargetYaw(), this.deltaLookYaw);
+                this.mob.rotationPitch = this.clampedRotate(this.mob.rotationPitch, this.getTargetPitch(), this.deltaLookPitch);
+            } else {
+                if (this.mob.getNavigator().noPath()) {
+                    this.mob.rotationPitch = this.clampedRotate(this.mob.rotationPitch, 0.0F, 5.0F);
+                }
+
+                this.mob.rotationYawHead = this.clampedRotate(this.mob.rotationYawHead, this.mob.renderYawOffset, this.deltaLookYaw);
+            }
+
             float deltaYaw = MathHelper.wrapDegrees(this.parent.rotationYawHead - this.parent.renderYawOffset);
             if (!this.parent.getNavigator().noPath()) {
                 if (deltaYaw < -75.0F) {

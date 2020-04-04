@@ -6,6 +6,7 @@ import com.mushroom.midnight.common.biome.cavern.CavernousBiome;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.world.feature.placement.UndergroundPlacementLevel;
 import com.mushroom.midnight.common.world.util.NoiseChunkPrimer;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
@@ -16,23 +17,18 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.GenerationSettings;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.INoiseGenerator;
-import net.minecraft.world.gen.NoiseChunkGenerator;
-import net.minecraft.world.gen.PerlinNoiseGenerator;
-import net.minecraft.world.gen.WorldGenRegion;
+import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.BitSet;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 import static com.mushroom.midnight.common.world.MidnightNoiseGenerator.*;
 
-public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGenerator.Config> {
+public class MidnightChunkGenerator  extends NoiseChunkGenerator<MidnightChunkGenerator.Config> {
     public static final int SURFACE_LEVEL = 78;
 
     public static final int MIN_CAVE_HEIGHT = 20;
@@ -103,14 +99,32 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
 
                 int height = chunk.getTopBlockY(Heightmap.Type.WORLD_SURFACE_WG, localX, localZ) + 1;
 
-                double depth = this.surfaceDepthNoise.func_215460_a(globalX * 0.0625, globalZ * 0.0625, 0.0625, localX * 0.0625);
+                double depth = this.surfaceDepthNoise.noiseAt(globalX * 0.0625, globalZ * 0.0625, 0.0625, localX * 0.0625);
 
                 surfaceBiome.buildSurface(random, chunk, globalX, globalZ, height, depth, this.defaultBlock, this.defaultFluid, SEA_LEVEL, seed);
                 cavernousBiome.generateSurface(random, chunk, globalX, globalZ, height, depth, this.defaultBlock, this.defaultFluid, SEA_LEVEL, seed);
             }
         }
 
-        this.makeBedrock(chunk, random);
+        makeBedrock(chunk, random);
+    }
+
+    @Override
+    protected void makeBedrock(IChunk chunkIn, Random rand) {
+        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+        int i = chunkIn.getPos().getXStart();
+        int j = chunkIn.getPos().getZStart();
+//        GenerationSettings t = this.getSettings();
+        int l = 1;
+
+        for(BlockPos blockpos : BlockPos.getAllInBoxMutable(i, 0, j, i + 15, 0, j + 15)) {
+            for(int i1 = l; i1 >= l - 4; --i1) {
+                if (i1 >= l - rand.nextInt(5)) {
+                    chunkIn.setBlockState(blockpos$mutableblockpos.setPos(blockpos.getX(), i1, blockpos.getZ()), Blocks.BEDROCK.getDefaultState(), false);
+                }
+            }
+        }
+
     }
 
     @Override
@@ -199,7 +213,7 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
     }
 
     @Override
-    protected void func_222548_a(double[] noise, int x, int z) {
+    protected void fillNoiseColumn(double[] noise, int x, int z) {
         this.noiseGenerator.populateColumnNoise(noise, x, z, this.surfaceLayers, this.undergroundLayers);
     }
 
@@ -209,7 +223,7 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
     }
 
     @Override
-    protected double[] func_222549_a(int x, int z) {
+    protected double[] getBiomeNoiseColumn(int x, int z) {
         throw new UnsupportedOperationException();
     }
 
