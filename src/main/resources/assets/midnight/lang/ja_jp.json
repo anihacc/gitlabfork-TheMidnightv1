@@ -427,11 +427,15 @@
   "item.midnight.rockshroom_leggings": "イワタケのレギンス",
   "item.midnight.rockshroom_boots": "イワタケのブーツ",
   "item.midnight.rockshroom_shield": "イワタケの盾",
+  "item.midnight.rockshroom_shears": "イワタケのはさみ",
+  "item.midnight.rockshroom_bucket": "イワタケのバケツ",
 
   "item.midnight.tenebrum_helmet": "テネブラムのヘルメット",
   "item.midnight.tenebrum_chestplate": "テネブラムのチェストプレート",
   "item.midnight.tenebrum_leggings": "テネブラムのレギンス",
   "item.midnight.tenebrum_boots": "テネブラムのブーツ",
+  "item.midnight.water_rockshroom_bucket": "水入りイワタケのバケツ",
+  "item.midnight.darkwater_rockshroom_bucket": "闇水入りイワタケのバケツ",
 
   "_comment": "Fluids",
 

@@ -118,9 +118,19 @@
 			"translation": [0, -5, 1]
 		},
 		"firstperson_righthand": {
+			"rotation": [
+				0,
+				180,
+				-5
+			],
 			"translation": [0, -6.5, 0]
 		},
 		"firstperson_lefthand": {
+			"rotation": [
+				0,
+				180,
+				-5
+			],
 			"translation": [0, -6.5, 0]
 		},
 		"ground": {
