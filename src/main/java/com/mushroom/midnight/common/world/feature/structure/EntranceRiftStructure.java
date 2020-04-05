@@ -76,7 +76,7 @@ public class EntranceRiftStructure extends ScatteredStructure<NoFeatureConfig> {
 
     @Override
     protected int getBiomeFeatureDistance(ChunkGenerator<?> generator) {
-        return 26;
+        return 24;
     }
 
     @Override

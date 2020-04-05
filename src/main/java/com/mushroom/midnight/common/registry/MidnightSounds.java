@@ -51,6 +51,8 @@ public class MidnightSounds {
 
     public static final SoundEvent SKULK_DEATH = makeSoundEvent("skulk_death");
     public static final SoundEvent SKULK_HURT = makeSoundEvent("skulk_hurt");
+    public static final SoundEvent SKULK_AMBIENT = makeSoundEvent("skulk_ambient");
+    public static final SoundEvent SKULK_GRAB = makeSoundEvent("skulk_grab");
 
     public static final SoundEvent SNAPPER_DEATH = makeSoundEvent("snapper_death");
     public static final SoundEvent SNAPPER_HURT = makeSoundEvent("snapper_hurt");
