@@ -69,6 +69,30 @@ public class SkulkModel extends QuadrupedModel<SkulkEntity> {
         this.body.rotateAngleX = 0f;
         this.Tail.rotateAngleY = MathHelper.sin((float) (ageInTicks * Math.PI * 0.25f)) * 0.1f;
         this.LeftEar.rotateAngleX = this.RightEar.rotateAngleX = MathHelper.sin((float) (ageInTicks * Math.PI * 0.2f)) * 0.1f;
+
+        if (entity.isSitting()) {
+            this.body.setRotationPoint(0.0F, 23.0F, 4.0F);
+            this.body.rotateAngleX = -((float) Math.PI / 4F);
+            this.headModel.setRotationPoint(0.0F, 18.0F, 0.0F);
+            this.Tail.setRotationPoint(0.0F, 21.0F, 3.5F);
+            this.legBackRight.setRotationPoint(-1.4F, 23.0F, 0.1F);
+            this.legBackRight.rotateAngleX = 5.811947F;
+            this.legBackLeft.setRotationPoint(1.4F, 23.0F, 0.1F);
+            this.legBackLeft.rotateAngleX = 5.811947F;
+            this.legFrontRight.rotateAngleX = ((float) Math.PI * 1.5F);
+            this.legFrontRight.setRotationPoint(-1.6F, 24.0F, 2.5F);
+            this.legFrontLeft.rotateAngleX = ((float) Math.PI * 1.5F);
+            this.legFrontLeft.setRotationPoint(1.6F, 24.0F, 2.5F);
+        } else {
+            this.body.setRotationPoint(0.0F, 20.0F, 4.0F);
+            this.body.rotateAngleX = 0.0F;
+            this.headModel.setRotationPoint(0.0F, 20.0F, -4.0F);
+            this.Tail.setRotationPoint(0.0F, 19.5F, 3.5F);
+            this.legBackRight.setRotationPoint(-1.4F, 22.0F, -2.1F);
+            this.legBackLeft.setRotationPoint(1.4F, 22.0F, -2.1F);
+            this.legFrontRight.setRotationPoint(-1.6F, 22.0F, 2.5F);
+            this.legFrontLeft.setRotationPoint(1.6F, 22.0F, 2.5F);
+        }
     }
 
     private void setRotateAngle(ModelRenderer ModelRenderer, float x, float y, float z) {
