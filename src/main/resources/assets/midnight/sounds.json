@@ -13,7 +13,7 @@
     "sounds": [
       {
         "name": "midnight:ambient/midnight_idle",
-        "stream": true
+        "stream": false
       }
     ]
   },

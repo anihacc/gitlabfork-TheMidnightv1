@@ -22,6 +22,8 @@ public class GlobFungusHatBlock extends Block {
         super(Properties.create(Material.WOOD, MaterialColor.MAGENTA).hardnessAndResistance(0.2f, 0f).sound(SoundType.SLIME).lightValue(2));
     }
 
+    // TODO What are these methods?
+
     // random.nextInt(5) == 0 -> drop 1 GLOB_FUNGUS (+SilkTouch)
 
     /*@Override

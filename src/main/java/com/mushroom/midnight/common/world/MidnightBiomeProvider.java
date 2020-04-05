@@ -16,7 +16,6 @@ public class MidnightBiomeProvider extends BiomeProvider {
     private static final Set<Biome> biomes = ImmutableSet.of(MidnightSurfaceBiomes.BLACK_RIDGE, MidnightSurfaceBiomes.VIGILANT_FOREST, MidnightSurfaceBiomes.DECEITFUL_BOG, MidnightSurfaceBiomes.FUNGI_FOREST, MidnightSurfaceBiomes.WARPED_FIELDS
             , MidnightSurfaceBiomes.CRYSTAL_SPIRES, MidnightSurfaceBiomes.NIGHT_PLAINS, MidnightSurfaceBiomes.OBSCURED_PLATEAU, MidnightSurfaceBiomes.PHANTASMAL_VALLEY, MidnightSurfaceBiomes.RUNEBUSH_GROVE, MidnightSurfaceBiomes.HILLY_VIGILANT_FOREST, MidnightSurfaceBiomes.HILLY_FUNGI_FOREST);
 
-
     public MidnightBiomeProvider(BiomeLayers<Biome> layers) {
         super(biomes);
         this.layers = layers;
