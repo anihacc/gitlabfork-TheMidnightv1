@@ -10,9 +10,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtWithoutMovingGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
@@ -58,6 +60,10 @@ public class SkulkEntity extends AnimalEntity {
         return food.getItem().getFood() != null && !food.getItem().getFood().isMeat() && food.getItem() != MidnightItems.RAW_SUAVIS && food.getItem() != MidnightItems.COOKED_SUAVIS;
     };
 
+    private static final Predicate<ItemStack> dislikeFood = (food) -> {
+        return food.getItem() == MidnightItems.RAW_SUAVIS || food.getItem() == MidnightItems.COOKED_SUAVIS;
+    };
+
     public SkulkEntity(EntityType<? extends SkulkEntity> entityType, World world) {
         super(entityType, world);
         this.setCanPickUpLoot(true);
@@ -100,7 +106,26 @@ public class SkulkEntity extends AnimalEntity {
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new NeutralGoal(this, new PanicGoal(this, 1d), true));
         this.goalSelector.addGoal(2, new NeutralGoal(this, new MeleeAttackGoal(this, 1d, false), false));
-        this.goalSelector.addGoal(4, new FindEatableFood(this, this::canEatItem, 1.1D));
+        this.goalSelector.addGoal(4, new AvoidEntityGoal(this, LivingEntity.class, 8.0F, 1.6D, 1.6D) {
+            @Override
+            public boolean shouldExecute() {
+                boolean valid = super.shouldExecute();
+                return valid && this.avoidTarget != null && (dislikeFood.test(this.avoidTarget.getHeldItem(Hand.MAIN_HAND)) || dislikeFood.test(this.avoidTarget.getHeldItem(Hand.OFF_HAND)));
+            }
+
+            @Override
+            public void startExecuting() {
+                super.startExecuting();
+                setStealth(false);
+            }
+
+            @Override
+            public void resetTask() {
+                super.resetTask();
+                setStealth(true);
+            }
+        });
+        this.goalSelector.addGoal(5, new FindEatableFood(this, this::canEatItem, 1.15D));
 
         this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 1d, 0.005f) {
             @Override
