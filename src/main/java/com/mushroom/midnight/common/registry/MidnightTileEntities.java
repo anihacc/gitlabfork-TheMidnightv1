@@ -19,7 +19,7 @@ public class MidnightTileEntities {
     public static final TileEntityType<?> MIDNIGHT_FURNACE = TileEntityType.FURNACE;
     public static final TileEntityType<?> CACHE = TileEntityType.CHEST;
 
-    public static final TileEntityType<?> RIFT_PORTAL = TileEntityType.END_PORTAL;
+    public static final TileEntityType<RiftPortalTileEntity> RIFT_PORTAL = RegUtil.injected();
 
     @SubscribeEvent
     public static void registerTileEntity(final RegistryEvent.Register<TileEntityType<?>> event) {

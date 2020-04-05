@@ -20,10 +20,6 @@ public class RiftPortalBlockRenderer extends TileEntityRenderer<RiftPortalTileEn
 
     private static final RiftPortalBlockModel BLOCK_MODEL = new RiftPortalBlockModel();
 
-    public RiftPortalBlockRenderer(/*TileEntityRendererDispatcher rendererDispatcherIn*/) {
-        super(/*rendererDispatcherIn*/);
-    }
-
     @Override
     public void render(RiftPortalTileEntity entity, double x, double y, double z, float partialTicks, int destroyStage) {
         if (entity == null) return;
@@ -38,9 +34,10 @@ public class RiftPortalBlockRenderer extends TileEntityRenderer<RiftPortalTileEn
         long textureSeed = seed ^ 8211203336981069197L;
         long rotationSeed = seed ^ 526247544445692899L;
 
+        GlStateManager.pushMatrix();
+
         CLIENT.getTextureManager().bindTexture(MASKS[(int) (textureSeed & 1)]);
 
-        GlStateManager.pushMatrix();
         GlStateManager.translated(x + 0.5, y + 0.5, z + 0.5);
         GlStateManager.rotatef((rotationSeed & 3) * 90.0F, 0.0F, 1.0F, 0.0F);
 

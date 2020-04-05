@@ -4,10 +4,7 @@ import com.google.common.reflect.Reflection;
 import com.mushroom.midnight.client.ClientProxy;
 import com.mushroom.midnight.client.model.MidnightModelRegistry;
 import com.mushroom.midnight.common.ServerProxy;
-import com.mushroom.midnight.common.capability.AnimationCapability;
-import com.mushroom.midnight.common.capability.NullStorage;
-import com.mushroom.midnight.common.capability.RiftTraveller;
-import com.mushroom.midnight.common.capability.RifterCapturable;
+import com.mushroom.midnight.common.capability.*;
 import com.mushroom.midnight.common.config.MidnightConfig;
 import com.mushroom.midnight.common.data.loot.MidnightBlockLootProvider;
 import com.mushroom.midnight.common.data.recipe.*;
@@ -87,7 +84,7 @@ public class Midnight {
     }
 
     private void setup(FMLCommonSetupEvent event) {
-        CapabilityManager.INSTANCE.register(RiftTraveller.class, new NullStorage<>(), RiftTraveller::new);
+        CapabilityManager.INSTANCE.register(RiftTraveller.class, new RiftTravellerStorage<>(), RiftTraveller::new);
         CapabilityManager.INSTANCE.register(RifterCapturable.class, new NullStorage<>(), RifterCapturable::new);
         CapabilityManager.INSTANCE.register(AnimationCapability.class, new NullStorage<>(), AnimationCapability::new);
 

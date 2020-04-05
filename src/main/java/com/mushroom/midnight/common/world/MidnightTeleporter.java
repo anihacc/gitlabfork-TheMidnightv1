@@ -1,5 +1,6 @@
 package com.mushroom.midnight.common.world;
 
+import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightDimensions;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -32,9 +33,21 @@ public class MidnightTeleporter {
         IChunk chunk = endpointWorld.getChunk(pos);
         int surfaceY = chunk.getTopBlockY(Heightmap.Type.MOTION_BLOCKING, pos.getX(), pos.getZ()) + 1;
 
-        Vec3d endpointPos = new Vec3d(pos.getX() + 0.5, surfaceY, pos.getZ() + 0.5);
+        BlockPos portalPos = findPortal(endpointWorld, pos, surfaceY);
+
+        Vec3d endpointPos = new Vec3d(pos.getX() + 0.5, portalPos.getY(), pos.getZ() + 0.5);
         Entity teleportedEntity = this.teleportEntity(entity, endpointWorld, endpointPos);
         teleportedEntity.fallDistance = 0.0F;
+    }
+
+    private BlockPos findPortal(ServerWorld world, BlockPos pos, int surfaceY) {
+        BlockPos pos2 = new BlockPos(pos.getX(), surfaceY, pos.getZ());
+        for (int i = -20; i <= 5; i++) {
+            if (world.getBlockState(pos2.up(i)).getBlock() == MidnightBlocks.RIFT_PORTAL) {
+                return pos2.up(i + 1);
+            }
+        }
+        return pos2;
     }
 
     private Entity teleportEntity(Entity entity, ServerWorld endpointWorld, Vec3d endpoint) {
@@ -56,6 +69,7 @@ public class MidnightTeleporter {
         teleportedEntity.setLocationAndAngles(endpoint.x, endpoint.y, endpoint.z, entity.rotationYaw, entity.rotationPitch);
         teleportedEntity.setRotationYawHead(entity.rotationYaw);
         endpointWorld.func_217460_e(teleportedEntity);
+        entity.remove();
 
         return teleportedEntity;
     }
