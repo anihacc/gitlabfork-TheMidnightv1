@@ -13,23 +13,8 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.state.properties.SlabType;
 import net.minecraft.util.IItemProvider;
-import net.minecraft.world.storage.loot.AlternativesLootEntry;
-import net.minecraft.world.storage.loot.ConstantRange;
-import net.minecraft.world.storage.loot.ILootConditionConsumer;
-import net.minecraft.world.storage.loot.ILootFunctionConsumer;
-import net.minecraft.world.storage.loot.IRandomRange;
-import net.minecraft.world.storage.loot.ItemLootEntry;
-import net.minecraft.world.storage.loot.LootEntry;
-import net.minecraft.world.storage.loot.LootFunction;
-import net.minecraft.world.storage.loot.LootParameterSets;
-import net.minecraft.world.storage.loot.LootPool;
-import net.minecraft.world.storage.loot.LootTable;
-import net.minecraft.world.storage.loot.RandomValueRange;
-import net.minecraft.world.storage.loot.conditions.BlockStateProperty;
-import net.minecraft.world.storage.loot.conditions.ILootCondition;
-import net.minecraft.world.storage.loot.conditions.RandomChance;
-import net.minecraft.world.storage.loot.conditions.SurvivesExplosion;
-import net.minecraft.world.storage.loot.conditions.TableBonus;
+import net.minecraft.world.storage.loot.*;
+import net.minecraft.world.storage.loot.conditions.*;
 import net.minecraft.world.storage.loot.functions.ApplyBonus;
 import net.minecraft.world.storage.loot.functions.CopyName;
 import net.minecraft.world.storage.loot.functions.ExplosionDecay;
@@ -389,8 +374,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
 
     private static LootTable.Builder selfOrAlternatives(Block block, ILootCondition.IBuilder condition, LootEntry.Builder<?>... alternatives) {
         return LootTable.builder().addLootPool(LootPool.builder()
-                .addEntry(ItemLootEntry.builder(block).acceptCondition(condition).alternatively(alternative))
-                .rolls(ONE)
+                .addEntry(new AlternativesLootEntry.Builder(ArrayUtils.insert(0, alternatives, ItemLootEntry.builder(block).acceptCondition(condition))))
         );
     }
 
@@ -466,7 +450,7 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
                 .addEntry(AlternativesLootEntry.builder(
                         ItemLootEntry.builder(fungi).acceptCondition(RandomChance.builder(0.5F)),
                         ItemLootEntry.builder(powder)
-        )));
+        ));
     }
 
     private void addUnstableBush(Block block, IItemProvider fruit) {
@@ -525,5 +509,10 @@ public final class MidnightBlockLootProvider extends MidnightLootTableProvider {
         ));
 
         this.add(block, table);
+    }
+
+    @Override
+    public String getName() {
+        return "Midnight BlockLootTables";
     }
 }

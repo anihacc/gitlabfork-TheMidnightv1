@@ -5,6 +5,7 @@ import com.mushroom.midnight.common.capability.RifterCapturable;
 import com.mushroom.midnight.common.entity.TargetIdleTracker;
 import com.mushroom.midnight.common.entity.task.RifterCaptureGoalGoal;
 import com.mushroom.midnight.common.entity.task.RifterMeleeGoal;
+import com.mushroom.midnight.common.entity.task.RifterReturnGoal;
 import com.mushroom.midnight.common.entity.task.RifterTeleportGoal;
 import com.mushroom.midnight.common.entity.util.DragSolver;
 import com.mushroom.midnight.common.event.RifterCaptureEvent;
@@ -13,24 +14,16 @@ import com.mushroom.midnight.common.network.CaptureEntityMessage;
 import com.mushroom.midnight.common.registry.MidnightEffects;
 import com.mushroom.midnight.common.registry.MidnightSounds;
 import com.mushroom.midnight.common.util.MidnightUtil;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.entity.ai.goal.LookAtWithoutMovingGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.OpenDoorGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.pathfinding.GroundPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
@@ -38,6 +31,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -64,6 +58,7 @@ public class RifterEntity extends MonsterEntity implements IEntityAdditionalSpaw
     private static final double RIFT_SEARCH_RADIUS = 48.0;
     private static final float DROP_DAMAGE_THRESHOLD = 2.0F;
 
+    private BlockPos riftPosition;
     private final DragSolver dragSolver;
 
     private final TargetIdleTracker targetIdleTracker = new TargetIdleTracker(this, 3.0);
@@ -99,7 +94,7 @@ public class RifterEntity extends MonsterEntity implements IEntityAdditionalSpaw
         // TODO: Rifter AI needs rework for new rifts
 
         this.goalSelector.addGoal(0, new SwimGoal(this));
-//        this.goalSelector.addGoal(0, new RifterReturnGoal(this, 1.3));
+        this.goalSelector.addGoal(0, new RifterReturnGoal(this, 1.3));
 
 //        this.goalSelector.addGoal(1, new RifterKeepNearRiftGoal(this, 1.0));
         this.goalSelector.addGoal(1, new RifterTeleportGoal(this));
@@ -299,13 +294,31 @@ public class RifterEntity extends MonsterEntity implements IEntityAdditionalSpaw
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
+
+        if (this.riftPosition != null) {
+            compound.put("home_rift", NBTUtil.writeBlockPos(this.riftPosition));
+        }
         compound.putBoolean("spawned_through_rift", this.spawnedThroughRift);
     }
 
     @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
+
+        this.riftPosition = null;
+        if (compound.contains("home_rift")) {
+            this.riftPosition = NBTUtil.readBlockPos(compound.getCompound("home_rift"));
+        }
+
         this.spawnedThroughRift = compound.getBoolean("spawned_through_rift");
+    }
+
+    public void setRiftPosition(BlockPos riftPosition) {
+        this.riftPosition = riftPosition;
+    }
+
+    public BlockPos getRiftPosition() {
+        return riftPosition;
     }
 
     @Override

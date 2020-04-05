@@ -3,6 +3,7 @@ package com.mushroom.midnight.common.capability;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.world.MidnightTeleporter;
 import net.minecraft.entity.Entity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
@@ -43,5 +44,19 @@ public class RiftTraveller implements ICapabilityProvider {
     @Nonnull
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
         return capability == Midnight.RIFT_TRAVELLER_CAP ? LazyOptional.of(() -> this).cast() : LazyOptional.empty();
+    }
+
+    public CompoundNBT serializeNBT() {
+        CompoundNBT nbt = new CompoundNBT();
+
+        nbt.putBoolean("rift_in", inRift);
+        nbt.putInt("rift_cooldown", cooldown);
+
+        return nbt;
+    }
+
+    public void deserializeNBT(CompoundNBT nbt) {
+        inRift = nbt.getBoolean("rift_in");
+        cooldown = nbt.getInt("rift_cooldown");
     }
 }

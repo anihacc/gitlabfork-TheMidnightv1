@@ -20,7 +20,9 @@ public final class MidnightMaterialRecipes extends MidnightRecipeProvider {
                 .addHelmet(MidnightItems.ROCKSHROOM_HELMET)
                 .addChestPlate(MidnightItems.ROCKSHROOM_CHESTPLATE)
                 .addLeggings(MidnightItems.ROCKSHROOM_LEGGINGS)
-                .addBoots(MidnightItems.ROCKSHROOM_BOOTS);
+                .addBoots(MidnightItems.ROCKSHROOM_BOOTS)
+                .addShears(MidnightItems.ROCKSHROOM_SHEAR)
+                .addBuckets(MidnightItems.ROCKSHROOM_BUCKET);
 
         recipes.ofMaterial(MidnightItems.NAGRILITE_INGOT)
                 .addPressurePlate(MidnightBlocks.NAGRILITE_PRESSURE_PLATE)

@@ -124,7 +124,7 @@ public class NovaSpikeEntity extends ThrowableEntity {
         } else {
             super.tick();
             this.doBlockCollisions();
-            MidnightParticles.SPORE.spawn(this.world, this.posX, this.posY, this.posZ, 0.0D, 0.05, 0.0D);
+            this.world.addParticle(MidnightParticleTypes.SPORE, this.posX, this.posY, this.posZ, 0.0D, 0.05, 0.0D);
         }
     }
 

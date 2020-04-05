@@ -103,4 +103,11 @@ public class DragSolver {
         lerp.interpolate(this.prevAttachmentPoint, this.attachmentPoint, (double) partialTicks);
         return lerp;
     }
+
+    protected void interpolate(Vector3d DragVector3d, Vector3d a, Vector3d b, double x) {
+        double t = x;
+        DragVector3d.x = (1.0 - t) * a.x + t * b.x;
+        DragVector3d.y = (1.0 - t) * a.y + t * b.y;
+        DragVector3d.z = (1.0 - t) * a.z + t * b.z;
+    }
 }

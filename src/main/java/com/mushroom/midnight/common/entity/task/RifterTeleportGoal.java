@@ -2,10 +2,12 @@ package com.mushroom.midnight.common.entity.task;
 
 import com.mushroom.midnight.common.config.MidnightConfig;
 import com.mushroom.midnight.common.entity.creature.RifterEntity;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -58,10 +60,14 @@ public class RifterTeleportGoal extends Goal {
         BlockPos origin = target.getPosition();
         List<BlockPos> validPositions = new ArrayList<>();
 
-        for (BlockPos pos : BlockPos.getAllInBoxMutable(origin.add(-2, -2, -2), origin.add(2, 2, 2))) {
-            Vec3d vector = new Vec3d(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
-            if (!this.canBeSeenBy(vector, target) && this.isTargetValid(pos)) {
-                validPositions.add(pos.toImmutable());
+        for (int i = 0; i < 6; ++i) {
+            double d0 = origin.getX() + (this.owner.getRNG().nextDouble() - 0.5D) * 12.0D;
+            double d1 = origin.getY() + (double) (this.owner.getRNG().nextInt(12) - 6);
+            double d2 = origin.getZ() + (this.owner.getRNG().nextDouble() - 0.5D) * 12.0D;
+            Vec3d vector = new Vec3d(d0, d1, d2);
+            BlockPos pos = new BlockPos(d0, d1, d2);
+            if (!this.canBeSeenBy(vector, target) && this.isTargetValid(pos) && this.isCanTeleport(pos, target)) {
+                validPositions.add(new BlockPos(pos));
             }
         }
 
@@ -70,6 +76,17 @@ public class RifterTeleportGoal extends Goal {
         }
 
         return validPositions.get(this.owner.getRNG().nextInt(validPositions.size()));
+    }
+
+    private boolean isCanTeleport(BlockPos pos, LivingEntity target) {
+        BlockState blockstate = this.owner.world.getBlockState(pos);
+        boolean flag = blockstate.getMaterial().blocksMovement();
+        boolean flag1 = blockstate.getFluidState().isTagged(FluidTags.WATER);
+        if (flag && !flag1 && this.owner.world.getLightValue(pos) < 7) {
+            return target.getDistanceSq(pos.getX(), pos.getY(), pos.getZ()) > 8F;
+        } else {
+            return false;
+        }
     }
 
     private boolean isTargetValid(BlockPos target) {

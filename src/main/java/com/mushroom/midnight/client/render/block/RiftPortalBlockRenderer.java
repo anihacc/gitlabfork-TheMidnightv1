@@ -20,12 +20,18 @@ public class RiftPortalBlockRenderer extends TileEntityRenderer<RiftPortalTileEn
 
     private static final RiftPortalBlockModel BLOCK_MODEL = new RiftPortalBlockModel();
 
+    public RiftPortalBlockRenderer(/*TileEntityRendererDispatcher rendererDispatcherIn*/) {
+        super(/*rendererDispatcherIn*/);
+    }
+
     @Override
     public void render(RiftPortalTileEntity entity, double x, double y, double z, float partialTicks, int destroyStage) {
         if (entity == null) return;
 
         float closeAnimation = entity.getCloseAnimation(partialTicks);
         if (closeAnimation >= 1.0F) return;
+
+        float alpha = 1.0F - closeAnimation;
 
         BlockPos pos = entity.getPos();
         long seed = MathHelper.getCoordinateRandom(pos.getX(), pos.getY(), pos.getZ());

@@ -113,6 +113,11 @@ public class MidnightItems {
     public static final Item DARK_WATER_BUCKET = Items.AIR;
     public static final Item MIASMA_BUCKET = Items.AIR;
 
+    public static final Item ROCKSHROOM_SHEAR = Items.AIR;
+    public static final Item ROCKSHROOM_BUCKET = Items.AIR;
+    public static final Item WATER_ROCKSHROOM_BUCKET = Items.AIR;
+    public static final Item DARKWATER_ROCKSHROOM_BUCKET = Items.AIR;
+
     public static final Item ADVANCEMENT_SNAPPER = Items.AIR;
     public static final Item ADVANCEMENT_HIGHNESS = Items.AIR;
 

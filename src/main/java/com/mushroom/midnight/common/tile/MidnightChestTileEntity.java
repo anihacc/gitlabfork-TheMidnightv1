@@ -19,6 +19,11 @@ public class MidnightChestTileEntity extends ChestTileEntity {
         this(MidnightTileEntities.MIDNIGHT_CHEST);
     }
 
+    public MidnightChestTileEntity(Block chest) {
+        this();
+        this.setChestModel(chest);
+    }
+
     @Override
     public AxisAlignedBB getRenderBoundingBox() {
         return new AxisAlignedBB(

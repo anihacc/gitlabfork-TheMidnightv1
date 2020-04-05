@@ -3,21 +3,13 @@ package com.mushroom.midnight.common.registry;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.biome.BiomeSpawnEntry;
 import com.mushroom.midnight.common.biome.MidnightBiomeGroup;
-import com.mushroom.midnight.common.biome.surface.BlackRidgeBiome;
-import com.mushroom.midnight.common.biome.surface.CrystalSpiresBiome;
-import com.mushroom.midnight.common.biome.surface.DeceitfulBogBiome;
-import com.mushroom.midnight.common.biome.surface.FungiForestBiome;
-import com.mushroom.midnight.common.biome.surface.HillyFungiForestBiome;
-import com.mushroom.midnight.common.biome.surface.HillyVigilantForestBiome;
-import com.mushroom.midnight.common.biome.surface.NightPlainsBiome;
-import com.mushroom.midnight.common.biome.surface.ObscuredPeaksBiome;
-import com.mushroom.midnight.common.biome.surface.ObscuredPlateauBiome;
-import com.mushroom.midnight.common.biome.surface.PhantasmalValleyBiome;
-import com.mushroom.midnight.common.biome.surface.RunebushGroveBiome;
-import com.mushroom.midnight.common.biome.surface.VigilantForestBiome;
-import com.mushroom.midnight.common.biome.surface.WarpedFieldsBiome;
+import com.mushroom.midnight.common.biome.surface.*;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.placement.IPlacementConfig;
+import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -113,5 +105,25 @@ public class MidnightSurfaceBiomes {
         return ForgeRegistries.BIOMES.getEntries().stream()
                 .filter(entry -> entry.getKey().getNamespace().equals(Midnight.MODID))
                 .map(Map.Entry::getValue);
+    }
+
+    public static void initStructures()
+    {
+        for(Biome biome : ForgeRegistries.BIOMES.getValues())
+        {
+            if (!BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
+                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)
+                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.VOID)
+                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
+                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
+                    && (    biome.getRegistryName().getNamespace().equals("minecraft"))
+                    || (biome.getRegistryName().getNamespace().equals("midnight"))
+                    || (biome.getRegistryName().getNamespace().equals("biomesoplenty"))
+            )
+            {
+                biome.addStructure(MidnightStructures.ENTRANCE_RIFT, IFeatureConfig.NO_FEATURE_CONFIG);
+                biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(MidnightStructures.ENTRANCE_RIFT, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG));
+            }
+        }
     }
 }

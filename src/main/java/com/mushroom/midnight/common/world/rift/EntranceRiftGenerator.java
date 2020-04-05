@@ -3,10 +3,10 @@ package com.mushroom.midnight.common.world.rift;
 import com.google.common.collect.Lists;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.block.DoubleMalignantFlowerBlock;
-import com.mushroom.midnight.common.block.MalignantFlowerBlock;
 import com.mushroom.midnight.common.block.MossBlock;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightItems;
+import com.mushroom.midnight.common.registry.MidnightSounds;
 import com.mushroom.midnight.common.world.noise.INoiseSampler;
 import com.mushroom.midnight.common.world.noise.PerlinNoiseSampler;
 import net.minecraft.block.Block;
@@ -14,12 +14,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.*;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
@@ -27,11 +23,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.BitSet;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Consumer;
 
 @Mod.EventBusSubscriber(modid = Midnight.MODID)
@@ -55,8 +47,10 @@ public class EntranceRiftGenerator {
             MidnightBlocks.MALIGNANT_HEMLOCK,
             MidnightBlocks.MALIGNANT_MANDRAKE,
     };
+    protected final IWorld world;
 
-    static {
+    public EntranceRiftGenerator(IWorld world) {
+        this.world = world;
         WARP_NOISE.setFrequency(0.1);
         WARP_NOISE.setAmplitude(3.0);
 
@@ -70,6 +64,8 @@ public class EntranceRiftGenerator {
         World world = event.getWorld();
         if (world.isRemote) return;
 
+        event.getPlayer().swingArm(event.getHand());
+
         if (event.getItemStack().getItem() == MidnightItems.DARK_PEARL) {
             PlayerEntity player = event.getPlayer();
 
@@ -79,25 +75,27 @@ public class EntranceRiftGenerator {
 
             BlockRayTraceResult result = world.rayTraceBlocks(new RayTraceContext(origin, target, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, player));
             if (result.getType() == RayTraceResult.Type.BLOCK) {
-                new EntranceRiftGenerator().generate(world, result.getPos(), new Random());
+                new EntranceRiftGenerator(world).generate(result.getPos(), new Random());
+
+                world.playSound((PlayerEntity) null, result.getPos(), MidnightSounds.EGG_CRACKED, SoundCategory.BLOCKS, 3.0F, 1.0F);
             }
         }
     }
 
-    public void generate(World world, BlockPos origin, Random random) {
+    public void generate(BlockPos origin, Random random) {
         int craterRadius = random.nextInt(3) + 7;
         int radius = craterRadius + OUTER_RADIUS;
 
         CoverMask coverMask = new CoverMask(radius + 6);
 
-        this.generateCrater(world, random, origin, craterRadius, radius, coverMask);
-        this.generateTendrils(world, random, origin, radius, coverMask);
-        this.generateSpires(world, random, origin, craterRadius + 1.5F);
+        this.generateCrater(random, origin, craterRadius, radius, coverMask);
+        this.generateTendrils(random, origin, radius, coverMask);
+        this.generateSpires(random, origin, craterRadius + 1.5F);
 
-        this.decorateRift(world, random, origin, radius + 4);
+        this.decorateRift(random, origin, radius + 4);
     }
 
-    private void generateCrater(World world, Random random, BlockPos origin, int craterRadius, int radius, CoverMask coverMask) {
+    private void generateCrater(Random random, BlockPos origin, int craterRadius, int radius, CoverMask coverMask) {
         DistanceField distanceField = this.generateDistanceField(origin.getX(), origin.getZ(), radius + 2);
         int totalDepth = craterRadius / 2;
 
@@ -113,7 +111,7 @@ public class EntranceRiftGenerator {
                 int depth = this.computeDepth(distance, craterRadius, totalDepth);
 
                 while (mutablePos.getY() > origin.getY() - depth) {
-                    this.carveBlock(world, mutablePos);
+                    this.carveBlock(mutablePos);
                     mutablePos.move(Direction.DOWN);
                 }
 
@@ -121,7 +119,7 @@ public class EntranceRiftGenerator {
 
                 mutablePos.setY(origin.getY() - depth);
 
-                this.setBlockState(world, mutablePos, surfaceState);
+                this.setBlockState(mutablePos, surfaceState);
                 coverMask.put(x, z);
             }
         }
@@ -165,7 +163,7 @@ public class EntranceRiftGenerator {
         return depth;
     }
 
-    private void generateTendrils(World world, Random random, BlockPos origin, int radius, CoverMask coverMask) {
+    private void generateTendrils(Random random, BlockPos origin, int radius, CoverMask coverMask) {
         BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 
         float angle = 0.0F;
@@ -186,7 +184,7 @@ public class EntranceRiftGenerator {
             while (!coverMask.has(x, z) && coverMask.contains(x, z)) {
                 mutablePos.setPos(origin.getX() + x, origin.getY(), origin.getZ() + z);
 
-                this.setBlockState(world, mutablePos, MidnightBlocks.MALIGNANT_RED_PLANT_BLOCK.getDefaultState());
+                this.setBlockState(mutablePos, MidnightBlocks.MALIGNANT_RED_PLANT_BLOCK.getDefaultState());
                 coverMask.put(x, z);
 
                 Direction.Axis axis = this.chooseTendrilAxis(random, x, z);
@@ -208,15 +206,15 @@ public class EntranceRiftGenerator {
         return random.nextBoolean() ? Direction.Axis.X : Direction.Axis.Z;
     }
 
-    private void generateSpires(World world, Random random, BlockPos origin, float spireDistance) {
+    private void generateSpires(Random random, BlockPos origin, float spireDistance) {
         float angle = random.nextFloat() * 90.0F;
         for (int i = 0; i < 4; i++) {
-            this.generateSpire(world, random, origin, spireDistance, angle);
+            this.generateSpire(random, origin, spireDistance, angle);
             angle += 90.0F;
         }
     }
 
-    private void generateSpire(World world, Random random, BlockPos origin, float spireDistance, float angle) {
+    private void generateSpire(Random random, BlockPos origin, float spireDistance, float angle) {
         BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 
         double angleRad = Math.toRadians(angle);
@@ -241,7 +239,7 @@ public class EntranceRiftGenerator {
                     distance += SPIRE_WARP_NOISE.get(mutablePos.getX(), mutablePos.getY(), mutablePos.getZ());
 
                     if (distance <= radius) {
-                        this.setBlockState(world, mutablePos, MidnightBlocks.MALIGNANT_RED_PLANT_BLOCK.getDefaultState());
+                        this.setBlockState(mutablePos, MidnightBlocks.MALIGNANT_RED_PLANT_BLOCK.getDefaultState());
                     }
                 }
             }
@@ -254,14 +252,14 @@ public class EntranceRiftGenerator {
         }
     }
 
-    private void decorateRift(World world, Random random, BlockPos origin, int radius) {
+    private void decorateRift(Random random, BlockPos origin, int radius) {
         Decorator decorator = new Decorator(world, origin, random, radius);
 
         decorator.scatter(32, 16, pos -> {
             for (Direction direction : shuffledDirections(random)) {
                 BlockState state = MidnightBlocks.MALIGNANT_RED_PLANT_SURFACE.getDefaultState().with(MossBlock.FACING, direction);
-                if (state.isValidPosition(world, pos)) {
-                    this.setBlockState(world, pos, state);
+                if (state.isValidPosition(world, pos) && (!world.getBlockState(pos.down()).getBlock().equals(Blocks.VOID_AIR) || !world.getBlockState(pos).getBlock().equals(Blocks.BEDROCK))) {
+                    this.setBlockState(pos, state);
                     break;
                 }
             }
@@ -270,10 +268,10 @@ public class EntranceRiftGenerator {
         decorator.scatter(24, 16, pos -> {
             for (Direction direction : shuffledDirections(random)) {
                 Block block = SHORT_FLOWERS[random.nextInt(SHORT_FLOWERS.length)];
-                BlockState state = block.getDefaultState().with(MalignantFlowerBlock.FACING, direction);
+                BlockState state = block.getDefaultState();
 
                 if (state.isValidPosition(world, pos)) {
-                    this.setBlockState(world, pos, state);
+                    this.setBlockState(pos, state);
                     break;
                 }
             }
@@ -282,7 +280,11 @@ public class EntranceRiftGenerator {
         decorator.scatter(8, 6, pos -> {
             for (Direction direction : VERTICAL_DIRECTIONS) {
                 BlockState state = MidnightBlocks.MALIGNANT_BLOODROOT.getDefaultState().with(DoubleMalignantFlowerBlock.FACING, direction);
-                if (state.isValidPosition(world, pos)) {
+                if (state.isValidPosition(world, pos) &&
+                        /*(!world.getBlockState(pos.down()).getBlock().equals(Blocks.VOID_AIR) || !world.getBlockState(pos).getBlock().equals(Blocks.BEDROCK))*/ world.getBlockState(pos).getBlock().equals(Blocks.AIR)) {
+                    System.out.println("Bloodroot dir: " + direction + ", block: " + world.getBlockState(pos).getBlock()
+                            + ", block below: " + world.getBlockState(pos.down()).getBlock());
+
                     DoubleMalignantFlowerBlock.placeAt(world, pos, state, Constants.BlockFlags.BLOCK_UPDATE);
                     break;
                 }
@@ -294,16 +296,20 @@ public class EntranceRiftGenerator {
             BlockState state = block.getDefaultState();
 
             if (state.isValidPosition(world, pos)) {
-                this.setBlockState(world, pos, state);
+                this.setBlockState(pos, state);
             }
         });
     }
 
-    private void carveBlock(IWorld world, BlockPos pos) {
-        this.setBlockState(world, pos, Blocks.AIR.getDefaultState());
+    private void carveBlock(BlockPos pos) {
+        if (world.getBlockState(pos).getBlock() == Blocks.AIR) {
+            return;
+        }
+
+        this.setBlockState(pos, Blocks.AIR.getDefaultState());
     }
 
-    private void setBlockState(IWorld world, BlockPos pos, BlockState state) {
+    private void setBlockState(BlockPos pos, BlockState state) {
         if (world.getBlockState(pos).getBlock() == Blocks.BEDROCK) return;
 
         world.setBlockState(pos, state, Constants.BlockFlags.BLOCK_UPDATE | Constants.BlockFlags.NOTIFY_NEIGHBORS);
@@ -378,14 +384,14 @@ public class EntranceRiftGenerator {
     }
 
     private static class Decorator {
-        private final World world;
+        private final IWorld world;
         private final BlockPos origin;
         private final Random random;
         private final int radius;
 
         private final BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 
-        private Decorator(World world, BlockPos origin, Random random, int radius) {
+        private Decorator(IWorld world, BlockPos origin, Random random, int radius) {
             this.world = world;
             this.origin = origin;
             this.random = random;
