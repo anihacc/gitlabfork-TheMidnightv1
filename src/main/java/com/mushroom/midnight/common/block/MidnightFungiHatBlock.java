@@ -13,13 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
@@ -54,10 +48,12 @@ public class MidnightFungiHatBlock extends Block {
         if (stack.getItem() == Items.SHEARS) {
             if (!world.isRemote) {
                 BooleanProperty faceProperty = getFaceProperty(hitResult.getFace());
-                world.setBlockState(pos, state.with(faceProperty, true), 11);
+                if (!state.get(faceProperty)) {
+                    world.setBlockState(pos, state.with(faceProperty, true), 11);
 
-                world.playSound(null, pos, SoundEvents.BLOCK_PUMPKIN_CARVE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                stack.damageItem(1, player, p -> p.sendBreakAnimation(hand));
+                    world.playSound(null, pos, SoundEvents.BLOCK_PUMPKIN_CARVE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    stack.damageItem(1, player, p -> p.sendBreakAnimation(hand));
+                }
             }
 
             return ActionResultType.SUCCESS;
