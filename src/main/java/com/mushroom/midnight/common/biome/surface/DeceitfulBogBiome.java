@@ -1,7 +1,7 @@
 package com.mushroom.midnight.common.biome.surface;
 
-import com.mushroom.midnight.common.biome.MidnightSurfaceConfigurator;
 import com.mushroom.midnight.common.biome.MidnightSurfaceBuilders;
+import com.mushroom.midnight.common.biome.MidnightSurfaceConfigurator;
 import com.mushroom.midnight.common.registry.MidnightEntities;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.world.biome.Biome;
@@ -42,6 +42,6 @@ public class DeceitfulBogBiome extends SurfaceBiome {
         MidnightSurfaceConfigurator.addStandardMonsterSpawns(this);
 
         this.add(EntityClassification.WATER_CREATURE, new Biome.SpawnListEntry(MidnightEntities.DECEITFUL_SNAPPER, 100, 5, 10));
-        this.add(EntityClassification.WATER_CREATURE, new Biome.SpawnListEntry(MidnightEntities.BULB_ANGLER, 60, 2, 4));
+        //this.add(EntityClassification.WATER_CREATURE, new Biome.SpawnListEntry(MidnightEntities.BULB_ANGLER, 60, 2, 4));
     }
 }

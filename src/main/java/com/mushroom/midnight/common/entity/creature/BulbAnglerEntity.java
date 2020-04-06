@@ -1,41 +1,15 @@
 package com.mushroom.midnight.common.entity.creature;
 
-import com.mushroom.midnight.common.entity.task.FindEatableFoodGoal;
-import com.mushroom.midnight.common.registry.MidnightItems;
-import com.mushroom.midnight.common.registry.MidnightSounds;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.goal.HurtByTargetGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.RandomSwimmingGoal;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.passive.fish.AbstractFishEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.particles.ItemParticleData;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.pathfinding.PathNavigator;
-import net.minecraft.pathfinding.SwimmerPathNavigator;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
-import java.util.function.Predicate;
 
 public class BulbAnglerEntity extends AbstractFishEntity {
-    private static final Predicate<Entity> canEatEntity = (p_213470_0_) -> {
+  /*  private static final Predicate<Entity> canEatEntity = (p_213470_0_) -> {
         if (!(p_213470_0_ instanceof LivingEntity)) {
             return false;
         } else {
@@ -43,14 +17,23 @@ public class BulbAnglerEntity extends AbstractFishEntity {
             return livingentity.getLastAttackedEntity() != null && livingentity.getLastAttackedEntityTime() < livingentity.ticksExisted + 100;
         }
     };
-    private int eatTicks;
+    private int eatTicks;*/
 
     public BulbAnglerEntity(EntityType<? extends BulbAnglerEntity> entityType, World world) {
         super(entityType, world);
         this.setCanPickUpLoot(true);
     }
 
+    protected ItemStack getFishBucket() {
+        return new ItemStack(Items.WATER_BUCKET);
+    }
+
     @Override
+    protected SoundEvent getFlopSound() {
+        return SoundEvents.ENTITY_TROPICAL_FISH_FLOP;
+    }
+
+    /*@Override
     protected PathNavigator createNavigator(World world) {
         return new SwimmerPathNavigator(this, world);
     }
@@ -171,10 +154,10 @@ public class BulbAnglerEntity extends AbstractFishEntity {
         this.world.addEntity(itementity);
     }
 
-    /**
+    *//**
      * Tests if this entity should pickup a weapon or an armor. Entity drops current weapon or armor if the new one is
      * better.
-     */
+     *//*
     protected void updateEquipmentIfNeeded(ItemEntity itemEntity) {
         ItemStack itemstack = itemEntity.getItem();
         if (!this.canEatItem(this.getItemStackFromSlot(EquipmentSlotType.MAINHAND)) && this.canEatItem(itemstack)) {
@@ -196,5 +179,5 @@ public class BulbAnglerEntity extends AbstractFishEntity {
     @Override
     public float getBlockPathWeight(BlockPos pos, IWorldReader worldIn) {
         return worldIn.getFluidState(pos).isTagged(FluidTags.WATER) ? 10.0F + 0.5F - worldIn.getBrightness(pos) : super.getBlockPathWeight(pos, worldIn);
-    }
+    }*/
 }
