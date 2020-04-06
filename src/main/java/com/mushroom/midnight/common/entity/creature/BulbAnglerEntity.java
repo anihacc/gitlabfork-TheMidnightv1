@@ -1,6 +1,6 @@
 package com.mushroom.midnight.common.entity.creature;
 
-import com.mushroom.midnight.common.entity.task.FindEatableFood;
+import com.mushroom.midnight.common.entity.task.FindEatableFoodGoal;
 import com.mushroom.midnight.common.registry.MidnightItems;
 import com.mushroom.midnight.common.registry.MidnightSounds;
 import net.minecraft.entity.Entity;
@@ -73,7 +73,7 @@ public class BulbAnglerEntity extends AbstractFishEntity {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(2, new FindEatableFood(this, new ItemStack(MidnightItems.DECEITFUL_SNAPPER), 1.15D));
+        this.goalSelector.addGoal(2, new FindEatableFoodGoal(this, (food) -> food.getItem() == MidnightItems.DECEITFUL_SNAPPER, 1.15D));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.15D, false));
         this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.05D, 45));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));

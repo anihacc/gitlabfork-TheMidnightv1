@@ -126,7 +126,7 @@ public class RifterEntity extends MonsterEntity implements IEntityAdditionalSpaw
     @Override
     protected void registerAttributes() {
         super.registerAttributes();
-        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(48.0);
+        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(38.0);
         this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25);
         this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0);
         this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(4.0);

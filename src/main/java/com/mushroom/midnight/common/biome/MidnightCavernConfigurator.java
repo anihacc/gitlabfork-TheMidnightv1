@@ -21,9 +21,9 @@ import net.minecraft.world.gen.placement.ChanceConfig;
 import net.minecraft.world.gen.placement.FrequencyConfig;
 
 public class MidnightCavernConfigurator {
-    public static final BlockClusterFeatureConfig CRYSTALOTUS_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.CRYSTALOTUS.getDefaultState()), new SimpleBlockPlacer())).tries(64).build();
+    public static final BlockClusterFeatureConfig CRYSTALOTUS_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.CRYSTALOTUS.getDefaultState()), new SimpleBlockPlacer())).tries(32).build();
     public static final BlockClusterFeatureConfig TENDRILWEED_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.TENDRILWEED.getDefaultState()), new SimpleBlockPlacer())).tries(32).build();
-    public static final BlockClusterFeatureConfig GLOB_FUNGI_FLOWERS_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.GLOB_FUNGUS.getDefaultState()), new SimpleBlockPlacer())).tries(64).build();
+    public static final BlockClusterFeatureConfig GLOB_FUNGI_FLOWERS_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.GLOB_FUNGUS.getDefaultState()), new SimpleBlockPlacer())).tries(32).build();
 
 
     public static void addCaves(ConfigurableBiome biome) {

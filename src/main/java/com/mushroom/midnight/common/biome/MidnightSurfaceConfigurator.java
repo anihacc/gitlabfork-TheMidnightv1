@@ -30,7 +30,7 @@ import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 
 public class MidnightSurfaceConfigurator {
-    public static final BlockClusterFeatureConfig GHOST_PLANT_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.GHOST_PLANT.getDefaultState()), new SimpleBlockPlacer())).tries(64).build();
+    public static final BlockClusterFeatureConfig GHOST_PLANT_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.GHOST_PLANT.getDefaultState()), new SimpleBlockPlacer())).tries(32).build();
     public static final BlockClusterFeatureConfig DRAGONNEST_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.DRAGON_NEST.getDefaultState()), new SimpleBlockPlacer())).tries(32).build();
     public static final BlockClusterFeatureConfig CRYSTALFLOWER_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.CRYSTAL_FLOWER.getDefaultState()), new SimpleBlockPlacer())).tries(64).build();
 

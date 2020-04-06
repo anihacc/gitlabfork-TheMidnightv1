@@ -36,4 +36,4 @@ If you would like to support our work, consider donating to our [Patreon](https:
 - **Texturers**: [Endergized](https://github.com/Endergy), [Five (Paradiscal)](https://github.com/fivelol), [MCVinnyq](https://github.com/MCVinnyq)
 - **Modelers**: [Cipher_Zero_X](https://github.com/cipherzerox), [MCvinnnyq](https://github.com/MCVinnyq)
 - **Sound Designers**: [Lachney](https://xjon.me)
-- **Contributers and Testers**: [ZombieEnderman5](https://github.com/ZombieEnderman5), [veesus mikhel heir](https://minecraft.curseforge.com/members/veesusmikelheir), 123wdog, [Terenx](https://github.com/Terenx), [KingPhygieBoo](https://gitlab.com/KingPhygieBoo)
+- **Contributors and Testers**: [ZombieEnderman5](https://github.com/ZombieEnderman5), [veesus mikhel heir](https://minecraft.curseforge.com/members/veesusmikelheir), 123wdog, [Terenx](https://github.com/Terenx), [KingPhygieBoo](https://gitlab.com/KingPhygieBoo)
