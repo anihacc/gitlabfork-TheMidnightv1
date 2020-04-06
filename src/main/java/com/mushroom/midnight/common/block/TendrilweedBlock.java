@@ -51,6 +51,6 @@ public class TendrilweedBlock extends MidnightPlantBlock {
 
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return state.getBlock() == MidnightBlocks.NIGHTSTONE;
+        return state.isAir(worldIn, pos) && worldIn.getBlockState(pos.down()).getBlock() == MidnightBlocks.NIGHTSTONE;
     }
 }
