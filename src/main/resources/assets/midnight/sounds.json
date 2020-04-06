@@ -263,6 +263,13 @@
       "midnight:entity/skulk_death"
     ]
   },
+  "skulk_sniffing": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.skulk.sniffing",
+    "sounds": [
+      "midnight:entity/skulk_sniffing"
+    ]
+  },
   "skulk_grab": {
     "category": "neutral",
     "subtitle": "subtitles.entity.skulk.grab",

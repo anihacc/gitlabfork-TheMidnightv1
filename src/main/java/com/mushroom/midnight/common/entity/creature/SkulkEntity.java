@@ -392,7 +392,11 @@ public class SkulkEntity extends TameableEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return MidnightSounds.SKULK_AMBIENT;
+        if (this.getRNG().nextInt(3) == 0 && this.isStealth()) {
+            return MidnightSounds.SKULK_SNIFFING;
+        } else {
+            return MidnightSounds.SKULK_AMBIENT;
+        }
     }
 
     @Override
