@@ -15,7 +15,7 @@ import net.minecraft.util.math.MathHelper;
 
 public class RiftPortalBlockRenderer extends TileEntityRenderer<RiftPortalTileEntity> {
     private static final Minecraft CLIENT = Minecraft.getInstance();
-    private static final ResourceLocation[] MASKS = new ResourceLocation[] {
+    private static final ResourceLocation[] MASKS = {
             new ResourceLocation(Midnight.MODID, "textures/effects/rift_portal_mask_1.png"),
             new ResourceLocation(Midnight.MODID, "textures/effects/rift_portal_mask_2.png")
     };

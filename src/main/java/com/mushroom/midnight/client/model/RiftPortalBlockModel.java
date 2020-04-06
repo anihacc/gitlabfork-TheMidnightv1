@@ -18,13 +18,13 @@ public class RiftPortalBlockModel extends Model {
         this.textureWidth = 16;
         this.textureHeight = 16;
         this.shape = new ModelRenderer(this, 0, 0);
-        this.shape.setRotationPoint(8.0F, 8.01F, 8.0F);
-        this.shape.addBox(-8.0F, -8.0F, -8.0F, 16, 15, 16, 0.0F);
+        this.shape.setRotationPoint(8.0F, 8.0F, 8.0F);
+        this.shape.addBox(-8.0F, -8.0F, -8.0F, 16, 15, 16, 0.01F);
     }
 
     @Override
     public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-        ImmutableList.of(this.shape).forEach((p_228272_8_) -> {
+        ImmutableList.of(this.shape).forEach(p_228272_8_ -> {
             p_228272_8_.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         });
     }
