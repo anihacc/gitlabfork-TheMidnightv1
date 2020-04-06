@@ -73,7 +73,7 @@ function patch_living_renderer(class_node) {
 function patch_biome_colors(class_node) {
     var api = Java.type('net.minecraftforge.coremod.api.ASMAPI');
 
-    var get_color_method = get_method(class_node, api.mapMethod("func_217614_a"));
+    var get_color_method = get_method(class_node, api.mapMethod("func_228358_a_"));
 
     var targets = [];
 
