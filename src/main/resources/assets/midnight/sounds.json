@@ -277,6 +277,14 @@
       "midnight:entity/skulk_grab"
     ]
   },
+  "skulk_teleport": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.skulk.teleport",
+    "sounds": [
+      "midnight:entity/skulk_teleport_1",
+      "midnight:entity/skulk_teleport_2"
+    ]
+  },
   "snapper_hurt": {
     "category": "hostile",
     "subtitle": "subtitles.entity.snapper.hurt",

@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -25,12 +26,13 @@ public class StealFoodGoal extends Goal {
         this.mobEntity = mobEntity;
         this.speed = speed;
         this.chance = chance;
+        this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
     }
 
     @Override
     public boolean shouldExecute() {
         if (mobEntity.getAttackTarget() == null && mobEntity.getRevengeTarget() == null) {
-            if (mobEntity.getRNG().nextFloat() < chance) {
+            if (mobEntity.getRNG().nextFloat() >= chance) {
                 return false;
             } else if (!mobEntity.getHeldItem(Hand.MAIN_HAND).isEmpty()) {
                 return false;
