@@ -18,7 +18,7 @@ import java.util.Random;
 public class TendrilweedBlock extends MidnightPlantBlock {
     // TODO particle  tendril spore
     public TendrilweedBlock(Properties properties) {
-        super(properties, true);
+        super(properties.tickRandomly(), true);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class TendrilweedBlock extends MidnightPlantBlock {
         super.randomTick(state, world, pos, random);
         if (!world.isRemote && random.nextFloat() < 0.01f) {
             BlockPos placePos = pos.add(random.nextInt(5) - 2, random.nextInt(3) - 1, random.nextInt(5) - 2);
-            if (isValidGround(world.getBlockState(placePos), world, placePos)) {
+            if (isValidPosition(world.getBlockState(placePos), world, placePos)) {
                 int flowers = 0;
                 Iterator<BlockPos> it = BlockPos.getAllInBox(pos.add(-2, -1, -2), pos.add(2, 1, 2)).iterator();
                 while (it.hasNext()) {
@@ -51,6 +51,6 @@ public class TendrilweedBlock extends MidnightPlantBlock {
 
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return state.isAir(worldIn, pos) && worldIn.getBlockState(pos.down()).getBlock() == MidnightBlocks.NIGHTSTONE;
+        return state.getBlock() == MidnightBlocks.NIGHTSTONE;
     }
 }
