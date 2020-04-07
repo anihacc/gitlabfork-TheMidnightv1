@@ -2,6 +2,7 @@ package com.mushroom.midnight.common.effect;
 
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
@@ -29,7 +30,8 @@ public class PollinatedEffect extends Effect {
         );
 
         BlockState state = world.getBlockState(pos);
-        if (state.getBlock().getMaterial(state).isReplaceable() && TENDRILWEED.isValidPosition(world, pos)) {
+        Material mat = state.getMaterial();
+        if (mat.isReplaceable() && !mat.isLiquid() && TENDRILWEED.isValidPosition(world, pos)) {
             world.playEvent(Constants.WorldEvents.BONEMEAL_PARTICLES, pos, 0);
             world.setBlockState(pos, TENDRILWEED, Constants.BlockFlags.NOTIFY_NEIGHBORS | Constants.BlockFlags.BLOCK_UPDATE);
         }

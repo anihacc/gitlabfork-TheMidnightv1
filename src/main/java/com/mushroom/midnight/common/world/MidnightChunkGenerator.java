@@ -115,16 +115,14 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
 
     @Override
     protected void makeBedrock(IChunk chunkIn, Random rand) {
-        BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
-        int i = chunkIn.getPos().getXStart();
-        int j = chunkIn.getPos().getZStart();
-//        GenerationSettings t = this.getSettings();
-        int l = 1;
+        BlockPos.Mutable mutable = new BlockPos.Mutable();
+        int x = chunkIn.getPos().getXStart();
+        int z = chunkIn.getPos().getZStart();
 
-        for(BlockPos blockpos : BlockPos.getAllInBoxMutable(i, 0, j, i + 15, 0, j + 15)) {
-            for (int i1 = l; i1 >= l - 4; --i1) {
-                if (i1 >= l - rand.nextInt(5)) {
-                    chunkIn.setBlockState(blockpos$mutable.setPos(blockpos.getX(), i1, blockpos.getZ()), Blocks.BEDROCK.getDefaultState(), false);
+        for (BlockPos pos : BlockPos.getAllInBoxMutable(x, 0, z, x + 15, 0, z + 15)) {
+            for (int y = 0; y < 5; y++) {
+                if (y <= rand.nextInt(5)) {
+                    chunkIn.setBlockState(mutable.setPos(pos.getX(), y, pos.getZ()), Blocks.BEDROCK.getDefaultState(), false);
                 }
             }
         }
@@ -156,7 +154,7 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
                 for (ConfiguredCarver<?> carver : carvers) {
                     random.setLargeFeatureSeed(this.seed + i, nx, nz);
                     if (carver.shouldCarve(random, nx, nz)) {
-                        carver.func_227207_a_(chunk, (p_227059_2_) -> {
+                        carver.func_227207_a_(chunk, p_227059_2_ -> {
                             return this.getBiome(biomeManager, p_227059_2_);
                         }, random, this.getSeaLevel(), nx, nz, chunkX, chunkZ, mask);
                     }

@@ -8,6 +8,7 @@ import com.mushroom.midnight.common.world.MidnightChunkGenerator;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunk;
@@ -34,27 +35,54 @@ public class MidnightCaveCarver extends CaveWorldCarver {
     }
 
     @Override
-    protected boolean func_225556_a_(IChunk p_225556_1_, Function<BlockPos, Biome> p_225556_2_, BitSet p_225556_3_, Random p_225556_4_, BlockPos.Mutable p_225556_5_, BlockPos.Mutable p_225556_6_, BlockPos.Mutable p_225556_7_, int p_225556_8_, int p_225556_9_, int p_225556_10_, int p_225556_11_, int p_225556_12_, int p_225556_13_, int p_225556_14_, int p_225556_15_, AtomicBoolean p_225556_16_) {
-        int i = p_225556_13_ | p_225556_15_ << 4 | p_225556_14_ << 8;
-        if (p_225556_3_.get(i)) {
+    protected boolean func_225556_a_(IChunk chunk, Function<BlockPos, Biome> biomeFunc, BitSet carvingMask, Random rand, BlockPos.Mutable mutable, BlockPos.Mutable p_225556_6_, BlockPos.Mutable p_225556_7_, int p_225556_8_, int p_225556_9_, int p_225556_10_, int x, int z, int p_225556_13_, int y, int p_225556_15_, AtomicBoolean p_225556_16_) {
+        int i = p_225556_13_ | p_225556_15_ << 4 | y << 8;
+        if (carvingMask.get(i)) {
             return false;
         } else {
-            p_225556_3_.set(i);
-            p_225556_5_.setPos(p_225556_11_, p_225556_14_, p_225556_12_);
-            if (this.func_222706_a(p_225556_1_.getBlockState(p_225556_5_))) {
+            carvingMask.set(i);
+            mutable.setPos(x, y, z);
+            boolean noAdjacentBlock = true;
+            for (Direction dir : Direction.values()) {
+                if (dir == Direction.DOWN) continue;
+                mutable.move(dir);
+                if (this.doesAdjacentBlockPreventCarving(chunk.getBlockState(mutable), mutable.getY() <= 10)) {
+                    noAdjacentBlock = false;
+                }
+                mutable.move(dir, -1);
+                if (!noAdjacentBlock) {
+                    break;
+                }
+            }
+            if (this.func_222706_a(chunk.getBlockState(mutable)) && noAdjacentBlock) {
                 BlockState blockstate;
-                if (p_225556_14_ <= 10) {
+                if (y <= 10) {
                     blockstate = MidnightBlocks.MIASMA.getDefaultState();
                 } else {
                     blockstate = CAVE_AIR;
                 }
 
-                p_225556_1_.setBlockState(p_225556_5_, blockstate, false);
+                chunk.setBlockState(mutable, blockstate, false);
                 return true;
             } else {
                 return false;
             }
         }
+    }
+
+    protected boolean doesAdjacentBlockPreventCarving(BlockState state, boolean miasmaHeight) {
+        if (miasmaHeight && state.getBlock() == MidnightBlocks.MIASMA) return false;
+        Material material = state.getMaterial();
+        return material == Material.WATER || material == Material.LAVA || miasmaHeight && material == Material.AIR;
+    }
+
+    @Override
+    protected boolean func_222706_a(BlockState state) {
+        if (state.getBlock() == Blocks.BEDROCK) return false;
+
+        Material material = state.getMaterial();
+        return (material == Material.ROCK || material == Material.EARTH || material == Material.ORGANIC)
+                && material != Material.WATER && material != Material.LAVA;
     }
 
     @Override

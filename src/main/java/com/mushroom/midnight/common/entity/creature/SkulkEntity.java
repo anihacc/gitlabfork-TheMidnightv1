@@ -6,25 +6,8 @@ import com.mushroom.midnight.common.entity.task.StealFoodGoal;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightItems;
 import com.mushroom.midnight.common.registry.MidnightSounds;
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntitySize;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.Pose;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.entity.ai.goal.FollowOwnerGoal;
-import net.minecraft.entity.ai.goal.HurtByTargetGoal;
-import net.minecraft.entity.ai.goal.LookAtWithoutMovingGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.SitGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.GhastEntity;
@@ -64,16 +47,16 @@ public class SkulkEntity extends TameableEntity {
     private int stealthCooldown = 0;
     private int eatTicks;
 
-    public static final Predicate<ItemStack> canEatFood = (food) -> {
+    public static final Predicate<ItemStack> canEatFood = food -> {
         return food.getItem().getFood() != null && !food.getItem().getFood().isMeat() && food.getItem() != MidnightItems.RAW_SUAVIS && food.getItem() != MidnightItems.COOKED_SUAVIS;
     };
 
-    public static final Predicate<ItemStack> dislikeFood = (food) -> {
+    public static final Predicate<ItemStack> dislikeFood = food -> {
         return food.getItem() == MidnightItems.RAW_SUAVIS || food.getItem() == MidnightItems.COOKED_SUAVIS;
     };
 
-    public static final Predicate<ItemStack> tameableFood = (food) -> {
-        return food.getItem() == Item.getItemFromBlock(MidnightBlocks.VIRIDSHROOM) || food.getItem() == Item.getItemFromBlock(MidnightBlocks.NIGHTSHROOM) || food.getItem() == Item.getItemFromBlock(MidnightBlocks.BOGSHROOM) || food.getItem() == Item.getItemFromBlock(MidnightBlocks.DEWSHROOM);
+    public static final Predicate<ItemStack> tameableFood = food -> {
+        return food.getItem() == MidnightBlocks.VIRIDSHROOM.asItem() || food.getItem() == MidnightBlocks.NIGHTSHROOM.asItem() || food.getItem() == MidnightBlocks.BOGSHROOM.asItem() || food.getItem() == MidnightBlocks.DEWSHROOM.asItem();
     };
 
     public SkulkEntity(EntityType<? extends SkulkEntity> entityType, World world) {
@@ -179,6 +162,7 @@ public class SkulkEntity extends TameableEntity {
         return flag;
     }
 
+    @Override
     public boolean processInteract(PlayerEntity player, Hand hand) {
         ItemStack itemstack = player.getHeldItem(hand);
         Item item = itemstack.getItem();
@@ -204,7 +188,7 @@ public class SkulkEntity extends TameableEntity {
                     this.sitGoal.setSitting(!this.isSitting());
                     this.isJumping = false;
                     this.navigator.clearPath();
-                    this.setAttackTarget((LivingEntity) null);
+                    this.setAttackTarget(null);
                 }
             } else if (tameableFood.test(itemstack)) {
                 if (!player.abilities.isCreativeMode) {
@@ -214,7 +198,7 @@ public class SkulkEntity extends TameableEntity {
                 if (this.rand.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
                     this.setTamedBy(player);
                     this.navigator.clearPath();
-                    this.setAttackTarget((LivingEntity) null);
+                    this.setAttackTarget(null);
                     this.sitGoal.setSitting(true);
                     this.setStealth(false);
                     this.world.setEntityState(this, (byte) 7);
@@ -285,6 +269,7 @@ public class SkulkEntity extends TameableEntity {
         setStealth(false);
     }
 
+    @Override
     public boolean shouldAttackEntity(LivingEntity target, LivingEntity owner) {
         if (!(target instanceof CreeperEntity) && !(target instanceof GhastEntity)) {
             if (target instanceof SkulkEntity) {
@@ -321,13 +306,14 @@ public class SkulkEntity extends TameableEntity {
         return super.getStandingEyeHeight(pose, size) * 0.5f;
     }
 
+    @Override
     @OnlyIn(Dist.CLIENT)
     public void handleStatusUpdate(byte id) {
         if (id == 45) {
             ItemStack itemstack = this.getItemStackFromSlot(EquipmentSlotType.MAINHAND);
             if (!itemstack.isEmpty()) {
                 for (int i = 0; i < 8; ++i) {
-                    Vec3d vec3d = (new Vec3d(((double) this.rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D)).rotatePitch(-this.rotationPitch * ((float) Math.PI / 180F)).rotateYaw(-this.rotationYaw * ((float) Math.PI / 180F));
+                    Vec3d vec3d = new Vec3d(((double) this.rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D).rotatePitch(-this.rotationPitch * ((float) Math.PI / 180F)).rotateYaw(-this.rotationYaw * ((float) Math.PI / 180F));
                     this.world.addParticle(new ItemParticleData(ParticleTypes.ITEM, itemstack), this.getPosX() + this.getLookVec().x / 2.0D, this.getPosY(), this.getPosZ() + this.getLookVec().z / 2.0D, vec3d.x, vec3d.y + 0.05D, vec3d.z);
                 }
             }

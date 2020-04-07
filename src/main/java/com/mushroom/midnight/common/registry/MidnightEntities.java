@@ -6,11 +6,7 @@ import com.mushroom.midnight.common.entity.projectile.BladeshroomCapEntity;
 import com.mushroom.midnight.common.entity.projectile.NovaSpikeEntity;
 import com.mushroom.midnight.common.entity.projectile.SporeBombEntity;
 import com.mushroom.midnight.common.entity.projectile.ThrownGeodeEntity;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.fish.AbstractFishEntity;
 import net.minecraft.util.math.BlockPos;
@@ -34,7 +30,7 @@ public class MidnightEntities {
             .setTrackingRange(80)
             .setUpdateInterval(3)
             .setShouldReceiveVelocityUpdates(true)
-            .size(0.6f, 1.8f)
+            .size(0.6f, 1.9f)
             .build(MODID + ":rifter");
     public static final EntityType<HunterEntity> HUNTER = EntityType.Builder.create(HunterEntity::new, MIDNIGHT_MOB)
             .setTrackingRange(80)
@@ -141,7 +137,7 @@ public class MidnightEntities {
             .build(MODID + ":cloud");
 
     @SubscribeEvent
-    public static void onRegisterEntities(final RegistryEvent.Register<EntityType<?>> event) {
+    public static void onRegisterEntities(RegistryEvent.Register<EntityType<?>> event) {
         RIFTER.setRegistryName(MODID, "rifter");
         event.getRegistry().register(RIFTER);
         HUNTER.setRegistryName(MODID, "hunter");

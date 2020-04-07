@@ -1,42 +1,11 @@
 package com.mushroom.midnight.common.registry;
 
 import com.mushroom.midnight.Midnight;
-import com.mushroom.midnight.common.world.feature.AlgaeFeature;
-import com.mushroom.midnight.common.world.feature.BladeshroomFeature;
-import com.mushroom.midnight.common.world.feature.CrystalClusterFeature;
-import com.mushroom.midnight.common.world.feature.FallenDeadLogFeature;
-import com.mushroom.midnight.common.world.feature.FingeredGrassFeature;
-import com.mushroom.midnight.common.world.feature.FungiPatchFeature;
-import com.mushroom.midnight.common.world.feature.HeapFeature;
-import com.mushroom.midnight.common.world.feature.MidnightOreFeature;
-import com.mushroom.midnight.common.world.feature.MossFeature;
-import com.mushroom.midnight.common.world.feature.NightstoneBoulderFeature;
-import com.mushroom.midnight.common.world.feature.ScatteredPlantFeature;
-import com.mushroom.midnight.common.world.feature.SpikeFeature;
-import com.mushroom.midnight.common.world.feature.StingerEggFeature;
-import com.mushroom.midnight.common.world.feature.TrenchstoneBoulderFeature;
-import com.mushroom.midnight.common.world.feature.UnstableBushFeature;
-import com.mushroom.midnight.common.world.feature.ViridshroomCacheFeature;
+import com.mushroom.midnight.common.world.feature.*;
 import com.mushroom.midnight.common.world.feature.config.CrystalClusterConfig;
 import com.mushroom.midnight.common.world.feature.config.MidnightOreConfig;
 import com.mushroom.midnight.common.world.feature.config.UniformCompositionConfig;
-import com.mushroom.midnight.common.world.feature.structure.WellStructure;
-import com.mushroom.midnight.common.world.feature.tree.AbstractMidnightTreeFeature;
-import com.mushroom.midnight.common.world.feature.tree.DarkWillowTreeFeature;
-import com.mushroom.midnight.common.world.feature.tree.DeadTreeFeature;
-import com.mushroom.midnight.common.world.feature.tree.LargeBogshroomFeature;
-import com.mushroom.midnight.common.world.feature.tree.LargeDewshroomFeature;
-import com.mushroom.midnight.common.world.feature.tree.LargeGlobFungusFeature;
-import com.mushroom.midnight.common.world.feature.tree.LargeNightshroomFeature;
-import com.mushroom.midnight.common.world.feature.tree.LargeViridshroomFeature;
-import com.mushroom.midnight.common.world.feature.tree.MediumDewshroomFeature;
-import com.mushroom.midnight.common.world.feature.tree.MediumNightshroomFeature;
-import com.mushroom.midnight.common.world.feature.tree.MediumViridshroomFeature;
-import com.mushroom.midnight.common.world.feature.tree.ShadowrootTreeFeature;
-import com.mushroom.midnight.common.world.feature.tree.SmallBogshroomFeature;
-import com.mushroom.midnight.common.world.feature.tree.SmallDewshroomFeature;
-import com.mushroom.midnight.common.world.feature.tree.SmallNightshroomFeature;
-import com.mushroom.midnight.common.world.feature.tree.SmallViridshroomFeature;
+import com.mushroom.midnight.common.world.feature.tree.*;
 import com.mushroom.midnight.common.world.template.ShelfAttachProcessor;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -94,7 +63,6 @@ public class MidnightFeatures {
     public static final Feature<NoFeatureConfig> STINGER_EGG = new StingerEggFeature(NoFeatureConfig::deserialize);
 
     //structure
-    public static final Feature<NoFeatureConfig> WELL = new WellStructure(NoFeatureConfig::deserialize);
     public static final Feature<NoFeatureConfig> DEAD_VIRIDSHROOM_AND_CACHE = new ViridshroomCacheFeature(NoFeatureConfig::deserialize);
 
     @SubscribeEvent
@@ -137,7 +105,6 @@ public class MidnightFeatures {
                 .add("crystal_cluster", CRYSTAL_CLUSTER)
                 .add("crystal_spire", CRYSTAL_SPIRE)
                 .add("ore", ORE)
-                .add("stinger_egg", STINGER_EGG)
-                .add("well", WELL);
+                .add("stinger_egg", STINGER_EGG);
     }
 }

@@ -3,11 +3,7 @@ package com.mushroom.midnight.common.biome;
 import com.google.common.collect.ImmutableList;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.block.VioleafBlock;
-import com.mushroom.midnight.common.registry.MidnightBlocks;
-import com.mushroom.midnight.common.registry.MidnightEntities;
-import com.mushroom.midnight.common.registry.MidnightFeatures;
-import com.mushroom.midnight.common.registry.MidnightPlacements;
-import com.mushroom.midnight.common.registry.MidnightStructures;
+import com.mushroom.midnight.common.registry.*;
 import com.mushroom.midnight.common.world.feature.config.CrystalClusterConfig;
 import com.mushroom.midnight.common.world.feature.config.MidnightOreConfig;
 import com.mushroom.midnight.common.world.feature.config.UniformCompositionConfig;
@@ -17,29 +13,20 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
-import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.SingleRandomFeature;
-import net.minecraft.world.gen.feature.TwoFeatureChoiceConfig;
-import net.minecraft.world.gen.placement.ChanceConfig;
-import net.minecraft.world.gen.placement.CountRangeConfig;
-import net.minecraft.world.gen.placement.FrequencyConfig;
-import net.minecraft.world.gen.placement.HeightWithChanceConfig;
-import net.minecraft.world.gen.placement.IPlacementConfig;
-import net.minecraft.world.gen.placement.Placement;
+import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.placement.*;
 
 public class MidnightSurfaceConfigurator {
-    public static final BlockClusterFeatureConfig GHOST_PLANT_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.GHOST_PLANT.getDefaultState()), new SimpleBlockPlacer())).tries(32).build();
-    public static final BlockClusterFeatureConfig DRAGONNEST_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.DRAGON_NEST.getDefaultState()), new SimpleBlockPlacer())).tries(32).build();
-    public static final BlockClusterFeatureConfig CRYSTALFLOWER_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.CRYSTAL_FLOWER.getDefaultState()), new SimpleBlockPlacer())).tries(64).build();
+    public static final BlockClusterFeatureConfig GHOST_PLANT_CONFIG = new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.GHOST_PLANT.getDefaultState()), new SimpleBlockPlacer()).tries(32).build();
+    public static final BlockClusterFeatureConfig DRAGONNEST_CONFIG = new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.DRAGON_NEST.getDefaultState()), new SimpleBlockPlacer()).tries(32).build();
+    public static final BlockClusterFeatureConfig CRYSTALFLOWER_CONFIG = new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.CRYSTAL_FLOWER.getDefaultState()), new SimpleBlockPlacer()).tries(64).build();
 
-    public static final BlockClusterFeatureConfig TALL_GRASS_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.TALL_GRASS.getDefaultState()), new SimpleBlockPlacer())).tries(64).build();
-    public static final BlockClusterFeatureConfig GRASS_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.GRASS.getDefaultState()), new SimpleBlockPlacer())).tries(64).build();
+    public static final BlockClusterFeatureConfig TALL_GRASS_CONFIG = new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.TALL_GRASS.getDefaultState()), new SimpleBlockPlacer()).tries(64).build();
+    public static final BlockClusterFeatureConfig GRASS_CONFIG = new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.GRASS.getDefaultState()), new SimpleBlockPlacer()).tries(64).build();
 
-    public static final BlockClusterFeatureConfig BIOLEAF_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.VIOLEAF.getDefaultState().with(VioleafBlock.IS_GROWN, true)), new SimpleBlockPlacer())).tries(64).build();
-    public static final BlockClusterFeatureConfig RUNEBUSH_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.RUNEBUSH.getDefaultState()), new SimpleBlockPlacer())).tries(64).build();
-    public static final BlockClusterFeatureConfig BOGWEED_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.BOGWEED.getDefaultState()), new SimpleBlockPlacer())).tries(64).build();
+    public static final BlockClusterFeatureConfig BIOLEAF_CONFIG = new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.VIOLEAF.getDefaultState().with(VioleafBlock.IS_GROWN, true)), new SimpleBlockPlacer()).tries(64).build();
+    public static final BlockClusterFeatureConfig RUNEBUSH_CONFIG = new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.RUNEBUSH.getDefaultState()), new SimpleBlockPlacer()).tries(64).build();
+    public static final BlockClusterFeatureConfig BOGWEED_CONFIG = new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(MidnightBlocks.BOGWEED.getDefaultState()), new SimpleBlockPlacer()).tries(64).build();
 
 
     public static void addStructureFeatures(ConfigurableBiome biome) {
@@ -47,6 +34,9 @@ public class MidnightSurfaceConfigurator {
         );
 
         biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, MidnightStructures.SHADOWROOT_GUARDTOWER.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG))
+        );
+
+        biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, MidnightStructures.WELL.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG))
         );
 
     }
@@ -273,9 +263,7 @@ public class MidnightSurfaceConfigurator {
     }
 
     public static void addWell(ConfigurableBiome biome) {
-        biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES,
-                MidnightFeatures.WELL.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(MidnightPlacements.CHANCE_SURFACE.configure(new ChanceConfig(200)))
-        );
+        biome.add(MidnightStructures.WELL.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
     }
 
     public static void addShadowRootGuardTower(ConfigurableBiome biome) {
