@@ -271,7 +271,7 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
             if (state.isIn(MidnightTags.Blocks.LOGS)) return false;
             if (!state.isSolid()) return false;
             Material mat = state.getMaterial();
-            return mat == Material.ROCK || mat == Material.EARTH || mat == Material.SAND || mat == Material.CLAY;
+            return mat == Material.ROCK || mat == Material.EARTH || mat == Material.SAND || mat == Material.CLAY || mat == Material.ORGANIC;
         }
 
         private void hardenEdgeBlock(IWorld world, BlockPos pos) {
