@@ -25,6 +25,7 @@ public class MidnightCaveCarver extends CaveWorldCarver {
     public MidnightCaveCarver(Function<Dynamic<?>, ? extends ProbabilityConfig> deserialize, float radiusScale) {
         super(deserialize, 256);
         this.radiusScale = radiusScale;
+        this.carvableBlocks = ImmutableSet.of(MidnightBlocks.NIGHTSTONE, MidnightBlocks.DIRT, MidnightBlocks.GRASS_BLOCK);
         this.carvableFluids = ImmutableSet.of(MidnightFluids.FLOWING_MIASMA);
     }
 
