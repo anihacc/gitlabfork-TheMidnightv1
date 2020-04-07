@@ -4,11 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.*;
 import net.minecraft.util.ResourceLocation;
 
 import static com.mushroom.midnight.Midnight.MODID;
@@ -59,6 +55,7 @@ public class MidnightTags {
     }
 
     public static class EntityTypes {
+        public static final Tag<EntityType<?>> IGNORE_MUD = tag("ignore_mud");
 
         private static Tag<EntityType<?>> tag(String name) {
             return new EntityTypeTags.Wrapper(new ResourceLocation(MODID, name));
