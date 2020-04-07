@@ -5,10 +5,10 @@ This is the official source code repository for The Midnight mod, originally mad
 
 ### How to get to The Midnight
 
-#### For Users
+#### For Users  
 To get to the dimension, you will need to find a rift. These will spawn randomly during the night both above ground and in caves. Though before you go, make sure to be prepared! The Midnight is a hostile place.
 
-#### For Developers
+#### For Developers  
 We understand can be annoying to have to find a rift to access The Midnight every time. Here are a couple of commands to access the dimension with ease.  
 Summon a Rift entity: `/summon midnight:rift ~ ~ ~`  
 Teleport directly into The Midnight: `/forge setdimension @p midnight:midnight`
@@ -25,15 +25,15 @@ Please note that if your issue is a duplicate of anyone else's, a developer may 
 If you know what you are doing and are able to setup the development workspace by yourself, you are free to make any contributions to the mod and send them as a pull request.  
 We may not accept pull requests that feature new mechanics and features over bug and code fixes.
 
-## Where can you find us?
+## Where can you find us?  
 If you want to discuss the mod, we have a [Discord server](https://discord.gg/Rdc86yA)!  
-We have other mods we like to work on, too! You can view them by visiting our [GitHub page](https://github.com/Cryptic-Mushroom) and [Cipher_Zero_X's CurseForge page](https://www.curseforge.com/members/cipher_zero_x/projects).
+We have other mods we like to work on, too! You can view them by visiting our [GitHub page](https://github.com/Cryptic-Mushroom) and [Cipher_Zero_X's CurseForge page](https://www.curseforge.com/members/cipher_zero_x/projects).  
 If you would like to support our work, consider donating to our [Patreon](https://www.patreon.com/crypticmushroom).
 
 ### Credits  
 - **Project Leader**: [Cipher_Zero_X](https://github.com/cipherzerox)
-- **Programmers**: [gegy1000](https://github.com/gegy1000), [Martacus](https://github.com/Martacus), [arthurbambous](https://github.com/arthurbambou), [Corail31](https://github.com/Corail31), [bagu_chan](https://github.com/pentantan), [Jonathing](https://gitlab.com/Jonathing)
+- **Programmers**: [bagu_chan](https://github.com/pentantan), [RedGalaxySoftware](https://github.com/RedGalaxySW), [Jonathing](https://github.com/Jonathing), [gegy1000](https://github.com/gegy1000), [Martacus](https://github.com/Martacus), [Cat Core](https://github.com/arthurbambou), [Corail31](https://github.com/Corail31)
 - **Texturers**: [Endergized](https://github.com/Endergy), [Five (Paradiscal)](https://github.com/fivelol), [MCVinnyq](https://github.com/MCVinnyq)
 - **Modelers**: [Cipher_Zero_X](https://github.com/cipherzerox), [MCvinnnyq](https://github.com/MCVinnyq)
 - **Sound Designers**: [Lachney](https://xjon.me)
-- **Contributers and Testers**: [ZombieEnderman5](https://github.com/ZombieEnderman5), [veesus mikhel heir](https://minecraft.curseforge.com/members/veesusmikelheir), 123wdog, [Terenx](https://github.com/Terenx), [KingPhygieBoo](https://gitlab.com/KingPhygieBoo)
+- **Contributors and Testers**: [ZombieEnderman5](https://github.com/ZombieEnderman5), [veesus mikhel heir](https://minecraft.curseforge.com/members/veesusmikelheir), 123wdog, [Terenx](https://github.com/Terenx), [KingPhygieBoo](https://gitlab.com/KingPhygieBoo)
