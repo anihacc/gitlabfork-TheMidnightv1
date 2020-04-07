@@ -14,20 +14,11 @@ import com.mushroom.midnight.common.network.CaptureEntityMessage;
 import com.mushroom.midnight.common.registry.MidnightEffects;
 import com.mushroom.midnight.common.registry.MidnightSounds;
 import com.mushroom.midnight.common.util.MidnightUtil;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.entity.ai.goal.LookAtWithoutMovingGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.OpenDoorGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -78,12 +69,29 @@ public class RifterEntity extends MonsterEntity implements IEntityAdditionalSpaw
 
     private LivingEntity capturedEntity;
 
+    private float scaleModifier;
+
     public RifterEntity(EntityType<? extends RifterEntity> entityType, World world) {
         super(entityType, world);
         this.dragSolver = new DragSolver(this);
 
-        float scaleModifier = MidnightUtil.isMidnightDimension(world) ? HOME_SCALE_MODIFIER : 1.0F;
+        scaleModifier = MidnightUtil.isMidnightDimension(world) ? HOME_SCALE_MODIFIER : 1.0F;
         stepHeight = 1f;
+    }
+
+    @Override
+    public float getRenderScale() {
+        return scaleModifier;
+    }
+
+    @Override
+    public float getEyeHeight(Pose pose) {
+        return super.getEyeHeight(pose) * scaleModifier;
+    }
+
+    @Override
+    public EntitySize getSize(Pose poseIn) {
+        return super.getSize(poseIn);
     }
 
     @Override

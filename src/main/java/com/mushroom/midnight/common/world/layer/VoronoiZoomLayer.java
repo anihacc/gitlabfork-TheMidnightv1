@@ -4,9 +4,10 @@ import net.minecraft.world.gen.IExtendedNoiseRandom;
 import net.minecraft.world.gen.area.IArea;
 import net.minecraft.world.gen.layer.traits.IAreaTransformer1;
 
-public enum VoroniZoomLayer implements IAreaTransformer1 {
+public enum VoronoiZoomLayer implements IAreaTransformer1 {
     INSTANCE;
 
+    @Override
     public int func_215728_a(IExtendedNoiseRandom<?> p_215728_1_, IArea p_215728_2_, int p_215728_3_, int p_215728_4_) {
         int i = p_215728_3_ - 2;
         int j = p_215728_4_ - 2;
@@ -14,16 +15,16 @@ public enum VoroniZoomLayer implements IAreaTransformer1 {
         int l = j >> 2;
         int i1 = k << 2;
         int j1 = l << 2;
-        p_215728_1_.setPosition((long) i1, (long) j1);
+        p_215728_1_.setPosition(i1, j1);
         double d0 = ((double) p_215728_1_.random(1024) / 1024.0D - 0.5D) * 3.6D;
         double d1 = ((double) p_215728_1_.random(1024) / 1024.0D - 0.5D) * 3.6D;
-        p_215728_1_.setPosition((long) (i1 + 4), (long) j1);
+        p_215728_1_.setPosition(i1 + 4, j1);
         double d2 = ((double) p_215728_1_.random(1024) / 1024.0D - 0.5D) * 3.6D + 4.0D;
         double d3 = ((double) p_215728_1_.random(1024) / 1024.0D - 0.5D) * 3.6D;
-        p_215728_1_.setPosition((long) i1, (long) (j1 + 4));
+        p_215728_1_.setPosition(i1, j1 + 4);
         double d4 = ((double) p_215728_1_.random(1024) / 1024.0D - 0.5D) * 3.6D;
         double d5 = ((double) p_215728_1_.random(1024) / 1024.0D - 0.5D) * 3.6D + 4.0D;
-        p_215728_1_.setPosition((long) (i1 + 4), (long) (j1 + 4));
+        p_215728_1_.setPosition(i1 + 4, j1 + 4);
         double d6 = ((double) p_215728_1_.random(1024) / 1024.0D - 0.5D) * 3.6D + 4.0D;
         double d7 = ((double) p_215728_1_.random(1024) / 1024.0D - 0.5D) * 3.6D + 4.0D;
         int k1 = i & 3;
@@ -41,10 +42,12 @@ public enum VoroniZoomLayer implements IAreaTransformer1 {
         }
     }
 
+    @Override
     public int func_215721_a(int p_215721_1_) {
         return p_215721_1_ >> 2;
     }
 
+    @Override
     public int func_215722_b(int p_215722_1_) {
         return p_215722_1_ >> 2;
     }

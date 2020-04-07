@@ -4,6 +4,7 @@ import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.world.feature.structure.EntranceRiftPieces;
 import com.mushroom.midnight.common.world.feature.structure.MoltenCraterStructure;
 import com.mushroom.midnight.common.world.feature.structure.ShadowrootGuardTowerPieces;
+import com.mushroom.midnight.common.world.feature.structure.WellPieces;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.structure.IStructurePieceType;
@@ -12,6 +13,7 @@ public class MidnightStructurePieces {
     public static final IStructurePieceType MOLTEN_CRATER = register("molten_crater", MoltenCraterStructure.Piece::new);
     public static final IStructurePieceType SHADOWROOT_GUARDTOWER = register("shadowroot_guard_tower", ShadowrootGuardTowerPieces.Piece::new);
     public static final IStructurePieceType ENTRANCE_STRUCTURE = register("entrance_structure", EntranceRiftPieces.Piece::new);
+    public static final IStructurePieceType WELL = register("well", WellPieces.Piece::new);
 
 
     private static IStructurePieceType register(String key, IStructurePieceType type) {

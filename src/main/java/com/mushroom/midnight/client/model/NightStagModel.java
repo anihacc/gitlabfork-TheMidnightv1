@@ -69,7 +69,7 @@ public class NightStagModel extends QuadrupedModel<NightStagEntity> {
 
     @Override
     public void setRotationAngles(NightStagEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.headModel.rotateAngleX = (headPitch * 0.017453292f) + 0.17453292519943295f;
+        this.headModel.rotateAngleX = headPitch * 0.017453292f + 0.17453292519943295f;
         this.headModel.rotateAngleY = netHeadYaw * 0.017453292f;
         this.body.rotateAngleX = 0f;
         this.legBackRight.rotateAngleX = this.legFrontLeft.rotateAngleX = MathHelper.cos(limbSwing * 0.6662f) * 1.4f * limbSwingAmount;
@@ -86,7 +86,7 @@ public class NightStagModel extends QuadrupedModel<NightStagEntity> {
                     case ATTACK:
                         fctAnimation = MathHelper.sin((float) (progress * Math.PI));
                         this.body.rotateAngleX = fctAnimation * 0.2f;
-                        this.headModel.rotateAngleX = 0.17453292519943295f + (fctAnimation * 1.5f);
+                        this.headModel.rotateAngleX = 0.17453292519943295f + fctAnimation * 1.5f;
                         break;
                     case CURTSEY:
                         fctAnimation = MathHelper.sin((float) (progress * Math.PI));
@@ -98,7 +98,8 @@ public class NightStagModel extends QuadrupedModel<NightStagEntity> {
                         this.body.rotateAngleX = MathHelper.sin((float) (progress * Math.PI)) * 0.2f;
                         this.headModel.rotateAngleX = 0.17453292519943295f + (progress <= 0.1f ? progress * 15f : progress >= 0.9f ? (1f - progress) * 15f : 1.5f);
                         if (progress > 0.1f && progress < 0.9f) {
-                            this.headModel.rotationPointX = -partialTicks;
+                            float wobble = (progress - 0.1f) / 0.8f;
+                            this.headModel.rotateAngleX += MathHelper.sin((float) (wobble * 10 * Math.PI)) * 0.1f;
                         }
                         break;
                     case CHARGE:
