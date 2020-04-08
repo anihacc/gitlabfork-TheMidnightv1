@@ -32,7 +32,7 @@ If you would like to support our work, consider donating to our [Patreon](https:
 
 ### Credits  
 - **Project Leader**: [Cipher_Zero_X](https://github.com/cipherzerox)
-- **Programmers**: [bagu_chan](https://github.com/pentantan), [RedGalaxySoftware](https://github.com/RedGalaxySW), [Jonathing](https://github.com/Jonathing), [gegy1000](https://github.com/gegy1000), [Martacus](https://github.com/Martacus), [Cat Core](https://github.com/arthurbambou), [Corail31](https://github.com/Corail31)
+- **Programmers**: [bagu_chan](https://github.com/pentantan), [RedGalaxySW](https://github.com/RedGalaxySW), [Jonathing](https://github.com/Jonathing), [gegy1000](https://github.com/gegy1000), [Martacus](https://github.com/Martacus), [Cat Core](https://github.com/arthurbambou), [Corail31](https://github.com/Corail31)
 - **Texturers**: [Endergized](https://github.com/Endergy), [Five (Paradiscal)](https://github.com/fivelol), [MCVinnyq](https://github.com/MCVinnyq)
 - **Modelers**: [Cipher_Zero_X](https://github.com/cipherzerox), [MCvinnnyq](https://github.com/MCVinnyq)
 - **Sound Designers**: [Lachney](https://xjon.me)
