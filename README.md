@@ -25,15 +25,10 @@ Please note that if your issue is a duplicate of anyone else's, a developer may 
 If you know what you are doing and are able to setup the development workspace by yourself, you are free to make any contributions to the mod and send them as a pull request.  
 We may not accept pull requests that feature new mechanics and features over bug and code fixes.
 
-## Where can you find us?
+## Where can you find us?  
 If you want to discuss the mod, we have a [Discord server](https://discord.gg/Rdc86yA)!  
-We have other mods we like to work on, too! You can view them by visiting our [GitHub page](https://github.com/Cryptic-Mushroom) and [Cipher_Zero_X's CurseForge page](https://www.curseforge.com/members/cipher_zero_x/projects).
+We have other mods we like to work on, too! You can view them by visiting our [GitHub page](https://github.com/Cryptic-Mushroom) and [Cipher_Zero_X's CurseForge page](https://www.curseforge.com/members/cipher_zero_x/projects).  
 If you would like to support our work, consider donating to our [Patreon](https://www.patreon.com/crypticmushroom).
 
 ### Credits  
-- **Project Leader**: [Cipher_Zero_X](https://github.com/cipherzerox)
-- **Programmers**: [gegy1000](https://github.com/gegy1000), [Martacus](https://github.com/Martacus), [arthurbambous](https://github.com/arthurbambou), [Corail31](https://github.com/Corail31), [bagu_chan](https://github.com/pentantan), [Jonathing](https://gitlab.com/Jonathing)
-- **Texturers**: [Endergized](https://github.com/Endergy), [Five (Paradiscal)](https://github.com/fivelol), [MCVinnyq](https://github.com/MCVinnyq)
-- **Modelers**: [Cipher_Zero_X](https://github.com/cipherzerox), [MCvinnnyq](https://github.com/MCVinnyq)
-- **Sound Designers**: [Lachney](https://xjon.me)
-- **Contributers and Testers**: [ZombieEnderman5](https://github.com/ZombieEnderman5), [veesus mikhel heir](https://minecraft.curseforge.com/members/veesusmikelheir), 123wdog, [Terenx](https://github.com/Terenx), [KingPhygieBoo](https://gitlab.com/KingPhygieBoo)
+All credits can be found on the current default branch.
