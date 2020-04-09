@@ -10,7 +10,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.structure.StructurePiece;
 import net.minecraft.world.gen.feature.structure.TemplateStructurePiece;
@@ -78,7 +77,7 @@ public class WellPieces {
                     .addProcessor(BlockIgnoreStructureProcessor.AIR_AND_STRUCTURE_BLOCK);
 
             BlockPos origin = this.templatePosition.add(Template.transformedBlockPos(settings, new BlockPos(5, 0, 3)));
-            int height = world.getHeight(Heightmap.Type.WORLD_SURFACE_WG, origin.getX(), origin.getZ());
+            int height = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE_WG, origin.getX(), origin.getZ());
 
             BlockPos templateOrigin = this.templatePosition;
 
