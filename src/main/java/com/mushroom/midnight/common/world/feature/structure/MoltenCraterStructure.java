@@ -2,12 +2,15 @@ package com.mushroom.midnight.common.world.feature.structure;
 
 import com.mojang.datafixers.Dynamic;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
+import com.mushroom.midnight.common.registry.MidnightFluids;
 import com.mushroom.midnight.common.registry.MidnightStructurePieces;
+import com.mushroom.midnight.common.registry.MidnightTags;
 import com.mushroom.midnight.common.world.MidnightChunkGenerator;
 import com.mushroom.midnight.common.world.noise.INoiseSampler;
 import com.mushroom.midnight.common.world.noise.PerlinNoiseSampler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.material.Material;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
@@ -261,9 +264,18 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
             }
         }
 
+        private boolean canHarden(BlockState state) {
+            if (state.isIn(MidnightTags.Blocks.FUNGI_HATS)) return false;
+            if (state.isIn(MidnightTags.Blocks.FUNGI_STEMS)) return false;
+            if (state.isIn(MidnightTags.Blocks.LOGS)) return false;
+            if (!state.isSolid()) return false;
+            Material mat = state.getMaterial();
+            return mat == Material.ROCK || mat == Material.EARTH || mat == Material.SAND || mat == Material.CLAY || mat == Material.ORGANIC;
+        }
+
         private void hardenEdgeBlock(IWorld world, BlockPos pos) {
             BlockState currentState = world.getBlockState(pos);
-            if (currentState.isSolid()) {
+            if (canHarden(currentState)) {
                 world.setBlockState(pos, SURFACE, Constants.BlockFlags.BLOCK_UPDATE);
             }
         }
@@ -288,6 +300,9 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
                             BlockState state = this.selectSurfaceState(random);
                             if (state != null) {
                                 world.setBlockState(mutablePos, state, Constants.BlockFlags.BLOCK_UPDATE);
+                                if( state == MIASMA ) {
+                                    world.getPendingFluidTicks().scheduleTick( mutablePos, MidnightFluids.MIASMA, 0 );
+                                }
                             }
                         }
                     }

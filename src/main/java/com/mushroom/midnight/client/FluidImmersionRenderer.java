@@ -47,6 +47,19 @@ public class FluidImmersionRenderer {
     }
 
     @SubscribeEvent
+    public static void onSetupFogColor(EntityViewRenderEvent.RenderFogEvent.FogColors event) {
+        // Update immersed fluid here too to prevent orange flash when entering miasma
+        ActiveRenderInfo activeRenderInfo = CLIENT.gameRenderer.getActiveRenderInfo();
+        immersedFluid = activeRenderInfo.getFluidState();
+
+        if (immersedFluid.getFluid() instanceof MiasmaFluid) {
+            event.setRed(161 / 255F);
+            event.setGreen(197 / 255F);
+            event.setBlue(247 / 255F);
+        }
+    }
+
+    @SubscribeEvent
     public static void onRenderBlockOverlay(RenderBlockOverlayEvent event) {
         if (immersedFluid.getFluid() instanceof DarkWaterFluid) {
             renderOverlay(DARK_WATER_OVERLAY);

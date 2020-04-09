@@ -17,6 +17,7 @@ import javax.annotation.Nullable;
 public class CrystalotusBlock extends BushBlock {
 
     private static final VoxelShape BOUNDS = makeCuboidShape(1.0, 0.0, 1.0, 15.0, 12.0, 15.0);
+    private static final VoxelShape COLLISION_BOX = makeCuboidShape(6.0, 0.0, 6.0, 10.0, 3.0, 10.0);
 
     public CrystalotusBlock() {
         super(Properties.create(Material.PLANTS).hardnessAndResistance(2f, 0f).sound(SoundType.GLASS).tickRandomly().lightValue(3));
@@ -47,6 +48,11 @@ public class CrystalotusBlock extends BushBlock {
     @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
         return BOUNDS;
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return COLLISION_BOX;
     }
 
     @Override

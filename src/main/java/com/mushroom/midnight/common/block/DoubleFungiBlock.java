@@ -36,7 +36,7 @@ public class DoubleFungiBlock extends MidnightDoublePlantBlock {
 
     @Override
     public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
-        return true;
+        return this.tree != null;
     }
 
     @Override

@@ -37,6 +37,10 @@ public class MidnightSurfaceConfigurator {
         biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(
                 MidnightStructures.SHADOWROOT_GUARDTOWER, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG)
         );
+
+        biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(
+                MidnightStructures.WELL, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG)
+        );
     }
 
     public static void addMoltenCrater(ConfigurableBiome biome) {
@@ -328,10 +332,7 @@ public class MidnightSurfaceConfigurator {
     }
 
     public static void addWell(ConfigurableBiome biome) {
-        biome.add(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(
-                MidnightFeatures.WELL, IFeatureConfig.NO_FEATURE_CONFIG,
-                MidnightPlacements.CHANCE_SURFACE, new ChanceConfig(200))
-        );
+        biome.add(MidnightStructures.WELL, IFeatureConfig.NO_FEATURE_CONFIG);
     }
 
     public static void addShadowRootGuardTower(ConfigurableBiome biome) {

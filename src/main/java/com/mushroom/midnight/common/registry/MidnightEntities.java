@@ -53,7 +53,7 @@ public class MidnightEntities {
             .setTrackingRange(80)
             .setUpdateInterval(3)
             .setShouldReceiveVelocityUpdates(true)
-            .size(0.6f, 1.8f)
+            .size(0.6f, 1.9f)
             .build(MODID + ":rifter");
     public static final EntityType<HunterEntity> HUNTER = EntityType.Builder.create(HunterEntity::new, MIDNIGHT_MOB)
             .setTrackingRange(80)
@@ -154,7 +154,7 @@ public class MidnightEntities {
             .build(MODID + ":cloud");
 
     @SubscribeEvent
-    public static void onRegisterEntities(final RegistryEvent.Register<EntityType<?>> event) {
+    public static void onRegisterEntities(RegistryEvent.Register<EntityType<?>> event) {
         RIFT.setRegistryName(MODID, "rift");
         event.getRegistry().register(RIFT);
         RIFTER.setRegistryName(MODID, "rifter");

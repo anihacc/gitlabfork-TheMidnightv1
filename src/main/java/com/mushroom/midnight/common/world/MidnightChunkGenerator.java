@@ -111,16 +111,14 @@ public class MidnightChunkGenerator  extends NoiseChunkGenerator<MidnightChunkGe
 
     @Override
     protected void makeBedrock(IChunk chunkIn, Random rand) {
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
-        int i = chunkIn.getPos().getXStart();
-        int j = chunkIn.getPos().getZStart();
-//        GenerationSettings t = this.getSettings();
-        int l = 1;
+        BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+        int x = chunkIn.getPos().getXStart();
+        int z = chunkIn.getPos().getZStart();
 
-        for(BlockPos blockpos : BlockPos.getAllInBoxMutable(i, 0, j, i + 15, 0, j + 15)) {
-            for(int i1 = l; i1 >= l - 4; --i1) {
-                if (i1 >= l - rand.nextInt(5)) {
-                    chunkIn.setBlockState(blockpos$mutableblockpos.setPos(blockpos.getX(), i1, blockpos.getZ()), Blocks.BEDROCK.getDefaultState(), false);
+        for (BlockPos pos : BlockPos.getAllInBoxMutable(x, 0, z, x + 15, 0, z + 15)) {
+            for (int y = 0; y < 5; y++) {
+                if (y <= rand.nextInt(5)) {
+                    chunkIn.setBlockState(mutable.setPos(pos.getX(), y, pos.getZ()), Blocks.BEDROCK.getDefaultState(), false);
                 }
             }
         }

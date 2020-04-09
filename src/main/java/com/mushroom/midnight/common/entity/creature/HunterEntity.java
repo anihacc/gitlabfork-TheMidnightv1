@@ -91,7 +91,7 @@ public class HunterEntity extends MonsterEntity implements IFlyingAnimal {
         this.getAttributes().registerAttribute(SharedMonsterAttributes.FLYING_SPEED);
         this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0);
         this.getAttribute(SharedMonsterAttributes.FLYING_SPEED).setBaseValue(0.12);
-        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(48.0);
+        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(38.0);
         this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0);
     }
 

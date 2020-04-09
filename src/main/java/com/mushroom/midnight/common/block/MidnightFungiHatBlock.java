@@ -53,10 +53,12 @@ public class MidnightFungiHatBlock extends Block {
         if (stack.getItem() == Items.SHEARS) {
             if (!world.isRemote) {
                 BooleanProperty faceProperty = getFaceProperty(hitResult.getFace());
-                world.setBlockState(pos, state.with(faceProperty, true), 11);
+                if (!state.get(faceProperty)) {
+                    world.setBlockState(pos, state.with(faceProperty, true), 11);
 
-                world.playSound(null, pos, SoundEvents.BLOCK_PUMPKIN_CARVE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                stack.damageItem(1, player, p -> p.sendBreakAnimation(hand));
+                    world.playSound(null, pos, SoundEvents.BLOCK_PUMPKIN_CARVE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    stack.damageItem(1, player, p -> p.sendBreakAnimation(hand));
+                }
             }
 
             return true;

@@ -7,34 +7,20 @@ import com.mushroom.midnight.common.entity.IRiftTraveler;
 import com.mushroom.midnight.common.entity.RiftEntity;
 import com.mushroom.midnight.common.entity.RiftTravelEntry;
 import com.mushroom.midnight.common.entity.TargetIdleTracker;
-import com.mushroom.midnight.common.entity.task.RifterCaptureGoalGoal;
-import com.mushroom.midnight.common.entity.task.RifterKeepNearRiftGoal;
-import com.mushroom.midnight.common.entity.task.RifterMeleeGoal;
-import com.mushroom.midnight.common.entity.task.RifterReturnGoal;
-import com.mushroom.midnight.common.entity.task.RifterTeleportGoal;
-import com.mushroom.midnight.common.entity.task.RifterTransportGoal;
+import com.mushroom.midnight.common.entity.task.*;
 import com.mushroom.midnight.common.entity.util.DragSolver;
 import com.mushroom.midnight.common.entity.util.EntityReference;
 import com.mushroom.midnight.common.event.RifterCaptureEvent;
 import com.mushroom.midnight.common.event.RifterReleaseEvent;
-import com.mushroom.midnight.common.util.MidnightUtil;
 import com.mushroom.midnight.common.network.CaptureEntityMessage;
 import com.mushroom.midnight.common.registry.MidnightEffects;
 import com.mushroom.midnight.common.registry.MidnightSounds;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.SpawnReason;
+import com.mushroom.midnight.common.util.MidnightUtil;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.entity.ai.goal.LookAtWithoutMovingGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.OpenDoorGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -54,11 +40,7 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 import javax.annotation.Nullable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class RifterEntity extends MonsterEntity implements IRiftTraveler, IEntityAdditionalSpawnData {
     public static final float HOME_SCALE_MODIFIER = 1.4F;
@@ -88,13 +70,30 @@ public class RifterEntity extends MonsterEntity implements IRiftTraveler, IEntit
 
     private LivingEntity capturedEntity;
 
+    private float scaleModifier;
+
     public RifterEntity(EntityType<? extends RifterEntity> entityType, World world) {
         super(entityType, world);
         this.homeRift = new EntityReference<>(world);
         this.dragSolver = new DragSolver(this);
 
-        float scaleModifier = MidnightUtil.isMidnightDimension(world) ? HOME_SCALE_MODIFIER : 1.0F;
+        scaleModifier = MidnightUtil.isMidnightDimension(world) ? HOME_SCALE_MODIFIER : 1.0F;
         stepHeight = 1f;
+    }
+
+    @Override
+    public float getRenderScale() {
+        return scaleModifier;
+    }
+
+    @Override
+    public float getEyeHeight(Pose pose) {
+        return super.getEyeHeight(pose) * scaleModifier;
+    }
+
+    @Override
+    public EntitySize getSize(Pose poseIn) {
+        return super.getSize(poseIn);
     }
 
     @Override

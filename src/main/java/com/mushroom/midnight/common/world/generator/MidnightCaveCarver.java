@@ -1,7 +1,9 @@
 package com.mushroom.midnight.common.world.generator;
 
+import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.Dynamic;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
+import com.mushroom.midnight.common.registry.MidnightFluids;
 import com.mushroom.midnight.common.world.MidnightChunkGenerator;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -23,6 +25,8 @@ public class MidnightCaveCarver extends CaveWorldCarver {
     public MidnightCaveCarver(Function<Dynamic<?>, ? extends ProbabilityConfig> deserialize, float radiusScale) {
         super(deserialize, 256);
         this.radiusScale = radiusScale;
+        this.carvableBlocks = ImmutableSet.of(MidnightBlocks.NIGHTSTONE, MidnightBlocks.DIRT, MidnightBlocks.GRASS_BLOCK);
+        this.carvableFluids = ImmutableSet.of(MidnightFluids.FLOWING_MIASMA);
     }
 
     @Override
@@ -53,6 +57,21 @@ public class MidnightCaveCarver extends CaveWorldCarver {
         }
 
         return true;
+    }
+
+//    protected boolean doesAdjacentBlockPreventCarving(BlockState state, boolean miasmaHeight) {
+//        if (miasmaHeight && state.getBlock() == MidnightBlocks.MIASMA) return false;
+//        Material material = state.getMaterial();
+//        return material == Material.WATER || material == Material.LAVA || miasmaHeight && material == Material.AIR;
+//    }
+
+    @Override
+    protected boolean func_222706_a(BlockState state) {
+        if (state.getBlock() == Blocks.BEDROCK) return false;
+
+        Material material = state.getMaterial();
+        return (material == Material.ROCK || material == Material.EARTH || material == Material.ORGANIC)
+                && material != Material.WATER && material != Material.LAVA;
     }
 
     @Override
