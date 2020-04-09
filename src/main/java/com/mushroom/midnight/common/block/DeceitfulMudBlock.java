@@ -1,6 +1,7 @@
 package com.mushroom.midnight.common.block;
 
 import com.mushroom.midnight.common.registry.MidnightSounds;
+import com.mushroom.midnight.common.registry.MidnightTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -33,6 +34,8 @@ public class DeceitfulMudBlock extends SoilBlock {
 
     @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        entity.setMotion(entity.getMotion().mul(0.6d, 1d, 0.6d));
+        if (!entity.getType().isContained(MidnightTags.EntityTypes.IGNORE_MUD)) {
+            entity.setMotion(entity.getMotion().mul(0.6d, 1d, 0.6d));
+        }
     }
 }

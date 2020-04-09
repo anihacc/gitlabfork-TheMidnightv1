@@ -59,6 +59,7 @@ public class MidnightTags {
     }
 
     public static class EntityTypes {
+        public static final Tag<EntityType<?>> IGNORE_MUD = tag("ignore_mud");
 
         private static Tag<EntityType<?>> tag(String name) {
             return new EntityTypeTags.Wrapper(new ResourceLocation(MODID, name));
