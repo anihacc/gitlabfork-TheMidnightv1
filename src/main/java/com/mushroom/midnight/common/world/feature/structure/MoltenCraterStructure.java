@@ -2,6 +2,7 @@ package com.mushroom.midnight.common.world.feature.structure;
 
 import com.mojang.datafixers.Dynamic;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
+import com.mushroom.midnight.common.registry.MidnightFluids;
 import com.mushroom.midnight.common.registry.MidnightStructurePieces;
 import com.mushroom.midnight.common.world.MidnightChunkGenerator;
 import com.mushroom.midnight.common.world.noise.INoiseSampler;
@@ -288,6 +289,9 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
                             BlockState state = this.selectSurfaceState(random);
                             if (state != null) {
                                 world.setBlockState(mutablePos, state, Constants.BlockFlags.BLOCK_UPDATE);
+                                if( state == MIASMA ) {
+                                    world.getPendingFluidTicks().scheduleTick( mutablePos, MidnightFluids.MIASMA, 0 );
+                                }
                             }
                         }
                     }
