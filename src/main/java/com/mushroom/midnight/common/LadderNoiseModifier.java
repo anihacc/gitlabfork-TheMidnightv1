@@ -9,7 +9,7 @@ public final class LadderNoiseModifier {
     private LadderNoiseModifier() {
     }
 
-    public static boolean modifyLadderNoises( BlockState block, BlockPos pos, Entity e) {
+    public static boolean modifyLadderNoises(BlockState block, BlockPos pos, Entity e) {
         LivingEntity le = null;
         if (e instanceof LivingEntity) {
             le = (LivingEntity) e;
