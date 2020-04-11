@@ -22,7 +22,7 @@
     "sounds": [
       {
         "name": "midnight:ambient/cave_idle",
-        "stream": true
+        "stream": false
       }
     ]
   },
