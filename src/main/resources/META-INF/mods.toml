@@ -7,14 +7,14 @@ modId="midnight"
 version="${file.jarVersion}"
 displayName="The Midnight"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/the-midnight"
-updateJSONURL="https://gist.githubusercontent.com/gegy1000/a3f1f593c43f88d7f01a3560ac32e216/raw/midnight_updates.json"
+#updateJSONURL=""
 logoFile="logo.png"
 credits=""
-authors="cipherzerox, Endergized, Lachney, Gegy, Corail31, Martacus"
+authors="cipherzerox, bagu_chan, RedGalaxySW, Jonathing, Endergized, Lachney, Gegy, Corail31, Martacus"
 description='''
 The Midnight adds a brand new dimension to explore full of unique adventures and dangers!
 It's a dimension of perpetual darkness; the only light comes from crystals and the various flora and fauna of the dimension.
-You may travel willingly to this dimension, though you may unwillingly be dragged by a Rifter into this strange, hostile world.
+You may travel willingly to this dimension, though you may unwillingly be dragged by a Rifter into this strange, hostile world...
 '''
 
 [[dependencies.midnight]]
