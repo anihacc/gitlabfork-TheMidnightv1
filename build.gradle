@@ -11,7 +11,7 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle'
 
-version = "0.5.5"
+version = "0.5.6"
 group = "com.mushroom.midnight"
 archivesBaseName = "themidnight"
 
