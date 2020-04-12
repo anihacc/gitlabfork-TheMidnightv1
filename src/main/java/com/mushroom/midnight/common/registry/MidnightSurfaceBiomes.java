@@ -6,10 +6,6 @@ import com.mushroom.midnight.common.biome.MidnightBiomeGroup;
 import com.mushroom.midnight.common.biome.surface.*;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.placement.IPlacementConfig;
-import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -107,24 +103,4 @@ public class MidnightSurfaceBiomes {
                 .map(Map.Entry::getValue);
     }
 
-    public static void initStructures()
-    {
-        for(Biome biome : ForgeRegistries.BIOMES.getValues())
-        {
-            if (!BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
-                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)
-                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.VOID)
-                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
-                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
-                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.MUSHROOM)
-                    && (    biome.getRegistryName().getNamespace().equals("minecraft"))
-                        || (biome.getRegistryName().getNamespace().equals("midnight"))
-                        || (biome.getRegistryName().getNamespace().equals("biomesoplenty"))
-                        )
-            {
-                biome.addStructure(MidnightStructures.ENTRANCE_RIFT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
-                biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, MidnightStructures.ENTRANCE_RIFT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
-            }
-        }
-    }
 }
