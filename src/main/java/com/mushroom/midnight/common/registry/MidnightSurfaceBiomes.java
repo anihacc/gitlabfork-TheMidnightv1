@@ -116,6 +116,7 @@ public class MidnightSurfaceBiomes {
                     && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.VOID)
                     && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
                     && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
+                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.MUSHROOM)
                     && (    biome.getRegistryName().getNamespace().equals("minecraft"))
                         || (biome.getRegistryName().getNamespace().equals("midnight"))
                         || (biome.getRegistryName().getNamespace().equals("biomesoplenty"))
