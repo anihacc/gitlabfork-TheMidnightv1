@@ -7,6 +7,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ILightReader;
+import net.minecraft.world.IWorldReader;
+
+import javax.annotation.Nullable;
 
 public class MidnightGlassBlock extends GlassBlock {
     public MidnightGlassBlock() {
@@ -16,5 +19,16 @@ public class MidnightGlassBlock extends GlassBlock {
     @Override
     public boolean shouldDisplayFluidOverlay(BlockState state, ILightReader world, BlockPos pos, IFluidState fluidState) {
         return true;
+    }
+
+
+    private static final float[] BEACON_COLOR = {
+            177 / 255F, 143 / 255F, 217 / 255F
+    };
+
+    @Nullable
+    @Override
+    public float[] getBeaconColorMultiplier(BlockState state, IWorldReader world, BlockPos pos, BlockPos beaconPos) {
+        return BEACON_COLOR;
     }
 }
