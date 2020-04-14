@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.Mod;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.mushroom.midnight.Midnight.MODID;
@@ -79,6 +80,7 @@ public class MidnightConfig {
     public static class CatClient {
         public final ForgeConfigSpec.ConfigValue<Boolean> hideVignetteEffect;
         public final ForgeConfigSpec.ConfigValue<Boolean> riftShaders;
+        public final ForgeConfigSpec.ConfigValue<ShaderMode> shaderMode;
 
         public CatClient(ForgeConfigSpec.Builder builder) {
             builder.comment("All the options that can be modified by players on server.").push("client");
@@ -90,6 +92,19 @@ public class MidnightConfig {
                     .comment("If true, rifts will be rendered with custom shaders for standard effects. If false, a simpler (motionless) texture will be rendered. Default=true")
                     .translation(getTranslation("rift_shaders"))
                     .define("rift_shaders", true);
+
+            shaderMode = builder
+                    .comment(
+                            "Sets how post-processing shaders are being rendered.",
+                            "ALWAYS: Post-FX shaders render everywhere, always, in every dimension.",
+                            "MIDNIGHT_OR_NEEDED: Post-FX shaders render when being forced, and everywhere in the Midnight.",
+                            "MIDNIGHT_ONLY: Post-FX shaders render everywhere in the Midnight only.",
+                            "NEEDED: Post-FX shaders render when being forced only.",
+                            "OFF: Post-FX shaders don't render.",
+                            "Default=ALWAYS"
+                    )
+                    .translation(getTranslation("shader_mode"))
+                    .defineInList("shader_mode", ShaderMode.ALWAYS, Arrays.asList(ShaderMode.values()));
             builder.pop();
         }
     }
@@ -102,7 +117,7 @@ public class MidnightConfig {
     public static final CatClient client;
 
     static {
-        final Pair<CatClient, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(CatClient::new);
+        Pair<CatClient, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(CatClient::new);
         CLIENT_SPEC = specPair.getRight();
         client = specPair.getLeft();
     }

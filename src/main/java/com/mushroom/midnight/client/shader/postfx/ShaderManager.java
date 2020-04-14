@@ -12,6 +12,8 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.ClientProxy;
+import com.mushroom.midnight.common.config.MidnightConfig;
+import com.mushroom.midnight.common.config.ShaderMode;
 import com.mushroom.midnight.common.util.IShaderDimension;
 import com.mushroom.midnight.common.util.reflect.MethodAccessor;
 import net.minecraft.client.Minecraft;
@@ -28,12 +30,10 @@ import org.lwjgl.opengl.*;
 
 import java.util.function.Predicate;
 
-// TODO: Configurations for shaders
 public class ShaderManager implements ISelectiveResourceReloadListener {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final int MIN_REQUIRED_TEX_UNITS = 6;
 
-    //    private static final MethodAccessor<GameRenderer, Void> setupCameraTransformMethod = new MethodAccessor<>(GameRenderer.class, "func_195460_g", float.class);
     private static final MethodAccessor<GameRenderer, Void> renderHandMethod = new MethodAccessor<>(GameRenderer.class, "func_228381_a_", MatrixStack.class, ActiveRenderInfo.class, float.class);
 
     private final Minecraft mc = Minecraft.getInstance();
@@ -62,7 +62,14 @@ public class ShaderManager implements ISelectiveResourceReloadListener {
     }
 
     public boolean shouldUseShaders() {
-        return required || mc.world != null && mc.world.dimension instanceof IShaderDimension;
+        ShaderMode mode = MidnightConfig.client.shaderMode.get();
+        if (mode == ShaderMode.ALWAYS) return true;
+        if (mode == ShaderMode.OFF) return false; // Would be returned anyways but we can skip some computing by this
+
+        boolean req = required && mode.isNeeded();
+        boolean dim = mc.world != null && mc.world.dimension instanceof IShaderDimension && mode.isDimens();
+
+        return req || dim;
     }
 
     public void updateShaders(float partialTicks, MatrixStack mvStack) {
@@ -156,10 +163,16 @@ public class ShaderManager implements ISelectiveResourceReloadListener {
         return supportsFloatbuffer;
     }
 
+    /**
+     * Marks that shaders should be rendered regardless of the dimension checks
+     */
     public static void require() {
         get().required = true;
     }
 
+    /**
+     * Adds a light source to render
+     */
     public static void addLight(LightSource src) {
         get().mainShader.addLight(src);
     }

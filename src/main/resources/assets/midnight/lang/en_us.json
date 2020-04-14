@@ -469,19 +469,16 @@
   "config_cat.midnight.general.tooltip": "All the options that can only be set on the server.",
   "config_cat.midnight.client": "Client",
   "config_cat.midnight.client.tooltip": "All the options that can be modified by players on server.",
-
   "config.midnight.midnight_dimension_id": "Midnight Dimension ID",
   "config.midnight.midnight_dimension_id.tooltip": "The ID to be used for the Midnight Dimension.",
-
   "config.midnight.rift_shaders": "Rift Shaders",
   "config.midnight.rift_shaders.tooltip": "If true, rifts will be rendered with custom shaders for standard effects. If false, a simpler (motionless) texture will be rendered.",
-
+  "config.midnight.shader_mode": "Post-FX Shader Mode",
+  "config.midnight.shader_mode.tooltip": "Sets how post-processing shaders are being rendered.\nALWAYS: Post-FX shaders render everywhere, always, in every dimension.\nMIDNIGHT_OR_NEEDED: Post-FX shaders render when being forced, and everywhere in the Midnight.\nMIDNIGHT_ONLY: Post-FX shaders render everywhere in the Midnight only.\nNEEDED: Post-FX shaders render when being forced only.\nOFF: Post-FX shaders don't render.",
   "config.midnight.bladeshroom_damage_chance": "Bladeshroom Damage Chance",
   "config.midnight.bladeshroom_damage_chance.tooltip": "The chance to take a small amount of damage when picking a bladeshroom cap as a percentage. If 0, this is disabled.",
-
   "config.midnight.can_respawn_in_midnight": "Allow players to respawn in Midnight",
   "config.midnight.can_respawn_in_midnight.tooltip": "If true, players will respawn in Midnight after dying in the dimension.",
-
   "config.midnight.hide_vignette_effect": "Hide the vignette effect",
   "config.midnight.hide_vignette_effect.tooltip": "Hides the vignette effect in the darker areas of Midnight.",
 
