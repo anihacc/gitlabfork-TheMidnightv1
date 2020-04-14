@@ -2,10 +2,12 @@ package com.mushroom.midnight.client;
 
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.render.block.BlockRenderLayer;
+import com.mushroom.midnight.client.shader.postfx.ShaderManager;
 import com.mushroom.midnight.common.util.IProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.entity.Entity;
+import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -20,13 +22,24 @@ import static com.mushroom.midnight.Midnight.MODID;
 public class ClientProxy implements IProxy {
     private static final Minecraft MC = Minecraft.getInstance();
 
+    private final ShaderManager shaderManager = new ShaderManager();
+
+    public ClientProxy() {
+        IReloadableResourceManager resMgr = (IReloadableResourceManager) MC.getResourceManager();
+        addReloadListeners(resMgr);
+    }
+
     @Override
     public boolean isClientPlayer(Entity entity) {
         return entity == MC.player;
     }
 
-    public static void setup(final FMLCommonSetupEvent event) {
+    public static void setup(FMLCommonSetupEvent event) {
         BlockRenderLayer.renderBlock();
+    }
+
+    private void addReloadListeners(IReloadableResourceManager resMgr) {
+        resMgr.addReloadListener(shaderManager);
     }
 
     @SubscribeEvent
@@ -54,5 +67,9 @@ public class ClientProxy implements IProxy {
             event.addSprite(new ResourceLocation(MODID, "entities/chest/bogshroom_chest_left"));
             event.addSprite(new ResourceLocation(MODID, "entities/chest/bogshroom_chest"));
         }
+    }
+
+    public ShaderManager getShaderManager() {
+        return shaderManager;
     }
 }

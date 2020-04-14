@@ -6,10 +6,12 @@ import com.mushroom.midnight.client.model.BulbAnglerModel;
 import com.mushroom.midnight.common.entity.creature.BulbAnglerEntity;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.client.renderer.culling.ClippingHelperImpl;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.AbstractEyesLayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 
 import javax.annotation.Nullable;
 
@@ -28,6 +30,8 @@ public class BulbAnglerRenderer extends MobRenderer<BulbAnglerEntity, BulbAngler
                 return eye_renderType;
             }
         });
+
+        this.addLayer(new BulbAnglerGlowLayer(this));
     }
 
 
@@ -56,8 +60,7 @@ public class BulbAnglerRenderer extends MobRenderer<BulbAnglerEntity, BulbAngler
     protected void applyRotations(BulbAnglerEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
         super.applyRotations(entityLiving, matrixStackIn, ageInTicks, rotationYaw, partialTicks);
         if (!entityLiving.isInWater()) {
-            matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90.0F));
-
+            matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90f));
         }
     }
 
@@ -65,5 +68,21 @@ public class BulbAnglerRenderer extends MobRenderer<BulbAnglerEntity, BulbAngler
     @Override
     protected float getDeathMaxRotation(BulbAnglerEntity entity) {
         return 180f;
+    }
+
+    @Override
+    public boolean shouldRender(BulbAnglerEntity entity, ClippingHelperImpl camera, double camX, double camY, double camZ) {
+        if (!entity.isInRangeToRender3d(camX, camY, camZ)) {
+            return false;
+        } else if (entity.ignoreFrustumCheck) {
+            return true;
+        } else {
+            AxisAlignedBB axisalignedbb = entity.getRenderBoundingBox().grow(4.5); // Extra grow size for shader light
+            if (axisalignedbb.hasNaN() || axisalignedbb.getAverageEdgeLength() == 0.0) {
+                axisalignedbb = new AxisAlignedBB(entity.getPosX() - 2, entity.getPosY() - 2, entity.getPosZ() - 2, entity.getPosX() + 2, entity.getPosY() + 2, entity.getPosZ() + 2);
+            }
+
+            return camera.isBoundingBoxInFrustum(axisalignedbb);
+        }
     }
 }

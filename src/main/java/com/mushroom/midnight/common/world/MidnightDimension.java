@@ -5,6 +5,7 @@ import com.mushroom.midnight.common.biome.BiomeLayerType;
 import com.mushroom.midnight.common.biome.BiomeLayers;
 import com.mushroom.midnight.common.biome.cavern.CavernousBiome;
 import com.mushroom.midnight.common.config.MidnightConfig;
+import com.mushroom.midnight.common.util.IShaderDimension;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.entity.effect.LightningBoltEntity;
@@ -30,7 +31,7 @@ import net.minecraftforge.client.IRenderHandler;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class MidnightDimension extends Dimension {
+public class MidnightDimension extends Dimension implements IShaderDimension {
     public MidnightDimension(World world, DimensionType type) {
         super(world, type, 0.0F);
 
@@ -109,6 +110,7 @@ public class MidnightDimension extends Dimension {
         return false;
     }
 
+    @Override
     @Nullable
     @OnlyIn(Dist.CLIENT)
     public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks) {

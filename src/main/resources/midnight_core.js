@@ -34,6 +34,13 @@ function initializeCoreMod() {
                 "name": "net.minecraft.entity.Entity"
             },
             "transformer": patch_ladder_noises
+        },
+        "RenderShaders": {
+            target: {
+                type: "CLASS",
+                name: "net/minecraft/client/renderer/GameRenderer"
+            },
+            transformer: patch_postfx_shaders
         }
     }
 }
@@ -143,6 +150,29 @@ function patch_ladder_noises(class_node) {
     instructions.insertBefore(target, insert);
 
     return class_node;
+}
+
+function patch_postfx_shaders(node) {
+    var api = Java.type('net.minecraftforge.coremod.api.ASMAPI');
+
+    var update_camera_and_render_method = api.mapMethod("func_195458_a");
+    var render_entity_outline_framebuffer_method = api.mapMethod("func_174975_c");
+
+    var method = get_method(node, update_camera_and_render_method);
+
+    for (var i = 0; i < method.instructions.size(); i ++) {
+        var insn = method.instructions.get(i);
+        if (insn instanceof MethodInsnNode) {
+            if (insn.name.equals(render_entity_outline_framebuffer_method) && insn.desc.equals("()V") && insn.owner.equals("net/minecraft/client/renderer/WorldRenderer")) {
+                method.instructions.insertBefore(insn, new VarInsnNode(Opcodes.FLOAD, 1));
+                method.instructions.insertBefore(insn, new VarInsnNode(Opcodes.ALOAD, 7));
+                method.instructions.insertBefore(insn, new MethodInsnNode(Opcodes.INVOKESTATIC, "com/mushroom/midnight/client/shader/postfx/ShaderManager", "renderShadersHook", "(FLcom/mojang/blaze3d/matrix/MatrixStack;)V", false));
+                break;
+            }
+        }
+    }
+
+    return node;
 }
 
 function get_method(class_node, name) {

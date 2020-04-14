@@ -1,6 +1,8 @@
 package com.mushroom.midnight.client.model;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mushroom.midnight.common.entity.creature.BulbAnglerEntity;
 import net.minecraft.client.renderer.entity.model.SegmentedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
@@ -75,7 +77,11 @@ public class BulbAnglerModel extends SegmentedModel<BulbAnglerEntity> {
 
         this.animator.swing(this.body2, 0.125F, 0.125F, true, 0.0F, 0.0F, age, 1.0F);
         this.animator.swing(this.tail, 0.125F, 0.15F, true, 0.0F, 0.0F, age, 1.0F);
+    }
 
+    @Override
+    public void render(MatrixStack stack, IVertexBuilder buff, int light, int overlay, float red, float green, float blue, float alpha) {
+        super.render(stack, buff, light, overlay, red, green, blue, alpha);
     }
 
     public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
