@@ -32,10 +32,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityViewRenderEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderHandEvent;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -261,9 +258,16 @@ public class ClientEventHandler {
         ShaderManager.get().updateShaders(event.getPartialTicks(), event.getMatrixStack());
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onRenderHand(RenderHandEvent event) {
         if (ShaderManager.get().useShaders() && ShaderManager.get().renderingOverlays()) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void onRenderBlockOverlay(RenderBlockOverlayEvent event) {
+        if (ShaderManager.get().useShaders() && !ShaderManager.get().renderingOverlays()) {
             event.setCanceled(true);
         }
     }
