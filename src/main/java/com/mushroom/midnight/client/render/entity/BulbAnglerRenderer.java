@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.culling.ClippingHelperImpl;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.AbstractEyesLayer;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 
@@ -72,17 +73,25 @@ public class BulbAnglerRenderer extends MobRenderer<BulbAnglerEntity, BulbAngler
 
     @Override
     public boolean shouldRender(BulbAnglerEntity entity, ClippingHelperImpl camera, double camX, double camY, double camZ) {
+        boolean render;
         if (!entity.isInRangeToRender3d(camX, camY, camZ)) {
-            return false;
+            render = false;
         } else if (entity.ignoreFrustumCheck) {
-            return true;
+            render = true;
         } else {
-            AxisAlignedBB axisalignedbb = entity.getRenderBoundingBox().grow(4.5); // Extra grow size for shader light
+            AxisAlignedBB axisalignedbb = entity.getRenderBoundingBox().grow(4.5);
             if (axisalignedbb.hasNaN() || axisalignedbb.getAverageEdgeLength() == 0.0) {
                 axisalignedbb = new AxisAlignedBB(entity.getPosX() - 2, entity.getPosY() - 2, entity.getPosZ() - 2, entity.getPosX() + 2, entity.getPosY() + 2, entity.getPosZ() + 2);
             }
 
-            return camera.isBoundingBoxInFrustum(axisalignedbb);
+            render = camera.isBoundingBoxInFrustum(axisalignedbb);
+        }
+
+        if (render) {
+            return true;
+        } else {
+            Entity leasher = entity.getLeashHolder();
+            return leasher != null && camera.isBoundingBoxInFrustum(leasher.getRenderBoundingBox());
         }
     }
 }

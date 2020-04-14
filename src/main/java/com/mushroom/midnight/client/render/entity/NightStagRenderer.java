@@ -5,9 +5,12 @@ import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.ClientEventHandler;
 import com.mushroom.midnight.client.model.NightStagModel;
 import com.mushroom.midnight.common.entity.creature.NightStagEntity;
+import net.minecraft.client.renderer.culling.ClippingHelperImpl;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -28,9 +31,10 @@ public class NightStagRenderer extends MobRenderer<NightStagEntity, NightStagMod
     public NightStagRenderer(EntityRendererManager manager) {
         super(manager, new NightStagModel(), 0.0F);
         this.addLayer(new EmissiveLayerRenderer<>(this, EMISSIVE_TEXTURE, NightStagRenderer::computeBrightness, NightStagRenderer::computeColor));
+        this.addLayer(new NightStagGlowLayer(this));
     }
 
-    private static int computeColor(NightStagEntity entity, float partialTicks) {
+    public static int computeColor(NightStagEntity entity, float partialTicks) {
         switch (entity.getAntlerType()) {
             case 1:
                 return 0xff6666; // red
@@ -48,12 +52,13 @@ public class NightStagRenderer extends MobRenderer<NightStagEntity, NightStagMod
                 return 0xf2f2f2; // white
             case 8:
                 return 0x6699ff; // dark blue
-            case 0: default:
+            case 0:
+            default:
                 return 0x8051B6; // purple
         }
     }
 
-    private static int computeBrightness(NightStagEntity entity, float partialTicks) {
+    public static int computeBrightness(NightStagEntity entity, float partialTicks) {
         double totalTicks = entity.ticksExisted + partialTicks;
 
         float flicker = computeFlicker(totalTicks, partialTicks);
@@ -87,4 +92,27 @@ public class NightStagRenderer extends MobRenderer<NightStagEntity, NightStagMod
         }
     }
 
+    @Override
+    public boolean shouldRender(NightStagEntity entity, ClippingHelperImpl camera, double camX, double camY, double camZ) {
+        boolean render;
+        if (!entity.isInRangeToRender3d(camX, camY, camZ)) {
+            render = false;
+        } else if (entity.ignoreFrustumCheck) {
+            render = true;
+        } else {
+            AxisAlignedBB axisalignedbb = entity.getRenderBoundingBox().grow(7.5);
+            if (axisalignedbb.hasNaN() || axisalignedbb.getAverageEdgeLength() == 0.0) {
+                axisalignedbb = new AxisAlignedBB(entity.getPosX() - 2, entity.getPosY() - 2, entity.getPosZ() - 2, entity.getPosX() + 2, entity.getPosY() + 2, entity.getPosZ() + 2);
+            }
+
+            render = camera.isBoundingBoxInFrustum(axisalignedbb);
+        }
+
+        if (render) {
+            return true;
+        } else {
+            Entity leasher = entity.getLeashHolder();
+            return leasher != null && camera.isBoundingBoxInFrustum(leasher.getRenderBoundingBox());
+        }
+    }
 }
