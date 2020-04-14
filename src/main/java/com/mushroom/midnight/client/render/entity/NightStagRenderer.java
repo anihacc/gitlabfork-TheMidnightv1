@@ -34,6 +34,12 @@ public class NightStagRenderer extends MobRenderer<NightStagEntity, NightStagMod
         this.addLayer(new NightStagGlowLayer(this));
     }
 
+    public NightStagRenderer(EntityRendererManager manager, boolean noGlow) {
+        super(manager, new NightStagModel(), 0.0F);
+        this.addLayer(new EmissiveLayerRenderer<>(this, EMISSIVE_TEXTURE, NightStagRenderer::computeBrightness, NightStagRenderer::computeColor));
+        if (!noGlow) this.addLayer(new NightStagGlowLayer(this));
+    }
+
     public static int computeColor(NightStagEntity entity, float partialTicks) {
         switch (entity.getAntlerType()) {
             case 1:

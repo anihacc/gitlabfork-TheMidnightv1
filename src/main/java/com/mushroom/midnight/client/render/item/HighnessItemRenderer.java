@@ -24,7 +24,7 @@ public class HighnessItemRenderer extends ItemStackTileEntityRenderer {
         if (entity != null) {
             try {
                 matrixStackIn.push();
-                NightStagRenderer render = new NightStagRenderer(Minecraft.getInstance().getRenderManager());
+                NightStagRenderer render = new NightStagRenderer(Minecraft.getInstance().getRenderManager(), true);
                 render.render(entity, 0F, 0F, matrixStackIn, bufferIn, combinedLightIn);
                 matrixStackIn.pop();
 
