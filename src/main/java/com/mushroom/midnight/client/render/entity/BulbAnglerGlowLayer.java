@@ -46,6 +46,7 @@ public class BulbAnglerGlowLayer extends LayerRenderer<BulbAnglerEntity, BulbAng
                 3,
                 LightSource.LIGHT
         );
+        ShaderManager.require();
         ShaderManager.addLight(src);
 
         stack.pop();

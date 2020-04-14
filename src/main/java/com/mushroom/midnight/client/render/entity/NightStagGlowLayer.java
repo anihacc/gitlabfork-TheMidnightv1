@@ -32,6 +32,7 @@ public class NightStagGlowLayer extends LayerRenderer<NightStagEntity, NightStag
                 1.2F * brightness,
                 6, LightSource.LIGHT
         );
+        ShaderManager.require();
         ShaderManager.addLight(src);
     }
 }
