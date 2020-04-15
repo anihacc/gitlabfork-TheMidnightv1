@@ -2,6 +2,7 @@ package com.mushroom.midnight;
 
 import com.google.common.reflect.Reflection;
 import com.mushroom.midnight.client.ClientProxy;
+import com.mushroom.midnight.client.gui.config.MidnightConfigGUIFactory;
 import com.mushroom.midnight.client.model.MidnightModelRegistry;
 import com.mushroom.midnight.common.ServerProxy;
 import com.mushroom.midnight.common.capability.*;
@@ -38,6 +39,7 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -81,6 +83,7 @@ public class Midnight {
     public Midnight() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, MidnightConfig.CLIENT_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MidnightConfig.GENERAL_SPEC);
+        ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, MidnightConfigGUIFactory::new);
 
         setupMessages();
 
@@ -91,6 +94,8 @@ public class Midnight {
         bus.addListener(this::setup);
         bus.addListener(this::registerModels);
         bus.addListener(this::gatherData);
+
+        PROXY.onConstruct();
     }
 
     private void setup(FMLCommonSetupEvent event) {
@@ -149,18 +154,18 @@ public class Midnight {
         for(Biome biome : ForgeRegistries.BIOMES.getValues())
         {
 //            System.out.println("biome = " + biome);
-            
-            if ((!BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
+
+            if (!BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
                     && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)
                     && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.VOID)
                     && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
                     && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
-                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.MUSHROOM))
+                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.MUSHROOM)
 
-                    && ((biome.getRegistryName().getNamespace().equals("minecraft"))
-                    || (biome.getRegistryName().getNamespace().equals("midnight"))
-                    || (biome.getRegistryName().getNamespace().equals("biomesoplenty"))
-                    || (biome.getRegistryName().getNamespace().equals("terraforged")))
+                    && (biome.getRegistryName().getNamespace().equals("minecraft")
+                    || biome.getRegistryName().getNamespace().equals("midnight")
+                    || biome.getRegistryName().getNamespace().equals("biomesoplenty")
+                    || biome.getRegistryName().getNamespace().equals("terraforged"))
             )
             {
 //                System.out.println("biome = " + biome);
