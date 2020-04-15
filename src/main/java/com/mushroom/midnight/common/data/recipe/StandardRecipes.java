@@ -1,13 +1,10 @@
 package com.mushroom.midnight.common.data.recipe;
 
 import com.mushroom.midnight.common.data.Triggers;
+import com.mushroom.midnight.common.registry.MidnightRecipeSerializers;
 import com.mushroom.midnight.common.registry.MidnightTags;
 import com.mushroom.midnight.common.util.MidnightUtil;
-import net.minecraft.data.CookingRecipeBuilder;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.data.SingleItemRecipeBuilder;
+import net.minecraft.data.*;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IItemProvider;
@@ -54,6 +51,22 @@ public final class StandardRecipes {
         CookingRecipeBuilder.cookingRecipe(Ingredient.fromItems(raw), cooked, 0.35F, 400, IRecipeSerializer.CAMPFIRE_COOKING)
                 .addCriterion("has_raw", Triggers.hasItem(raw))
                 .build(this.consumer, MidnightUtil.transformPath(id, path -> path + "_from_campfire_cooking"));
+
+        return this;
+    }
+
+    public StandardRecipes addMidnightFoodSmelting(IItemProvider raw, IItemProvider cooked) {
+        MidnightCookingRecipeBuilder.cookingRecipe(Ingredient.fromItems(raw), cooked, 0.35F, 200, MidnightRecipeSerializers.SMELTING)
+                .addCriterion("has_raw", Triggers.hasItem(raw))
+                .build(this.consumer);
+
+        return this;
+    }
+
+    public StandardRecipes addMidnightIngotSmelting(IItemProvider raw, IItemProvider cooked) {
+        MidnightCookingRecipeBuilder.cookingRecipe(Ingredient.fromItems(raw), cooked, 1.0F, 200, MidnightRecipeSerializers.SMELTING)
+                .addCriterion("has_ore", Triggers.hasItem(raw))
+                .build(this.consumer);
 
         return this;
     }

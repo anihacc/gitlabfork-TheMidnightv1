@@ -3,7 +3,9 @@ var VarInsnNode = org.objectweb.asm.tree.VarInsnNode;
 var FieldInsnNode = org.objectweb.asm.tree.FieldInsnNode;
 var MethodInsnNode = org.objectweb.asm.tree.MethodInsnNode;
 var JumpInsnNode = org.objectweb.asm.tree.JumpInsnNode;
+var LabelNode = org.objectweb.asm.tree.LabelNode;
 var InsnList = org.objectweb.asm.tree.InsnList;
+var InsnNode = org.objectweb.asm.tree.InsnNode;
 
 function initializeCoreMod() {
     return {
@@ -34,6 +36,13 @@ function initializeCoreMod() {
                 "name": "net.minecraft.entity.Entity"
             },
             "transformer": patch_ladder_noises
+        },
+        "RecipeBook": {
+            target: {
+                type: "CLASS",
+                name: "net.minecraft.client.util.ClientRecipeBook"
+            },
+            transformer: patch_client_recipe_book
         }
     }
 }
@@ -143,6 +152,59 @@ function patch_ladder_noises(class_node) {
     instructions.insertBefore(target, insert);
 
     return class_node;
+}
+
+function patch_client_recipe_book( node ) {
+    for( var i in node.methods ) {
+        var method = node.methods[ i ];
+        if( method.name == "newRecipeList" && method.desc == "(Lnet/minecraft/client/util/RecipeBookCategories;)Lnet/minecraft/client/gui/recipebook/RecipeList;" ) {
+            var allRecipesFieldName = method.name == "newRecipeList" ? "allRecipes" : "field_197932_f";
+            var ctgryRecipesFieldName = method.name == "newRecipeList" ? "recipesByCategory" : "field_197931_e";
+
+            var insn = method.instructions.get( 0 );
+            var label = new LabelNode();
+            method.instructions.insertBefore( insn, new VarInsnNode( Opcodes.ALOAD, 1 ) );
+            method.instructions.insertBefore( insn, new VarInsnNode( Opcodes.ALOAD, 0 ) );
+            method.instructions.insertBefore( insn, new FieldInsnNode( Opcodes.GETFIELD, "net/minecraft/client/util/ClientRecipeBook", "allRecipes", "Ljava/util/List;" ) );
+            method.instructions.insertBefore( insn, new VarInsnNode( Opcodes.ALOAD, 0 ) );
+            method.instructions.insertBefore( insn, new FieldInsnNode( Opcodes.GETFIELD, "net/minecraft/client/util/ClientRecipeBook", "recipesByCategory", "Ljava/util/Map;" ) );
+            method.instructions.insertBefore( insn, new MethodInsnNode( Opcodes.INVOKESTATIC, "com/mushroom/midnight/client/RecipeHandler", "newRecipeList", "(Lnet/minecraft/client/util/RecipeBookCategories;Ljava/util/List;Ljava/util/Map;)Lnet/minecraft/client/gui/recipebook/RecipeList;", false ) );
+            method.instructions.insertBefore( insn, new InsnNode( Opcodes.DUP ) );
+            method.instructions.insertBefore( insn, new JumpInsnNode( Opcodes.IFNULL, label ) );
+            method.instructions.insertBefore( insn, new InsnNode( Opcodes.ARETURN ) );
+            method.instructions.insertBefore( insn, label )
+            method.instructions.insertBefore( insn, new InsnNode( Opcodes.POP ) );
+        }
+
+        if( method.name == "func_202889_b" && method.desc == "(Lnet/minecraft/client/util/RecipeBookCategories;)Lnet/minecraft/client/gui/recipebook/RecipeList;" ) {
+            var insn = method.instructions.get( 0 );
+            var label = new LabelNode();
+            method.instructions.insertBefore( insn, new VarInsnNode( Opcodes.ALOAD, 1 ) );
+            method.instructions.insertBefore( insn, new VarInsnNode( Opcodes.ALOAD, 0 ) );
+            method.instructions.insertBefore( insn, new FieldInsnNode( Opcodes.GETFIELD, "net/minecraft/client/util/ClientRecipeBook", "field_197932_f", "Ljava/util/List;" ) );
+            method.instructions.insertBefore( insn, new VarInsnNode( Opcodes.ALOAD, 0 ) );
+            method.instructions.insertBefore( insn, new FieldInsnNode( Opcodes.GETFIELD, "net/minecraft/client/util/ClientRecipeBook", "field_197931_e", "Ljava/util/Map;" ) );
+            method.instructions.insertBefore( insn, new MethodInsnNode( Opcodes.INVOKESTATIC, "com/mushroom/midnight/client/RecipeHandler", "newRecipeList", "(Lnet/minecraft/client/util/RecipeBookCategories;Ljava/util/List;Ljava/util/Map;)Lnet/minecraft/client/gui/recipebook/RecipeList;", false ) );
+            method.instructions.insertBefore( insn, new InsnNode( Opcodes.DUP ) );
+            method.instructions.insertBefore( insn, new JumpInsnNode( Opcodes.IFNULL, label ) );
+            method.instructions.insertBefore( insn, new InsnNode( Opcodes.ARETURN ) );
+            method.instructions.insertBefore( insn, label )
+            method.instructions.insertBefore( insn, new InsnNode( Opcodes.POP ) );
+        }
+
+        if( (method.name == "getCategory" || method.name == "func_202887_g") && method.desc == "(Lnet/minecraft/item/crafting/IRecipe;)Lnet/minecraft/client/util/RecipeBookCategories;" ) {
+            var insn = method.instructions.get( 0 );
+            var label = new LabelNode();
+            method.instructions.insertBefore( insn, new VarInsnNode( Opcodes.ALOAD, 0 ) );
+            method.instructions.insertBefore( insn, new MethodInsnNode( Opcodes.INVOKESTATIC, "com/mushroom/midnight/client/RecipeHandler", "getRecipeCategory", "(Lnet/minecraft/item/crafting/IRecipe;)Lnet/minecraft/client/util/RecipeBookCategories;", false ) );
+            method.instructions.insertBefore( insn, new InsnNode( Opcodes.DUP ) );
+            method.instructions.insertBefore( insn, new JumpInsnNode( Opcodes.IFNULL, label ) );
+            method.instructions.insertBefore( insn, new InsnNode( Opcodes.ARETURN ) );
+            method.instructions.insertBefore( insn, label )
+            method.instructions.insertBefore( insn, new InsnNode( Opcodes.POP ) );
+        }
+    }
+    return node;
 }
 
 function get_method(class_node, name) {

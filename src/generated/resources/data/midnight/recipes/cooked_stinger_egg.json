@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:smelting",
+  "type": "midnight:smelting",
   "ingredient": {
     "item": "midnight:stinger_egg"
   },

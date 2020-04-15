@@ -18,6 +18,7 @@ import com.mushroom.midnight.common.network.AnimationMessage;
 import com.mushroom.midnight.common.network.CaptureEntityMessage;
 import com.mushroom.midnight.common.network.ItemActivationMessage;
 import com.mushroom.midnight.common.network.RockshroomBrokenMessage;
+import com.mushroom.midnight.common.recipe.MidnightRecipeBookCategories;
 import com.mushroom.midnight.common.registry.*;
 import com.mushroom.midnight.common.util.EntityUtil;
 import com.mushroom.midnight.common.util.IProxy;
@@ -101,12 +102,16 @@ public class Midnight {
         Reflection.initialize(MidnightCriterion.class, MidnightItemGroups.class, MidnightGameRules.class);
 
         EntityUtil.register();
+        MidnightRecipeTypes.init();
+        MidnightRecipeBookCategories.justLoadClass();
 
         LootConditionManager.registerCondition(new InBiomeLootCondition.Serializer());
         LootConditionManager.registerCondition(new InBlockLootCondition.Serializer());
         LootConditionManager.registerCondition(new IsChildLootCondition.Serializer());
 
         setupWorldGen();
+
+
     }
 
     private void setupMessages() {
@@ -149,18 +154,18 @@ public class Midnight {
         for(Biome biome : ForgeRegistries.BIOMES.getValues())
         {
 //            System.out.println("biome = " + biome);
-            
-            if ((!BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
+
+            if (!BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
                     && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)
                     && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.VOID)
                     && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
                     && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
-                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.MUSHROOM))
+                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.MUSHROOM)
 
-                    && ((biome.getRegistryName().getNamespace().equals("minecraft"))
-                    || (biome.getRegistryName().getNamespace().equals("midnight"))
-                    || (biome.getRegistryName().getNamespace().equals("biomesoplenty"))
-                    || (biome.getRegistryName().getNamespace().equals("terraforged")))
+                    && (biome.getRegistryName().getNamespace().equals("minecraft")
+                    || biome.getRegistryName().getNamespace().equals("midnight")
+                    || biome.getRegistryName().getNamespace().equals("biomesoplenty")
+                    || biome.getRegistryName().getNamespace().equals("terraforged"))
             )
             {
 //                System.out.println("biome = " + biome);

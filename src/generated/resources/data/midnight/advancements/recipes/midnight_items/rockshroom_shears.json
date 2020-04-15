@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "midnight:nagrilite_ingot_from_blasting"
+      "midnight:rockshroom_shears"
     ]
   },
   "criteria": {
-    "has_ore": {
+    "has_item": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "midnight:nagrilite_ore"
+            "item": "midnight:rockshroom_clump"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "midnight:nagrilite_ingot_from_blasting"
+        "recipe": "midnight:rockshroom_shears"
       }
     }
   },
   "requirements": [
     [
-      "has_ore",
+      "has_item",
       "has_the_recipe"
     ]
   ]

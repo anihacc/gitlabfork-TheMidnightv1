@@ -21,7 +21,7 @@ public final class MidnightMaterialRecipes extends MidnightRecipeProvider {
                 .addChestPlate(MidnightItems.ROCKSHROOM_CHESTPLATE)
                 .addLeggings(MidnightItems.ROCKSHROOM_LEGGINGS)
                 .addBoots(MidnightItems.ROCKSHROOM_BOOTS)
-                .addShears(MidnightItems.ROCKSHROOM_SHEAR)
+                .addShears(MidnightItems.ROCKSHROOM_SHEARS)
                 .addBuckets(MidnightItems.ROCKSHROOM_BUCKET);
 
         recipes.ofMaterial(MidnightItems.NAGRILITE_INGOT)
@@ -61,8 +61,8 @@ public final class MidnightMaterialRecipes extends MidnightRecipeProvider {
         recipes.ofMaterial(MidnightItems.DARK_PEARL)
                 .addStorageBlock(MidnightBlocks.DARK_PEARL_BLOCK);
 
-        recipes.addIngot(MidnightBlocks.NAGRILITE_ORE, MidnightItems.NAGRILITE_INGOT);
-        recipes.addIngot(MidnightBlocks.TENEBRUM_ORE, MidnightItems.TENEBRUM_INGOT);
-        recipes.addIngot(MidnightBlocks.EBONITE_ORE, MidnightItems.EBONITE);
+        recipes.addMidnightIngotSmelting(MidnightBlocks.NAGRILITE_ORE, MidnightItems.NAGRILITE_INGOT);
+        recipes.addMidnightIngotSmelting(MidnightBlocks.TENEBRUM_ORE, MidnightItems.TENEBRUM_INGOT);
+        recipes.addMidnightIngotSmelting(MidnightBlocks.EBONITE_ORE, MidnightItems.EBONITE);
     }
 }
