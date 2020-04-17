@@ -19,6 +19,7 @@ import com.mushroom.midnight.common.network.AnimationMessage;
 import com.mushroom.midnight.common.network.CaptureEntityMessage;
 import com.mushroom.midnight.common.network.ItemActivationMessage;
 import com.mushroom.midnight.common.network.RockshroomBrokenMessage;
+import com.mushroom.midnight.common.recipe.MidnightRecipeBookCategories;
 import com.mushroom.midnight.common.registry.*;
 import com.mushroom.midnight.common.util.EntityUtil;
 import com.mushroom.midnight.common.util.IProxy;
@@ -106,12 +107,16 @@ public class Midnight {
         Reflection.initialize(MidnightCriterion.class, MidnightItemGroups.class, MidnightGameRules.class);
 
         EntityUtil.register();
+        MidnightRecipeTypes.init();
+        MidnightRecipeBookCategories.justLoadClass();
 
         LootConditionManager.registerCondition(new InBiomeLootCondition.Serializer());
         LootConditionManager.registerCondition(new InBlockLootCondition.Serializer());
         LootConditionManager.registerCondition(new IsChildLootCondition.Serializer());
 
         setupWorldGen();
+
+
     }
 
     private void setupMessages() {

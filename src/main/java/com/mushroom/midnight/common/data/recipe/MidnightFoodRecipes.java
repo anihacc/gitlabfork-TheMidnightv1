@@ -16,9 +16,9 @@ public final class MidnightFoodRecipes extends MidnightRecipeProvider {
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
         StandardRecipes recipes = StandardRecipes.into(consumer);
 
-        recipes.addFood(MidnightItems.HUNTER_WING, MidnightItems.COOKED_HUNTER_WING);
-        recipes.addFood(MidnightItems.RAW_STAG_FLANK, MidnightItems.COOKED_STAG_FLANK);
-        recipes.addFood(MidnightBlocks.STINGER_EGG, MidnightItems.COOKED_STINGER_EGG);
-        recipes.addFood(MidnightItems.RAW_SUAVIS, MidnightItems.COOKED_SUAVIS);
+        recipes.addMidnightFoodSmelting(MidnightItems.HUNTER_WING, MidnightItems.COOKED_HUNTER_WING);
+        recipes.addMidnightFoodSmelting(MidnightItems.RAW_STAG_FLANK, MidnightItems.COOKED_STAG_FLANK);
+        recipes.addMidnightFoodSmelting(MidnightBlocks.STINGER_EGG, MidnightItems.COOKED_STINGER_EGG);
+        recipes.addMidnightFoodSmelting(MidnightItems.RAW_SUAVIS, MidnightItems.COOKED_SUAVIS);
     }
 }

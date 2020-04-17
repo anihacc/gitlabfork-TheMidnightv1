@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "midnight:cooked_stag_flank_from_smoking"
+      "midnight:rockshroom_bucket"
     ]
   },
   "criteria": {
-    "has_raw": {
+    "has_item": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "midnight:raw_stag_flank"
+            "item": "midnight:rockshroom_clump"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "midnight:cooked_stag_flank_from_smoking"
+        "recipe": "midnight:rockshroom_bucket"
       }
     }
   },
   "requirements": [
     [
-      "has_raw",
+      "has_item",
       "has_the_recipe"
     ]
   ]

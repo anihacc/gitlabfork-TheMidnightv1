@@ -101,7 +101,7 @@ public class MidnightDimension extends Dimension {
             colors1 = MathHelper.lerp(undergroundFactor, 0.3F, colors1);
             colors2 = MathHelper.lerp(undergroundFactor, 0.3F, colors2);
         }
-        colors.set(colors0 + colors.getX() + blockLight, colors1 + colors.getY() + blockLight, colors2 + colors.getZ() + blockLight);
+        colors.set(colors0 + colors.getX() * 4, colors1 + colors.getY() * 4, colors2 + colors.getZ() * 4);
     }
 
     @Override

@@ -7,7 +7,6 @@ import com.mushroom.midnight.common.tile.MidnightChestTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -20,7 +19,7 @@ public class MidnightChestItemRenderer extends ItemStackTileEntityRenderer {
     private MidnightChestBlockRenderer renderer;
 
     public MidnightChestItemRenderer() {
-        renderer = new MidnightChestBlockRenderer(TileEntityRendererDispatcher.instance);
+        renderer = new MidnightChestBlockRenderer(null); // Using null here prevents data generator from crashing and it still works
     }
 
     @Override

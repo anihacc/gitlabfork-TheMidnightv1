@@ -29,11 +29,16 @@ public class MidnightTeleporter {
         DimensionType endpointDimension = this.getEndpointDimension(entity.dimension);
         ServerWorld endpointWorld = server.getWorld(endpointDimension);
 
-        BlockPos pos = entity.getPosition();
+        BlockPos entPos = entity.getPosition();
+        BlockPos pos = new BlockPos( // RGSW: Try to spawn near the portal instead of in to stop entities getting stuck
+                entPos.getX() + endpointWorld.rand.nextInt(15) - endpointWorld.rand.nextInt(15),
+                entPos.getY(),
+                entPos.getZ() + endpointWorld.rand.nextInt(15) - endpointWorld.rand.nextInt(15)
+        );
         IChunk chunk = endpointWorld.getChunk(pos);
         int surfaceY = chunk.getTopBlockY(Heightmap.Type.MOTION_BLOCKING, pos.getX(), pos.getZ()) + 1;
 
-        BlockPos portalPos = findPortal(endpointWorld, pos, surfaceY);
+        BlockPos portalPos = new BlockPos(pos.getX(), surfaceY, pos.getZ());
 
         Vec3d endpointPos = new Vec3d(pos.getX() + 0.5, portalPos.getY(), pos.getZ() + 0.5);
         Entity teleportedEntity = this.teleportEntity(entity, endpointWorld, endpointPos);
@@ -47,7 +52,7 @@ public class MidnightTeleporter {
                 return pos2.up(i + 1);
             }
         }
-        return pos2;
+        return null;
     }
 
     private Entity teleportEntity(Entity entity, ServerWorld endpointWorld, Vec3d endpoint) {
