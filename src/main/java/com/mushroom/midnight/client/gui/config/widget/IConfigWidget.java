@@ -1,12 +1,10 @@
 package com.mushroom.midnight.client.gui.config.widget;
 
+import com.mushroom.midnight.common.config.provider.IConfigValue;
 import net.minecraft.client.gui.widget.Widget;
-import net.minecraftforge.common.ForgeConfigSpec;
 
 public interface IConfigWidget<T> {
-    ForgeConfigSpec.ConfigValue<T> getConfigValue();
-
-    void updatePos(int left, int top);
+    IConfigValue<T> getConfigValue();
 
     Widget asWidget();
 }

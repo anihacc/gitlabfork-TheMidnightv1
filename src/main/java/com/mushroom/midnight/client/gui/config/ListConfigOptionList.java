@@ -1,31 +1,53 @@
 package com.mushroom.midnight.client.gui.config;
 
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.IGuiEventListener;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.Widget;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.widget.list.AbstractOptionList;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.math.MathHelper;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
-public class ConfigOptionList extends AbstractOptionList<ConfigOptionList.Row> {
+import static com.mushroom.midnight.client.gui.config.ListConfigOptionList.Row;
 
-    public ConfigOptionList(Minecraft mc, int width, int height, int top, int bottom, int itemHeight) {
+public class ListConfigOptionList<T> extends AbstractOptionList<Row<T>> {
+
+    private final Function<Value<T>, Widget> widgetFactory;
+    private final Supplier<T> defaultValue;
+
+    public ListConfigOptionList(Minecraft mc, int width, int height, int top, int bottom, int itemHeight, List<T> entries, Function<Value<T>, Widget> widgetFactory, Supplier<T> defaultValue) {
         super(mc, width, height, top, bottom, itemHeight);
+        this.widgetFactory = widgetFactory;
+        this.defaultValue = defaultValue;
+
+        for (T val : entries) {
+            addEntry(new Row<>(this, new Value<>(val)));
+        }
+        addEntry(new Row<>(this, null));
+        updateMoveStates();
     }
 
-    @Override
-    public int addEntry(Row entry) {
-        return super.addEntry(entry);
+    public List<T> collect() {
+        List<T> collected = new ArrayList<>();
+        for (Row<T> row : children()) {
+            if (row.value != null)
+                collected.add(row.value.get());
+        }
+        return collected;
     }
 
     @Override
@@ -152,29 +174,99 @@ public class ConfigOptionList extends AbstractOptionList<ConfigOptionList.Row> {
         return Math.max(0, getMaxPosition() - (y1 - y0 - 4));
     }
 
-    public static class Row extends AbstractOptionList.Entry<Row> {
+    @Override
+    protected boolean isSelectedItem(int index) {
+        return Objects.equals(this.getSelected(), this.children().get(index));
+    }
 
-        protected final String label;
+    protected int getIndex(Row<T> row) {
+        return children().indexOf(row);
+    }
+
+    protected void addNew(int index) {
+        children().add(index, new Row<>(this, new Value<>(defaultValue.get())));
+        for (Row<T> row : children()) row.updateMoveState();
+    }
+
+    @Override
+    public boolean keyPressed(int key, int scan, int mods) {
+        if (getSelected() != null) {
+            Row<T> sel = getSelected();
+            if (!sel.widget.isFocused()) {
+                if (key == GLFW.GLFW_KEY_UP && Screen.hasShiftDown()) {
+                    int i = getIndex(sel);
+                    if (i > 0) {
+                        children().remove(i);
+                        children().add(i - 1, sel);
+                    }
+                    return true;
+                }
+                if (key == GLFW.GLFW_KEY_UP && Screen.hasShiftDown()) {
+                    int i = getIndex(sel);
+                    if (i < getItemCount() - 1) {
+                        children().remove(i);
+                        children().add(i + 1, sel);
+                    }
+                    return true;
+                }
+                if (key == GLFW.GLFW_KEY_BACKSPACE) {
+                    removeEntry(sel);
+                    return true;
+                }
+            }
+        }
+        return super.keyPressed(key, scan, mods);
+    }
+
+    protected void updateMoveStates() {
+        for (Row<T> row : children()) row.updateMoveState();
+    }
+
+    static class Row<T> extends AbstractOptionList.Entry<Row<T>> {
+
+        protected final ListConfigOptionList<T> list;
         protected final Widget widget;
-        protected final ConfigInterfaceScreen screen;
-        protected List<String> tooltip;
+        protected final Button add;
+        protected final Button remove;
+        protected final Button up;
+        protected final Button down;
+        protected final Value<T> value;
 
         private final List<IGuiEventListener> children;
 
-        public Row(String label, Widget widget, ConfigInterfaceScreen screen) {
-            this.label = label;
-            this.widget = widget;
-            this.screen = screen;
-            if (widget != null) {
-                this.children = Collections.singletonList(widget);
-            } else {
-                this.children = Collections.emptyList();
-            }
-        }
+        Row(ListConfigOptionList<T> list, Value<T> value) {
+            this.list = list;
+            this.widget = value == null ? null : list.widgetFactory.apply(value);
+            this.value = value;
 
-        public Row withTooltip(String... tooltip) {
-            this.tooltip = Arrays.asList(tooltip);
-            return this;
+            add = new Button(0, 0, 20, 20, "+", btn -> list.addNew(list.getIndex(this)));
+            remove = value == null ? null : new Button(0, 0, 20, 20, "-", btn -> {
+                list.removeEntry(this);
+                list.updateMoveStates();
+            });
+            up = value == null ? null : new Button(0, 0, 20, 20, "\u23f6", btn -> {
+                int i = list.getIndex(this);
+                if (i > 0) {
+                    list.children().remove(i);
+                    list.children().add(i - 1, this);
+                }
+                list.updateMoveStates();
+            });
+            down = value == null ? null : new Button(0, 0, 20, 20, "\u23f7", btn -> {
+                int i = list.getIndex(this);
+                if (i < list.getItemCount() - 2) {
+                    list.children().remove(i);
+                    list.children().add(i + 1, this);
+                }
+                list.updateMoveStates();
+            });
+
+            children = Lists.newArrayList();
+            if (widget != null) children.add(widget);
+            children.add(add);
+            if (remove != null) children.add(remove);
+            if (up != null) children.add(up);
+            if (down != null) children.add(down);
         }
 
         @Override
@@ -182,61 +274,64 @@ public class ConfigOptionList extends AbstractOptionList<ConfigOptionList.Row> {
             return children;
         }
 
-        protected void renderTooltip(int mouseX, int mouseY, boolean mouseOver) {
-            if (mouseOver) {
-                screen.queueTooltip(tooltip);
+        @Override
+        public void render(int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean isMouseOver, float partialTicks) {
+            if (widget != null) {
+                widget.x = left + width / 2 - 155;
+                widget.y = top + 2;
+                widget.setWidth(220);
+                widget.render(mouseX, mouseY, partialTicks);
+            }
+
+            add.x = left + width / 2 + 155 - 80;
+            add.y = top + 2;
+            add.render(mouseX, mouseY, partialTicks);
+
+            if (remove != null) {
+                remove.x = left + width / 2 + 155 - 60;
+                remove.y = top + 2;
+                remove.render(mouseX, mouseY, partialTicks);
+            }
+
+            if (up != null) {
+                up.x = left + width / 2 + 155 - 40;
+                up.y = top + 2;
+                up.active = list.getIndex(this) > 0;
+                up.render(mouseX, mouseY, partialTicks);
+            }
+
+            if (down != null) {
+                down.x = left + width / 2 + 155 - 20;
+                down.y = top + 2;
+                down.render(mouseX, mouseY, partialTicks);
             }
         }
 
-        @Override
-        public void render(int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean isMouseOver, float partialTicks) {
-            renderTooltip(mouseX, mouseY, isMouseOver);
+        private void updateMoveState() {
+            if (up != null) {
+                up.active = list.getIndex(this) > 0;
+            }
 
-            FontRenderer font = Minecraft.getInstance().fontRenderer;
-            font.drawStringWithShadow(label, left + (float) (width / 2) - 155, top + height / 2F - 2, 0xffffffff);
-            if (widget != null) {
-                widget.x = left + width / 2 + 5;
-                widget.y = top + 2;
-                widget.render(mouseX, mouseY, partialTicks);
+            if (down != null) {
+                down.active = list.getIndex(this) < list.getItemCount() - 2;
             }
         }
     }
 
-    public static class ButtonOnlyRow extends Row {
+    public static class Value<T> {
 
-        public ButtonOnlyRow(Widget widget, ConfigInterfaceScreen screen) {
-            super("", widget, screen);
+        private T value;
+
+        public Value(T value) {
+            this.value = value;
         }
 
-        @Override
-        public void render(int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean isMouseOver, float partialTicks) {
-            renderTooltip(mouseX, mouseY, isMouseOver);
-
-            if (widget != null) {
-                widget.x = left + width / 2 - widget.getWidth() / 2;
-                widget.y = top + 2;
-                widget.render(mouseX, mouseY, partialTicks);
-            }
-        }
-    }
-
-    public static class HeaderRow extends Row {
-
-        public HeaderRow(String label, ConfigInterfaceScreen screen) {
-            super(label, null, screen);
+        public void set(T value) {
+            this.value = value;
         }
 
-
-        protected void drawCenteredString(FontRenderer fontRenderer, String string, int x, int y, int color) {
-            fontRenderer.drawStringWithShadow(string, (float) (x - fontRenderer.getStringWidth(string) / 2), (float) y, color);
-        }
-
-        @Override
-        public void render(int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean isMouseOver, float partialTicks) {
-            renderTooltip(mouseX, mouseY, isMouseOver);
-
-            FontRenderer font = Minecraft.getInstance().fontRenderer;
-            drawCenteredString(font, "§n" + label + "§r", left + width / 2, top + height / 2 - 2, 0xffffffff);
+        public T get() {
+            return value;
         }
     }
 }

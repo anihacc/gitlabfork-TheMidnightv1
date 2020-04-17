@@ -462,17 +462,16 @@
   "entity.midnight.skulk": "Skulk",
   "entity.midnight.thrown_geode": "Thrown Geode",
   "entity.midnight.shade_squirrel": "Shade Squirrel",
-
   "_comment": "Config",
-
+  "config.midnight.title": "Midnight Config",
+  "config.midnight.title.client": "Midnight Config - Client",
+  "config.midnight.title.general": "Midnight Config - General",
   "config_cat.midnight.general": "General",
   "config_cat.midnight.general.tooltip": "All the options that can only be set on the server.",
   "config_cat.midnight.client": "Client",
   "config_cat.midnight.client.tooltip": "All the options that can be modified by players on server.",
-
   "config.midnight.midnight_dimension_id": "Midnight Dimension ID",
   "config.midnight.midnight_dimension_id.tooltip": "The ID to be used for the Midnight Dimension.",
-
   "config.midnight.rift_shaders": "Rift Shaders",
   "config.midnight.rift_shaders.tooltip": "If true, rifts will be rendered with custom shaders for standard effects. If false, a simpler (motionless) texture will be rendered.",
 
@@ -505,21 +504,20 @@
 
   "config.midnight.rifter_capture_tamed_animal": "Capture tamed animals",
   "config.midnight.rifter_capture_tamed_animal.tooltip": "Allows rifters to capture tamed entities and drag them into rifts.",
-
   "config.midnight.capturable_entities": "Capturable entities",
   "config.midnight.capturable_entities.tooltip": "Mobs on this whitelist can be captured by rifters, players and animals are already captured by default. Format is mod id:name of creature, just use the modid to whitelist everything from it.",
-
   "config.midnight.not_capturable_animals": "Not capturable entities",
   "config.midnight.not_capturable_animals.tooltip": "Mobs on this blacklist cannot be captured by rifters. Format is mod id:name of creature, just use the mod id to blacklist everything from it.",
-
   "config.midnight.foreign_flowers_from_bonemeal": "Foreign flowers from bonemeal",
   "config.midnight.foreign_flowers_from_bonemeal.tooltip": "Allows the flowers of others mods to appear with bonemeal in Midnight.",
-
+  "config.midnight.format.number_basic": "%s",
+  "config.midnight.format.number_percentage": "%s%%",
+  "config.midnight.format.always": "Always",
+  "config.midnight.format.never": "Never",
+  "config.midnight.format.entries": "%s entries",
   "status.midnight.rift_nearby": "You may not rest now, there is an evil presence nearby",
   "status.midnight.snapped": "The fish snapped at you",
-
   "_comment": "Biomes",
-
   "biome.midnight.vigilant_forest": "Vigilant Forest",
   "biome.midnight.black_ridge": "Black Ridge",
   "biome.midnight.deceitful_bog": "Deceitful Bog",

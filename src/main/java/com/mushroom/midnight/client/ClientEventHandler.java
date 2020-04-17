@@ -3,8 +3,10 @@ package com.mushroom.midnight.client;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mushroom.midnight.Midnight;
+import com.mushroom.midnight.client.gui.config.ConfigInterfaceScreen;
 import com.mushroom.midnight.common.capability.RifterCapturable;
 import com.mushroom.midnight.common.config.MidnightConfig;
+import com.mushroom.midnight.common.config.provider.IConfigProvider;
 import com.mushroom.midnight.common.registry.MidnightEffects;
 import com.mushroom.midnight.common.registry.MidnightParticleTypes;
 import com.mushroom.midnight.common.registry.MidnightSounds;
@@ -18,7 +20,10 @@ import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.MusicTicker;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.client.gui.screen.CreateWorldScreen;
+import net.minecraft.client.gui.screen.IngameMenuScreen;
 import net.minecraft.client.network.play.ClientPlayNetHandler;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,6 +37,7 @@ import net.minecraft.world.border.WorldBorder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.event.TickEvent;
@@ -72,6 +78,16 @@ public class ClientEventHandler {
 
             flicker += (targetFlicker - flicker) * 0.5;
         }
+
+        // Access key press action in InputMappings directly as keybinds only respond when the game is not paused...
+        if (InputMappings.isKeyDown(CLIENT.getMainWindow().getHandle(), MidnightKeybinds.MIDNIGHT_CONFIG.getKey().getKeyCode())) {
+            if (CLIENT.currentScreen instanceof IngameMenuScreen) {
+                CLIENT.displayGuiScreen(new ConfigInterfaceScreen(CLIENT.currentScreen, MidnightConfig.MAIN_IFC.makeInterface(MidnightConfig.PROFILE)));
+            } else if (CLIENT.currentScreen == currentCreateWorldScreen) {
+                CLIENT.displayGuiScreen(new ConfigInterfaceScreen(CLIENT.currentScreen, MidnightConfig.SERVER_IFC.makeInterface(worldSetupConfig)));
+            }
+        }
+
         if (!CLIENT.isGamePaused()) {
             ClientPlayerEntity player = CLIENT.player;
             if (player == null) {
@@ -252,4 +268,18 @@ public class ClientEventHandler {
             }
         }
     }
+
+
+    private static CreateWorldScreen currentCreateWorldScreen;
+    public static IConfigProvider worldSetupConfig;
+    public static boolean enqueuedServerConfigUpdate;
+
+    @SubscribeEvent
+    public static void onOpenGUIScreen(GuiOpenEvent event) {
+        if (event.getGui() instanceof CreateWorldScreen && event.getGui() != currentCreateWorldScreen) {
+            currentCreateWorldScreen = (CreateWorldScreen) event.getGui();
+            worldSetupConfig = MidnightConfig.PROFILE.makeTempProvider();
+        }
+    }
+
 }

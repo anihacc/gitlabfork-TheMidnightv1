@@ -1,6 +1,9 @@
 package com.mushroom.midnight.common.config;
 
 import com.google.common.collect.Lists;
+import com.mushroom.midnight.common.config.ifc.*;
+import com.mushroom.midnight.common.config.provider.ConfigProfile;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.commons.lang3.tuple.Pair;
@@ -12,6 +15,66 @@ import static com.mushroom.midnight.Midnight.MODID;
 
 @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class MidnightConfig {
+    /*
+     * RGSW: Configs
+     *
+     * Loader (common options according to how the mod operates within forge, FML and other mods)
+     * NYI: When we have something for this category, we can add it under a common config
+     *
+     * Client (client rendering and sound options)
+     * - Ambient Sounds Volume
+     * - Sound Echo Volume
+     * - Sound Echo Delay
+     * - Hide Vignette Effect
+     * - Show Ambient Spore Particles
+     *
+     * World Generator (server world generator options)
+     * - Rift Structure Chance
+     * - Rift Biome Blacklist
+     * - Rift Biome Whitelist
+     * - Well Structure Chance
+     * - Guardtower Structure Chance
+     * - Molten Crater Chance
+     *
+     * Server Logic (server logic options)
+     * - Bladeshroom Damage Chance
+     * - Can Respawn In Midnight
+     * - Monster Spawn Rate
+     * - Hunters Attack Tamed Skulks
+     * - Hunters Attack Named Skulks
+     * - Foreign Flowers From Bonemeal
+     * - Allow Rift From Dark Pearl
+     * - Rifts Are Open During Daytime
+     *
+     * **Lightning**
+     * - Random Lightning Effects
+     * - Allow Lightning Damage
+     *
+     * **Rifters**
+     * - Rifter Spawn Rarity
+     * - Max Rifters From Rift
+     * - Allow Rifter Teleport
+     * - Rifters Capture Tamed Animals
+     * - Rifters Capture Named Animals
+     * - Capturable Entities
+     * - Not Capturable Entities
+     *
+     */
+
+    public static final ConfigProfile PROFILE = new ConfigProfile();
+
+    public static class CatWorldGen {
+        public final ForgeConfigSpec.ConfigValue<Boolean> randomConfig;
+
+        public CatWorldGen(ForgeConfigSpec.Builder builder) {
+            builder.comment("World generator utilities.").push("worldgen");
+            randomConfig = builder
+                    .comment("This is a random config value in the category worldgen")
+                    .define("random_config", true);
+            PROFILE.add(randomConfig, true);
+            builder.pop();
+        }
+    }
 
     public static class CatGeneral {
         public final ForgeConfigSpec.ConfigValue<Integer> bladeshroomDamageChance;
@@ -72,6 +135,8 @@ public class MidnightConfig {
                     .comment("Allows the modded flowers to appear with bonemeal in Midnight. Default= false")
                     .translation(getTranslation("foreign_flowers_from_bonemeal"))
                     .define("foreign_flowers_from_bonemeal", false);
+            PROFILE.add(bladeshroomDamageChance);
+            PROFILE.add(notCapturableAnimals);
             builder.pop();
         }
     }
@@ -90,6 +155,8 @@ public class MidnightConfig {
                     .comment("If true, rifts will be rendered with custom shaders for standard effects. If false, a simpler (motionless) texture will be rendered. Default=true")
                     .translation(getTranslation("rift_shaders"))
                     .define("rift_shaders", true);
+            PROFILE.add(hideVignetteEffect);
+            PROFILE.add(riftShaders);
             builder.pop();
         }
     }
@@ -98,13 +165,43 @@ public class MidnightConfig {
         return "config." + MODID + "." + name;
     }
 
+    public static final ConfigInterface.Factory SERVER_IFC = provider -> {
+        ConfigInterface ifc = new ConfigInterface(new TranslationTextComponent("config.midnight.title.server"), provider, true, EditAccess.SERVER_HOST);
+        ifc.setting("config.midnight.random_config", new ToggleButtonControl(), "worldgen.random_config");
+        return ifc;
+    };
+
+    public static final ConfigInterface.Factory CLIENT_IFC = provider -> {
+        ConfigInterface ifc = new ConfigInterface(new TranslationTextComponent("config.midnight.title.client"), provider, true, EditAccess.ALWAYS);
+        ifc.setting("config.midnight.hide_vignette_effect", new ToggleButtonControl(), "client.hide_vignette_effect");
+        ifc.setting("config.midnight.rift_shaders", new ToggleButtonControl(), "client.rift_shaders");
+        ifc.setting("config.midnight.bladeshroom_damage_chance", new IntSliderControl(0, 100, "config.midnight.format.number_percentage", "config.midnight.format.never", "config.midnight.format.always"), "general.bladeshroom_damage_chance");
+        ifc.setting("config.midnight.not_capturable_animals", new StringListControl("config.midnight.not_capturable_animals"), "general.not_capturable_animals");
+        return ifc;
+    };
+
+    public static final ConfigInterface.Factory MAIN_IFC = provider -> {
+        ConfigInterface ifc = new ConfigInterface(new TranslationTextComponent("config.midnight.title"), provider, false, EditAccess.ALWAYS);
+        ifc.category("config.midnight.category.client", CLIENT_IFC.makeInterface(provider));
+        ifc.category("config.midnight.category.server", SERVER_IFC.makeInterface(provider));
+        return ifc;
+    };
+
+
     public static final ForgeConfigSpec CLIENT_SPEC;
     public static final CatClient client;
 
+    public static final ForgeConfigSpec SERVER_SPEC;
+    public static final CatWorldGen worldgen;
+
     static {
-        final Pair<CatClient, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(CatClient::new);
+        Pair<CatClient, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(CatClient::new);
         CLIENT_SPEC = specPair.getRight();
         client = specPair.getLeft();
+
+        ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+        worldgen = new CatWorldGen(builder);
+        SERVER_SPEC = builder.build();
     }
 
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
