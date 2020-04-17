@@ -140,7 +140,7 @@ public class Midnight {
     {
         MidnightSurfaceBiomes.onInit();
         MidnightCavernousBiomes.onInit();
-        initStructures();
+        setupEntranceRift();
     }
 
     /**
@@ -149,7 +149,7 @@ public class Midnight {
      * - the biome is from Minecraft, The Midnight, or Biomes o' Plenty
      * - the biome is not from the Nether, The End, the Void, Oceans, Rivers, and Mushroom biomes
      */
-    public static void initStructures()
+    public static void setupEntranceRift()
     {
         for(Biome biome : ForgeRegistries.BIOMES.getValues())
         {
@@ -158,14 +158,15 @@ public class Midnight {
             if (!BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
                     && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)
                     && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.VOID)
-                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
-                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
+                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.WATER)
                     && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.MUSHROOM)
-
-                    && (biome.getRegistryName().getNamespace().equals("minecraft")
+                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.BEACH)
+                    && (
+                       biome.getRegistryName().getNamespace().equals("minecraft")
                     || biome.getRegistryName().getNamespace().equals("midnight")
                     || biome.getRegistryName().getNamespace().equals("biomesoplenty")
-                    || biome.getRegistryName().getNamespace().equals("terraforged"))
+                    || biome.getRegistryName().getNamespace().equals("terraforged")
+                    )
             )
             {
 //                System.out.println("biome = " + biome);
