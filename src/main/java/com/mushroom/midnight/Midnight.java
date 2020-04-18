@@ -146,7 +146,7 @@ public class Midnight {
     {
         MidnightSurfaceBiomes.onInit();
         MidnightCavernousBiomes.onInit();
-        initStructures();
+        setupEntranceRift();
     }
 
     /**
@@ -155,7 +155,7 @@ public class Midnight {
      * - the biome is from Minecraft, The Midnight, or Biomes o' Plenty
      * - the biome is not from the Nether, The End, the Void, Oceans, Rivers, and Mushroom biomes
      */
-    public static void initStructures()
+    public static void setupEntranceRift()
     {
         for(Biome biome : ForgeRegistries.BIOMES.getValues()) {
 //            System.out.println("biome = " + biome);
