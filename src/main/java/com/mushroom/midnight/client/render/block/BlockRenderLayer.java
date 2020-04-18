@@ -80,6 +80,7 @@ public class BlockRenderLayer {
         RenderTypeLookup.setRenderLayer(MidnightBlocks.NIGHTSHROOM_DOOR, RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.SHADOWROOT_DOOR, RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.VIRIDSHROOM_DOOR, RenderType.getCutoutMipped());
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.TENEBRUM_DOOR, RenderType.getCutoutMipped());
 
         RenderTypeLookup.setRenderLayer(MidnightBlocks.BOGSHROOM_LADDER, RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.DARK_WILLOW_LADDER, RenderType.getCutoutMipped());
@@ -96,6 +97,7 @@ public class BlockRenderLayer {
         RenderTypeLookup.setRenderLayer(MidnightBlocks.NIGHTSHROOM_TRAPDOOR, RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.SHADOWROOT_TRAPDOOR, RenderType.getCutoutMipped());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.VIRIDSHROOM_TRAPDOOR, RenderType.getCutoutMipped());
+        RenderTypeLookup.setRenderLayer(MidnightBlocks.TENEBRUM_TRAPDOOR, RenderType.getCutoutMipped());
 
         RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_BLUE_PLANT_BLOCK, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(MidnightBlocks.MALIGNANT_GREEN_PLANT_BLOCK, RenderType.getCutout());
