@@ -1,83 +1,10 @@
 package com.mushroom.midnight.common.registry;
 
 import com.mushroom.midnight.client.render.item.MidnightChestItemRenderer;
-import com.mushroom.midnight.common.block.BladeshroomBlock;
-import com.mushroom.midnight.common.block.BloomCrystalBlock;
-import com.mushroom.midnight.common.block.BogweedBlock;
-import com.mushroom.midnight.common.block.BridgingVinesBlock;
-import com.mushroom.midnight.common.block.CacheBlock;
-import com.mushroom.midnight.common.block.CrystalBlock;
-import com.mushroom.midnight.common.block.CrystalotusBlock;
-import com.mushroom.midnight.common.block.DeceitfulAlgaeBlock;
-import com.mushroom.midnight.common.block.DoubleFungiBlock;
-import com.mushroom.midnight.common.block.DoubleMalignantFlowerBlock;
-import com.mushroom.midnight.common.block.DragonNestBlock;
-import com.mushroom.midnight.common.block.FingeredGrassBlock;
-import com.mushroom.midnight.common.block.FungiBlock;
-import com.mushroom.midnight.common.block.FungiInsideBlock;
-import com.mushroom.midnight.common.block.GlobFungusBlock;
-import com.mushroom.midnight.common.block.GlobFungusHatBlock;
-import com.mushroom.midnight.common.block.GlowingBlock;
-import com.mushroom.midnight.common.block.GrowableOnBlock;
-import com.mushroom.midnight.common.block.HangablePlantBlock;
-import com.mushroom.midnight.common.block.HangingLeavesBlock;
-import com.mushroom.midnight.common.block.HangingVinesBlock;
-import com.mushroom.midnight.common.block.MalignantFlowerBlock;
-import com.mushroom.midnight.common.block.MiasmaSurfaceBlock;
-import com.mushroom.midnight.common.block.MidnightChestBlock;
-import com.mushroom.midnight.common.block.MidnightCraftingTableBlock;
-import com.mushroom.midnight.common.block.MidnightDoublePlantBlock;
-import com.mushroom.midnight.common.block.MidnightFluidBlock;
-import com.mushroom.midnight.common.block.MidnightFungiHatBlock;
-import com.mushroom.midnight.common.block.MidnightFungiShelfBlock;
-import com.mushroom.midnight.common.block.MidnightFurnaceBlock;
-import com.mushroom.midnight.common.block.MidnightGemBlock;
-import com.mushroom.midnight.common.block.MidnightGlassBlock;
-import com.mushroom.midnight.common.block.MidnightGlassPaneBlock;
-import com.mushroom.midnight.common.block.MidnightMyceliumBlock;
-import com.mushroom.midnight.common.block.MidnightPlantBlock;
-import com.mushroom.midnight.common.block.MidnightSaplingBlock;
-import com.mushroom.midnight.common.block.MidnightStairsBlock;
-import com.mushroom.midnight.common.block.MidnightWoodPlankBlock;
-import com.mushroom.midnight.common.block.MossBlock;
-import com.mushroom.midnight.common.block.MudBlock;
-import com.mushroom.midnight.common.block.RiftPortalBlock;
-import com.mushroom.midnight.common.block.RockshroomBlock;
-import com.mushroom.midnight.common.block.SoilBlock;
-import com.mushroom.midnight.common.block.SporchBlock;
-import com.mushroom.midnight.common.block.SpreadableSoilBlock;
-import com.mushroom.midnight.common.block.StingerEggBlock;
-import com.mushroom.midnight.common.block.SuavisBlock;
-import com.mushroom.midnight.common.block.TendrilweedBlock;
-import com.mushroom.midnight.common.block.UnstableBushBlock;
-import com.mushroom.midnight.common.block.UnstableBushBloomedBlock;
-import com.mushroom.midnight.common.block.VioleafBlock;
-import com.mushroom.midnight.common.block.WallSporchBlock;
+import com.mushroom.midnight.common.block.*;
 import com.mushroom.midnight.common.item.DeceitfulAlgaeItem;
-import com.mushroom.midnight.common.world.tree.BogshroomTree;
-import com.mushroom.midnight.common.world.tree.DarkWillowTree;
-import com.mushroom.midnight.common.world.tree.DewshroomTree;
-import com.mushroom.midnight.common.world.tree.GlobFungusTree;
-import com.mushroom.midnight.common.world.tree.NightshroomTree;
-import com.mushroom.midnight.common.world.tree.ShadowrootTree;
-import com.mushroom.midnight.common.world.tree.ViridshroomTree;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DoorBlock;
-import net.minecraft.block.FenceBlock;
-import net.minecraft.block.FenceGateBlock;
-import net.minecraft.block.LadderBlock;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.LeverBlock;
-import net.minecraft.block.LogBlock;
-import net.minecraft.block.PressurePlateBlock;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.StoneButtonBlock;
-import net.minecraft.block.TrapDoorBlock;
-import net.minecraft.block.WallBlock;
-import net.minecraft.block.WeightedPressurePlateBlock;
-import net.minecraft.block.WoodButtonBlock;
+import com.mushroom.midnight.common.world.tree.*;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
@@ -872,14 +799,14 @@ public class MidnightBlocks {
                 ));
 
         RegUtil.blocks(event.getRegistry())
-                .withProperties(() -> Block.Properties.create(Material.PLANTS).hardnessAndResistance(1.0F).sound(SoundType.PLANT))
+                .withProperties(() -> Block.Properties.create(Material.EARTH).hardnessAndResistance(1.0F).sound(SoundType.PLANT))
                 .add("malignant_blue_plant_block", Block::new)
                 .add("malignant_red_plant_block", Block::new)
                 .add("malignant_purple_plant_block", Block::new)
                 .add("malignant_green_plant_block", Block::new);
 
         RegUtil.blocks(event.getRegistry())
-                .withProperties(() -> Block.Properties.create(Material.PLANTS).hardnessAndResistance(1.0F).sound(SoundType.PLANT).lightValue(8))
+                .withProperties(() -> Block.Properties.create(Material.EARTH).hardnessAndResistance(1.0F).sound(SoundType.PLANT).lightValue(8))
                 .add("glowing_malignant_blue_plant_block", Block::new)
                 .add("glowing_malignant_red_plant_block", Block::new)
                 .add("glowing_malignant_purple_plant_block", Block::new)

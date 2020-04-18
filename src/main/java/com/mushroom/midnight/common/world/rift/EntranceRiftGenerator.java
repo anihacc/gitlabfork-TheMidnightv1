@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.block.DoubleMalignantFlowerBlock;
 import com.mushroom.midnight.common.block.MossBlock;
+import com.mushroom.midnight.common.config.MidnightConfig;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightItems;
 import com.mushroom.midnight.common.registry.MidnightSounds;
@@ -35,14 +36,14 @@ public class EntranceRiftGenerator {
 
     private static final double PORTAL_RADIUS = 3.0;
 
-    private static final Direction[] VERTICAL_DIRECTIONS = new Direction[] { Direction.UP, Direction.DOWN };
+    private static final Direction[] VERTICAL_DIRECTIONS = {Direction.UP, Direction.DOWN};
 
-    private static final Block[] VINES = new Block[] {
+    private static final Block[] VINES = {
             MidnightBlocks.MALIGNANT_RED_HANGING_VINES,
             MidnightBlocks.MALIGNANT_RED_BRIDGING_VINES,
     };
 
-    private static final Block[] SHORT_FLOWERS = new Block[] {
+    private static final Block[] SHORT_FLOWERS = {
             MidnightBlocks.MALIGNANT_FOXGLOVE,
             MidnightBlocks.MALIGNANT_HEMLOCK,
             MidnightBlocks.MALIGNANT_MANDRAKE,
@@ -66,7 +67,7 @@ public class EntranceRiftGenerator {
 
         event.getPlayer().swingArm(event.getHand());
 
-        if (event.getItemStack().getItem() == MidnightItems.DARK_PEARL) {
+        if (MidnightConfig.logic.riftsFromDarkPearls.get() && event.getItemStack().getItem() == MidnightItems.DARK_PEARL) {
             PlayerEntity player = event.getPlayer();
 
             Vec3d lookVec = player.getLook(1.0F);
@@ -77,7 +78,7 @@ public class EntranceRiftGenerator {
             if (result.getType() == RayTraceResult.Type.BLOCK) {
                 new EntranceRiftGenerator(world).generate(result.getPos(), new Random());
 
-                world.playSound((PlayerEntity) null, result.getPos(), MidnightSounds.EGG_CRACKED, SoundCategory.BLOCKS, 3.0F, 1.0F);
+                world.playSound(null, result.getPos(), MidnightSounds.EGG_CRACKED, SoundCategory.BLOCKS, 3.0F, 1.0F);
             }
         }
     }
@@ -131,7 +132,7 @@ public class EntranceRiftGenerator {
         }
 
         double distanceFromEdge = radius - distance;
-        double glowChance = (distanceFromEdge / radius) * 0.5;
+        double glowChance = distanceFromEdge / radius * 0.5;
 
         if (random.nextFloat() < glowChance) {
             return MidnightBlocks.GLOWING_MALIGNANT_RED_PLANT_BLOCK.getDefaultState();
@@ -379,7 +380,7 @@ public class EntranceRiftGenerator {
         }
 
         int index(int x, int z) {
-            return (x + this.radius) + (z + this.radius) * this.diameter;
+            return x + this.radius + (z + this.radius) * this.diameter;
         }
     }
 

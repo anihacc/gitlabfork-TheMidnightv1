@@ -1,6 +1,7 @@
 package com.mushroom.midnight.common.world.feature.structure;
 
 import com.mojang.datafixers.Dynamic;
+import com.mushroom.midnight.common.config.MidnightConfig;
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightFluids;
 import com.mushroom.midnight.common.registry.MidnightStructurePieces;
@@ -18,10 +19,12 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeManager;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
@@ -87,22 +90,34 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
     }
 
     @Override
-    public boolean func_225558_a_(BiomeManager p_225558_1_, ChunkGenerator<?> generator, Random random, int chunkX, int chunkZ, Biome p_225558_6_) {
+    public boolean func_225558_a_(BiomeManager biomeMgr, ChunkGenerator<?> generator, Random random, int chunkX, int chunkZ, Biome unusedBiomeVariableThatWeCantCallBiomeBecauseThatNameAlreadyExists) {
+        int config = MidnightConfig.worldgen.guardtowerStructureRarity.get();
+        if (config == 0) return false;
         ChunkPos startPos = this.getStartPositionForPosition(generator, random, chunkX, chunkZ, 0, 0);
         if (chunkX == startPos.x && chunkZ == startPos.z) {
             SharedSeedRandom seedRandom = (SharedSeedRandom) random;
             seedRandom.setLargeFeatureSeed(generator.getSeed(), chunkX, chunkZ);
 
-            Metadata metadata = Metadata.generate(seedRandom, generator, chunkX, chunkZ);
-            if (metadata.isValid()) {
-                BiomeProvider biomeProvider = generator.getBiomeProvider();
-                return biomeProvider.func_225530_a_((chunkX << 4) + 9, 0, (chunkZ << 4) + 9, metadata.radius)
-                        .stream()
-                        .allMatch(biome -> generator.hasStructure(biome, this));
+            if (seedRandom.nextInt(config) == 0) {
+                Metadata metadata = Metadata.generate(seedRandom, generator, chunkX, chunkZ);
+                if (metadata.isValid()) {
+                    BiomeProvider biomeProvider = generator.getBiomeProvider();
+                    return biomeProvider.func_225530_a_((chunkX << 4) + 9, 0, (chunkZ << 4) + 9, metadata.radius)
+                            .stream()
+                            .allMatch(biome -> generator.hasStructure(biome, this));
+                }
             }
         }
 
         return false;
+    }
+
+    @Nullable
+    @Override
+    public BlockPos findNearest(World world, ChunkGenerator<? extends GenerationSettings> chunkGenerator, BlockPos pos, int radius, boolean skipExistingChunks) {
+        int config = MidnightConfig.worldgen.guardtowerStructureRarity.get();
+        if (config == 0) return null;
+        return super.findNearest(world, chunkGenerator, pos, radius, skipExistingChunks);
     }
 
     @Override

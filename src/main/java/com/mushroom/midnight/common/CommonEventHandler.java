@@ -42,10 +42,10 @@ public class CommonEventHandler {
                     return;
                 }
                 if (event.getObject() instanceof AnimalEntity) {
-                    if (MidnightConfig.general.notCapturableAnimals.get().stream().anyMatch(p -> p.contains(":") ? rl.toString().equals(p) : rl.getNamespace().equals(p))) {
+                    if (MidnightConfig.compat.notCapturableAnimals.get().stream().anyMatch(p -> p.contains(":") ? rl.toString().equals(p) : rl.getNamespace().equals(p))) {
                         return;
                     }
-                } else if (!MidnightConfig.general.capturableEntities.get().contains(rl.toString())) {
+                } else if (!MidnightConfig.compat.capturableEntities.get().contains(rl.toString())) {
                     return;
                 }
             }

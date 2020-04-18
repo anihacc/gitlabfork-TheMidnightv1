@@ -1,5 +1,7 @@
 package com.mushroom.midnight.common.entity.task;
 
+import com.mushroom.midnight.common.config.MidnightConfig;
+import com.mushroom.midnight.common.entity.creature.SkulkEntity;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.LivingEntity;
@@ -17,7 +19,9 @@ public class HunterTargetGoal<T extends LivingEntity> extends NearestAttackableT
 
     @Override
     protected boolean isSuitableTarget(@Nullable LivingEntity target, EntityPredicate predicate) {
-        return super.isSuitableTarget(target, predicate) && target != null && this.canSee(target);
+        boolean tamedSkulks = MidnightConfig.logic.huntersAttackTamedSkulks.get();
+        boolean isSkulk = target instanceof SkulkEntity && ((SkulkEntity) target).isTamed();
+        return (tamedSkulks || !isSkulk) && super.isSuitableTarget(target, predicate) && target != null && this.canSee(target);
     }
 
     private boolean canSee(LivingEntity target) {

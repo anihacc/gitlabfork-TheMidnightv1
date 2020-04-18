@@ -18,13 +18,7 @@ import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
@@ -120,7 +114,7 @@ public class BladeshroomBlock extends MidnightPlantBlock implements IGrowable {
         if (state.get(STAGE) == Stage.CAPPED) {
             ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(MidnightItems.BLADESHROOM_CAP));
             world.setBlockState(pos, state.with(STAGE, Stage.STEM));
-            if (MidnightConfig.general.bladeshroomDamageChance.get() != 0 && world.rand.nextInt(100) < MidnightConfig.general.bladeshroomDamageChance.get()) {
+            if (MidnightConfig.logic.bladeshroomDamageChance.get() != 0 && world.rand.nextInt(100) < MidnightConfig.logic.bladeshroomDamageChance.get()) {
                 player.attackEntityFrom(BLADESHROOM_DAMAGE, 1.0F);
             }
             return ActionResultType.SUCCESS;

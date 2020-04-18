@@ -3,6 +3,7 @@ package com.mushroom.midnight.client;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.render.block.BlockRenderLayer;
 import com.mushroom.midnight.common.config.MidnightConfig;
+import com.mushroom.midnight.common.config.provider.IConfigProvider;
 import com.mushroom.midnight.common.util.IProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
@@ -30,6 +31,8 @@ import static com.mushroom.midnight.Midnight.MODID;
 @Mod.EventBusSubscriber(modid = Midnight.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientProxy implements IProxy {
     private static final Minecraft MC = Minecraft.getInstance();
+    public static boolean enqueuedServerConfigUpdate;
+    public static IConfigProvider worldSetupConfig;
 
     @Override
     public boolean isClientPlayer(Entity entity) {
@@ -80,8 +83,7 @@ public class ClientProxy implements IProxy {
                 File file = server.getActiveAnvilConverter().getFile(server.getFolderName(), "midnight_configured.txt");
                 if (!file.exists()) {
                     System.out.println("----------____________________-------------------Importing");
-                    MidnightConfig.PROFILE.importFromProvider(ClientEventHandler.worldSetupConfig, true);
-
+                    MidnightConfig.SERVER_PROFILE.importFromProvider(worldSetupConfig, true);
                     file.getParentFile().mkdirs();
                     try {
                         file.createNewFile();

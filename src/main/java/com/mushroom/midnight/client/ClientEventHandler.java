@@ -6,7 +6,6 @@ import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.client.gui.config.ConfigInterfaceScreen;
 import com.mushroom.midnight.common.capability.RifterCapturable;
 import com.mushroom.midnight.common.config.MidnightConfig;
-import com.mushroom.midnight.common.config.provider.IConfigProvider;
 import com.mushroom.midnight.common.registry.MidnightEffects;
 import com.mushroom.midnight.common.registry.MidnightParticleTypes;
 import com.mushroom.midnight.common.registry.MidnightSounds;
@@ -44,10 +43,13 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Random;
+
+import static com.mushroom.midnight.client.ClientProxy.worldSetupConfig;
 
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(modid = Midnight.MODID, value = Dist.CLIENT)
@@ -121,7 +123,7 @@ public class ClientEventHandler {
         if (worldTime - lastAmbientSoundTime > AMBIENT_SOUND_INTERVAL && rand.nextInt(AMBIENT_SOUND_CHANCE) == 0) {
             ResourceLocation ambientSound = MidnightSounds.AMBIENT.getName();
 
-            float volume = rand.nextFloat() * 0.4F + 0.8F;
+            float volume = (rand.nextFloat() * 0.4F + 0.8F) * MidnightConfig.client.ambientVolume.get().floatValue();
             float pitch = rand.nextFloat() * 0.6F + 0.7F;
 
             float x = (float) (player.getPosX() + rand.nextFloat() - 0.5F);
@@ -187,6 +189,7 @@ public class ClientEventHandler {
     }
 
     private static void spawnAmbientParticles(PlayerEntity player) {
+        if (!MidnightConfig.client.ambientSporeParticles.get()) return;
         Random random = player.world.rand;
         double originX = player.getPosX();
         double originY = player.getPosY();
@@ -271,15 +274,17 @@ public class ClientEventHandler {
 
 
     private static CreateWorldScreen currentCreateWorldScreen;
-    public static IConfigProvider worldSetupConfig;
-    public static boolean enqueuedServerConfigUpdate;
 
     @SubscribeEvent
     public static void onOpenGUIScreen(GuiOpenEvent event) {
         if (event.getGui() instanceof CreateWorldScreen && event.getGui() != currentCreateWorldScreen) {
             currentCreateWorldScreen = (CreateWorldScreen) event.getGui();
-            worldSetupConfig = MidnightConfig.PROFILE.makeTempProvider();
+            worldSetupConfig = MidnightConfig.SERVER_PROFILE.makeTempProvider();
         }
     }
 
+    @SubscribeEvent
+    public static void serverStartingEvent(FMLServerStartingEvent event) {
+        MidnightConfig.update();
+    }
 }

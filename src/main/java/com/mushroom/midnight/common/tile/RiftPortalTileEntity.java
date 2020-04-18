@@ -1,5 +1,6 @@
 package com.mushroom.midnight.common.tile;
 
+import com.mushroom.midnight.common.config.MidnightConfig;
 import com.mushroom.midnight.common.registry.MidnightTileEntities;
 import com.mushroom.midnight.common.util.SlidingToggle;
 import net.minecraft.nbt.CompoundNBT;
@@ -22,7 +23,7 @@ public class RiftPortalTileEntity extends TileEntity implements ITickableTileEnt
     public void tick() {
         if (this.world.rand.nextInt(3) == 0) {
             long time = this.world.getDayTime() % 24000;
-            this.closed.set(time >= 0 && time <= 13000);
+            this.closed.set(time >= 0 && time <= 13000 || MidnightConfig.logic.riftsOpenAtDaytime.get());
         }
 
         this.closed.update();

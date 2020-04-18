@@ -23,12 +23,18 @@ public class ConfigInterface {
     private final List<Entry> entries = new ArrayList<>();
     private final List<IConfigValue<?>> values = new ArrayList<>();
     private final EditAccess access;
+    private Runnable changeHandler;
 
     public ConfigInterface(ITextComponent title, IConfigProvider provider, boolean canCancel, EditAccess access) {
         this.title = title;
         this.provider = provider;
         this.canCancel = canCancel;
         this.access = access;
+    }
+
+    public ConfigInterface handler(Runnable changeHandler) {
+        this.changeHandler = changeHandler;
+        return this;
     }
 
     public ConfigInterface header(String headerTK) {
@@ -88,6 +94,12 @@ public class ConfigInterface {
     public void fillOptionsScreen(ConfigInterfaceScreen screen, ConfigOptionList scrollView) {
         for (Entry entry : entries) {
             scrollView.addEntry(entry.createRow(screen));
+        }
+    }
+
+    public void handleChange() {
+        if (changeHandler != null) {
+            changeHandler.run();
         }
     }
 

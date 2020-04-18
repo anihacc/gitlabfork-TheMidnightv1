@@ -32,7 +32,7 @@ public class RifterCaptureGoalGoal extends RifterFollowGoal {
     @Override
     protected void handleInteract(LivingEntity target) {
         this.owner.captureCooldown = RifterEntity.CAPTURE_COOLDOWN;
-        if (this.owner.attackEntityAsMob(target) && target.isAlive() && (MidnightConfig.general.rifterCaptureTamedAnimal.get() || !(target instanceof TameableEntity) || !((TameableEntity) target).isTamed())) {
+        if (this.owner.attackEntityAsMob(target) && target.isAlive() && (MidnightConfig.logic.rifterCaptureTamedAnimal.get() || !(target instanceof TameableEntity) || !((TameableEntity) target).isTamed()) && (MidnightConfig.logic.rifterCaptureNamedAnimal.get() || !target.hasCustomName())) {
             this.owner.setCapturedEntity(target);
         }
     }

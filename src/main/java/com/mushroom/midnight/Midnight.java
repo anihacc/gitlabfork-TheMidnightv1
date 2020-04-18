@@ -34,7 +34,6 @@ import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -83,7 +82,8 @@ public class Midnight {
 
     public Midnight() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, MidnightConfig.CLIENT_SPEC);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MidnightConfig.GENERAL_SPEC);
+//        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MidnightConfig.GENERAL_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MidnightConfig.COMMON_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, MidnightConfig.SERVER_SPEC);
         ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, MidnightConfigGUIFactory::new);
 
@@ -157,27 +157,26 @@ public class Midnight {
      */
     public static void initStructures()
     {
-        for(Biome biome : ForgeRegistries.BIOMES.getValues())
-        {
+        for(Biome biome : ForgeRegistries.BIOMES.getValues()) {
 //            System.out.println("biome = " + biome);
 
-            if (!BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
-                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)
-                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.VOID)
-                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
-                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
-                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.MUSHROOM)
-
-                    && (biome.getRegistryName().getNamespace().equals("minecraft")
-                    || biome.getRegistryName().getNamespace().equals("midnight")
-                    || biome.getRegistryName().getNamespace().equals("biomesoplenty")
-                    || biome.getRegistryName().getNamespace().equals("terraforged"))
-            )
-            {
+//            if (!BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
+//                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)
+//                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.VOID)
+//                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
+//                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
+//                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.MUSHROOM)
+//
+//                    && (biome.getRegistryName().getNamespace().equals("minecraft")
+//                    || biome.getRegistryName().getNamespace().equals("midnight")
+//                    || biome.getRegistryName().getNamespace().equals("biomesoplenty")
+//                    || biome.getRegistryName().getNamespace().equals("terraforged"))
+//            )
+//            {
 //                System.out.println("biome = " + biome);
-                biome.addStructure(MidnightStructures.ENTRANCE_RIFT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
-                biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, MidnightStructures.ENTRANCE_RIFT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
-            }
+            biome.addStructure(MidnightStructures.ENTRANCE_RIFT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
+            biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, MidnightStructures.ENTRANCE_RIFT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+//            }
         }
     }
 

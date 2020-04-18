@@ -109,6 +109,7 @@ public class MidnightDimension extends Dimension {
         return false;
     }
 
+    @Override
     @Nullable
     @OnlyIn(Dist.CLIENT)
     public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks) {
@@ -151,25 +152,27 @@ public class MidnightDimension extends Dimension {
             //chunkProvider.setAllowedSpawnTypes(false, false);
 
             // TODO: NEEDS ATTENTION!
-            chunkProvider.chunkManager.getLoadedChunksIterable().forEach(chunkHolder -> {
-                chunkHolder.func_219297_b().getNow(ChunkHolder.UNLOADED_CHUNK).left().ifPresent(chunk -> {
-                    Random rand = this.world.rand;
+            if (MidnightConfig.logic.randomLightnings.get()) {
+                chunkProvider.chunkManager.getLoadedChunksIterable().forEach(chunkHolder -> {
+                    chunkHolder.func_219297_b().getNow(ChunkHolder.UNLOADED_CHUNK).left().ifPresent(chunk -> {
+                        Random rand = this.world.rand;
 
-                    ChunkPos chunkPos = chunkHolder.getPosition();
-                    if (!chunkProvider.chunkManager.isOutsideSpawningRadius(chunkPos)) { // TODO: NEEDS ATTENTION!
-                        int globalX = chunkPos.getXStart();
-                        int globalZ = chunkPos.getZStart();
-                        if (rand.nextInt(200000) == 0) {
-                            int lightningX = globalX + rand.nextInt(16);
-                            int lightningZ = globalZ + rand.nextInt(16);
-                            BlockPos pos = this.world.getHeight(Heightmap.Type.MOTION_BLOCKING, new BlockPos(lightningX, 0, lightningZ));
+                        ChunkPos chunkPos = chunkHolder.getPosition();
+                        if (!chunkProvider.chunkManager.isOutsideSpawningRadius(chunkPos)) { // TODO: NEEDS ATTENTION!
+                            int globalX = chunkPos.getXStart();
+                            int globalZ = chunkPos.getZStart();
+                            if (rand.nextInt(200000) == 0) {
+                                int lightningX = globalX + rand.nextInt(16);
+                                int lightningZ = globalZ + rand.nextInt(16);
+                                BlockPos pos = this.world.getHeight(Heightmap.Type.MOTION_BLOCKING, new BlockPos(lightningX, 0, lightningZ));
 
-                            LightningBoltEntity lightning = new LightningBoltEntity(this.world, pos.getX(), pos.getY(), pos.getZ(), !MidnightConfig.general.allowLightningDamage.get());
-                            serverWorld.addLightningBolt(lightning);
+                                LightningBoltEntity lightning = new LightningBoltEntity(this.world, pos.getX(), pos.getY(), pos.getZ(), !MidnightConfig.logic.allowLightningDamage.get());
+                                serverWorld.addLightningBolt(lightning);
+                            }
                         }
-                    }
+                    });
                 });
-            });
+            }
         }
     }
 
@@ -180,7 +183,7 @@ public class MidnightDimension extends Dimension {
 
     @Override
     public boolean canRespawnHere() {
-        return MidnightConfig.general.canRespawnInMidnight.get();
+        return MidnightConfig.logic.canRespawnInMidnight.get();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.mushroom.midnight.client.sound;
 
 import com.mushroom.midnight.client.IdleSoundController;
+import com.mushroom.midnight.common.config.MidnightConfig;
 import com.mushroom.midnight.common.util.MidnightUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ITickableSound;
@@ -30,6 +31,6 @@ public class MidnightIdleSound extends LocatableSound implements ITickableSound 
 
     @Override
     public void tick() {
-        this.volume = Math.max(1.0F - IdleSoundController.CAVE_ANIMATION.getScale(), 0.01F);
+        this.volume = Math.max(1.0F - IdleSoundController.CAVE_ANIMATION.getScale(), 0.01F) * MidnightConfig.client.ambientVolume.get().floatValue();
     }
 }

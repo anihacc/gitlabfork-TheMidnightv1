@@ -1,6 +1,7 @@
 package com.mushroom.midnight.client;
 
 import com.mushroom.midnight.Midnight;
+import com.mushroom.midnight.common.config.MidnightConfig;
 import com.mushroom.midnight.common.util.MidnightUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.IReloadableResourceManager;
@@ -31,7 +32,7 @@ public final class SoundReverbHandler {
             setup = true;
         }
 
-        if (available && shouldEcho(MC.world)) {
+        if (MidnightConfig.client.echoVolume.get() > 0 && available && shouldEcho(MC.world)) {
             AL11.alSource3i(soundId, EXTEfx.AL_AUXILIARY_SEND_FILTER, auxEffectSlot, 0, EXTEfx.AL_FILTER_NULL);
         }
     }
@@ -45,6 +46,7 @@ public final class SoundReverbHandler {
 
         auxEffectSlot = EXTEfx.alGenAuxiliaryEffectSlots();
         EXTEfx.alAuxiliaryEffectSloti(auxEffectSlot, EXTEfx.AL_EFFECTSLOT_AUXILIARY_SEND_AUTO, AL10.AL_TRUE);
+        EXTEfx.alAuxiliaryEffectSlotf(auxEffectSlot, EXTEfx.AL_EFFECTSLOT_GAIN, MidnightConfig.client.echoVolume.get().floatValue());
 
         int reverbEffectSlot = EXTEfx.alGenEffects();
 
