@@ -97,13 +97,13 @@ public class MidnightConfig {
                             " - 'id' will match vanilla biomes with the specified id",
                             " - Only specifying '*' will match all biomes",
                             " - Empty strings and whitespaces are completely ignored",
-                            "Default: '+ minecraft', '+ midnight', '+ biomesoplenty', '+ terraforged', '- #VOID', '- #OCEAN', '- #RIVER', '- #MUSHROOM'"
+                            "Default: '+ *', '- #VOID', '- #WATER', '- #BEACH', '- #MUSHROOM'"
                     )
                     .define("rift_biomes", Lists.newArrayList(
                             "+ *",
                             "- #VOID",
-                            "- #OCEAN",
-                            "- #RIVER",
+                            "- #WATER",
+                            "- #BEACH",
                             "- #MUSHROOM"
                     ));
 
