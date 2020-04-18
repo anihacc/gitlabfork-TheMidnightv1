@@ -30,13 +30,13 @@ public class MidnightTeleporter {
         ServerWorld endpointWorld = server.getWorld(endpointDimension);
 
         BlockPos entPos = entity.getPosition();
-        BlockPos pos = new BlockPos( // RGSW: Try to spawn near the portal instead of in to stop entities getting stuck
+        BlockPos pos = new BlockPos( // RGSW: Try to spawn near the portal instead of in, to stop entities getting stuck in blocks
                 entPos.getX() + endpointWorld.rand.nextInt(15) - endpointWorld.rand.nextInt(15),
                 entPos.getY(),
                 entPos.getZ() + endpointWorld.rand.nextInt(15) - endpointWorld.rand.nextInt(15)
         );
         IChunk chunk = endpointWorld.getChunk(pos);
-        int surfaceY = chunk.getTopBlockY(Heightmap.Type.MOTION_BLOCKING, pos.getX(), pos.getZ()) + 1;
+        int surfaceY = chunk.getTopBlockY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, pos.getX(), pos.getZ()) + 1;
 
         BlockPos portalPos = new BlockPos(pos.getX(), surfaceY, pos.getZ());
 
