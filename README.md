@@ -10,7 +10,7 @@ To get to the dimension, you will need to find a rift. These will spawn in red c
 
 #### For Developers  
 We understand can be annoying to have to find a rift to access The Midnight every time. Here are a couple of commands to find/access the dimension with ease.  
-Summon a Rift entity: `/locate midnight:entrance_rift`  
+Locate a rift structure: `/locate midnight:entrance_rift`  
 Teleport directly into The Midnight: `/forge setdimension @p midnight:midnight`
 
 ## Releases  
