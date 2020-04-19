@@ -1,5 +1,5 @@
 ---
-name: Bug report
+name: Bug or crash report
 about: Report a bug or crash. Do not report any issues on 1.12.2 versions of the Midnight, they will always be closed and ignored.
 title: ''
 labels: ''
