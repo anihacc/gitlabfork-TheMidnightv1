@@ -81,16 +81,15 @@ public class ClientProxy implements IProxy {
             MinecraftServer server = LogicalSidedProvider.INSTANCE.get(LogicalSide.SERVER);
             if (server instanceof IntegratedServer) {
                 File file = server.getActiveAnvilConverter().getFile(server.getFolderName(), "midnight_configured.txt");
-                if (!file.exists()) {
-                    System.out.println("----------____________________-------------------Importing");
+                if (!file.exists() && worldSetupConfig != null) {
                     MidnightConfig.SERVER_PROFILE.importFromProvider(worldSetupConfig, true);
                     file.getParentFile().mkdirs();
                     try {
                         file.createNewFile();
                         PrintStream stream = new PrintStream(file);
                         stream.println("Midnight configured!");
-                        stream.println("This file is used by the Midnight mod to ensure that server configs aren't overwritten when loading the world.");
-                        stream.println("DO NOT DELETE THIS FILE, OTHERWISE YOUR SERVER CONFIG WILL RESET UPON WORLD LOAD!!!");
+                        stream.println("This file is used by the Midnight mod to ensure that world generator configs aren't overwritten when loading the world.");
+                        stream.println("DO NOT DELETE THIS FILE, OTHERWISE YOUR WORLD GEN CONFIG WILL RESET UPON WORLD LOAD!!!");
                     } catch (IOException exc) {
                         throw new RuntimeException(exc);
                     }
