@@ -10,6 +10,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class ToggleButtonControl implements IConfigControlType<Boolean> {
     @Override
+    @OnlyIn(Dist.CLIENT)
     public IConfigWidget<Boolean> createConfigWidget(IConfigValue<Boolean> configValue) {
         return new CfgWidget(configValue);
     }

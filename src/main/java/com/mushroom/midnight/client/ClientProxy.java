@@ -1,9 +1,11 @@
 package com.mushroom.midnight.client;
 
 import com.mushroom.midnight.Midnight;
+import com.mushroom.midnight.client.gui.config.MidnightConfigGUIFactory;
 import com.mushroom.midnight.client.render.block.BlockRenderLayer;
 import com.mushroom.midnight.common.config.MidnightConfig;
 import com.mushroom.midnight.common.config.provider.IConfigProvider;
+import com.mushroom.midnight.common.recipe.MidnightRecipeBookCategories;
 import com.mushroom.midnight.common.util.IProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
@@ -14,8 +16,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.LogicalSidedProvider;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -35,12 +39,18 @@ public class ClientProxy implements IProxy {
     public static IConfigProvider worldSetupConfig;
 
     @Override
+    public void onConstruct() {
+        ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, MidnightConfigGUIFactory::new);
+    }
+
+    @Override
     public boolean isClientPlayer(Entity entity) {
         return entity == MC.player;
     }
 
     public static void setup(FMLCommonSetupEvent event) {
         BlockRenderLayer.renderBlock();
+        MidnightRecipeBookCategories.justLoadClass();
     }
 
     @SubscribeEvent

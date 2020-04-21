@@ -5,6 +5,7 @@ import com.mushroom.midnight.common.config.provider.IConfigValue;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+@FunctionalInterface
 public interface IConfigControlType<T> {
     @OnlyIn(Dist.CLIENT)
     IConfigWidget<T> createConfigWidget(IConfigValue<T> configValue);

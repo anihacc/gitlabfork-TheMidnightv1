@@ -2,7 +2,6 @@ package com.mushroom.midnight;
 
 import com.google.common.reflect.Reflection;
 import com.mushroom.midnight.client.ClientProxy;
-import com.mushroom.midnight.client.gui.config.MidnightConfigGUIFactory;
 import com.mushroom.midnight.client.model.MidnightModelRegistry;
 import com.mushroom.midnight.common.ServerProxy;
 import com.mushroom.midnight.common.capability.*;
@@ -19,7 +18,6 @@ import com.mushroom.midnight.common.network.AnimationMessage;
 import com.mushroom.midnight.common.network.CaptureEntityMessage;
 import com.mushroom.midnight.common.network.ItemActivationMessage;
 import com.mushroom.midnight.common.network.RockshroomBrokenMessage;
-import com.mushroom.midnight.common.recipe.MidnightRecipeBookCategories;
 import com.mushroom.midnight.common.registry.*;
 import com.mushroom.midnight.common.util.EntityUtil;
 import com.mushroom.midnight.common.util.IProxy;
@@ -39,7 +37,6 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -85,7 +82,6 @@ public class Midnight {
 //        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MidnightConfig.GENERAL_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MidnightConfig.COMMON_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, MidnightConfig.SERVER_SPEC);
-        ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, MidnightConfigGUIFactory::new);
 
         setupMessages();
 
@@ -109,7 +105,6 @@ public class Midnight {
 
         EntityUtil.register();
         MidnightRecipeTypes.init();
-        MidnightRecipeBookCategories.justLoadClass();
 
         LootConditionManager.registerCondition(new InBiomeLootCondition.Serializer());
         LootConditionManager.registerCondition(new InBlockLootCondition.Serializer());

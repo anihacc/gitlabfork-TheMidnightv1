@@ -32,6 +32,7 @@ public class IntSliderControl implements IConfigControlType<Integer> {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public IConfigWidget<Integer> createConfigWidget(IConfigValue<Integer> configValue) {
         return new CfgWidget(configValue, format, min, max);
     }

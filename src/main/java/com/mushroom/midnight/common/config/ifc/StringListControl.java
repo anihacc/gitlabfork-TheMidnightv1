@@ -23,6 +23,7 @@ public class StringListControl implements IConfigControlType<List<String>> {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public IConfigWidget<List<String>> createConfigWidget(IConfigValue<List<String>> configValue) {
         return new CfgWidget(configValue, header);
     }

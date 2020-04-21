@@ -26,6 +26,7 @@ public class DoublePercentSliderControl implements IConfigControlType<Double> {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public IConfigWidget<Double> createConfigWidget(IConfigValue<Double> configValue) {
         return new CfgWidget(configValue, format);
     }
