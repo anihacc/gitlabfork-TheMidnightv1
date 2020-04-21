@@ -32,9 +32,9 @@ If you would like to support our work, consider donating to our [Patreon](https:
 
 ### Credits  
 - **Project Leader**: [Cipher_Zero_X](https://github.com/cipherzerox)
-- **Programmers**: [bagu_chan](https://github.com/pentantan), [RedGalaxySW](https://github.com/RedGalaxySW), [Jonathing](https://github.com/Jonathing)
+- **Programmers**: [RedGalaxySW](https://github.com/RedGalaxySW), [Jonathing](https://github.com/Jonathing)
 - **Texturers**: 
 - **Modelers**: [Cipher_Zero_X](https://github.com/cipherzerox)
 - **Sound Designers**: 
-- **Former and Inactive Developers:** [gegy1000](https://github.com/gegy1000), [Martacus](https://github.com/Martacus), [Cat Core](https://github.com/arthurbambou), [Corail31](https://github.com/Corail31), [Endergized](https://github.com/Endergy), [Five (Paradiscal)](https://github.com/fivelol), [MCVinnyq](https://github.com/MCVinnyq), [MCvinnnyq](https://github.com/MCVinnyq), [Lachney](https://xjon.me)
+- **Former and Inactive Developers:** [bagu_chan](https://github.com/pentantan), [gegy1000](https://github.com/gegy1000), [Martacus](https://github.com/Martacus), [Cat Core](https://github.com/arthurbambou), [Corail31](https://github.com/Corail31), [Endergized](https://github.com/Endergy), [Five (Paradiscal)](https://github.com/fivelol), [MCVinnyq](https://github.com/MCVinnyq), [Lachney](https://xjon.me)
 - **Contributors and Testers**: [ZombieEnderman5](https://github.com/ZombieEnderman5), [veesus mikhel heir](https://minecraft.curseforge.com/members/veesusmikelheir), 123wdog, [Terenx](https://github.com/Terenx), [KingPhygieBoo](https://gitlab.com/KingPhygieBoo)
