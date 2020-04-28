@@ -82,10 +82,12 @@ public class ClientEventHandler {
         }
 
         // Access key press action in InputMappings directly as keybinds only respond when the game is not paused...
-        if (InputMappings.isKeyDown(CLIENT.getMainWindow().getHandle(), MidnightKeybinds.MIDNIGHT_CONFIG.getKey().getKeyCode())) {
+        if (MidnightKeybinds.MIDNIGHT_CONFIG.getKey().getKeyCode() > -1
+                && InputMappings.isKeyDown(CLIENT.getMainWindow().getHandle(), MidnightKeybinds.MIDNIGHT_CONFIG.getKey().getKeyCode())
+                && MidnightKeybinds.MIDNIGHT_CONFIG.getKeyModifier().isActive(MidnightKeybinds.MIDNIGHT_CONFIG.getKeyConflictContext())) {
             if (CLIENT.currentScreen instanceof IngameMenuScreen) {
                 CLIENT.displayGuiScreen(new ConfigInterfaceScreen(CLIENT.currentScreen, MidnightConfig.MAIN_IFC.makeInterface(MidnightConfig.PROFILE)));
-            } else if (CLIENT.currentScreen == currentCreateWorldScreen) {
+            } else if (CLIENT.currentScreen != null && CLIENT.currentScreen == currentCreateWorldScreen) {
                 CLIENT.displayGuiScreen(new ConfigInterfaceScreen(CLIENT.currentScreen, MidnightConfig.SERVER_IFC.makeInterface(worldSetupConfig)));
             }
         }

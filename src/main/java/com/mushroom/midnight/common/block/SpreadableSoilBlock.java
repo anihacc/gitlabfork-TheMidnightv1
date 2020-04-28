@@ -35,7 +35,7 @@ public class SpreadableSoilBlock extends SoilBlock {
         }
         BlockPos abovePos = pos.up();
         BlockState aboveState;
-        if (!MidnightUtil.isMidnightDimension(world) || LightEngine.func_215613_a(world, state, pos, (aboveState = world.getBlockState(abovePos)), abovePos, Direction.UP, aboveState.getOpacity(world, abovePos)) > 2) {
+        if (!MidnightUtil.isMidnightDimension(world) || LightEngine.func_215613_a(world, state, pos, aboveState = world.getBlockState(abovePos), abovePos, Direction.UP, aboveState.getOpacity(world, abovePos)) > 2) {
             world.setBlockState(pos, this.groundSupplier.get().getDefaultState());
             return;
         }

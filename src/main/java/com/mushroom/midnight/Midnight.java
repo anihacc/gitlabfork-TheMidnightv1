@@ -5,6 +5,7 @@ import com.mushroom.midnight.client.ClientProxy;
 import com.mushroom.midnight.client.model.MidnightModelRegistry;
 import com.mushroom.midnight.common.ServerProxy;
 import com.mushroom.midnight.common.capability.*;
+import com.mushroom.midnight.common.compatibility.MidnightTerraforgedCompat;
 import com.mushroom.midnight.common.config.MidnightConfig;
 import com.mushroom.midnight.common.data.loot.MidnightBlockLootProvider;
 import com.mushroom.midnight.common.data.recipe.*;
@@ -32,15 +33,19 @@ import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkRegistry;
@@ -79,7 +84,6 @@ public class Midnight {
 
     public Midnight() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, MidnightConfig.CLIENT_SPEC);
-//        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MidnightConfig.GENERAL_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MidnightConfig.COMMON_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, MidnightConfig.SERVER_SPEC);
 
@@ -90,6 +94,7 @@ public class Midnight {
         DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientProxy::setup));
 
         bus.addListener(this::setup);
+        bus.addListener(this::loadComplete);
         bus.addListener(this::registerModels);
         bus.addListener(this::gatherData);
 
@@ -111,8 +116,13 @@ public class Midnight {
         LootConditionManager.registerCondition(new IsChildLootCondition.Serializer());
 
         setupWorldGen();
+        if (ModList.get().isLoaded("terraforged")) {
+            MinecraftForge.EVENT_BUS.register(new MidnightTerraforgedCompat());
+        }
+    }
 
-
+    private void loadComplete(FMLLoadCompleteEvent event) {
+        setupEntranceRift(); // Do this on load complete to ensure every mod has set up its biomes...
     }
 
     private void setupMessages() {
@@ -137,11 +147,9 @@ public class Midnight {
                 .add();
     }
 
-    private static void setupWorldGen()
-    {
+    private static void setupWorldGen() {
         MidnightSurfaceBiomes.onInit();
         MidnightCavernousBiomes.onInit();
-        setupEntranceRift();
     }
 
     /**
@@ -150,29 +158,14 @@ public class Midnight {
      * - the biome is from Minecraft, The Midnight, or Biomes o' Plenty
      * - the biome is not from the Nether, The End, the Void, Oceans, Rivers, and Mushroom biomes
      */
-    public static void setupEntranceRift()
-    {
-        for(Biome biome : ForgeRegistries.BIOMES.getValues()) {
-//            System.out.println("biome = " + biome);
-
-//            if (!BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER)
-//                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.END)
-//                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.VOID)
-//                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.OCEAN)
-//                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.RIVER)
-//                    && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.MUSHROOM)
-//
-//                    && (biome.getRegistryName().getNamespace().equals("minecraft")
-//                    || biome.getRegistryName().getNamespace().equals("midnight")
-//                    || biome.getRegistryName().getNamespace().equals("biomesoplenty")
-//                    || biome.getRegistryName().getNamespace().equals("terraforged"))
-//            )
-//            {
-//                System.out.println("biome = " + biome);
-            biome.addStructure(MidnightStructures.ENTRANCE_RIFT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
-            biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, MidnightStructures.ENTRANCE_RIFT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
-//            }
-        }
+    public static void setupEntranceRift() {
+        DeferredWorkQueue.runLater(() -> { // Run on main thread!
+            for (Biome biome : ForgeRegistries.BIOMES.getValues()) {
+                biome.addStructure(MidnightStructures.ENTRANCE_RIFT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
+                biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, MidnightStructures.ENTRANCE_RIFT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+                LOGGER.debug("Adding rifts to biome: " + biome.getRegistryName());
+            }
+        });
     }
 
     private void registerModels(ModelRegistryEvent event) {

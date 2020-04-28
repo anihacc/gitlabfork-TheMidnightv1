@@ -67,12 +67,16 @@ minecraft {
 
 repositories {
   maven { url = "http://dvs1.progwml6.com/files/maven" }
+  maven {
+    url "https://io.terraforged.com/repository/maven/"
+  }
 }
 
 dependencies {
   minecraft 'net.minecraftforge:forge:1.15.2-31.1.18'
   runtimeOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2")
   compileOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2:api")
+  compileOnly "com.terraforged:TerraForgedAPI:1.15.2-0.0.13"
 }
 
 jar {
