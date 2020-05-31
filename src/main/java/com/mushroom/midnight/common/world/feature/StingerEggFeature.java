@@ -33,11 +33,12 @@ public class StingerEggFeature extends Feature<NoFeatureConfig> {
                     rand.nextInt(4) - rand.nextInt(4)
             );
 
-            if (world.isAirBlock(pos) && BLOCK.isValidPosition(world, pos) && (pos.getY() > 1) && (world.getBlockState(pos.down()).getBlock() != MidnightBlocks.MIASMA)) {
+            if (world.isAirBlock(pos) && BLOCK.isValidPosition(world, pos) && (pos.getY() > 1) &&
+                    (world.getBlockState(pos.down()).isSolid())) {
                 int count = rand.nextInt(4) + 1;
                 world.setBlockState(origin, BLOCK.with(PileOfEggsBlock.EGGS, count), Constants.BlockFlags.BLOCK_UPDATE);
                 result = true;
-                System.out.println(world.getBlockState(pos.down()).getBlock());
+//                System.out.println("world.getBlockState(pos.down()).getBlock() = " + world.getBlockState(pos.down()).getBlock());
             }
         }
 
