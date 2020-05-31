@@ -154,7 +154,7 @@ public class MidnightDimension extends Dimension {
             // TODO: NEEDS ATTENTION!
             if (MidnightConfig.logic.randomLightnings.get()) {
                 chunkProvider.chunkManager.getLoadedChunksIterable().forEach(chunkHolder -> {
-                    chunkHolder.func_219297_b().getNow(ChunkHolder.UNLOADED_CHUNK).left().ifPresent(chunk -> {
+                    chunkHolder.getEntityTickingFuture().getNow(ChunkHolder.UNLOADED_CHUNK).left().ifPresent(chunk -> {
                         Random rand = this.world.rand;
 
                         ChunkPos chunkPos = chunkHolder.getPosition();

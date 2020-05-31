@@ -52,7 +52,7 @@ public final class MidnightAtmosphereController {
         int playerX = MathHelper.floor(player.getPosX());
         int playerZ = MathHelper.floor(player.getPosZ());
 
-        Chunk chunk = player.world.getChunkProvider().func_225313_a(playerX >> 4, playerZ >> 4);
+        Chunk chunk = player.world.getChunkProvider().getChunkNow(playerX >> 4, playerZ >> 4);
         if (chunk == null || chunk.getBiomes() == null) return;
 
         Biome biome = chunk.getBiomes().getNoiseBiome((playerX & 15), 0, (playerZ & 15) << 4);

@@ -53,7 +53,7 @@ public class EntranceRiftStructure extends ScatteredStructure<NoFeatureConfig> {
     }
 
     @Override
-    public boolean func_225558_a_(BiomeManager biomeMgr, ChunkGenerator<?> chunkGen, Random rand, int cx, int cz, Biome biome) {
+    public boolean canBeGenerated(BiomeManager biomeMgr, ChunkGenerator<?> chunkGen, Random rand, int cx, int cz, Biome biome) {
         ChunkPos start = getStartPositionForPosition(chunkGen, rand, cx, cz, 0, 0);
         // Minecraft won't give us access to the world: force that access via reflection...        "world"
         IWorld world = ObfuscationReflectionHelper.getPrivateValue(ChunkGenerator.class, chunkGen, "field_222540_a");
@@ -73,7 +73,7 @@ public class EntranceRiftStructure extends ScatteredStructure<NoFeatureConfig> {
                 if (MidnightConfig.getRiftBiomes().contains(biome) && MidnightConfig.getRiftDims().contains(world.getDimension().getType())) {
                     for (int k = cx - 10; k <= cx + 10; ++k) {
                         for (int l = cz - 10; l <= cz + 10; ++l) {
-                            if (Feature.VILLAGE.func_225558_a_(biomeMgr, chunkGen, rand, k, l, biomeMgr.getBiome(new BlockPos((k << 4) + 9, 0, (l << 4) + 9)))) {
+                            if (Feature.VILLAGE.canBeGenerated(biomeMgr, chunkGen, rand, k, l, biomeMgr.getBiome(new BlockPos((k << 4) + 9, 0, (l << 4) + 9)))) {
                                 return false;
                             }
                         }
@@ -108,7 +108,7 @@ public class EntranceRiftStructure extends ScatteredStructure<NoFeatureConfig> {
                         boolean zEdge = zOff == -rad || zOff == rad;
                         if (xEdge || zEdge) {
                             ChunkPos cpos = getStartPositionForPosition(chunkGen, rand, cx, cz, xOff, zOff);
-                            boolean startAtPos = func_225558_a_(world.getBiomeManager(), chunkGen, rand, cpos.x, cpos.z, world.getBiome(new BlockPos((cpos.x << 4) + 9, 64, (cpos.z << 4) + 9)));
+                            boolean startAtPos = canBeGenerated(world.getBiomeManager(), chunkGen, rand, cpos.x, cpos.z, world.getBiome(new BlockPos((cpos.x << 4) + 9, 64, (cpos.z << 4) + 9)));
 //                            StructureStart start = world.getChunk(cpos.x, cpos.z, ChunkStatus.STRUCTURE_STARTS).getStructureStart(this.getStructureName());
 //                            if (start != null && start.isValid()) {
 //                                if (skipExistingChunks && start.isRefCountBelowMax()) {
@@ -120,7 +120,7 @@ public class EntranceRiftStructure extends ScatteredStructure<NoFeatureConfig> {
 //                                    return start.getPos();
 //                                }
 //                            }
-                            // Prevent minecraft from loading chunks: if func_225558_a_ returns true then there is a valid rift there
+                            // Prevent minecraft from loading chunks: if canBeGenerated returns true then there is a valid rift there
                             if (startAtPos) {
                                 return new BlockPos((cpos.x << 4) + 9, 64, (cpos.z << 4) + 9);
                             }

@@ -90,7 +90,7 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
     }
 
     @Override
-    public boolean func_225558_a_(BiomeManager biomeMgr, ChunkGenerator<?> generator, Random random, int chunkX, int chunkZ, Biome unusedBiomeVariableThatWeCantCallBiomeBecauseThatNameAlreadyExists) {
+    public boolean canBeGenerated(BiomeManager biomeMgr, ChunkGenerator<?> generator, Random random, int chunkX, int chunkZ, Biome unusedBiomeVariableThatWeCantCallBiomeBecauseThatNameAlreadyExists) {
         int config = MidnightConfig.worldgen.guardtowerStructureRarity.get();
         if (config == 0) return false;
         ChunkPos startPos = this.getStartPositionForPosition(generator, random, chunkX, chunkZ, 0, 0);
@@ -102,7 +102,7 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
                 Metadata metadata = Metadata.generate(seedRandom, generator, chunkX, chunkZ);
                 if (metadata.isValid()) {
                     BiomeProvider biomeProvider = generator.getBiomeProvider();
-                    return biomeProvider.func_225530_a_((chunkX << 4) + 9, 0, (chunkZ << 4) + 9, metadata.radius)
+                    return biomeProvider.getBiomes((chunkX << 4) + 9, 0, (chunkZ << 4) + 9, metadata.radius)
                             .stream()
                             .allMatch(biome -> generator.hasStructure(biome, this));
                 }
@@ -226,7 +226,7 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
         }
 
         @Override
-        public boolean func_225577_a_(IWorld world, ChunkGenerator<?> p_225577_2_, Random random, MutableBoundingBox bounds, ChunkPos chunkPos) {
+        public boolean create(IWorld world, ChunkGenerator<?> p_225577_2_, Random random, MutableBoundingBox bounds, ChunkPos chunkPos) {
             int minX = Math.max(this.boundingBox.minX, bounds.minX);
             int maxX = Math.min(this.boundingBox.maxX, bounds.maxX);
 

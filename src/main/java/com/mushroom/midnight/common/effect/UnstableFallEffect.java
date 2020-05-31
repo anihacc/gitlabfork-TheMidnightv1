@@ -12,7 +12,7 @@ public class UnstableFallEffect extends Effect {
 
     @Override
     public void performEffect(LivingEntity entity, int amplifier) {
-        if (!entity.isShiftKeyDown()) {
+        if (!entity.isSneaking()) {
             Vec3d motion = entity.getMotion();
             if (motion.y < -0.079d) {
                 entity.setMotion(motion.subtract(0.0, motion.y * 0.3, 0.0));

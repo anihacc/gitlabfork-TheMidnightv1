@@ -55,7 +55,7 @@ public class MidnightCaveCarver extends CaveWorldCarver {
                     break;
                 }
             }
-            if (this.func_222706_a(chunk.getBlockState(mutable)) && noAdjacentBlock) {
+            if (this.isCarvable(chunk.getBlockState(mutable)) && noAdjacentBlock) {
                 BlockState blockstate;
                 if (y <= 10) {
                     blockstate = MidnightBlocks.MIASMA.getDefaultState();
@@ -78,7 +78,7 @@ public class MidnightCaveCarver extends CaveWorldCarver {
     }
 
     @Override
-    protected boolean func_222706_a(BlockState state) {
+    protected boolean isCarvable(BlockState state) {
         if (state.getBlock() == Blocks.BEDROCK) return false;
 
         Material material = state.getMaterial();

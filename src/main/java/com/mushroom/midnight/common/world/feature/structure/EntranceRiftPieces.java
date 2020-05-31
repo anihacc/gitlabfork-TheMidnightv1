@@ -51,9 +51,8 @@ public class EntranceRiftPieces {
             compound.putInt("Depth", this.depth);
         }
 
-
         @Override
-        public boolean func_225577_a_(IWorld p_225577_1_, ChunkGenerator<?> p_225577_2_, Random p_225577_3_, MutableBoundingBox boundingBox, ChunkPos p_225577_5_) {
+        public boolean create(IWorld p_225577_1_, ChunkGenerator<?> p_225577_2_, Random p_225577_3_, MutableBoundingBox boundingBox, ChunkPos p_225577_5_) {
             riftGenerator = new EntranceRiftGenerator(p_225577_1_);
 
             riftGenerator.generate(new BlockPos(this.boundingBox.minX + 10, this.boundingBox.minY, this.boundingBox.minZ + 10), p_225577_3_);

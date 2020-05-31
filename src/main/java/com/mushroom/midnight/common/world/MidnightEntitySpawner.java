@@ -80,7 +80,7 @@ public final class MidnightEntitySpawner<T extends ConfigurableBiome> {
                 return;
             }
 
-            holder.func_219297_b().getNow(ChunkHolder.UNLOADED_CHUNK).left().ifPresent(chunk -> {
+            holder.getEntityTickingFeature().getNow(ChunkHolder.UNLOADED_CHUNK).left().ifPresent(chunk -> {
                 for (EntityClassification classification : validClassifications) {
                     int maxCount = classification.getMaxNumberOfCreature() * spawningChunks / MOB_COUNT_DIV;
                     if (entityCount.getCount(classification) <= maxCount) {

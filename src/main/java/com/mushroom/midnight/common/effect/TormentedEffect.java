@@ -17,7 +17,7 @@ public class TormentedEffect extends Effect {
     @Override
     public void performEffect(LivingEntity entity, int amplifier) {
         if (!entity.world.isRemote) {
-            if (entity.getPosX() != this.posX || entity.getPosZ() != this.posZ || entity.isShiftKeyDown() || entity.getMotion().y > 0) {
+            if (entity.getPosX() != this.posX || entity.getPosZ() != this.posZ || entity.isSneaking() || entity.getMotion().y > 0) {
                 this.posX = entity.getPosX();
                 this.posZ = entity.getPosZ();
                 entity.attackEntityFrom(TORMENTED_DAMAGE, 0.5f);

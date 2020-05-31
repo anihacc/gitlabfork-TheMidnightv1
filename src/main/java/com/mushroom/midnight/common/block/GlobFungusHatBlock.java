@@ -51,7 +51,7 @@ public class GlobFungusHatBlock extends Block {
 
     @Override
     public void onFallenUpon(World world, BlockPos pos, Entity entity, float fallDistance) {
-        if (entity.isShiftKeyDown()) {
+        if (entity.isSneaking()) {
             super.onFallenUpon(world, pos, entity, fallDistance);
         } else {
             entity.onLivingFall(fallDistance, 0f);
@@ -60,7 +60,7 @@ public class GlobFungusHatBlock extends Block {
 
     @Override
     public void onLanded(IBlockReader world, Entity entity) {
-        if (entity.isShiftKeyDown()) {
+        if (entity.isSneaking()) {
             super.onLanded(world, entity);
         } else if (entity.getMotion().y < 0d) {
             entity.setMotion(entity.getMotion().x, -entity.getMotion().y, entity.getMotion().z);
@@ -72,7 +72,7 @@ public class GlobFungusHatBlock extends Block {
 
     @Override
     public void onEntityWalk(World world, BlockPos pos, Entity entity) {
-        if (Math.abs(entity.getMotion().y) < 0.1d && !entity.isShiftKeyDown()) {
+        if (Math.abs(entity.getMotion().y) < 0.1d && !entity.isSneaking()) {
             double d0 = 0.4d + Math.abs(entity.getMotion().y) * 0.2d;
             entity.setMotion(entity.getMotion().mul(d0, 1d, d0));
         }

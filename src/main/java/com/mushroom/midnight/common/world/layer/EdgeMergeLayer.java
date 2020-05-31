@@ -18,8 +18,8 @@ public class EdgeMergeLayer implements IAreaTransformer2, IDimOffset0Transformer
 
     @Override
     public int apply(INoiseRandom random, IArea mainSampler, IArea edgeSampler, int x, int y) {
-        int main = mainSampler.getValue(this.func_215721_a(x), this.func_215722_b(y));
-        int edge = edgeSampler.getValue(this.func_215721_a(x), this.func_215722_b(y));
+        int main = mainSampler.getValue(this.getOffsetX(x), this.getOffsetZ(y));
+        int edge = edgeSampler.getValue(this.getOffsetX(x), this.getOffsetZ(y));
         if (edge == 1 && this.target.test(main)) {
             return this.replacement;
         }

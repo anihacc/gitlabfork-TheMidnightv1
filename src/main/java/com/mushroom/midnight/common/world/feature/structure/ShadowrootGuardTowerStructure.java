@@ -58,7 +58,7 @@ public class ShadowrootGuardTowerStructure extends ScatteredStructure<NoFeatureC
 
 
     @Override
-    public boolean func_225558_a_(BiomeManager biomeMgr, ChunkGenerator<?> chunkGen, Random rand, int cx, int cz, Biome biome) {
+    public boolean canBeGenerated(BiomeManager biomeMgr, ChunkGenerator<?> chunkGen, Random rand, int cx, int cz, Biome biome) {
         int config = MidnightConfig.worldgen.guardtowerStructureRarity.get();
         if (config == 0) return false;
         ChunkPos chunkPos = this.getStartPositionForPosition(chunkGen, rand, cx, cz, 0, 0);

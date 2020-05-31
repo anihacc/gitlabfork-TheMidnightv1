@@ -75,7 +75,7 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
     }
 
     @Override
-    public void func_225551_a_(WorldGenRegion worldGenRegion, IChunk chunk) {
+    public void generateSurface(WorldGenRegion worldGenRegion, IChunk chunk) {
         long seed = this.world.getSeed();
 
         ChunkPos chunkPos = chunk.getPos();

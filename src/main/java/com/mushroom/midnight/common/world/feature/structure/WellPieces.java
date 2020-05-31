@@ -71,7 +71,7 @@ public class WellPieces {
         }
 
         @Override
-        public boolean func_225577_a_(IWorld world, ChunkGenerator<?> p_225577_2_, Random random, MutableBoundingBox bounds, ChunkPos chunkPos) {
+        public boolean create(IWorld world, ChunkGenerator<?> p_225577_2_, Random random, MutableBoundingBox bounds, ChunkPos chunkPos) {
             PlacementSettings settings = new PlacementSettings()
                     .setRotation(this.rotation)
                     .setMirror(Mirror.NONE)
@@ -83,7 +83,7 @@ public class WellPieces {
             BlockPos templateOrigin = this.templatePosition;
 
             this.templatePosition = this.templatePosition.add(0, height - 90 - 11, 0);
-            boolean result = super.func_225577_a_(world, p_225577_2_, random, bounds, chunkPos);
+            boolean result = super.create(world, p_225577_2_, random, bounds, chunkPos);
             this.templatePosition = templateOrigin;
 
             return result;
