@@ -115,7 +115,7 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
     @Nullable
     @Override
     public BlockPos findNearest(World world, ChunkGenerator<? extends GenerationSettings> chunkGenerator, BlockPos pos, int radius, boolean skipExistingChunks) {
-        int config = MidnightConfig.worldgen.guardtowerStructureRarity.get();
+        int config = MidnightConfig.worldgen.moltenCraterStructureRarity.get();
         if (config == 0) return null;
         return super.findNearest(world, chunkGenerator, pos, radius, skipExistingChunks);
     }

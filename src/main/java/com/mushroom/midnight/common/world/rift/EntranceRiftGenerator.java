@@ -283,8 +283,8 @@ public class EntranceRiftGenerator {
                 BlockState state = MidnightBlocks.MALIGNANT_BLOODROOT.getDefaultState().with(DoubleMalignantFlowerBlock.FACING, direction);
                 if (state.isValidPosition(world, pos) &&
                         /*(!world.getBlockState(pos.down()).getBlock().equals(Blocks.VOID_AIR) || !world.getBlockState(pos).getBlock().equals(Blocks.BEDROCK))*/ world.getBlockState(pos).getBlock().equals(Blocks.AIR)) {
-                    System.out.println("Bloodroot dir: " + direction + ", block: " + world.getBlockState(pos).getBlock()
-                            + ", block below: " + world.getBlockState(pos.down()).getBlock());
+//                    System.out.println("Bloodroot dir: " + direction + ", block: " + world.getBlockState(pos).getBlock()
+//                            + ", block below: " + world.getBlockState(pos.down()).getBlock());
 
                     DoubleMalignantFlowerBlock.placeAt(world, pos, state, Constants.BlockFlags.BLOCK_UPDATE);
                     break;

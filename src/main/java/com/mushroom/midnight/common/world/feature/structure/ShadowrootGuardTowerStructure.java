@@ -69,9 +69,10 @@ public class ShadowrootGuardTowerStructure extends ScatteredStructure<NoFeatureC
     @Nullable
     @Override
     public BlockPos findNearest(World worldIn, ChunkGenerator<? extends GenerationSettings> chunkGenerator, BlockPos pos, int radius, boolean skipExistingChunks) {
-        int config = MidnightConfig.worldgen.guardtowerStructureRarity.get();
-        if (config == 0) return null;
-        return super.findNearest(worldIn, chunkGenerator, pos, radius, skipExistingChunks);
+//        int config = MidnightConfig.worldgen.guardtowerStructureRarity.get();
+//        if (config == 0) return null;
+//        return super.findNearest(worldIn, chunkGenerator, pos, radius, skipExistingChunks);
+        return null;
     }
 
     public static class Start extends StructureStart {

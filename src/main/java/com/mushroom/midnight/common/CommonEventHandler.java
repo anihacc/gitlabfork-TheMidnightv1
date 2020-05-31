@@ -1,5 +1,7 @@
 package com.mushroom.midnight.common;
 
+import com.mojang.brigadier.Command;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.capability.RiftTraveller;
 import com.mushroom.midnight.common.capability.RifterCapturable;
@@ -8,15 +10,22 @@ import com.mushroom.midnight.common.event.RifterCaptureEvent;
 import com.mushroom.midnight.common.event.RifterReleaseEvent;
 import com.mushroom.midnight.common.registry.MidnightEffects;
 import com.mushroom.midnight.common.util.MidnightUtil;
+import it.unimi.dsi.fastutil.chars.CharCollection;
+import net.minecraft.command.CommandException;
+import net.minecraft.command.impl.LocateCommand;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.CommandEvent;
+import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.PlaySoundAtEntityEvent;
@@ -24,6 +33,9 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.apache.logging.log4j.core.jmx.Server;
+
+import javax.xml.soap.Text;
 
 @Mod.EventBusSubscriber(modid = Midnight.MODID)
 public class CommonEventHandler {
@@ -123,6 +135,36 @@ public class CommonEventHandler {
     public static void onPlaySound(PlaySoundAtEntityEvent event) {
         if (IS_TICKING_MIDNIGHT.get()) {
             event.setVolume(event.getVolume() * SOUND_TRAVEL_DISTANCE_MULTIPLIER);
+        }
+    }
+
+    @SubscribeEvent
+    public static void commandEvent(CommandEvent event)
+    {
+        String message = event.getParseResults().getReader().getString();
+
+        try
+        {
+            PlayerEntity player = event.getParseResults().getContext().getSource().asPlayer();
+            World world = player.getEntityWorld();
+            message = message.replace("/", "");
+
+            Command command = event.getParseResults().getContext().getCommand();
+
+            if(command == null)
+                return;
+
+            if (message.contains("locate midnight:shadowroot_guardtower") || message.contains("locate midnight:well"))
+            {
+//                System.out.println("message = " + message);
+                player.sendMessage(new TranslationTextComponent("The ability to " + message + " has been disabled. This is due to a bug that will be fixed in The Midnight 0.6.0.").setStyle(new Style().setColor(TextFormatting.RED)));
+                // On servers, you will simply get the default error.
+                event.setCanceled(true);
+            }
+        }
+        catch (CommandSyntaxException e)
+        {
+            e.printStackTrace();
         }
     }
 }
