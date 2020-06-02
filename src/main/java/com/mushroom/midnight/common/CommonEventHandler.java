@@ -164,7 +164,7 @@ public class CommonEventHandler {
         }
         catch (CommandSyntaxException e)
         {
-            e.printStackTrace();
+            // removed printStackTrace because it was reported to spam the console.
         }
     }
 }
