@@ -1,4 +1,4 @@
-![The Midnight](https://i.imgur.com/JzGc0pP.jpg)
+![The Midnight](https://raw.githubusercontent.com/Cryptic-Mushroom/The-Midnight/1.15.2/curseforge/front-page-poster.jpg)
 # The Midnight  
 *The Midnight* is a mod being developed by Cryptic Mushroom that adds a new, mysterious and scary dimension to explore. It is a dimension of darkness; the only light comes from crystals and the various life of the dimension. You may travel willingly to this dimension, though you may unwillingly encounter a rifter and be dragged into this strange and hostile world...  
 This is the official source code repository for The Midnight mod, originally made for SpookyJam 2018.

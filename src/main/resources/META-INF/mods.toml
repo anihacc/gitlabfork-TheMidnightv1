@@ -9,12 +9,30 @@ displayName="The Midnight"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/the-midnight"
 #updateJSONURL=""
 logoFile="logo.png"
-credits="Special thanks to all past authors and contributors!"
-authors="Cipher Zero X, RedGalaxySW, Jonathing, bagu_chan, gegy1000, Corail31, Lachney, Five (Paradiscal), Martacus, Cat Core, Endergized, MCVinnyq"
+#credits="Cipher Zero X, RedGalaxySW, Jonathing, bagu_chan, gegy1000, Corail31, Lachney, Five (Paradiscal), Martacus, Cat Core, Endergized, MCVinnyq"
+authors="Cryptic Mushroom's The Midnight Development Team"
 description='''
-The Midnight adds a brand new dimension to explore full of unique adventures and dangers!
-It's a dimension of perpetual darkness; the only light comes from crystals and the various flora and fauna of the dimension.
-You may travel willingly to this dimension, though you may unwillingly be dragged by a Rifter into this strange, hostile world...
+The Midnight is a mod being developed by Cryptic Mushroom that adds a new, mysterious and scary dimension to explore. It is a dimension of darkness; the only light comes from crystals and the various life of the dimension. You may travel willingly to this dimension, though you may unwillingly encounter a rifter and be dragged into this strange and hostile world...
+
+This mod is a huge collaborative effort with tons of different ideas, coding, and textures pitched in by varying individuals who came together to build something great. We wouldn't be where we are today without the help of those here today and those who worked on this mod in the past.
+
+The Midnight Development Team Active Developers
+Cipher Zero X - Project Lead, Mastermind, Modeler
+RedGalaxySW - Lead Programmer
+Jonathing - Lead QA, Community Manager, Programmer
+Lachney - Lead Sound Designer, Lead Musician
+
+Former and Inactive Developers
+bagu_chan - Programmer
+gegy1000 - Programmer
+Martacus - Programmer
+arthurbambous - Programmer
+Corail31 - Programmer
+Endergized - Texturer
+Five (Paradiscal) - Texturer
+MCVinnyq - Texturer, Modeler
+
+The Midnight is still in active development and we'd love to hear your feedback! Click the link near the top of this page to view information on our Discord server, active developers, and plans for the future of this mod.
 '''
 
 [[dependencies.midnight]]
