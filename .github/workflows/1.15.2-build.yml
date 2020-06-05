@@ -6,7 +6,7 @@ name: The Midnight for Minecraft 1.15.2 (Experimental)
 on:
   push:
     branches:
-      - experiment/1.15.2-tf-fix
+      - 1.15.2
     paths-ignore:
       - '.github/**'
       - 'curseforge/**'
