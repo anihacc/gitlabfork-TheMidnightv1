@@ -9,7 +9,7 @@ on:
       - 'src/*'
       - 'build.gradle'
     tags-ignore:
-      - *
+      - '*.*'
 
 jobs:
   build:

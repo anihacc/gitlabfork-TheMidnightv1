@@ -15,9 +15,12 @@ Explain the bug:
 - Does the game crash? How?
 
 #### Additional Info (You can delete this when creating the issue, but please read)
-Be clear and concise.   
-If you have some screenshots, please include them. They are very helpful to understand the issue.  
-If the game crashes, please paste the crash report here (code block!!) or in a gist/pastebin. When the game crashes, the launcher will probably show you a link to open the crash report (old launchers just shows the crash report itself).  
+Be clear and concise.
+
+If you have some screenshots, please include them. They are very helpful to understand the issue.
+
+If the game crashes, please paste the crash report here (code block!!) or in a gist/pastebin. When the game crashes, the launcher will probably show you a link to open the crash report (old launchers just shows the crash report itself).
+
 If you have found some remarkable log messages, please include only those messages (code block!!) and paste the complete log file in a gist/pastebin.
 
 #### Environment
