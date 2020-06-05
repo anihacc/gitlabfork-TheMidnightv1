@@ -5,9 +5,16 @@ name: The Midnight for Minecraft 1.15.2
 
 on:
   push:
-    paths:
-      - 'src/*'
-      - 'build.gradle'
+    branches:
+      - 1.15.2
+    paths-ignore:
+      - '.github/*'
+      - 'curseforge/*'
+      - 'README.md'
+      - 'LICENSE'
+      - 'changelog.json'
+      - '.gitignore'
+      - '.gitattributes'
     tags-ignore:
       - '*.*'
 
