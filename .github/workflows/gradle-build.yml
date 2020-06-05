@@ -3,7 +3,13 @@
 
 name: The Midnight for Minecraft 1.15.2
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'src/*'
+      - 'build.gradle'
+    tags-ignore:
+      - *
 
 jobs:
   build:
@@ -27,7 +33,7 @@ jobs:
         gradle-version: 4.10.3
         arguments: build
 
-    - name: Upload a Build Artifact
+    - name: Upload the Build Output to GitHub
       uses: actions/upload-artifact@v2
       with:
         # Artifact name
