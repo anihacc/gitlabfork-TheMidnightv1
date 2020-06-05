@@ -57,7 +57,7 @@ import org.apache.logging.log4j.Logger;
 @Mod(Midnight.MODID)
 @Mod.EventBusSubscriber(modid = Midnight.MODID)
 public class Midnight {
-    // hi
+    // hi again
 
     public static final String MODID = "midnight";
     public static final String NETWORK_PROTOCOL = "2";
