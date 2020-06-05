@@ -1,12 +1,12 @@
 # This workflow will build a package using Gradle and then publish it to GitHub packages when a release is created
 # For more information see: https://github.com/actions/setup-java#publishing-using-gradle
 
-name: The Midnight for Minecraft 1.15.2
+name: The Midnight for Minecraft 1.15.2 (Experimental)
 
 on:
   push:
     branches:
-      - 1.15.2
+      - experiment/1.15.2-tf-fix
     paths-ignore:
       - '.github/**'
       - 'curseforge/**'

@@ -11,10 +11,10 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeManager;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.OverworldChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.ScatteredStructure;
@@ -58,7 +58,7 @@ public class EntranceRiftStructure extends ScatteredStructure<NoFeatureConfig> {
         // Minecraft won't give us access to the world: force that access via reflection...        "world"
         IWorld world = ObfuscationReflectionHelper.getPrivateValue(ChunkGenerator.class, chunkGen, "field_222540_a");
 
-        if (chunkGen instanceof OverworldChunkGenerator || chunkGen instanceof MidnightChunkGenerator) {
+        if (world != null && ((world.getDimension().getType() == DimensionType.OVERWORLD) || chunkGen instanceof MidnightChunkGenerator)) {
             if (cx == start.x && cz == start.z) {
                 int rx = cx >> 4;
                 int rz = cz >> 4;
