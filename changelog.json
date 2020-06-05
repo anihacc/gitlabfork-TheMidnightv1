@@ -1,15 +1,16 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/the-midnight",
   "promos": {
-    "1.15.2-recommended": "0.5.8",
-    "1.15.2-latest": "0.5.8",
+    "1.15.2-recommended": "0.5.9",
+    "1.15.2-latest": "0.5.9",
     "1.14.4-recommended": "0.4.7",
     "1.14.4-latest": "0.4.7",
     "1.12.2-recommended": "0.3.5",
     "1.12.2-latest": "0.3.5"
   },
   "1.15.2": {
-    "0.5.8": "- Updated Forge to 31.2.0. This apparently also fixed a few other issues we were aware of such as Nightstone Furnaces not losing fuel when an invalid item is on top.\n- Fixed stinger eggs spawning on top of miasma (for real this time).\n- Disabled the ability to locate well and shadowroot guardtowers since they lock up the game for unknown reasons."
+    "0.5.8": "- Updated Forge to 31.2.0. This apparently also fixed a few other issues we were aware of such as Nightstone Furnaces not losing fuel when an invalid item is on top.\n- Fixed stinger eggs spawning on top of miasma (for real this time).\n- Disabled the ability to locate well and shadowroot guardtowers since they lock up the game for unknown reasons.",
+    "0.5.9": "- Removed unnecessary debug code that would spam the server console.\n- Updated mods.toml with a larger description and proper credits to all current and past developers of The Midnight.\n- Added support for Forge's mod update checker.\n- Fixed TerraForged support."
   },
   "1.14.4": {
     "0.4.7": "- Updated Forge to 28.2.0.\n- Updated translations from the 1.15.2 version.\n- Fixed hunter movement.\n- Fixed stinger eggs spawning in at y=0.\n- Fixed bedrock not generating.\n- Rift entity no longer spawns on mushroom island.\n- Fixed small issue with the hunter.\n- Fixed crash where the game would try to find a stinger egg nest when there wasn't one.\n- When hunter attacks or is damaged, it wil fly back up to the sky (like the phantom).\n- Fixed hunter attack mechanic so you can guard from it.\n- Nerfed rifters.\n- Fixed not being able to swim in miasma.\n- Fixed SuavisBlock crash.\n- Fixed tall mistshrooms consuming bonemeal without growing anything.\n- Fixed shears being unusable on already carved sides of fungi hats.\n- Fixed inconsistent tendrilweed growing logic.\n- Fixed naming mistake with the deceitful snapper.\n- Fixed bedrock not generating properly.\n- Fixed molten craters replacing trees and large fungi with trenchstone.\n- Fixed origin of small bogshroom structure not existing.\n- Fixed wells not locatable by command.\n- Fixed miasma having orange fog color.\n- Fixed rouxe, bloomcrystal, and crystallotus having a (large) collision box.\n- Fixed rifter being the incorrect size.\n- Fixed glitchy night stag eating animation.\n- Fixed Midnight ambience not looping properly.\n- Fixed the chests' textures\n- Fixed flying and swimming entities having mud delay.\n- Fixed hunters not dropping cooked wings when killed by fire.\n- Fixed midnight ladders not making climbing noises.\n- Fixed display URL in the mod info page (mods.toml)."
