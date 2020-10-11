@@ -48,6 +48,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -58,6 +59,7 @@ import org.apache.logging.log4j.Logger;
 @Mod.EventBusSubscriber(modid = Midnight.MODID)
 public class Midnight {
     public static final String MODID = "midnight";
+    public static final String VERSION = "0.5.10";
     public static final String NETWORK_PROTOCOL = "2";
 
     public static final Logger LOGGER = LogManager.getLogger(Midnight.class);
@@ -83,6 +85,8 @@ public class Midnight {
     public static final Capability<AnimationCapability> ANIMATION_CAP = RegUtil.injected();
 
     public Midnight() {
+        printVersion();
+
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, MidnightConfig.CLIENT_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MidnightConfig.COMMON_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, MidnightConfig.SERVER_SPEC);
@@ -99,6 +103,12 @@ public class Midnight {
         bus.addListener(this::gatherData);
 
         PROXY.onConstruct();
+    }
+
+    private void printVersion() {
+        LOGGER.info("Initializing The Midnight");
+        LOGGER.info(" - Version: " + Midnight.VERSION);
+        LOGGER.info(" - Dist: " + FMLEnvironment.dist);
     }
 
     private void setup(FMLCommonSetupEvent event) {

@@ -63,21 +63,21 @@ public class FungiPatchFeature extends FlowersFeature<NoFeatureConfig> {
         return result;
     }
 
-    public boolean func_225559_a_(IWorld p_225559_1_, BlockPos p_225559_2_, NoFeatureConfig p_225559_3_) {
-        return this.fungi == (p_225559_1_.getBlockState(p_225559_2_));
+    public boolean isValidPosition(IWorld worldIn, BlockPos pos, NoFeatureConfig config) {
+        return this.fungi == (worldIn.getBlockState(pos));
     }
 
-    public int func_225560_a_(NoFeatureConfig p_225560_1_) {
+    public int getFlowerCount(NoFeatureConfig config) {
         return 7;
     }
 
-    public BlockPos getNearbyPos(Random p_225561_1_, BlockPos p_225561_2_, NoFeatureConfig p_225561_3_) {
-        return p_225561_2_.add(p_225561_1_.nextInt(3) - p_225561_1_.nextInt(3), p_225561_1_.nextInt(7) - p_225561_1_.nextInt(7), p_225561_1_.nextInt(3) - p_225561_1_.nextInt(3));
+    public BlockPos getNearbyPos(Random rand, BlockPos pos, NoFeatureConfig config) {
+        return pos.add(rand.nextInt(3) - rand.nextInt(3), rand.nextInt(7) - rand.nextInt(7), rand.nextInt(3) - rand.nextInt(3));
     }
 
 
     @Override
-    public BlockState getFlowerToPlace(Random p_225562_1_, BlockPos p_225562_2_, NoFeatureConfig p_225562_3_) {
+    public BlockState getFlowerToPlace(Random rand, BlockPos pos, NoFeatureConfig config) {
         return this.fungi;
     }
 }

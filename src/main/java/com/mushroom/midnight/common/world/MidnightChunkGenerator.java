@@ -130,13 +130,13 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
     }
 
     @Override
-    public void func_225550_a_(BiomeManager p_225550_1_, IChunk chunk, GenerationStage.Carving stage) {
+    public void generateCarvers(BiomeManager biomeManagerIn, IChunk chunk, GenerationStage.Carving stage) {
         ChunkPos chunkpos = chunk.getPos();
-        Biome biome = this.getBiome(p_225550_1_, chunkpos.asBlockPos());
+        Biome biome = this.getBiome(biomeManagerIn, chunkpos.asBlockPos());
         Collection<ConfiguredCarver<?>> surfaceCarvers = biome.getCarvers(stage);
         Collection<ConfiguredCarver<?>> undergroundCarvers = this.getCavernousBiome(chunk).getCarversFor(stage);
 
-        this.applyCarvers(p_225550_1_, chunk, stage, Iterables.concat(surfaceCarvers, undergroundCarvers));
+        this.applyCarvers(biomeManagerIn, chunk, stage, Iterables.concat(surfaceCarvers, undergroundCarvers));
     }
 
     private void applyCarvers(BiomeManager biomeManager, IChunk chunk, GenerationStage.Carving stage, Iterable<ConfiguredCarver<?>> carvers) {
@@ -154,7 +154,7 @@ public class MidnightChunkGenerator extends NoiseChunkGenerator<MidnightChunkGen
                 for (ConfiguredCarver<?> carver : carvers) {
                     random.setLargeFeatureSeed(this.seed + i, nx, nz);
                     if (carver.shouldCarve(random, nx, nz)) {
-                        carver.func_227207_a_(chunk, p_227059_2_ -> {
+                        carver.carveRegion(chunk, p_227059_2_ -> {
                             return this.getBiome(biomeManager, p_227059_2_);
                         }, random, this.getSeaLevel(), nx, nz, chunkX, chunkZ, mask);
                     }

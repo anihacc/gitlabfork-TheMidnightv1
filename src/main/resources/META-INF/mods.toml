@@ -7,10 +7,10 @@ modId="midnight"
 version="${file.jarVersion}"
 displayName="The Midnight"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/the-midnight"
-updateJSONURL="https://raw.githubusercontent.com/Cryptic-Mushroom/The-Midnight/1.15.2/changelog.json"
+updateJSONURL="https://raw.githubusercontent.com/Cryptic-Mushroom/The-Midnight/old/1.15.2/changelog.json"
 logoFile="logo.png"
 #credits="Cipher Zero X, RedGalaxySW, Jonathing, bagu_chan, gegy1000, Corail31, Lachney, Five (Paradiscal), Martacus, Cat Core, Endergized, MCVinnyq"
-authors="Cryptic Mushroom's The Midnight Development Team"
+authors="The Midnight Development Team from Cryptic Mushroom"
 description='''
 The Midnight is a mod being developed by Cryptic Mushroom that adds a new, mysterious and scary dimension to explore. It is a dimension of darkness; the only light comes from crystals and the various life of the dimension. You may travel willingly to this dimension, though you may unwillingly encounter a rifter and be dragged into this strange and hostile world...
 
@@ -19,8 +19,9 @@ This mod is a huge collaborative effort with tons of different ideas, coding, an
 The Midnight Development Team Active Developers
 Cipher Zero X - Project Lead, Mastermind, Modeler
 RedGalaxySW - Lead Programmer
-Jonathing - Lead QA, Community Manager, Programmer
+Jonathing - Lead QA, Community Manager, Programmer, Musician
 Lachney - Lead Sound Designer, Lead Musician
+123wdog - Lead Modeler
 
 Former and Inactive Developers
 bagu_chan - Programmer
@@ -32,7 +33,7 @@ Endergized - Texturer
 Five (Paradiscal) - Texturer
 MCVinnyq - Texturer, Modeler
 
-The Midnight is still in active development and we'd love to hear your feedback! Click the link near the top of this page to view information on our Discord server, active developers, and plans for the future of this mod.
+We are currently rewriting The Midnight from the ground up and we'd love to hear your feedback on this version so we know what to keep track of when writing the new version! You can join our Discord server from the CurseForge page for more information.
 '''
 
 [[dependencies.midnight]]

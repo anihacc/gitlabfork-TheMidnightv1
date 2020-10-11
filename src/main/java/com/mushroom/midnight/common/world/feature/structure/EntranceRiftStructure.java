@@ -161,7 +161,7 @@ public class EntranceRiftStructure extends ScatteredStructure<NoFeatureConfig> {
             int i = chunkX * 16;
             int j = chunkZ * 16;
 
-            int originY = generator.func_222531_c(i, j, Heightmap.Type.WORLD_SURFACE_WG);
+            int originY = generator.getNoiseHeightMinusOne(i, j, Heightmap.Type.WORLD_SURFACE_WG);
             BlockPos blockpos = new BlockPos(i, originY, j);
 
             EntranceRiftPieces.addPieces(blockpos, this.components);

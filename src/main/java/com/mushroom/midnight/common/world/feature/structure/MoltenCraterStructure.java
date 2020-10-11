@@ -151,7 +151,7 @@ public final class MoltenCraterStructure extends Structure<NoFeatureConfig> {
         static Metadata generate(SharedSeedRandom random, ChunkGenerator<?> generator, int chunkX, int chunkZ) {
             int originX = (chunkX << 4) + random.nextInt(16);
             int originZ = (chunkZ << 4) + random.nextInt(16);
-            int originY = generator.func_222531_c(originX, originZ, Heightmap.Type.WORLD_SURFACE_WG);
+            int originY = generator.getNoiseHeightMinusOne(originX, originZ, Heightmap.Type.WORLD_SURFACE_WG);
 
             int radius = random.nextInt(MAX_RADIUS - MIN_RADIUS + 1) + MIN_RADIUS;
 
