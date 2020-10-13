@@ -1,5 +1,6 @@
 package com.mushroom.midnight.common.block;
 
+import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -54,6 +55,11 @@ public class MidnightPlantBlock extends BushBlock implements IGrowable, Generata
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader world, BlockPos pos) {
         return state.getBlock().isIn(MidnightTags.Blocks.PLANTABLE_GROUNDS);
+    }
+
+    @Override
+    public boolean canGeneratePlant(World world, BlockPos pos, BlockState state) {
+        return world.getBlockState(pos.down()).getBlock().isIn(MidnightTags.Blocks.PLANTABLE_GROUNDS);
     }
 
     @Override

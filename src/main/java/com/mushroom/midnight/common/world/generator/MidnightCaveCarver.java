@@ -56,14 +56,7 @@ public class MidnightCaveCarver extends CaveWorldCarver {
                 }
             }
             if (this.isCarvable(chunk.getBlockState(mutable)) && noAdjacentBlock) {
-                BlockState blockstate;
-                if (y <= 10) {
-                    blockstate = MidnightBlocks.MIASMA.getDefaultState();
-                } else {
-                    blockstate = CAVE_AIR;
-                }
-
-                chunk.setBlockState(mutable, blockstate, false);
+                chunk.setBlockState(mutable, y <= 10 ? MidnightBlocks.MIASMA.getDefaultState() : CAVE_AIR, false);
                 return true;
             } else {
                 return false;
