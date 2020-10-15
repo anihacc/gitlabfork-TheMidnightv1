@@ -31,10 +31,13 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -110,6 +113,17 @@ public class ClientEventHandler {
 
                 SENSITIVITY_HOOK.apply(player.isPotionActive(MidnightEffects.STUNNED));
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void loggedInEvent(ClientPlayerNetworkEvent.LoggedInEvent event) {
+        ClientPlayerEntity player = event.getPlayer();
+
+        if (Midnight.isRewriteAvailable() && player != null) {
+            Minecraft.getInstance().ingameGUI.getChatGUI().printChatMessage(
+                    new TranslationTextComponent(Midnight.REWRITE_NOTIFICATION).applyTextStyle(TextFormatting.GREEN)
+            );
         }
     }
 

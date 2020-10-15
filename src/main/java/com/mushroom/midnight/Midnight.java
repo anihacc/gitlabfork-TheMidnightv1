@@ -52,8 +52,14 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 @Mod(Midnight.MODID)
 @Mod.EventBusSubscriber(modid = Midnight.MODID)
@@ -64,6 +70,9 @@ public class Midnight {
 
     public static final Logger LOGGER = LogManager.getLogger(Midnight.class);
     public static final IProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
+
+    public static final String REWRITE_NOTIFICATION = "The Midnight: Rewritten is now available for download!" +
+            " Visit The Midnight's CurseForge page for more information.";
 
     public static final SimpleChannel CHANNEL = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(MODID, "net"))
             .networkProtocolVersion(() -> NETWORK_PROTOCOL)
@@ -109,6 +118,22 @@ public class Midnight {
         LOGGER.info("Initializing The Midnight");
         LOGGER.info(" - Version: " + Midnight.VERSION);
         LOGGER.info(" - Dist: " + FMLEnvironment.dist);
+    }
+
+    public static boolean isRewriteAvailable()
+    {
+        try {
+            if (IOUtils.toString(new URL("https://gist.githubusercontent.com/Jonathing/848e7f7ba1543eab06b38a36e7cc2244/raw/0a1360f5c8409a20b75c4aae0614a2a66ee58c96/rewrite.txt").openStream()).equals("true")) {
+                return true;
+            }
+        } catch (IOException e) {
+            LOGGER.error("Unable to check if The Midnight: Rewritten is available for download!");
+            e.printStackTrace();
+        } finally {
+            IOUtils.closeQuietly();
+        }
+
+        return false;
     }
 
     private void setup(FMLCommonSetupEvent event) {
@@ -168,6 +193,7 @@ public class Midnight {
      * - the biome is from Minecraft, The Midnight, or Biomes o' Plenty
      * - the biome is not from the Nether, The End, the Void, Oceans, Rivers, and Mushroom biomes
      */
+    @SuppressWarnings("deprecation")
     public static void setupEntranceRift() {
         DeferredWorkQueue.runLater(() -> { // Run on main thread!
             for (Biome biome : ForgeRegistries.BIOMES.getValues()) {

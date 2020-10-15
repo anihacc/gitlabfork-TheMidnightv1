@@ -33,6 +33,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import org.apache.logging.log4j.core.jmx.Server;
 
 import javax.xml.soap.Text;
@@ -139,6 +140,13 @@ public class CommonEventHandler {
     }
 
     @SubscribeEvent
+    public static void serverStarting(FMLServerStartingEvent event) {
+        if (Midnight.isRewriteAvailable()) {
+            Midnight.LOGGER.info(Midnight.REWRITE_NOTIFICATION);
+        }
+    }
+
+    @SubscribeEvent
     public static void commandEvent(CommandEvent event)
     {
         String message = event.getParseResults().getReader().getString();
@@ -162,9 +170,7 @@ public class CommonEventHandler {
                 event.setCanceled(true);
             }
         }
-        catch (CommandSyntaxException e)
-        {
-            // removed printStackTrace because it was reported to spam the console.
-        }
+        catch (CommandSyntaxException ignored) { }
+
     }
 }
