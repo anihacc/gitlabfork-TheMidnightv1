@@ -169,7 +169,7 @@ public class RifterEntity extends MonsterEntity implements IEntityAdditionalSpaw
     }
 
     public boolean shouldCapture() {
-        return !MidnightUtil.isMidnightDimension(this.world);
+        return !MidnightUtil.isMidnightDimension(this.world) && this.spawnedThroughRift;
     }
 
     private void applyHomeModifier(IAttribute attribute, AttributeModifier modifier) {
