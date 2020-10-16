@@ -55,7 +55,6 @@ public class RifterEntity extends MonsterEntity implements IEntityAdditionalSpaw
 
     public static final int CAPTURE_COOLDOWN = 15;
 
-    private static final double RIFT_SEARCH_RADIUS = 48.0;
     private static final float DROP_DAMAGE_THRESHOLD = 2.0F;
 
     private BlockPos riftPosition;
@@ -137,7 +136,7 @@ public class RifterEntity extends MonsterEntity implements IEntityAdditionalSpaw
         this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(38.0);
         this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25);
         this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0);
-        this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(4.0);
+        this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(3.0);
     }
 
     @Override
