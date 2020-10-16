@@ -57,6 +57,11 @@ public class MidnightDoublePlantBlock extends MidnightPlantBlock {
     }
 
     @Override
+    public boolean isReplaceable(BlockState state, BlockItemUseContext context) {
+        return true;
+    }
+
+    @Override
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         BlockPos pos = context.getPos();

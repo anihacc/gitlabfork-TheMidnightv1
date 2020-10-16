@@ -1,6 +1,5 @@
 package com.mushroom.midnight.common.block;
 
-import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -26,7 +25,7 @@ public class MidnightPlantBlock extends BushBlock implements IGrowable, Generata
     @Nullable
     protected final Supplier<Block> growSupplier;
     private final boolean glowing;
-    private boolean replacable;
+    private boolean replaceable;
 
     public MidnightPlantBlock(Block.Properties properties) {
         this(properties, false, null);
@@ -42,8 +41,8 @@ public class MidnightPlantBlock extends BushBlock implements IGrowable, Generata
         this.growSupplier = growSupplier;
     }
 
-    public MidnightPlantBlock setReplacable() {
-        this.replacable = true;
+    public MidnightPlantBlock setReplaceable() {
+        this.replaceable = true;
         return this;
     }
 
@@ -64,7 +63,7 @@ public class MidnightPlantBlock extends BushBlock implements IGrowable, Generata
 
     @Override
     public boolean isReplaceable(BlockState state, BlockItemUseContext context) {
-        return this.replacable;
+        return this.replaceable;
     }
 
     @Override
