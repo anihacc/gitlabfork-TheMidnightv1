@@ -101,6 +101,12 @@ public class RiftPortalBlock extends Block {
             return;
         }
 
+        if (entity instanceof RifterEntity) {
+            if (((RifterEntity) entity).hasCaptured()) {
+                return;
+            }
+        }
+
         entity.getCapability(Midnight.RIFT_TRAVELLER_CAP).ifPresent(RiftTraveller::setInRift);
     }
 
