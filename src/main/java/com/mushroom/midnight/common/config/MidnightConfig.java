@@ -263,6 +263,7 @@ public class MidnightConfig {
 
     public static class CatClient {
         public final ForgeConfigSpec.ConfigValue<Boolean> hideVignetteEffect;
+        public final ForgeConfigSpec.ConfigValue<Boolean> allowBrightnessChange;
         public final ForgeConfigSpec.ConfigValue<Boolean> ambientSporeParticles;
         public final ForgeConfigSpec.ConfigValue<Double> ambientVolume;
         public final ForgeConfigSpec.ConfigValue<Double> echoVolume;
@@ -272,6 +273,9 @@ public class MidnightConfig {
             hideVignetteEffect = builder
                     .comment("Hides the vignette effect in the darker areas of Midnight. Default: false")
                     .define("hide_vignette_effect", false);
+            allowBrightnessChange = builder
+                    .comment("Allows brightness to be changed in Midnight. Default: false")
+                    .define("allow_brightness_change", false);
             ambientSporeParticles = builder
                     .comment("If true, some ambient spore particles are spawned around the player. Default: true")
                     .define("ambient_spore_particle", true);
@@ -284,6 +288,7 @@ public class MidnightConfig {
                     .defineInRange("echo_volume", 1.0, 0, 1);
 
             PROFILE.add(hideVignetteEffect);
+            PROFILE.add(allowBrightnessChange);
             PROFILE.add(ambientSporeParticles);
             PROFILE.add(ambientVolume);
             PROFILE.add(echoVolume);
@@ -327,6 +332,7 @@ public class MidnightConfig {
         ConfigInterface ifc = new ConfigInterface(new TranslationTextComponent("config.midnight.title.client"), provider, true, EditAccess.ALWAYS);
         ifc.header("config.midnight.header.graphical");
         ifc.setting("config.midnight.hide_vignette_effect", new ToggleButtonControl(), "client.hide_vignette_effect");
+        ifc.setting("config.midnight.allow_brightness_change", new ToggleButtonControl(), "client.allow_brightness_change");
         ifc.setting("config.midnight.ambient_spore_particles", new ToggleButtonControl(), "client.ambient_spore_particle");
         ifc.header("config.midnight.header.sound");
         ifc.setting("config.midnight.ambient_volume", new DoublePercentSliderControl("config.midnight.format.number_percentage", "options.off", "config.midnight.format.number_percentage"), "client.ambient_volume");

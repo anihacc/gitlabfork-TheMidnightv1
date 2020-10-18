@@ -488,6 +488,8 @@
 
   "config.midnight.hide_vignette_effect": "Hide Vignette Filter",
   "config.midnight.hide_vignette_effect.tooltip": "Hide the vignette effect in darker places of the Midnight.",
+  "config.midnight.allow_brightness_change": "Allow Brightness Change",
+  "config.midnight.allow_brightness_change.tooltip": "Allows brightness to be changed in Midnight.",
   "config.midnight.ambient_spore_particles": "Spore Particles",
   "config.midnight.ambient_spore_particles.tooltip": "Determines whether ambient spore particles spawn.",
   "config.midnight.ambient_volume": "Ambience Volume",
