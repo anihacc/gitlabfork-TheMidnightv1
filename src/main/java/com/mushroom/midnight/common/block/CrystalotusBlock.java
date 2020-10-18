@@ -16,7 +16,7 @@ public class CrystalotusBlock extends BushBlock {
     private static final VoxelShape COLLISION_BOX = makeCuboidShape(6.0, 0.0, 6.0, 10.0, 3.0, 10.0);
 
     public CrystalotusBlock() {
-        super(Properties.create(Material.PLANTS).hardnessAndResistance(2f, 0f).sound(SoundType.GLASS).tickRandomly().lightValue(3).harvestTool(ToolType.PICKAXE).harvestLevel(1));
+        super(Properties.create(Material.PLANTS).hardnessAndResistance(2f, 0f).sound(SoundType.GLASS).tickRandomly().lightValue(12).harvestTool(ToolType.PICKAXE).harvestLevel(1));
     }
 
     @Override
