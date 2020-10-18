@@ -465,6 +465,7 @@
 
   "_comment": "Config",
 
+  "config.midnight.title": "Midnight Config",
   "config.midnight.title.client": "Midnight Config - Client",
   "config.midnight.title.compat": "Midnight Config - Compatibility",
   "config.midnight.title.server_logic": "Midnight Config - Server Logic",
