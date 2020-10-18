@@ -1,19 +1,15 @@
 package com.mushroom.midnight.common.block;
 
+import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightCriterion;
 import com.mushroom.midnight.common.registry.MidnightItems;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.IGrowable;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
@@ -35,6 +31,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
@@ -45,29 +42,36 @@ import java.util.Random;
 @SuppressWarnings("deprecation")
 public class SuavisBlock extends Block implements IGrowable {
     public static final IntegerProperty STAGE = IntegerProperty.create("stage", 0, 3);
-    protected static final VoxelShape[] bounds = new VoxelShape[] {
-            makeCuboidShape(0.0, 0.0, 0.0, 16.0, 3.4, 16.0),
-            makeCuboidShape(0.0, 0.0, 0.0, 16.0, 7.0, 16.0),
-            makeCuboidShape(0.0, 0.0, 0.0, 16.0, 13.0, 16.0),
-            makeCuboidShape(0.0, 0.0, 0.0, 16.0, 16.0, 16.0),
+
+    protected static final VoxelShape[] BOUNDS = {
+            makeCuboidShape(0, 0, 0, 16, 3.4, 16),
+            makeCuboidShape(0, 0, 0, 16, 7, 16),
+            makeCuboidShape(0, 0, 0, 16, 13, 16),
+            makeCuboidShape(0, 0, 0, 16, 16, 16),
     };
 
-    private static final ThreadLocal<PlayerEntity> HARVESTER = new ThreadLocal<>();
-
     public SuavisBlock() {
-        super(Properties.create(Material.GOURD, MaterialColor.LIGHT_BLUE).lightValue(12).hardnessAndResistance(1f, 0f).sound(SoundType.SLIME).tickRandomly());
-        this.setDefaultState(this.getStateContainer().getBaseState().with(STAGE, 3));
+        super(Properties.create(Material.GOURD, MaterialColor.LIGHT_BLUE)
+                .lightValue(12)
+                .hardnessAndResistance(1f, 0f)
+                .sound(SoundType.SLIME)
+                .tickRandomly());
+        setDefaultState(
+                getStateContainer()
+                        .getBaseState()
+                        .with(STAGE, 3)
+        );
     }
 
     @Override
     public BlockState getStateForPlacement(BlockState state, Direction facing, BlockState state2, IWorld world, BlockPos pos1, BlockPos pos2, Hand hand) {
-        return this.getDefaultState();
+        return getDefaultState();
     }
 
     @Override
     public void onFallenUpon(World world, BlockPos pos, Entity entity, float fallDistance) {
         super.onFallenUpon(world, pos, entity, fallDistance);
-        if (!world.isRemote && fallDistance > 0.8f && entity instanceof LivingEntity) {
+        if (!world.isRemote && fallDistance > 0.8f && entity.canTrample(world.getBlockState(pos), pos, fallDistance)) {
             BlockState state = world.getBlockState(pos);
             world.playSound(null, pos, SoundEvents.BLOCK_SLIME_BLOCK_BREAK, SoundCategory.BLOCKS, 0.7F, 0.9F + world.rand.nextFloat() * 0.2F);
             boolean isFirstStage = state.get(STAGE) == 0;
@@ -85,8 +89,29 @@ public class SuavisBlock extends Block implements IGrowable {
     }
 
     @Override
+    public BlockState updatePostPlacement(BlockState state, Direction dir, BlockState adjState, IWorld world, BlockPos pos, BlockPos adjPos) {
+        if (dir == Direction.DOWN) {
+            if (!canRemain(world, pos)) {
+                world.destroyBlock(pos, false);
+                return Blocks.AIR.getDefaultState();
+            }
+        }
+        return super.updatePostPlacement(state, dir, adjState, world, pos, adjPos);
+    }
+
+    @Override
+    public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
+        return canRemain(world, pos);
+    }
+
+    private boolean canRemain(IWorldReader world, BlockPos pos) {
+        BlockState down = world.getBlockState(pos.down());
+        return down.getBlock() != MidnightBlocks.SUAVIS && (down.isSolidSide(world, pos.down(), Direction.UP) || down.getBlock() == MidnightBlocks.DECEITFUL_MUD);
+    }
+
+    @Override
     public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player) {
-        return new ItemStack(MidnightItems.RAW_SUAVIS);
+        return state.get(STAGE) == 3 ? new ItemStack(MidnightBlocks.SUAVIS) : new ItemStack(MidnightItems.RAW_SUAVIS);
     }
 
     @Override
@@ -106,17 +131,21 @@ public class SuavisBlock extends Block implements IGrowable {
 
     @Override
     public void harvestBlock(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable TileEntity te, ItemStack stack) {
-        try {
-            HARVESTER.set(player);
-            super.harvestBlock(world, player, pos, state, te, stack);
-        } finally {
-            HARVESTER.remove();
+        super.harvestBlock(world, player, pos, state, te, stack);
+        if (!world.isRemote()) {
+            if (!player.isCreative() && EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0) {
+                createNauseaCloud(world, pos, state.get(STAGE));
+            }
         }
 
         if (!world.isRemote && !player.isCreative() && player instanceof ServerPlayerEntity) {
             MidnightCriterion.HARVESTED_SUAVIS.trigger((ServerPlayerEntity) player);
         }
     }
+
+    /*
+
+     */
 
     private static void createNauseaCloud(World world, BlockPos pos, int intensity) {
         AreaEffectCloudEntity entity = new AreaEffectCloudEntity(world, pos.getX(), pos.getY(), pos.getZ());
@@ -156,30 +185,18 @@ public class SuavisBlock extends Block implements IGrowable {
     @Override
     public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
         if (state.get(STAGE) < 3 && ForgeHooks.onCropsGrowPre(world, pos, state, rand.nextInt(5) == 0)) {
-            this.grow(world, rand, pos, state);
+            grow(world, rand, pos, state);
             ForgeHooks.onCropsGrowPost(world, pos, state);
         }
     }
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return bounds[state.get(STAGE)];
+        return BOUNDS[state.get(STAGE)];
     }
 
     @Override
     public boolean allowsMovement(BlockState state, IBlockReader world, BlockPos pos, PathType type) {
         return state.get(STAGE) < 2;
-    }
-
-    @Override
-    public void spawnAdditionalDrops(BlockState state, World world, BlockPos pos, ItemStack stack) {
-        super.spawnAdditionalDrops(state, world, pos, stack);
-
-        if (world.isRemote()) return;
-
-        PlayerEntity player = HARVESTER.get();
-        if (player == null || (!player.isCreative() && EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, player.getHeldItemMainhand()) == 0)) {
-            createNauseaCloud(world, pos, state.get(STAGE));
-        }
     }
 }
