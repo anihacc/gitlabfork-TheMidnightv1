@@ -4,9 +4,10 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "midnight.refmap.json",
   "mixins": [
+    "BiomeColorsMixin",
+    "LightTextureMixin",
     "MobEntityMixin",
-    "SoundSourceMixin",
-    "LightTextureMixin"
+    "SoundSourceMixin"
   ],
   "minVersion": "0.8.2"
 }
