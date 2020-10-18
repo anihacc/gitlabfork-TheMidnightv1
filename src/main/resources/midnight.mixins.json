@@ -4,7 +4,8 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "midnight.refmap.json",
   "mixins": [
-    "MobEntityMixin"
+    "MobEntityMixin",
+    "SoundSourceMixin"
   ],
   "minVersion": "0.8.2"
 }

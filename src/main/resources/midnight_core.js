@@ -9,13 +9,6 @@ var InsnNode = org.objectweb.asm.tree.InsnNode;
 
 function initializeCoreMod() {
     return {
-        "SoundSourceTransformer": {
-            "target": {
-                "type": "CLASS",
-                "name": "net.minecraft.client.audio.SoundSource"
-            },
-            "transformer": patch_sound_source
-        },
 //        "LivingRendererTransformer": {
 //            "target": {
 //                "type": "CLASS",
@@ -45,25 +38,6 @@ function initializeCoreMod() {
             transformer: patch_client_recipe_book
         }
     }
-}
-
-function patch_sound_source(class_node) {
-    var api = Java.type('net.minecraftforge.coremod.api.ASMAPI');
-
-    var set_pos_method = get_method(class_node, api.mapMethod("func_216420_a"));
-
-    var instructions = set_pos_method.instructions;
-    for (var i = 0; i < instructions.size(); i++) {
-        var insn = instructions.get(i);
-        if (insn.getOpcode() == Opcodes.RETURN) {
-            instructions.insertBefore(insn, new VarInsnNode(Opcodes.ALOAD, 0));
-            instructions.insertBefore(insn, new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/client/audio/SoundSource", api.mapField("field_216441_b"), "I"));
-            instructions.insertBefore(insn, new MethodInsnNode(Opcodes.INVOKESTATIC, "com/mushroom/midnight/client/SoundReverbHandler", "onPlaySound", "(I)V", false));
-            break;
-        }
-    }
-
-    return class_node;
 }
 
 // TODO: Re-implement this with rifter dragging behaviour
