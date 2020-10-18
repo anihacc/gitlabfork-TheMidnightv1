@@ -17,7 +17,7 @@ public final class MidnightDecorativeRecipes extends MidnightRecipeProvider {
 
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shapedRecipe(MidnightBlocks.ARCHAIC_GLASS, 8)
+        ShapedRecipeBuilder.shapedRecipe(MidnightBlocks.ARCHAIC_GLASS, 2)
                 .patternLine("##")
                 .patternLine("##")
                 .key('#', MidnightItems.ARCHAIC_SHARD)
