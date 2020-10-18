@@ -39,6 +39,7 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 import java.util.UUID;
 
 public class RifterEntity extends MonsterEntity implements IEntityAdditionalSpawnData {
@@ -56,6 +57,8 @@ public class RifterEntity extends MonsterEntity implements IEntityAdditionalSpaw
     public static final int CAPTURE_COOLDOWN = 15;
 
     private static final float DROP_DAMAGE_THRESHOLD = 2.0F;
+
+    private static final int RIFTER_SOUND_CHANCE = 75;
 
     private BlockPos riftPosition;
     private final DragSolver dragSolver;
@@ -164,6 +167,14 @@ public class RifterEntity extends MonsterEntity implements IEntityAdditionalSpaw
         super.livingTick();
     }
 
+    @Override
+    public void playAmbientSound()
+    {
+        if (rand.nextInt(100) < RIFTER_SOUND_CHANCE - 1) {
+            super.playAmbientSound();
+        }
+    }
+
     public int getTargetIdleTime() {
         return this.targetIdleTracker.getIdleTime();
     }
@@ -207,7 +218,7 @@ public class RifterEntity extends MonsterEntity implements IEntityAdditionalSpaw
 
     @Override
     protected float getSoundVolume() {
-        return 1.5F;
+        return 0.95F;
     }
 
     private boolean shouldAttack(Entity entity) {
