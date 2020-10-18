@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.opengl.GL11;
 
 import java.util.Arrays;
@@ -236,7 +237,7 @@ public class ConfigOptionList extends AbstractOptionList<ConfigOptionList.Row> {
             renderTooltip(mouseX, mouseY, isMouseOver);
 
             FontRenderer font = Minecraft.getInstance().fontRenderer;
-            drawCenteredString(font, "§n" + label + "§r", left + width / 2, top + height / 2 - 2, 0xffffffff);
+            drawCenteredString(font, TextFormatting.BOLD + label + TextFormatting.RESET, left + width / 2, top + height / 2 - 2, 0xffffffff);
         }
     }
 }

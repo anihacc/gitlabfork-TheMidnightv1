@@ -91,6 +91,7 @@ public class MidnightDimension extends Dimension {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public void getLightmapColors(float partialTicks, float sunBrightness, float skyLight, float blockLight, Vector3f colors) {
     	float colors0 = blockLight * 0.93F + 0.07F;
         float colors1 = blockLight * 0.96F + 0.03F;
