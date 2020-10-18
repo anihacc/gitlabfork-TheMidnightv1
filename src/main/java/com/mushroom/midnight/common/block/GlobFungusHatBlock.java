@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 public class GlobFungusHatBlock extends Block {
 
     public GlobFungusHatBlock() {
-        super(Properties.create(Material.WOOD, MaterialColor.MAGENTA).hardnessAndResistance(0.2f, 0f).sound(SoundType.SLIME).lightValue(2));
+        super(Properties.create(Material.WOOD, MaterialColor.MAGENTA).hardnessAndResistance(0.2f, 0f).sound(SoundType.SLIME).lightValue(15));
     }
 
     // TODO What are these methods?
