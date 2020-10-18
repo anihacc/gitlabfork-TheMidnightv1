@@ -5,7 +5,8 @@
   "refmap": "midnight.refmap.json",
   "mixins": [
     "MobEntityMixin",
-    "SoundSourceMixin"
+    "SoundSourceMixin",
+    "LightTextureMixin"
   ],
   "minVersion": "0.8.2"
 }

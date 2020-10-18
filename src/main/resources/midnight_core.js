@@ -30,13 +30,6 @@ function initializeCoreMod() {
             },
             "transformer": patch_ladder_noises
         },
-        "Darkness": {
-            "target": {
-                "type": "CLASS",
-                "name": "net.minecraft.client.renderer.LightTexture"
-            },
-            "transformer": patch_darkness
-        },
         "RecipeBook": {
             target: {
                 type: "CLASS",
@@ -92,31 +85,6 @@ function patch_biome_colors(class_node) {
         insert.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/mushroom/midnight/client/GrassColorModifier", "modifyGrassColor", "(ILnet/minecraft/util/math/BlockPos;)I", false));
         instructions.insertBefore(targets[i], insert);
     }
-
-    return class_node;
-}
-
-function patch_darkness(class_node) {
-    var api = Java.type('net.minecraftforge.coremod.api.ASMAPI');
-
-    var move_method = get_method(class_node, api.mapMethod("func_205106_a")); // updateLightmap(F)V
-    var gamma_field =  api.mapField("field_74333_Y"); // GameSettings.gamma
-
-    var target;
-
-    var instructions = move_method.instructions;
-    for (var i = 0; i < instructions.size(); i++) {
-        var insn = instructions.get(i);
-        if (insn instanceof FieldInsnNode) {
-            if (insn.getOpcode() == Opcodes.GETFIELD && insn.name.equals(gamma_field)) {
-                target = instructions.get( i + 1 );
-            }
-        }
-    }
-
-    var insert = new InsnList();
-    insert.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/mushroom/midnight/client/GammaModifier", "modifyGamma", "(D)D", false));
-    instructions.insertBefore(target, insert);
 
     return class_node;
 }
