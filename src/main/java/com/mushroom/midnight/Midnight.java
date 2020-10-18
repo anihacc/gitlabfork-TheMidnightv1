@@ -65,7 +65,7 @@ import java.net.URL;
 @Mod.EventBusSubscriber(modid = Midnight.MODID)
 public class Midnight {
     public static final String MODID = "midnight";
-    public static final String VERSION = "0.5.10";
+    public static final String VERSION = "0.5.10-pre1";
     public static final String NETWORK_PROTOCOL = "2";
 
     public static final Logger LOGGER = LogManager.getLogger(Midnight.class);
