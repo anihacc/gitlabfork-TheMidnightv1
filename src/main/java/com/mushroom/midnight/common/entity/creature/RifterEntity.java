@@ -2,6 +2,7 @@ package com.mushroom.midnight.common.entity.creature;
 
 import com.mushroom.midnight.Midnight;
 import com.mushroom.midnight.common.capability.RifterCapturable;
+import com.mushroom.midnight.common.config.MidnightConfig;
 import com.mushroom.midnight.common.entity.TargetIdleTracker;
 import com.mushroom.midnight.common.entity.task.RifterCaptureGoalGoal;
 import com.mushroom.midnight.common.entity.task.RifterMeleeGoal;
@@ -58,8 +59,6 @@ public class RifterEntity extends MonsterEntity implements IEntityAdditionalSpaw
 
     private static final float DROP_DAMAGE_THRESHOLD = 2.0F;
 
-    private static final int RIFTER_SOUND_CHANCE = 75;
-
     private BlockPos riftPosition;
     private final DragSolver dragSolver;
 
@@ -103,7 +102,11 @@ public class RifterEntity extends MonsterEntity implements IEntityAdditionalSpaw
 
     @Override
     public boolean canSpawn(IWorld worldIn, SpawnReason spawnReasonIn) {
-        return getPosition().getY() > world.getSeaLevel();
+        if (rand.nextInt(100) < MidnightConfig.logic.naturalRifterSpawnRarity.get() - 1) {
+            return getPosition().getY() > world.getSeaLevel();
+        }
+
+        return false;
     }
 
     @Override
@@ -170,7 +173,7 @@ public class RifterEntity extends MonsterEntity implements IEntityAdditionalSpaw
     @Override
     public void playAmbientSound()
     {
-        if (rand.nextInt(100) < RIFTER_SOUND_CHANCE - 1) {
+        if (rand.nextInt(100) < MidnightConfig.logic.rifterAmbienceChance.get() - 1) {
             super.playAmbientSound();
         }
     }

@@ -186,9 +186,11 @@ public class MidnightConfig {
         public final ForgeConfigSpec.ConfigValue<Boolean> allowLightningDamage;
         public final ForgeConfigSpec.ConfigValue<Boolean> randomLightnings;
 
+        public final ForgeConfigSpec.ConfigValue<Integer> naturalRifterSpawnRarity;
         public final ForgeConfigSpec.ConfigValue<Integer> rifterSpawnRarity;
         public final ForgeConfigSpec.ConfigValue<Integer> maxRifterByRift;
         public final ForgeConfigSpec.ConfigValue<Boolean> allowRifterTeleport;
+        public final ForgeConfigSpec.ConfigValue<Integer> rifterAmbienceChance;
         public final ForgeConfigSpec.ConfigValue<Boolean> rifterCaptureTamedAnimal;
         public final ForgeConfigSpec.ConfigValue<Boolean> rifterCaptureNamedAnimal;
 
@@ -216,6 +218,9 @@ public class MidnightConfig {
                     .comment("Sets whether random lightning effects appear in the midnight or not. Default: true")
                     .define("random_lightnings", true);
 
+            naturalRifterSpawnRarity = builder
+                    .comment("The percent chance (from 0 to 100) for a rifter to spawn naturally. If 0, no rifters spawn at all. Default: 75")
+                    .defineInRange("natural_rifter_spawn_rarity", 75, 0, 100);
             rifterSpawnRarity = builder
                     .comment("The rarity that rifts spawn rifters. Larger numbers increase rarity. If 0, rifters don't spawn from rifts. Default: 1000")
                     .defineInRange("rifter_spawn_rarity", 1000, 0, Integer.MAX_VALUE);
@@ -225,6 +230,9 @@ public class MidnightConfig {
             allowRifterTeleport = builder
                     .comment("Allows rifters to teleport to players when they aren't being looked at. Default: true")
                     .define("allow_rifter_teleport", true);
+            rifterAmbienceChance = builder
+                    .comment("The percent chance (from 0 to 100) for a rifter to make an ambience sound at any time. Default: 75")
+                    .defineInRange("rifter_ambience_chance", 75, 0, 100);
             rifterCaptureTamedAnimal = builder
                     .comment("Allows rifters to capture tamed entities and drag them into rifts. Default: false")
                     .define("rifter_capture_tamed_animal", false);
@@ -242,9 +250,11 @@ public class MidnightConfig {
             PROFILE.add(allowLightningDamage);
             PROFILE.add(randomLightnings);
 
+            PROFILE.add(naturalRifterSpawnRarity);
             PROFILE.add(rifterSpawnRarity);
             PROFILE.add(maxRifterByRift);
             PROFILE.add(allowRifterTeleport);
+            PROFILE.add(rifterAmbienceChance);
             PROFILE.add(rifterCaptureTamedAnimal);
             PROFILE.add(rifterCaptureNamedAnimal);
             builder.pop();
@@ -294,9 +304,11 @@ public class MidnightConfig {
         ifc.setting("config.midnight.random_lightnings", new ToggleButtonControl(), "logic.random_lightnings");
         ifc.setting("config.midnight.allow_lightning_damage", new ToggleButtonControl(), "logic.allow_lightning_damage");
         ifc.header("config.midnight.header.rifters");
+        ifc.setting("config.midnight.natural_rifter_spawn_rarity", new IntInputControl(0, 100), "logic.natural_rifter_spawn_rarity");
         ifc.setting("config.midnight.rifter_spawn_rarity", new IntInputControl(0, Integer.MAX_VALUE), "logic.rifter_spawn_rarity");
         ifc.setting("config.midnight.max_rifters_by_rift", new IntSliderControl(1, 10), "logic.max_rifter_by_rift");
         ifc.setting("config.midnight.allow_rifter_teleport", new ToggleButtonControl(), "logic.allow_rifter_teleport");
+        ifc.setting("config.midnight.rifter_ambience_chance", new IntSliderControl(0, 100), "logic.rifter_ambience_chance");
         ifc.setting("config.midnight.rifter_capture_tamed_animal", new ToggleButtonControl(), "logic.rifter_capture_tamed_animal");
         ifc.setting("config.midnight.rifter_capture_named_animal", new ToggleButtonControl(), "logic.rifter_capture_named_animal");
         return ifc;
