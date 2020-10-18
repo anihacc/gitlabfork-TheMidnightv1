@@ -15,8 +15,6 @@ on:
       - '.gitattributes'
     tags-ignore:
       - '*.*'
-  release:
-    types: [prereleased, released]
 
 jobs:
   build:
