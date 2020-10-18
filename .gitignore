@@ -27,3 +27,6 @@
 Thumbs.db
 
 .cache/
+
+# Mixin logs
+/logs/

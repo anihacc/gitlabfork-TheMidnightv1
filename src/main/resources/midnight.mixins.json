@@ -1,0 +1,10 @@
+{
+  "required": true,
+  "package": "com.mushroom.midnight.common.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "midnight.refmap.json",
+  "mixins": [
+    "MobEntityMixin"
+  ],
+  "minVersion": "0.8.2"
+}
