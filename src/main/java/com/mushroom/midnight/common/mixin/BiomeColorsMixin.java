@@ -1,4 +1,4 @@
-package com.mushroom.midnight.client.render;
+package com.mushroom.midnight.common.mixin;
 
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightSurfaceBiomes;
@@ -6,12 +6,32 @@ import com.mushroom.midnight.common.util.MidnightUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.ILightReader;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeColors;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-public final class GrassColorModifier {
-    private static final Minecraft CLIENT = Minecraft.getInstance();
+@Mixin(BiomeColors.class)
+public class BiomeColorsMixin
+{
+    // MIXIN INJECTION
+    @Inject(at = @At("RETURN"), method = "getGrassColor(Lnet/minecraft/world/ILightReader;Lnet/minecraft/util/math/BlockPos;)I", cancellable = true)
+    private static void getGrassColor(ILightReader worldIn, BlockPos blockPosIn, CallbackInfoReturnable<Integer> callback) {
+        World world = Minecraft.getInstance().world;
 
+        if (MidnightUtil.isMidnightDimension(world)) {
+            Biome biome = world.getBiome(blockPosIn);
+            if (biome == MidnightSurfaceBiomes.NIGHT_PLAINS) {
+                callback.setReturnValue(modifyGrassNightPlains(world, blockPosIn, callback.getReturnValue()));
+            }
+        }
+    }
+
+    // NIGHT PLAINS GRASS COLOR TRANSFORMATION
     private static final int RANGE = 2;
 
     private static final int FINGERED_GRASS_COLOR = 0x004B7A;
@@ -19,19 +39,6 @@ public final class GrassColorModifier {
     private static final int FINGERED_GRASS_RED = FINGERED_GRASS_COLOR >> 16 & 0xFF;
     private static final int FINGERED_GRASS_GREEN = FINGERED_GRASS_COLOR >> 8 & 0xFF;
     private static final int FINGERED_GRASS_BLUE = FINGERED_GRASS_COLOR & 0xFF;
-
-    public static int modifyGrassColor(int color, BlockPos pos) {
-        World world = CLIENT.world;
-
-        if (!MidnightUtil.isMidnightDimension(world)) return color;
-
-        Biome biome = world.getBiome(pos);
-        if (biome == MidnightSurfaceBiomes.NIGHT_PLAINS) {
-            return modifyGrassNightPlains(world, pos, color);
-        }
-
-        return color;
-    }
 
     private static int modifyGrassNightPlains(World world, BlockPos pos, int color) {
         int x = pos.getX();
