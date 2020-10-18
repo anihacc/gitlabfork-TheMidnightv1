@@ -1,4 +1,4 @@
-package com.mushroom.midnight.common;
+package com.mushroom.midnight.common.asm;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;

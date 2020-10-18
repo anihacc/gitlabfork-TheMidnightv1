@@ -82,7 +82,7 @@ function patch_biome_colors(class_node) {
     for (var i = 0; i < targets.length; i++) {
         var insert = new InsnList();
         insert.add(new VarInsnNode(Opcodes.ALOAD, 1));
-        insert.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/mushroom/midnight/client/GrassColorModifier", "modifyGrassColor", "(ILnet/minecraft/util/math/BlockPos;)I", false));
+        insert.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/mushroom/midnight/client/render/GrassColorModifier", "modifyGrassColor", "(ILnet/minecraft/util/math/BlockPos;)I", false));
         instructions.insertBefore(targets[i], insert);
     }
 
@@ -121,7 +121,7 @@ function patch_ladder_noises(class_node) {
     insert.add(new VarInsnNode(Opcodes.ALOAD, 5));
     insert.add(new VarInsnNode(Opcodes.ALOAD, 4));
     insert.add(new VarInsnNode(Opcodes.ALOAD, 0));
-    insert.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/mushroom/midnight/common/LadderNoiseModifier", "modifyLadderNoises", "(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/Entity;)Z", false));
+    insert.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/mushroom/midnight/common/asm/LadderNoiseModifier", "modifyLadderNoises", "(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/Entity;)Z", false));
     insert.add(new JumpInsnNode(Opcodes.IFNE, label));
     instructions.insertBefore(target, insert);
 

@@ -1,4 +1,4 @@
-package com.mushroom.midnight.client;
+package com.mushroom.midnight.client.render;
 
 import com.mushroom.midnight.common.registry.MidnightBlocks;
 import com.mushroom.midnight.common.registry.MidnightSurfaceBiomes;
