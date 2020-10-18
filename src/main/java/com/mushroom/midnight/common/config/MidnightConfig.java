@@ -215,7 +215,7 @@ public class MidnightConfig {
                     .comment("Allows the lightning in Midnight to burn blocks and do damage to entities. Default: false")
                     .define("allow_lightning_damage", false);
             randomLightnings = builder
-                    .comment("Sets whether random lightning effects appear in the midnight or not. Default: true")
+                    .comment("Sets if random lightning effects appear in the midnight or not. Default: true")
                     .define("random_lightnings", true);
 
             naturalRifterSpawnRarity = builder
