@@ -28,8 +28,8 @@ gegy1000 - Former Lead Programmer
 Martacus - Former Programmer
 arthurbambous - Former Programmer
 Corail31 - Former Programmer
-Endergized](https://github.com/Endergy) - Former Texturer
-Five (Paradiscal)](https://github.com/fivelol) - Former Texturer
+Endergized - Former Texturer
+Five (Paradiscal) - Former Texturer
 MCVinnyq - Former Texturer, Former Modeler
 ZombieEnderman5 - Contributor
 veesus mikhel heir - Contributor
@@ -42,7 +42,7 @@ We are currently rewriting The Midnight from the ground up and we'd love to hear
 [[dependencies.midnight]]
     modId="forge"
     mandatory=true
-    versionRange="[31.2.0,)"
+    versionRange="[31.2.45,)"
     ordering="NONE"
     side="BOTH"
 

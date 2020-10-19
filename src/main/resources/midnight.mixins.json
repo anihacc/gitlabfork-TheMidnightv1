@@ -5,6 +5,7 @@
   "refmap": "midnight.refmap.json",
   "mixins": [
     "BiomeColorsMixin",
+    "ClientRecipeBookMixin",
     "LightTextureMixin",
     "MobEntityMixin",
     "SoundSourceMixin"
