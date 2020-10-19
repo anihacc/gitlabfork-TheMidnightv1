@@ -520,7 +520,7 @@
   "config.midnight.allow_lightning_damage.tooltip": "Sets if Midnight lightning burn blocks and damage entities.",
   "config.midnight.random_lightnings": "Random Lightning",
   "config.midnight.random_lightnings.tooltip": "Sets whether random lightning effects occur in the Midnight.",
-  "config.midnight.natural_rifter_spawn_rarity": "Rift Spawning Rarity",
+  "config.midnight.natural_rifter_spawn_rarity": "Natural Rifter Spawn Rate",
   "config.midnight.natural_rifter_spawn_rarity.tooltip": "The percent chance (from 0 to 100) for a rifter to spawn naturally. When 0, no rifters spawn at all.",
   "config.midnight.rifter_spawn_rarity": "Rift Spawning Rarity",
   "config.midnight.rifter_spawn_rarity.tooltip": "Sets the rarity of rifters spawning from rifts. When 0, no rifters spawn at all.",

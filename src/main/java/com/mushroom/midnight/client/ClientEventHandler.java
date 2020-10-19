@@ -1,5 +1,6 @@
 package com.mushroom.midnight.client;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mushroom.midnight.Midnight;
@@ -22,6 +23,7 @@ import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.screen.CreateWorldScreen;
 import net.minecraft.client.gui.screen.IngameMenuScreen;
 import net.minecraft.client.network.play.ClientPlayNetHandler;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -221,7 +223,7 @@ public class ClientEventHandler {
         }
     }
 
-    public static void onApplyRotations(LivingEntity entity) {
+    public static void onApplyRotations(LivingEntity entity, MatrixStack matrixStack) {
         boolean captured = RifterCapturable.isCaptured(entity);
         if (captured) {
             entity.limbSwing = 0.0F;
@@ -229,13 +231,13 @@ public class ClientEventHandler {
 
             EntityUtil.Stance stance = EntityUtil.getStance(entity);
             if (stance == EntityUtil.Stance.QUADRUPEDAL) {
-                GlStateManager.translatef(0.0F, entity.getHeight(), 0.0F);
-                GlStateManager.rotatef(180.0F, 0.0F, 1.0F, 0.0F);
-                GlStateManager.rotatef(180.0F, 1.0F, 0.0F, 0.0F);
+                matrixStack.translate(0.0F, entity.getHeight(), 0.0F);
+                matrixStack.rotate(Vector3f.YP.rotationDegrees(180.0F));
+                matrixStack.rotate(Vector3f.XP.rotationDegrees(180.0F));
             } else {
-                GlStateManager.translatef(0.0F, entity.getWidth() / 2.0F, 0.0F);
-                GlStateManager.translatef(0.0F, 0.0F, entity.getHeight() / 2.0F);
-                GlStateManager.rotatef(-90.0F, 1.0F, 0.0F, 0.0F);
+                matrixStack.translate(0.0F, entity.getWidth() / 2.0F, 0.0F);
+                matrixStack.translate(0.0F, 0.0F, entity.getHeight() / 2.0F);
+                matrixStack.rotate(Vector3f.XP.rotationDegrees(-90.0F));
             }
         }
     }

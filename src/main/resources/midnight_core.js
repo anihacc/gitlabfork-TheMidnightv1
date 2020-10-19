@@ -9,13 +9,6 @@ var InsnNode = org.objectweb.asm.tree.InsnNode;
 
 function initializeCoreMod() {
     return {
-//        "LivingRendererTransformer": {
-//            "target": {
-//                "type": "CLASS",
-//                "name": "net.minecraft.client.renderer.entity.LivingRenderer"
-//            },
-//            "transformer": patch_living_renderer
-//        },
         "LadderNoises": {
             "target": {
                 "type": "CLASS",
@@ -25,30 +18,6 @@ function initializeCoreMod() {
         }
     }
 }
-
-// TODO: Re-implement this with rifter dragging behaviour
-// Commented out now to solve some nonsense error message
-
-//function patch_living_renderer(class_node) {
-//    var api = Java.type('net.minecraftforge.coremod.api.ASMAPI');
-//
-//    // TODO: What is this? func_77043_a doesn't show up anywhere in the MCP Mapping Viewer, not even as an unmapped function.
-//    var apply_rotations_method = get_method(class_node, api.mapMethod("func_77043_a"));
-//
-//    var instructions = apply_rotations_method.instructions;
-//    for (var i = 0; i < instructions.size(); i++) {
-//        var insn = instructions.get(i);
-//        if (insn instanceof MethodInsnNode && insn.owner.equals("com/mojang/blaze3d/platform/GlStateManager") && insn.name.equals("rotatef")) {
-//            var insert = new InsnList();
-//            insert.add(new VarInsnNode(Opcodes.ALOAD, 1));
-//            insert.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/mushroom/midnight/client/ClientEventHandler", "onApplyRotations", "(Lnet/minecraft/entity/LivingEntity;)V", false));
-//            instructions.insert(insn, insert);
-//            break;
-//        }
-//    }
-//
-//    return class_node;
-//}
 
 function patch_ladder_noises(class_node) {
     var api = Java.type('net.minecraftforge.coremod.api.ASMAPI');

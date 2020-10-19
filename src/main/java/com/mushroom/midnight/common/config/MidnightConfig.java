@@ -309,7 +309,7 @@ public class MidnightConfig {
         ifc.setting("config.midnight.random_lightnings", new ToggleButtonControl(), "logic.random_lightnings");
         ifc.setting("config.midnight.allow_lightning_damage", new ToggleButtonControl(), "logic.allow_lightning_damage");
         ifc.header("config.midnight.header.rifters");
-        ifc.setting("config.midnight.natural_rifter_spawn_rarity", new IntInputControl(0, 100), "logic.natural_rifter_spawn_rarity");
+        ifc.setting("config.midnight.natural_rifter_spawn_rarity", new IntSliderControl(0, 100), "logic.natural_rifter_spawn_rarity");
         ifc.setting("config.midnight.rifter_spawn_rarity", new IntInputControl(0, Integer.MAX_VALUE), "logic.rifter_spawn_rarity");
         ifc.setting("config.midnight.max_rifters_by_rift", new IntSliderControl(1, 10), "logic.max_rifter_by_rift");
         ifc.setting("config.midnight.allow_rifter_teleport", new ToggleButtonControl(), "logic.allow_rifter_teleport");
