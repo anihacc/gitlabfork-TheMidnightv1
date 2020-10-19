@@ -13,6 +13,7 @@ import com.mushroom.midnight.common.world.noise.PerlinNoiseSampler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
@@ -121,6 +122,33 @@ public class EntranceRiftGenerator {
                 mutablePos.setY(origin.getY() - depth);
 
                 this.setBlockState(mutablePos, surfaceState);
+
+                /*
+                 * Fill the entrance rift with air. I'm so sorry that this code is atrocious, but so is the rest of
+                 * the code in this god forsaken repository. Rewrite will save us.
+                 */
+                if (depth > 0)
+                {
+                    for (int y = mutablePos.getY() + 1; y <= origin.getY() + 7; y++) {
+                        BlockPos blockPosAboveBlock = mutablePos.add(0, y - mutablePos.getY(), 0);
+                        BlockState blockStateAboveBlock = world.getBlockState(blockPosAboveBlock);
+                        if (blockStateAboveBlock != MidnightBlocks.RIFT_PORTAL.getDefaultState()
+                                && blockStateAboveBlock != MidnightBlocks.GLOWING_MALIGNANT_RED_PLANT_BLOCK.getDefaultState()
+                                && blockStateAboveBlock != MidnightBlocks.MALIGNANT_RED_PLANT_BLOCK.getDefaultState()
+                                && blockStateAboveBlock != MidnightBlocks.MALIGNANT_BLOODROOT.getDefaultState()
+                                && blockStateAboveBlock.getMaterial() != Material.AIR) {
+//                            System.out.println("NON-RIFT BLOCK FOUND");
+                            System.out.println(mutablePos.add(0, y - mutablePos.getY(), 0).toString());
+                            System.out.println(blockStateAboveBlock.toString());
+                            this.setBlockState(blockPosAboveBlock, Blocks.AIR.getDefaultState());
+                        }/* else {
+                            break;
+                        }
+                        ONLY ADD THIS IN IF WE NEED TO NOT PRODUCE AIR AFTER IT FINDS A MALIGNANT RED BLOCK!
+                        */
+                    }
+                }
+
                 coverMask.put(x, z);
             }
         }
