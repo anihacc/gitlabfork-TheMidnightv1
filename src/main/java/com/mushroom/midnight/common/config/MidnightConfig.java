@@ -344,7 +344,7 @@ public class MidnightConfig {
         ifc.setting("config.midnight.ambient_volume", new DoublePercentSliderControl("config.midnight.format.number_percentage", "options.off", "config.midnight.format.number_percentage"), "client.ambient_volume");
         ifc.setting("config.midnight.echo_volume", new DoublePercentSliderControl("config.midnight.format.number_percentage", "options.off", "config.midnight.format.number_percentage"), "client.echo_volume");
         ifc.header("config.midnight.header.updates");
-        ifc.setting("config.midnight.check_for_rewrite", new ToggleButtonControl(), "client.midnight.check_for_rewrite");
+        ifc.setting("config.midnight.check_for_rewrite", new ToggleButtonControl(), "client.check_for_rewrite");
         return ifc;
     };
 
