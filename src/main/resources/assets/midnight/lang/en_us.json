@@ -473,6 +473,7 @@
 
   "config.midnight.header.graphical": "Graphics",
   "config.midnight.header.sound": "Sounds",
+  "config.midnight.header.updates": "Update Checking",
   "config.midnight.header.rifters": "Rifters",
   "config.midnight.header.rifts": "Rifts",
   "config.midnight.header.lightning": "Lightning",
@@ -496,6 +497,8 @@
   "config.midnight.ambient_volume.tooltip": "The volume of Midnight ambience sounds.",
   "config.midnight.echo_volume": "Echo Effect",
   "config.midnight.echo_volume.tooltip": "The volume of Midnight echo effects.",
+  "config.midnight.check_for_rewrite": "Check for Updates",
+  "config.midnight.check_for_rewrite.tooltip": "If true, The Midnight will check if version 0.6.0 or higher is available for release. The chat notification will be shown once when a world is loaded and again after each restart.",
 
   "config.midnight.rift_biomes": "Rift Biomes",
   "config.midnight.rift_biomes.tooltip": "Selects in which biomes rifts may spawn.",

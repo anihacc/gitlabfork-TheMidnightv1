@@ -267,6 +267,7 @@ public class MidnightConfig {
         public final ForgeConfigSpec.ConfigValue<Boolean> ambientSporeParticles;
         public final ForgeConfigSpec.ConfigValue<Double> ambientVolume;
         public final ForgeConfigSpec.ConfigValue<Double> echoVolume;
+        public final ForgeConfigSpec.ConfigValue<Boolean> checkForRewrite;
 
         public CatClient(ForgeConfigSpec.Builder builder) {
             builder.comment("All the options that can be modified by players on server.").push("client");
@@ -287,11 +288,16 @@ public class MidnightConfig {
                     .comment("The volume of the echo effect playing in the Midnight. When 0, echoes are disabled. Default: 1.0")
                     .defineInRange("echo_volume", 1.0, 0, 1);
 
+            checkForRewrite = builder
+                    .comment("If true, The Midnight will check if version 0.6.0 or higher is available for release. The chat notification will be shown once when a world is loaded and again after each restart. Default: true")
+                    .define("check_for_rewrite", true);
+
             PROFILE.add(hideVignetteEffect);
             PROFILE.add(allowBrightnessChange);
             PROFILE.add(ambientSporeParticles);
             PROFILE.add(ambientVolume);
             PROFILE.add(echoVolume);
+            PROFILE.add(checkForRewrite);
             builder.pop();
         }
     }
@@ -337,6 +343,8 @@ public class MidnightConfig {
         ifc.header("config.midnight.header.sound");
         ifc.setting("config.midnight.ambient_volume", new DoublePercentSliderControl("config.midnight.format.number_percentage", "options.off", "config.midnight.format.number_percentage"), "client.ambient_volume");
         ifc.setting("config.midnight.echo_volume", new DoublePercentSliderControl("config.midnight.format.number_percentage", "options.off", "config.midnight.format.number_percentage"), "client.echo_volume");
+        ifc.header("config.midnight.header.updates");
+        ifc.setting("config.midnight.check_for_rewrite", new ToggleButtonControl(), "client.midnight.check_for_rewrite");
         return ifc;
     };
 
