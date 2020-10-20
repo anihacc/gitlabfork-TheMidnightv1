@@ -118,6 +118,7 @@ public class CommonEventHandler {
     }
 
     // TODO: Reimplement with new rifts
+    // No.
     /*@SubscribeEvent
     public static void onSleep(PlayerSleepInBedEvent event) {
         if (event.getResultStatus() == null) {

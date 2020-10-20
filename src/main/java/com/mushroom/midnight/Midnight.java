@@ -56,8 +56,11 @@ import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -72,7 +75,8 @@ public class Midnight {
     public static final IProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
     public static final String REWRITE_NOTIFICATION = "The Midnight: Rewritten is now available for download!" +
-            " Visit The Midnight's CurseForge page for more information.";
+            " Visit The Midnight's CurseForge page for more information." +
+            " You can disable this notification in the configuration settings.";
 
     public static final SimpleChannel CHANNEL = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(MODID, "net"))
             .networkProtocolVersion(() -> NETWORK_PROTOCOL)
@@ -123,14 +127,18 @@ public class Midnight {
     public static boolean isRewriteAvailable()
     {
         try {
-            if (IOUtils.toString(new URL("https://gist.githubusercontent.com/Jonathing/848e7f7ba1543eab06b38a36e7cc2244/raw/0a1360f5c8409a20b75c4aae0614a2a66ee58c96/rewrite.txt").openStream()).equals("true")) {
+            URL rewriteUrl = new URL("https://beta.crypticmushroom.com/rewrite.txt");
+            HttpURLConnection connection = (HttpURLConnection) rewriteUrl.openConnection();
+            connection.addRequestProperty("User-Agent", "Mozilla/4.0");
+
+            BufferedReader rewriteCheckDocument = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            if (rewriteCheckDocument.readLine().equals("true")) {
                 return true;
             }
         } catch (IOException e) {
-            LOGGER.error("Unable to check if The Midnight: Rewritten is available for download!");
+            LOGGER.error("Unable to check if The Midnight: Rewritten is available for download! You are probably offline.");
             e.printStackTrace();
-        } finally {
-            IOUtils.closeQuietly();
         }
 
         return false;

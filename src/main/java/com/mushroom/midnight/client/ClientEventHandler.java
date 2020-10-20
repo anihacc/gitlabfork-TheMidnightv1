@@ -69,6 +69,8 @@ public class ClientEventHandler {
     private static final long AMBIENT_SOUND_INTERVAL = 140;
     private static final int AMBIENT_SOUND_CHANCE = 120;
 
+    private static boolean hasGivenRewriteNotification = false;
+
     private static long lastAmbientSoundTime;
 
     private static ISound playingMusic;
@@ -122,10 +124,11 @@ public class ClientEventHandler {
     public static void loggedInEvent(ClientPlayerNetworkEvent.LoggedInEvent event) {
         ClientPlayerEntity player = event.getPlayer();
 
-        if (Midnight.isRewriteAvailable() && player != null) {
+        if (Midnight.isRewriteAvailable() && player != null && !hasGivenRewriteNotification) {
             Minecraft.getInstance().ingameGUI.getChatGUI().printChatMessage(
                     new TranslationTextComponent(Midnight.REWRITE_NOTIFICATION).applyTextStyle(TextFormatting.GREEN)
             );
+            hasGivenRewriteNotification = true;
         }
     }
 

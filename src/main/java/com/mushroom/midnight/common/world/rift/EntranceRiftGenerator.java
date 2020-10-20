@@ -137,15 +137,8 @@ public class EntranceRiftGenerator {
                                 && blockStateAboveBlock != MidnightBlocks.MALIGNANT_RED_PLANT_BLOCK.getDefaultState()
                                 && blockStateAboveBlock != MidnightBlocks.MALIGNANT_BLOODROOT.getDefaultState()
                                 && blockStateAboveBlock.getMaterial() != Material.AIR) {
-//                            System.out.println("NON-RIFT BLOCK FOUND");
-//                            System.out.println(mutablePos.add(0, y - mutablePos.getY(), 0).toString());
-//                            System.out.println(blockStateAboveBlock.toString());
                             this.setBlockState(blockPosAboveBlock, Blocks.AIR.getDefaultState());
-                        }/* else {
-                            break;
                         }
-                        ONLY ADD THIS IN IF WE NEED TO NOT PRODUCE AIR AFTER IT FINDS A MALIGNANT RED BLOCK!
-                        */
                     }
                 }
 
