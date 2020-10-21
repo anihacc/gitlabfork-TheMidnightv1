@@ -484,7 +484,7 @@
   "config.midnight.category.compat": "Compatibility Settings",
   "config.midnight.category.compat.tooltip": "Settings on how the Midnight mod operates with other mods and vanilla.",
   "config.midnight.category.server": "Server Logic Settings",
-  "config.midnight.category.server.tooltip": "Settings around logic on the server. Can be edited per world. Only enabled when playing in a world.",
+  "config.midnight.category.server.tooltip": "Settings around logic on the server. Can be edited per world. Only enabled when playing in a world. Check your controls for the keybind to open this config screen in the pause menu.",
 
 
   "config.midnight.hide_vignette_effect": "Hide Vignette Filter",
@@ -498,7 +498,7 @@
   "config.midnight.echo_volume": "Echo Effect",
   "config.midnight.echo_volume.tooltip": "The volume of Midnight echo effects.",
   "config.midnight.check_for_rewrite": "Check for Updates",
-  "config.midnight.check_for_rewrite.tooltip": "If true, The Midnight will check if version 0.6.0 or higher is available for release. The chat notification will be shown once when a world is loaded and again after each restart.",
+  "config.midnight.check_for_rewrite.tooltip": "Sets if The Midnight will check if version 0.6.0 or higher is available for release. The chat notification will be shown once when a world is loaded and again after each restart.",
 
   "config.midnight.rift_biomes": "Rift Biomes",
   "config.midnight.rift_biomes.tooltip": "Selects in which biomes rifts may spawn.",
