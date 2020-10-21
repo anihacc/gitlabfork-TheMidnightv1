@@ -9,7 +9,7 @@ public class FurnaceSmeltingCategory extends AbstractCookingCategory<MidnightFur
     public static final ResourceLocation ID = new ResourceLocation("midnight", "furnace");
 
     public FurnaceSmeltingCategory(IGuiHelper guiHelper) {
-        super(guiHelper, MidnightBlocks.NIGHTSTONE_FURNACE, "gui.jei.category.smelting", 200);
+        super(guiHelper, MidnightBlocks.NIGHTSTONE_FURNACE, "gui.midnight.category.smelting", 200);
     }
 
     @Override

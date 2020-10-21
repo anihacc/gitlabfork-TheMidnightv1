@@ -619,6 +619,10 @@
   "tooltip.midnight.pressure_plate.heavy_weighted": "Heavy weighted",
   "tooltip.midnight.pressure_plate.light_weighted": "Light weighted",
 
+  "_comment": "GUIs",
+
+  "gui.midnight.category.smelting": "Midnight Smelting",
+
   "_comment": "Subtitles",
 
   "subtitles.ambient.midnight": "Eerie howling",
