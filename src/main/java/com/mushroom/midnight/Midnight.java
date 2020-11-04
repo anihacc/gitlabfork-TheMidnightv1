@@ -133,12 +133,14 @@ public class Midnight {
 
             BufferedReader rewriteCheckDocument = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
-            if (rewriteCheckDocument.readLine().equals("true")) {
-                return true;
-            }
+            return Boolean.parseBoolean(rewriteCheckDocument.readLine());
+//            if (rewriteCheckDocument.readLine().equals("true")) {
+//                return true;
+//            }
+        } catch (MalformedURLException e) {
+            LOGGER.error("Unable to check if The Midnight: Rewritten is available for download! Please report this to The Midnight's issue tracker.", e);
         } catch (IOException e) {
-            LOGGER.error("Unable to check if The Midnight: Rewritten is available for download! You are probably offline.");
-            e.printStackTrace();
+            LOGGER.error("Unable to check if The Midnight: Rewritten is available for download! You are probably offline.", e);
         }
 
         return false;

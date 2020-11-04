@@ -2,6 +2,7 @@ package com.mushroom.midnight.common.mixin;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mushroom.midnight.client.ClientEventHandler;
+import com.mushroom.midnight.common.config.MidnightConfig;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,6 +15,8 @@ public class LivingRendererMixin
 {
     @Inject(at = @At("HEAD"), method = "applyRotations(Lnet/minecraft/entity/LivingEntity;Lcom/mojang/blaze3d/matrix/MatrixStack;FFF)V")
     private void applyRotations(LivingEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks, CallbackInfo callback) {
-        ClientEventHandler.onApplyRotations(entityLiving, matrixStackIn);
+        if (MidnightConfig.client.experimentalCaptureRender.get()) {
+            ClientEventHandler.onApplyRotations(entityLiving, matrixStackIn);
+        }
     }
 }

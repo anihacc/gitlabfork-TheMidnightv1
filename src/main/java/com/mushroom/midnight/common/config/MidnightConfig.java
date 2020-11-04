@@ -265,6 +265,7 @@ public class MidnightConfig {
         public final ForgeConfigSpec.ConfigValue<Boolean> hideVignetteEffect;
         public final ForgeConfigSpec.ConfigValue<Boolean> allowBrightnessChange;
         public final ForgeConfigSpec.ConfigValue<Boolean> ambientSporeParticles;
+        public final ForgeConfigSpec.ConfigValue<Boolean> experimentalCaptureRender;
         public final ForgeConfigSpec.ConfigValue<Double> ambientVolume;
         public final ForgeConfigSpec.ConfigValue<Double> echoVolume;
         public final ForgeConfigSpec.ConfigValue<Boolean> checkForRewrite;
@@ -280,6 +281,9 @@ public class MidnightConfig {
             ambientSporeParticles = builder
                     .comment("If true, some ambient spore particles are spawned around the player. Default: true")
                     .define("ambient_spore_particle", true);
+            experimentalCaptureRender = builder
+                    .comment("If true, when an entity is captured by a rifter it will rotate to look like it is being dragged. Default: true")
+                    .define("experimental_capture_render", true);
 
             ambientVolume = builder
                     .comment("The volume of ambient sounds (e.g. distant screams, environmental noises). Default: 1.0")
@@ -295,6 +299,7 @@ public class MidnightConfig {
             PROFILE.add(hideVignetteEffect);
             PROFILE.add(allowBrightnessChange);
             PROFILE.add(ambientSporeParticles);
+            PROFILE.add(experimentalCaptureRender);
             PROFILE.add(ambientVolume);
             PROFILE.add(echoVolume);
             PROFILE.add(checkForRewrite);
@@ -340,6 +345,7 @@ public class MidnightConfig {
         ifc.setting("config.midnight.hide_vignette_effect", new ToggleButtonControl(), "client.hide_vignette_effect");
         ifc.setting("config.midnight.allow_brightness_change", new ToggleButtonControl(), "client.allow_brightness_change");
         ifc.setting("config.midnight.ambient_spore_particles", new ToggleButtonControl(), "client.ambient_spore_particle");
+        ifc.setting("config.midnight.experimental_capture_render", new ToggleButtonControl(), "client.experimental_capture_render");
         ifc.header("config.midnight.header.sound");
         ifc.setting("config.midnight.ambient_volume", new DoublePercentSliderControl("config.midnight.format.number_percentage", "options.off", "config.midnight.format.number_percentage"), "client.ambient_volume");
         ifc.setting("config.midnight.echo_volume", new DoublePercentSliderControl("config.midnight.format.number_percentage", "options.off", "config.midnight.format.number_percentage"), "client.echo_volume");
