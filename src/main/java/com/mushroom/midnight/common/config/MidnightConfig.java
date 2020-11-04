@@ -220,7 +220,7 @@ public class MidnightConfig {
 
             naturalRifterSpawnRarity = builder
                     .comment("The percent chance (from 0 to 100) for a rifter to spawn naturally. If 0, no rifters spawn at all. Default: 75")
-                    .defineInRange("natural_rifter_spawn_rarity", 75, 0, 100);
+                    .defineInRange("natural_rifter_spawn_rarity", 50, 0, 100);
             rifterSpawnRarity = builder
                     .comment("The rarity that rifts spawn rifters. Larger numbers increase rarity. If 0, rifters don't spawn from rifts. Default: 1000")
                     .defineInRange("rifter_spawn_rarity", 1000, 0, Integer.MAX_VALUE);

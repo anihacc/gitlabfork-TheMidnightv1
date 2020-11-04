@@ -9,34 +9,31 @@ displayName="The Midnight"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/the-midnight"
 updateJSONURL="https://raw.githubusercontent.com/Cryptic-Mushroom/The-Midnight/old/1.15.2/changelog.json"
 logoFile="logo.png"
-#credits="Cipher Zero X, RedGalaxySW, Jonathing, bagu_chan, gegy1000, Corail31, Lachney, Five (Paradiscal), Martacus, Cat Core, Endergized, MCVinnyq"
-authors="The Midnight Development Team from Cryptic Mushroom"
+authors="Cryptic Mushroom"
 description='''
 The Midnight is a mod being developed by Cryptic Mushroom that adds a new, mysterious and scary dimension to explore. It is a dimension of darkness; the only light comes from crystals and the various life of the dimension. You may travel willingly to this dimension, though you may unwillingly encounter a rifter and be dragged into this strange and hostile world...
 
-This mod is a huge collaborative effort with tons of different ideas, coding, and textures pitched in by varying individuals who came together to build something great. We wouldn't be where we are today without the help of those here today and those who worked on this mod in the past.
+This mod is a huge collaborative effort with tons of different ideas, coding, and textures pitched in by varying individuals who came together to build something great. Every team member and contributor was essential to the development of The Midnight and we wouldn't be where we are today without our current team members and those who worked on this mod in the past. Here is a list of everyone who has worked on the Midnight from its inception to 0.5.10!
 
-The Midnight Development Team Active Developers
-Cipher Zero X - Project Lead, Mastermind, Modeler
+Cipher Zero X - Project Lead, Mastermind, and Modeler
 RedGalaxySW - Lead Programmer
-Jonathing - Lead QA, Community Manager, Programmer, Musician
-Lachney - Lead Sound Designer, Lead Musician
-123wdog - Lead Modeler
-
-Former and Inactive Developers
+Jonathing - Lead QA, Community Manager, and Programmer
+Lachney - Lead Sound Designer and Lead Musician
+bagu_chan - Active Collaborator and Former Programmer
 gegy1000 - Former Lead Programmer
 Martacus - Former Programmer
 arthurbambous - Former Programmer
 Corail31 - Former Programmer
 Endergized - Former Texturer
 Five (Paradiscal) - Former Texturer
-MCVinnyq - Former Texturer, Former Modeler
+MCVinnyq - Former Texturer and Former Modeler
 ZombieEnderman5 - Contributor
+123wdog - Contributor
 veesus mikhel heir - Contributor
 Terenx - Contributor
 KingPhygieBoo - Contributor
 
-We are currently rewriting The Midnight from the ground up and we'd love to hear your feedback on this version so we know what to keep track of when writing the new version! You can join our Discord server from the CurseForge page for more information.
+When one chapter ends, another one begins. With our new team, we have begun rewriting The Midnight to be more stable, better to work with, and overall have more enjoyability. We'd love to hear what you'd like to see in future versions of The Midnight, so feel free to find our Discord server link in the CurseForge page!
 '''
 
 [[dependencies.midnight]]
@@ -51,4 +48,18 @@ We are currently rewriting The Midnight from the ground up and we'd love to hear
     mandatory=true
     versionRange="[1.15.2]"
     ordering="NONE"
+    side="BOTH"
+
+[[dependencies.midnight]]
+    modId="jei"
+    mandatory=false
+    versionRange="[6.0.0.4,)"
+    ordering="BEFORE"
+    side="CLIENT"
+
+[[dependencies.midnight]]
+    modId="terraforged"
+    mandatory=false
+    versionRange="[0.0.14,)"
+    ordering="BEFORE"
     side="BOTH"
