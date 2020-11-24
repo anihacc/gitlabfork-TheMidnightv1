@@ -10,10 +10,9 @@ displayURL="https://www.curseforge.com/minecraft/mc-mods/the-midnight"
 updateJSONURL="https://raw.githubusercontent.com/Cryptic-Mushroom/The-Midnight/old/1.15.2/changelog.json"
 logoFile="logo.png"
 authors="Cryptic Mushroom"
-description='''
-The Midnight is a mod being developed by Cryptic Mushroom that adds a new, mysterious and scary dimension to explore. It is a dimension of darkness; the only light comes from crystals and the various life of the dimension. You may travel willingly to this dimension, though you may unwillingly encounter a rifter and be dragged into this strange and hostile world...
+description='''The Midnight is a mod being developed by Cryptic Mushroom that adds a new, mysterious and scary dimension to explore. It is a dimension of darkness; the only light comes from crystals and the various life of the dimension. You may travel willingly to this dimension, though you may unwillingly encounter a rifter and be dragged into this strange and hostile world...
 
-This mod is a huge collaborative effort with tons of different ideas, coding, and textures pitched in by varying individuals who came together to build something great. Every team member and contributor was essential to the development of The Midnight and we wouldn't be where we are today without our current team members and those who worked on this mod in the past. Here is a list of everyone who has worked on the Midnight from its inception to 0.5.10!
+This mod is a huge collaborative effort with tons of different ideas, coding, and textures pitched in by varying individuals who came together to build something great. Every team member and contributor was essential to the development of The Midnight and we wouldn't be where we are today without our current team members and those who worked on this mod in the past. Here is a list of everyone who has worked on the Midnight from its inception to 0.5.11!
 
 Cipher Zero X - Project Lead, Mastermind, and Modeler
 RedGalaxySW - Lead Programmer
@@ -33,8 +32,7 @@ veesus mikhel heir - Contributor
 Terenx - Contributor
 KingPhygieBoo - Contributor
 
-When one chapter ends, another one begins. With our new team, we have begun rewriting The Midnight to be more stable, better to work with, and overall have more enjoyability. We'd love to hear what you'd like to see in future versions of The Midnight, so feel free to find our Discord server link in the CurseForge page!
-'''
+When one chapter ends, another one begins. With our new team, we have begun rewriting The Midnight to be more stable, better to work with, and overall have more enjoyability. We'd love to hear what you'd like to see in future versions of The Midnight, so feel free to find our Discord server link in the CurseForge page!'''
 
 [[dependencies.midnight]]
     modId="forge"

@@ -21,9 +21,7 @@ public final class SoundReverbHandler {
     private static int auxEffectSlot;
 
     static {
-        ((IReloadableResourceManager) MC.getResourceManager()).addReloadListener((ISelectiveResourceReloadListener) (manager, predicate) -> {
-            setup = false;
-        });
+        ((IReloadableResourceManager) MC.getResourceManager()).addReloadListener((ISelectiveResourceReloadListener) (manager, predicate) -> setup = false);
     }
 
     public static void onPlaySound(int soundId) {

@@ -1,4 +1,4 @@
-The Midnight for Minecraft 1.15.2 and older versions is no longer being supported by Cryptic Mushroom. The Midnight 0.5.10 will be **the last** version published in Minecraft 1.15.2, after which the next version will be 0.6.0.
+The Midnight for Minecraft 1.15.2 and older versions is no longer being supported by Cryptic Mushroom. The Midnight 0.5.11 will be **the last** version published in Minecraft 1.15.2, after which the next version will be 0.6.0.
 
 ![The Midnight](https://raw.githubusercontent.com/Cryptic-Mushroom/The-Midnight/rewrite/curseforge/front-page-poster.jpg)
 
@@ -9,7 +9,7 @@ This is the official source code repository for The Midnight mod, originally mad
 
 ## Information on the License
 
-The Midnight 0.5.10 and under are under the GNU GPLv3 license. However, The Midnight from version 0.6.0 and onward are under our own license. Please read the LICENSE.md file on the main branch for more information.
+The Midnight 0.5.11 and under are under the GNU GPLv3 license. However, The Midnight from version 0.6.0 and onward are under our own license. Please read the LICENSE.md file on the main branch for more information.
 
 ## How to get to The Midnight
 

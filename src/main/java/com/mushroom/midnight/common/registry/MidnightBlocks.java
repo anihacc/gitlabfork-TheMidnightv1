@@ -412,9 +412,9 @@ public class MidnightBlocks {
                 .add("nightstone_brick_slab", SlabBlock::new)
                 .add("rockshroom_brick_slab", SlabBlock::new)
 
-                .add("nightstone_stairs", props -> new MidnightStairsBlock(() -> NIGHTSTONE.getDefaultState(), props))
-                .add("nightstone_brick_stairs", props -> new MidnightStairsBlock(() -> NIGHTSTONE_BRICKS.getDefaultState(), props))
-                .add("rockshroom_brick_stairs", props -> new MidnightStairsBlock(() -> ROCKSHROOM_BRICKS.getDefaultState(), props))
+                .add("nightstone_stairs", props -> new MidnightStairsBlock(NIGHTSTONE::getDefaultState, props))
+                .add("nightstone_brick_stairs", props -> new MidnightStairsBlock(NIGHTSTONE_BRICKS::getDefaultState, props))
+                .add("rockshroom_brick_stairs", props -> new MidnightStairsBlock(ROCKSHROOM_BRICKS::getDefaultState, props))
 
                 .add("nightstone_wall", WallBlock::new)
                 .add("nightstone_brick_wall", WallBlock::new)
@@ -424,14 +424,14 @@ public class MidnightBlocks {
                 .withProperties(() -> Block.Properties.create(Material.ROCK).hardnessAndResistance(5f, 200f))
                 .add("trenchstone", props -> new Block(props.harvestTool(ToolType.PICKAXE).harvestLevel(2)))
                 .add("trenchstone_slab", SlabBlock::new)
-                .add("trenchstone_stairs", props -> new MidnightStairsBlock(() -> TRENCHSTONE.getDefaultState(), props))
+                .add("trenchstone_stairs", props -> new MidnightStairsBlock(TRENCHSTONE::getDefaultState, props))
                 .add("trenchstone_wall", WallBlock::new);
 
         RegUtil.blocks(event.getRegistry())
                 .withProperties(() -> Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5f, 200f))
                 .add("trenchstone_bricks", props -> new Block(props.harvestTool(ToolType.PICKAXE).harvestLevel(2)))
                 .add("trenchstone_brick_slab", SlabBlock::new)
-                .add("trenchstone_brick_stairs", props -> new MidnightStairsBlock(() -> TRENCHSTONE_BRICKS.getDefaultState(), props))
+                .add("trenchstone_brick_stairs", props -> new MidnightStairsBlock(TRENCHSTONE_BRICKS::getDefaultState, props))
                 .add("trenchstone_brick_wall", WallBlock::new);
 
         RegUtil.blocks(event.getRegistry())
@@ -632,13 +632,13 @@ public class MidnightBlocks {
                 .add("nightshroom_slab", SlabBlock::new)
                 .add("bogshroom_slab", SlabBlock::new)
 
-                .add("shadowroot_stairs", props -> new MidnightStairsBlock(() -> SHADOWROOT_PLANKS.getDefaultState(), props))
-                .add("dead_wood_stairs", props -> new MidnightStairsBlock(() -> DEAD_WOOD_PLANKS.getDefaultState(), props))
-                .add("dark_willow_stairs", props -> new MidnightStairsBlock(() -> DARK_WILLOW_PLANKS.getDefaultState(), props))
-                .add("dewshroom_stairs", props -> new MidnightStairsBlock(() -> DEWSHROOM_PLANKS.getDefaultState(), props))
-                .add("viridshroom_stairs", props -> new MidnightStairsBlock(() -> VIRIDSHROOM_PLANKS.getDefaultState(), props))
-                .add("nightshroom_stairs", props -> new MidnightStairsBlock(() -> NIGHTSHROOM_PLANKS.getDefaultState(), props))
-                .add("bogshroom_stairs", props -> new MidnightStairsBlock(() -> NIGHTSHROOM_PLANKS.getDefaultState(), props))
+                .add("shadowroot_stairs", props -> new MidnightStairsBlock(SHADOWROOT_PLANKS::getDefaultState, props))
+                .add("dead_wood_stairs", props -> new MidnightStairsBlock(DEAD_WOOD_PLANKS::getDefaultState, props))
+                .add("dark_willow_stairs", props -> new MidnightStairsBlock(DARK_WILLOW_PLANKS::getDefaultState, props))
+                .add("dewshroom_stairs", props -> new MidnightStairsBlock(DEWSHROOM_PLANKS::getDefaultState, props))
+                .add("viridshroom_stairs", props -> new MidnightStairsBlock(VIRIDSHROOM_PLANKS::getDefaultState, props))
+                .add("nightshroom_stairs", props -> new MidnightStairsBlock(NIGHTSHROOM_PLANKS::getDefaultState, props))
+                .add("bogshroom_stairs", props -> new MidnightStairsBlock(NIGHTSHROOM_PLANKS::getDefaultState, props))
 
                 .add("viridshroom_stem_cache", props -> new CacheBlock(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(2f)));
 

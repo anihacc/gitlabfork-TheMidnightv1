@@ -16,7 +16,7 @@ apply plugin: 'org.spongepowered.mixin'
 
 apply plugin: 'eclipse'
 
-version = '0.5.10'
+version = '0.5.11'
 group = 'com.mushroom.midnight'
 archivesBaseName = 'midnight'
 
