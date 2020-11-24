@@ -51,7 +51,7 @@ function patch_ladder_noises(class_node) {
     insert.add(new VarInsnNode(Opcodes.ALOAD, 5));
     insert.add(new VarInsnNode(Opcodes.ALOAD, 4));
     insert.add(new VarInsnNode(Opcodes.ALOAD, 0));
-    insert.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/mushroom/midnight/common/asm/LadderNoiseModifier", "modifyLadderNoises", "(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/Entity;)Z", false));
+    insert.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/mushroom/midnight/common/LadderNoiseModifier", "modifyLadderNoises", "(Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/Entity;)Z", false));
     insert.add(new JumpInsnNode(Opcodes.IFNE, label));
     instructions.insertBefore(target, insert);
 
