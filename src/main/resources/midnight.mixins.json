@@ -6,7 +6,6 @@
   "mixins": [
     "BiomeColorsMixin",
     "ClientRecipeBookMixin",
-    "EntityMixin",
     "LightTextureMixin",
     "LivingRendererMixin",
     "MobEntityMixin",
