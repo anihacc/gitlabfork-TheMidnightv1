@@ -1,55 +1,56 @@
-The Midnight for Minecraft 1.15.2 and older versions is no longer being supported by Cryptic Mushroom. The Midnight 0.5.11 will be **the last** version published in Minecraft 1.15.2, after which the next version will be 0.6.0.
-
-![The Midnight](https://raw.githubusercontent.com/Cryptic-Mushroom/The-Midnight/rewrite/curseforge/front-page-poster.jpg)
+![The Midnight](https://gitlab.com/Cryptic-Mushroom/The-Midnight-Archived/-/raw/1.15.2/front-page-poster.jpg)
 
 # The Midnight
 
 *The Midnight* is a mod being developed by Cryptic Mushroom that adds a new, mysterious and scary dimension to explore. It is a dimension of darkness; the only light comes from crystals and the various life of the dimension. You may travel willingly to this dimension, though you may unwillingly encounter a rifter and be dragged into this strange and hostile world...  
-This is the official source code repository for The Midnight mod, originally made for SpookyJam 2018.
 
-## Information on the License
+This is the archived source code repository for the Midnight mod, originally made for SpookyJam 2018.
 
-The Midnight 0.5.11 and under are under the GNU GPLv3 license. However, The Midnight from version 0.6.0 and onward are under our own license. Please read the LICENSE.md file on the main branch for more information.
+## About this archive
+
+The Midnight for Minecraft 1.12.2, 1.14.4, and 1.15.2 are all open-source under the GPLv3 license, and will continue to remain that way. You may use the code from this repository for whatever you might need, as long as it follows the license.
+
+A new version of the Midnight, for whatever the latest version of Minecraft is, is currently being worked on by a new team, informally known as the rewrite, that **will not be open-source.** [For more information, feel free to visit our Discord server.](https://discord.gg/h7u4Tc7)
 
 ## How to get to The Midnight
 
-### For Users
+### 1.15.2
 
-To get to the dimension, you will need to find a rift. These will spawn in red clumps of matter. Though before you go, make sure to be prepared! The Midnight is a hostile place.
+To get to the dimension, you will need to find a rift. These will spawn in red clumps of matter. Though before you go, make sure to be prepared!
 
-### For Developers
-
-We understand can be annoying to have to find a rift to access The Midnight every time. Here are a couple of commands to find/access the dimension with ease.  
 Locate a rift structure: `/locate midnight:entrance_rift`  
-Teleport directly into The Midnight: `/forge setdimension @p midnight:midnight`
+Teleport directly into The Midnight: `/execute in midnight:midnight run tp @s ~ ~ ~`
 
-## Where can you find us?
+### 1.12.2 - 1.14.4
 
-If you want to discuss the mod, we have a [Discord server](https://discord.gg/h7u4Tc7)!  
-We have other mods we like to work on, too! You can view them by visiting our [GitHub page](https://github.com/Cryptic-Mushroom) and [Cipher's CurseForge page](https://www.curseforge.com/members/cipher_zero_x/projects).  
-If you would like to support our work, consider donating to our [Patreon](https://www.patreon.com/crypticmushroom).
+To get to the dimension, you will need to find a rift. These will spawn randomly during the night both above ground and in caves.
 
-## The Midnight Team
+Summon a Rift entity: `/summon midnight:rift ~ ~ ~`
 
-### Active Developers
+## Links of Interest
 
-[Cipher Zero X](https://github.com/cipherzerox) - Project Lead, Mastermind, Modeler  
-[RedGalaxySW](https://github.com/RedGalaxySW) - Lead Programmer  
-[Jonathing](https://github.com/Jonathing) - Lead QA, Community Manager, Programmer, Musician  
-[Lachney](https://xjon.me) - Lead Sound Designer, Lead Musician  
-[123wdog](https://www.curseforge.com/members/123wdog/) - Lead Modeler
+- [Website](https://crypticmushroom.com)
+- [Discord Server](https://discord.gg/h7u4Tc7)
+- [GitLab Issue Tracker](https://gitlab.com/Cryptic-Mushroom/The-Midnight/issues)
+- [Pre-Rewrite Source Archive](https://gitlab.com/Cryptic-Mushroom/The-Midnight-Archived)
 
-### Former and Inactive Developers
+## The Midnight Team (Pre-Rewrite)
 
-[bagu_chan](https://github.com/pentantan) - Programmer  
-[gegy1000](https://github.com/gegy1000) - Programmer  
-[Martacus](https://github.com/Martacus) - Programmer  
-[arthurbambous](https://github.com/arthurbambou) - Programmer  
-[Corail31](https://github.com/Corail31) - Programmer  
-[Endergized](https://github.com/Endergy) - Texturer  
-[Five (Paradiscal)](https://github.com/fivelol) - Texturer  
-[MCVinnyq](https://github.com/MCVinnyq) - Texturer, Modeler  
+### Developers
 
-## Additional Thanks
+[Cipher Zero X](https://github.com/cipherzerox) - Project Lead, Mastermind, Modeler (1.12.2 - 1.15.2)  
+[Shadew](https://github.com/FoxShadew) - Programmer (1.15.2)  
+[Jonathing](https://github.com/Jonathing) - Quality Assurance, Community Manager, Programmer (1.15.2)  
+[Lachney](https://xjon.me) - Lead Sound Designer, Lead Musician (1.12.2 - 1.15.2)  
+[bagu_chan](https://github.com/pentantan) - Programmer (1.15.2)  
+[gegy1000](https://github.com/gegy1000) - Programmer (1.12.2 - 1.14.4)  
+[Martacus](https://github.com/Martacus) - Programmer (1.12.2 - 1.14.4)  
+[arthurbambous](https://github.com/arthurbambou) - Programmer (1.12.2 - 1.14.4)  
+[Corail31](https://github.com/Corail31) - Programmer (1.12.2 - 1.14.4)  
+[Endergized](https://github.com/Endergy) - Texturer (1.12.2 - 1.14.4)  
+[Five (Paradiscal)](https://github.com/fivelol) - Texturer (1.12.2 - 1.14.4)  
+[MCVinnyq](https://github.com/MCVinnyq) - Texturer, Modeler (1.12.2 - 1.14.4)
+
+### Contributors
 
 Contributors: [ZombieEnderman5](https://github.com/ZombieEnderman5), [veesus mikhel heir](https://minecraft.curseforge.com/members/veesusmikelheir), [Terenx](https://github.com/Terenx), [KingPhygieBoo](https://gitlab.com/KingPhygieBoo)
