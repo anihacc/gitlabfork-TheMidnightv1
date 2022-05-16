@@ -1,13 +1,12 @@
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        maven { url = 'https://dist.creeper.host/Sponge/maven' }
-        jcenter()
+        maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://repo.spongepowered.org/maven' }
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
-        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7.+'
     }
 }
 
@@ -15,12 +14,13 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.spongepowered.mixin'
 
 apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
 
 version = '0.5.11'
 group = 'com.mushroom.midnight'
 archivesBaseName = 'midnight'
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 
 sourceSets {
@@ -79,7 +79,7 @@ minecraft {
 }
 
 repositories {
-    maven { url = "http://dvs1.progwml6.com/files/maven" }
+    maven { url = "https://dvs1.progwml6.com/files/maven" }
     maven {
         url "https://io.terraforged.com/repository/maven/"
     }
@@ -89,7 +89,7 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.15.2-31.2.45'
     runtimeOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.4")
     compileOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.4:api")
-    compileOnly "com.terraforged:TerraForgedAPI:1.15.2-0.0.14"
+//    compileOnly "com.terraforged:TerraForgedAPI:1.15.2-0.0.14"
 }
 
 jar {
@@ -97,7 +97,7 @@ jar {
         attributes([
                 "Specification-Title"     : "The Midnight",
                 "Specification-Vendor"    : "Cryptic Mushroom",
-                "Specification-Version"   : "${version}",
+                "Specification-Version"   : "1",
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : "${version}",
                 "Implementation-Vendor"   : "Cryptic Mushroom",
@@ -106,3 +106,5 @@ jar {
         ])
     }
 }
+
+jar.finalizedBy('reobfJar')
