@@ -81,7 +81,10 @@ minecraft {
 repositories {
     maven { url = "https://dvs1.progwml6.com/files/maven" }
     maven {
-        url "https://io.terraforged.com/repository/maven/"
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
     }
 }
 
@@ -89,7 +92,7 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.15.2-31.2.45'
     runtimeOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.4")
     compileOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.4:api")
-//    compileOnly "com.terraforged:TerraForgedAPI:1.15.2-0.0.14"
+    implementation fg.deobf("curse.maven:terraforged-363820:2953095")
 }
 
 jar {
