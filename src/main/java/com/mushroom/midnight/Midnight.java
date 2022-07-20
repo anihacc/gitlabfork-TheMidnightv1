@@ -82,8 +82,6 @@ public class Midnight {
     public static final Capability<AnimationCapability> ANIMATION_CAP = RegUtil.injected();
 
     public Midnight() {
-        printVersion();
-
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, MidnightConfig.CLIENT_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MidnightConfig.COMMON_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, MidnightConfig.SERVER_SPEC);
@@ -100,12 +98,6 @@ public class Midnight {
         bus.addListener(this::gatherData);
 
         PROXY.onConstruct();
-    }
-
-    private void printVersion() {
-        LOGGER.info("Initializing The Midnight");
-        LOGGER.info(" - Version: " + Midnight.VERSION);
-        LOGGER.info(" - Dist: " + FMLEnvironment.dist);
     }
 
     private void setup(FMLCommonSetupEvent event) {
