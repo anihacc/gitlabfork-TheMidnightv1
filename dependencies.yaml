@@ -11,7 +11,7 @@ minecraft:
 # forge toolchain and version
 minecraftforge:
   toolchain: forge # supports 'forge' and 'fmlonly'
-  version: 31.2.45
+  version: 31.2.57
 
 # mixin version and toggle
 mixin:

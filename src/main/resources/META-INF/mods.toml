@@ -37,14 +37,14 @@ When one chapter ends, another one begins. With our new team, we have begun rewr
 [[dependencies.midnight]]
     modId="forge"
     mandatory=true
-    versionRange="[31.2.45,)"
+    versionRange="[31.2.56,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.midnight]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.15.2]"
+    versionRange="[1.15.2,1.16)"
     ordering="NONE"
     side="BOTH"
 
