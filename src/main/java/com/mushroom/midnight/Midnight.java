@@ -52,17 +52,8 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 @Mod(Midnight.MODID)
 @Mod.EventBusSubscriber(modid = Midnight.MODID)
@@ -118,28 +109,6 @@ public class Midnight {
         LOGGER.info("Initializing The Midnight");
         LOGGER.info(" - Version: " + Midnight.VERSION);
         LOGGER.info(" - Dist: " + FMLEnvironment.dist);
-    }
-
-    public static boolean isRewriteAvailable()
-    {
-        try {
-            URL rewriteUrl = new URL("https://beta.crypticmushroom.com/rewrite.txt");
-            HttpURLConnection connection = (HttpURLConnection) rewriteUrl.openConnection();
-            connection.addRequestProperty("User-Agent", "Mozilla/4.0");
-
-            BufferedReader rewriteCheckDocument = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-            return Boolean.parseBoolean(rewriteCheckDocument.readLine());
-//            if (rewriteCheckDocument.readLine().equals("true")) {
-//                return true;
-//            }
-        } catch (MalformedURLException e) {
-            LOGGER.error("Unable to check if The Midnight: Rewritten is available for download! Please report this to The Midnight's issue tracker.", e);
-        } catch (IOException e) {
-            LOGGER.error("Unable to check if The Midnight: Rewritten is available for download! You are probably offline.", e);
-        }
-
-        return false;
     }
 
     private void setup(FMLCommonSetupEvent event) {
