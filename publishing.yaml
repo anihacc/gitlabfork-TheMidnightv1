@@ -1,0 +1,13 @@
+# GradleWorks for ForgeGradle 5
+# Written by Jonathing
+# Version 5.0.0-alpha.12
+
+publication:
+  enabled: True # set to "FALSE" to disable maven publishing
+  group: DEFAULT # or use a different group from the mod's group
+  artifact_id: DEFAULT # or use a different name from the mod ID
+  version: DEFAULT # or use a different version from "{MC_VERSION}-{MOD_VERSION}"
+
+repositories:
+- name: TestMaven
+  url: LOCAL

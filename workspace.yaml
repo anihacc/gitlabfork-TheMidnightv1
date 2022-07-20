@@ -1,0 +1,19 @@
+# GradleWorks for ForgeGradle 5
+# Written by Jonathing
+# Version 5.0.0-alpha.12
+
+# mod info
+mod:
+  mod_id: midnight
+  group: com.crypticmushroom
+  name: The Midnight
+  author: Cryptic Mushroom
+  version: 0.5.12
+
+java:
+  version: AUTO_DETECT # '8' for 1.16-, '16' for 1.17, '17' for 1.18+, or 'AUTO_DETECT' to let GradleWorks do this for you.
+
+runs:
+  all:
+    forge.logging.markers: REGISTRIES
+    forge.logging.console.level: info

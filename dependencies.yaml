@@ -1,0 +1,47 @@
+# GradleWorks for ForgeGradle 5
+# Written by Jonathing
+# Version 5.0.0-alpha.12
+
+# minecraft version
+minecraft:
+  version: 1.15.2
+  mappings_channel: snapshot
+  mappings_version: 20201011-1.15.1
+
+# forge toolchain and version
+minecraftforge:
+  toolchain: forge # supports 'forge' and 'fmlonly'
+  version: 31.2.45
+
+# mixin version and toggle
+mixin:
+  enabled: True
+  version: 0.8.2
+
+# For more information on how to add dependencies, visit the Jonathing Projects YouTube channel, ask me about it, or
+# check my website (if it is up-to-date) at https://jonathing.me/gradleworks
+dependencies:
+  - enabled: True
+    type: runtime # supports 'runtime', 'compile', and 'both'
+    deobf: True # if fg.deobf() should be used
+    location:
+      group: mezz.jei
+      name: jei-1.15.2
+      version: 6.0.0.4
+    repoURL: https://dvs1.progwml6.com/files/maven/
+  - enabled: True
+    type: compile
+    deobf: True
+    location:
+      group: mezz.jei
+      name: jei-1.15.2
+      version: 6.0.0.4
+      classifier: api
+    repoURL: https://dvs1.progwml6.com/files/maven/
+  - enabled: True
+    type: runtime # supports 'runtime', 'compile', and 'both'
+    deobf: True # if fg.deobf() should be used
+    location:
+      name: terraforged
+      project: 363820
+      file: 2953095
