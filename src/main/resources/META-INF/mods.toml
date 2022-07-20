@@ -9,11 +9,7 @@ displayURL="https://www.curseforge.com/minecraft/mc-mods/the-midnight"
 logoFile="logo.png"
 authors="Cryptic Mushroom"
 credits="Cipher Zero X, Jonathing, Shadew, Lachney, bagu_chan, gegy1000, Martacus, arthurbambous, Corail31, Endergized, Five (Paradiscal), MCVinnyq"
-description='''The Midnight is a mod developed by Cryptic Mushroom that adds a new, mysterious and scary dimension to explore. It is a dimension of darkness, with light resonating from solely from the environment. You may choose to embark on a journey to this cold and alienated place, although you may unwillingly encounter a rifter and be dragged into this strange and hostile world...
-
-This mod is a huge collaborative effort with tons of different ideas, coding, and textures pitched in by varying individuals who came together to build something great. Every team member and contributor was essential to the development of The Midnight and we wouldn't be where we are today without our current team members and those who worked on this mod in the past.
-
-A new chapter in The Midnight has sprung forward. With the efforts of the new Cryptic Mushroom team, this mod will be rewritten from the ground up! You are more than welcome to visit our CurseForge page to learn more.'''
+description='''The Midnight adds a new, mysterious and scary dimension to explore. It is a dimension of darkness, with light resonating from solely from the environment. You may choose to embark on a journey to this cold and alienated place, although you may unwillingly encounter a rifter and be dragged into this strange and hostile world...'''
 
 [[dependencies.midnight]]
     modId="forge"

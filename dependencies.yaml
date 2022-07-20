@@ -16,7 +16,7 @@ minecraftforge:
 # mixin version and toggle
 mixin:
   enabled: True
-  version: 0.8.2
+  version: 0.8.5
 
 # For more information on how to add dependencies, visit the Jonathing Projects YouTube channel, ask me about it, or
 # check my website (if it is up-to-date) at https://jonathing.me/gradleworks
