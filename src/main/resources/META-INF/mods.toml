@@ -54,10 +54,3 @@ When one chapter ends, another one begins. With our new team, we have begun rewr
     versionRange="[6.0.0.4,)"
     ordering="BEFORE"
     side="CLIENT"
-
-[[dependencies.midnight]]
-    modId="terraforged"
-    mandatory=false
-    versionRange="[0.0.14,)"
-    ordering="BEFORE"
-    side="BOTH"

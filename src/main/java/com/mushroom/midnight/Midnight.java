@@ -5,7 +5,6 @@ import com.mushroom.midnight.client.ClientProxy;
 import com.mushroom.midnight.client.model.MidnightModelRegistry;
 import com.mushroom.midnight.common.ServerProxy;
 import com.mushroom.midnight.common.capability.*;
-import com.mushroom.midnight.common.compatibility.MidnightTerraforgedCompat;
 import com.mushroom.midnight.common.config.MidnightConfig;
 import com.mushroom.midnight.common.data.loot.MidnightBlockLootProvider;
 import com.mushroom.midnight.common.data.recipe.*;
@@ -33,14 +32,12 @@ import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -126,9 +123,6 @@ public class Midnight {
         LootConditionManager.registerCondition(new IsChildLootCondition.Serializer());
 
         setupWorldGen();
-        if (ModList.get().isLoaded("terraforged")) {
-            MinecraftForge.EVENT_BUS.register(new MidnightTerraforgedCompat());
-        }
     }
 
     private void loadComplete(FMLLoadCompleteEvent event) {
