@@ -74,10 +74,6 @@ public class Midnight {
     public static final Logger LOGGER = LogManager.getLogger(Midnight.class);
     public static final IProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
-    public static final String REWRITE_NOTIFICATION = "The Midnight: Rewritten is now available for download!" +
-            " Visit The Midnight's CurseForge page for more information." +
-            " You can disable this notification in the configuration settings.";
-
     public static final SimpleChannel CHANNEL = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(MODID, "net"))
             .networkProtocolVersion(() -> NETWORK_PROTOCOL)
             .clientAcceptedVersions(NETWORK_PROTOCOL::equals)

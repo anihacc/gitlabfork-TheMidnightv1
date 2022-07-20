@@ -120,18 +120,6 @@ public class ClientEventHandler {
         }
     }
 
-    @SubscribeEvent
-    public static void loggedInEvent(ClientPlayerNetworkEvent.LoggedInEvent event) {
-        ClientPlayerEntity player = event.getPlayer();
-
-        if (Midnight.isRewriteAvailable() && player != null && !hasGivenRewriteNotification && MidnightConfig.client.checkForRewrite.get()) {
-            Minecraft.getInstance().ingameGUI.getChatGUI().printChatMessage(
-                    new TranslationTextComponent(Midnight.REWRITE_NOTIFICATION).applyTextStyle(TextFormatting.GREEN)
-            );
-            hasGivenRewriteNotification = true;
-        }
-    }
-
     private static void cancelSleep(ClientPlayerEntity player) {
         ClientPlayNetHandler handler = player.connection;
         handler.sendPacket(new CEntityActionPacket(player, CEntityActionPacket.Action.STOP_SLEEPING));
